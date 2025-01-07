@@ -1,6 +1,6 @@
 window.sourceMap = {
   fail: 'data',
-  host: 'https://cs6413110.github.io/Pixel-Tanks/public/images',
+  host: 'https://aaronmgodfrey.github.io/Pixel-Tanks/public/images',
   map: [ // image loading
     {
       ref: 'bullets',
