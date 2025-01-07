@@ -30,11 +30,11 @@ class Menu {
   adapt() {
     if (!this.elements.length) this.loaded = false;
     for (const e of this.elements) {
-      e.width = window.innerHeight*e.w/1000;
-      e.height = window.innerHeight*e.h/1000;
+      e.style.width = e.width = window.innerHeight*e.w/1000;
+      e.style.height = e.height = window.innerHeight*e.h/1000;
       if (e.children.length) for (const c of e.children) {
-        c.width = window.innerHeight*e.w/1000;
-        c.height = window.innerHeight*e.h/1000;
+        c.style.width = c.width = window.innerHeight*e.w/1000;
+        c.style.height = c.height = window.innerHeight*e.h/1000;
       }
       e.style.left = Math.max(0, (window.innerWidth-window.innerHeight*1.6)/2)+(window.innerHeight*e.x/1000)+'px';
       e.style.top = (window.innerHeight*e.y/1000)+'px';
