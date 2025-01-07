@@ -15,7 +15,7 @@ window.sourceMap = {
     {
       ref: 'menus',
       path: 'menus',
-      load: ['world1', 'world2', 'world3', 'world4', 'world5', 'drone', 'drone_scan', 'drone_in', 'drone_open', 'drone_out', 'ui', 'start', 'main', 'multiplayer', 'singleplayer', 'singleplayer2', 'victory', 'defeat', 'crate', 'settings1', 'settings2', 'inventory', 'classTab', 'itemTab', 'perkTab', 'cosmeticTab', 'shop', 'shop2', 'broke', 'pause', 'broke', 'locked', 'alert', 'adrenaline', 'cooldown', 'core', 'radar', 'refresh', 'scavenger', 'shield', 'thermal', 'arrow', 'arrow_friendly', 'upgrader'],
+      load: ['world1', 'world2', 'world3', 'world4', 'world5', 'ui', 'start', 'main', 'multiplayer', 'victory', 'defeat', 'crate', 'settings', 'inventory', 'classTab', 'itemTab', 'perkTab', 'cosmeticTab', 'shop', 'shop2', 'broke', 'pause', 'locked', 'alert', 'adrenaline', 'cooldown', 'core', 'radar', 'refresh', 'scavenger', 'shield', 'thermal', 'arrow', 'arrow_friendly', 'upgrader'],
     },
     {
       ref: 'animations',
