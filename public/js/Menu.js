@@ -28,6 +28,7 @@ class Menu {
     }
   }
   adapt() {
+    if (!this.elements.length) this.loaded = false;
     for (const e of this.elements) {
       e.width = window.innerHeight*e.w/1000;
       e.height = window.innerHeight*e.h/1000;
