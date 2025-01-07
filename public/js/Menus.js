@@ -37,8 +37,7 @@ class Menus {
   }
   
   static redraw() {
-    if (!Menus.current) return;
-    Menus.menus[Menus.current].draw([0, 0, 1600, 1000]);
+    if (!Menus.current) return; else Menus.menus[Menus.current].draw();
   }
   
   static removeListeners() {
