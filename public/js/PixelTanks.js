@@ -1,5 +1,6 @@
 class PixelTanks {
   static loadMessages = ['Recharging Instas...', 'Summoning Turrets...', 'Sorting Cosmetics...', 'Spotting Stealths...', 'Putting Out Fires...', 'Generating Levels...', 'Loading Up Crates...', 'Filling Up Stocks...', 'Drawing Menus...', 'Placing Blocks...', 'Launching Missles...', 'Booting Game Engine...'];
+  static levelCoords = [[116, 248], [356, 204], [596, 260], [839, 240], [1056, 204], [1272, 272], [1340, 400], [1212, 536], [964, 516], [732, 560], [508, 528], [284, 480], [64, 548], [36, 676], [148, 804], [384, 844], [624, 788], [864, 808], [1100, 848], [1336, 808]];
   static start() {
     PixelTanks.setup()
     PixelTanks.boot();
@@ -173,261 +174,77 @@ class PixelTanks {
           GUI.drawImage(PixelTanks.images.tanks.bottom, 1200, 600, 160, 160, 1);
           PixelTanks.renderTop(1200, 600, 160, PixelTanks.userData.color);
           GUI.drawImage(PixelTanks.images.tanks.top, 1200, 600, 160, 180, 1);
-          /*if (!PixelTanks.userData.cosmetics[0].includes('#')) {
-            let cosmetics = {};
-            for (const cosmetic of PixelTanks.userData.cosmetics) {
-              if (cosmetics[cosmetic] === undefined) {
-                cosmetics[cosmetic] = 1;
-              } else cosmetics[cosmetic]++;
-            }
-            let cosmeticData = [];
-            for (const cosmetic of Object.keys(cosmetics)) cosmeticData.push(cosmetic+'#'+cosmetics[cosmetic]);
-            PixelTanks.userData.cosmetics = cosmeticData;
-          }
-          if (!PixelTanks.userData.deathEffects[0].includes('#')) {
-            let deathEffects = {};
-            for (const deathEffect of PixelTanks.userData.deathEffects) {
-              if (deathEffects[deathEffect] === undefined) {
-                deathEffects[deathEffect] = 1;
-              } else deathEffects[deathEffect]++;
-            }
-            let deathEffectData = [];
-            for (const deathEffect of Object.keys(deathEffects)) deathEffectData.push(deathEffect+'#'+deathEffects[deathEffect]);
-            PixelTanks.userData.deathEffects = deathEffectData;
-          }*/
-          if (PixelTanks.userData.cosmetic_body !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_body], 1200, 600, 160, 180, 1);
-          if (PixelTanks.userData.cosmetic !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic], 1200, 600, 160, 180, 1);
-          if (PixelTanks.userData.cosmetic_hat !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_hat], 1200, 600, 160, 180, 1);
-          if (newClass !== 'undefined') GUI.drawImage(PixelTanks.images.menus.alert, 530, 830, 20, 20, 1);
+          PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_body], 1200, 600, 160, 180, 1);
+          PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic], 1200, 600, 160, 180, 1);
+          PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_hat], 1200, 600, 160, 180, 1);
         },
       },
       world1: {
-        buttons: [
-          [416, 20, 108, 108, 'main', true],
-          [1068, 20, 108, 108, 'world2', true],
-        ],
+        buttons: [[416, 20, 108, 108, 'main', true], [1068, 20, 108, 108, 'world2', true]],
         listeners: {
           mousedown: function(e) {
-            const {x, y} = Menus;
-            const levelCoords = [
-              [116, 248],
-              [356, 204],
-              [596, 260],
-              [839, 240],
-              [1056, 204],
-              [1272, 272],
-              [1340, 400],
-              [1212, 536],
-              [964, 516],
-              [732, 560],
-              [508, 528],
-              [284, 480],
-              [64, 548],
-              [36, 676],
-              [148, 804],
-              [384, 844],
-              [624, 788],
-              [864, 808],
-              [1100, 848],
-              [1336, 808],
-            ];
-            for (const c of levelCoords) {
-              if (x > c[0] && x < (c[0]+200) && y > c[1] && y < (c[1]+100)) {
-                Menus.removeListeners();
-                PixelTanks.user.player = new Client(levelCoords.indexOf(c)+1, false, null);//rip the 0 lol
-              }
+            for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
+              Menus.removeListeners();
+              PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+1, false, null);
             }
           }
         },
-        cdraw: function() {},
       },
       world2: {
-        buttons: [
-          [416, 20, 108, 108, 'world1', true],
-          [1068, 20, 108, 108, 'world3', true],
-        ],
+        buttons: [[416, 20, 108, 108, 'world1', true], [1068, 20, 108, 108, 'world3', true]],
         listeners: {
           mousedown: function(e) {
-            const {x, y} = Menus;
-            const levelCoords = [
-              [116, 248],
-              [356, 204],
-              [596, 260],
-              [839, 240],
-              [1056, 204],
-              [1272, 272],
-              [1340, 400],
-              [1212, 536],
-              [964, 516],
-              [732, 560],
-              [508, 528],
-              [284, 480],
-              [64, 548],
-              [36, 676],
-              [148, 804],
-              [384, 844],
-              [624, 788],
-              [864, 808],
-              [1100, 848],
-              [1336, 808],
-            ];
-            for (const c of levelCoords) {
-              if (x > c[0] && x < (c[0]+200) && y > c[1] && y < (c[1]+100)) {
-                Menus.removeListeners();
-                PixelTanks.user.player = new Client(levelCoords.indexOf(c)+21, false, null);//rip the 0 lol
-              }
+            for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
+              Menus.removeListeners();
+              PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+21, false, null);
             }
           }
         },
-        cdraw: function() {},
       },
       world3: {
-        buttons: [
-          [416, 20, 108, 108, 'world2', true],
-          [1068, 20, 108, 108, 'world4', true],
-        ],
+        buttons: [[416, 20, 108, 108, 'world2', true], [1068, 20, 108, 108, 'world4', true]],
         listeners: {
           mousedown: function(e) {
-            const {x, y} = Menus;
-            const levelCoords = [
-              [116, 248],
-              [356, 204],
-              [596, 260],
-              [839, 240],
-              [1056, 204],
-              [1272, 272],
-              [1340, 400],
-              [1212, 536],
-              [964, 516],
-              [732, 560],
-              [508, 528],
-              [284, 480],
-              [64, 548],
-              [36, 676],
-              [148, 804],
-              [384, 844],
-              [624, 788],
-              [864, 808],
-              [1100, 848],
-              [1336, 808],
-            ];
-            for (const c of levelCoords) {
-              if (x > c[0] && x < (c[0]+200) && y > c[1] && y < (c[1]+100)) {
-                Menus.removeListeners();
-                PixelTanks.user.player = new Client(levelCoords.indexOf(c)+41, false, null);//rip the 0 lol
-              }
+            for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
+              Menus.removeListeners();
+              PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+41, false, null);
             }
           }
         },
-        cdraw: function() {},
       },
       world4: {
-        buttons: [
-          [416, 20, 108, 108, 'world3', true],
-          [1068, 20, 108, 108, 'world5', true],
-        ],
+        buttons: [[416, 20, 108, 108, 'world3', true], [1068, 20, 108, 108, 'world5', true]],
         listeners: {
           mousedown: function(e) {
-            const {x, y} = Menus;
-            const levelCoords = [
-              [116, 248],
-              [356, 204],
-              [596, 260],
-              [839, 240],
-              [1056, 204],
-              [1272, 272],
-              [1340, 400],
-              [1212, 536],
-              [964, 516],
-              [732, 560],
-              [508, 528],
-              [284, 480],
-              [64, 548],
-              [36, 676],
-              [148, 804],
-              [384, 844],
-              [624, 788],
-              [864, 808],
-              [1100, 848],
-              [1336, 808],
-            ];
-            for (const c of levelCoords) {
-              if (x > c[0] && x < (c[0]+200) && y > c[1] && y < (c[1]+100)) {
-                Menus.removeListeners();
-                PixelTanks.user.player = new Client(levelCoords.indexOf(c)+61, false, null);//rip the 0 lol
-              }
+            for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
+              Menus.removeListeners();
+              PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+61, false, null);
             }
           }
         },
-        cdraw: function() {},
       },
       world5: {
-        buttons: [
-          [416, 20, 108, 108, 'world4', true],
-          [1068, 20, 108, 108, 'world1', true],
-        ],
+        buttons: [[416, 20, 108, 108, 'world4', true], [1068, 20, 108, 108, 'world1', true]],
         listeners: {
           mousedown: function(e) {
-            const {x, y} = Menus;
-            const levelCoords = [
-              [116, 248],
-              [356, 204],
-              [596, 260],
-              [839, 240],
-              [1056, 204],
-              [1272, 272],
-              [1340, 400],
-              [1212, 536],
-              [964, 516],
-              [732, 560],
-              [508, 528],
-              [284, 480],
-              [64, 548],
-              [36, 676],
-              [148, 804],
-              [384, 844],
-              [624, 788],
-              [864, 808],
-              [1100, 848],
-              [1336, 808],
-            ];
-            for (const c of levelCoords) {
-              if (x > c[0] && x < (c[0]+200) && y > c[1] && y < (c[1]+100)) {
-                Menus.removeListeners();
-                PixelTanks.user.player = new Client(levelCoords.indexOf(c)+81, false, null);//rip the 0 lol
-              }
+            for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
+              Menus.removeListeners();
+              PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+81, false, null);
             }
           }
         },
-        cdraw: function() {},
       },
       victory: {
         buttons: [
-          [656, 603, 313, 112, function() {
-          Menus.trigger('main');
-        }, true],
-          [558, 726, 505, 114, function() {
-            alert('no')
-          }, true],
+          [656, 603, 313, 112, () => Menus.trigger('main'), true],
+          [558, 726, 505, 114, () => alert('no'), true],
         ],
-        listeners: {},
-        cdraw: function() {
-          //GUI.drawText('Coins: '+Menus.menus.victory.stats[coins], 800, 800, 50, '#ffffff', 0.5);
-          //GUI.drawText('Crates: '+Menus.menus.victory.stats[crates], 800, 900, 50, '#ffffff', 0.5);
-          //GUI.drawText('Xp: '+Menus.menus.victory.stats[xp], 800, 1000, 50, '#ffffff', 0.5);
-        },
       },
       defeat: {
         buttons: [
           [656, 603, 313, 112, () => Menus.trigger('main'), true],
           [558, 726, 505, 114, () => alert('no'), true],
         ],
-        listeners: {},
-        cdraw: function() {
-          //GUI.drawText('Coins: '+Menus.menus.defeat.stats[coins], 800, 800, 50, '#ffffff', 0.5);
-          //GUI.drawText('Crates: '+Menus.menus.defeat.stats[crates], 800, 900, 50, '#ffffff', 0.5);
-          //GUI.drawText('Xp: '+Menus.menus.defeat.stats[xp], 800, 1000, 50, '#ffffff', 0.5);
-        },
       },
       multiplayer: {
         buttons: [
@@ -490,7 +307,6 @@ class PixelTanks {
           [1072, 816, 104, 52, () => (deathAmount = 10), false],
           [1196, 816, 104, 52, () => (deathAmount = 100), false],
         ],
-        listeners: {},
         cdraw: function() {
           GUI.drawText('Crates: ' + PixelTanks.userData.stats[1], 800, 260, 30, '#ffffff', 0.5);
           GUI.draw.globalAlpha = 1;
@@ -505,17 +321,7 @@ class PixelTanks {
         }
       },
       settings: {
-        buttons: [
-          [397, 65, 38, 35, 'keybinds', true],
-        ],
-        listeners: {},
-        cdraw: function() {}, // ded????
-      },
-      settings1: {
-        buttons: [
-          [416, 20, 108, 108, 'main', true],
-          //[880, 208, 488, 96, 'settings2', true], // uh this is keybinds????
-        ],
+        buttons: [[416, 20, 108, 108, 'main', true]],
         listeners: {
           mousedown: function(e) {
             const key = {item1: [165, 404], item2: [381, 404], item3: [597, 404], item4: [827, 404], toolkit: [1043, 404], grapple: [1259, 404], boost: [165, 620], class: [381, 620], fire: [597, 620], powermissle: [827, 620], chat: [1043, 620], pause: [1259, 620]};
@@ -525,7 +331,6 @@ class PixelTanks {
                 return PixelTanks.save();
               } else return Menus.menus.settings1.selected = p;
             }
-            
           },
           keydown: function(e) {
             if (!PixelTanks.hasKeybind(e.keyCode)) PixelTanks.userData.keybinds[Menus.menus.settings1.selected] = e.keyCode; else alert('Imagine being so lazy you only hit 1 key to win');
@@ -540,28 +345,6 @@ class PixelTanks {
             if (Menus.menus.settings1.selected === p) GUI.draw.strokeRect(key[p][0], key[p][1], 176, 176);
             GUI.drawText(String.fromCharCode(PixelTanks.userData.keybinds[p]), key[p][0]+88, key[p][1]+88, 50, '#ffffff', .5);
           }
-        },
-      },
-      settings2: { // ded
-        buttons: [
-          [232, 208, 488, 96, 'settings1', true],
-          //top 6
-          [165, 404, 176, 176, function() {PixelTanks.purchase(0)}, true],
-          [381, 404, 176, 176, function() {PixelTanks.purchase(1)}, true],
-          [597, 404, 176, 176, function() {PixelTanks.purchase(4)}, true],
-          [165, 620, 176, 176, function() {PixelTanks.purchase(2)}, true],
-          [381, 620, 176, 176, function() {PixelTanks.purchase(5)}, true],
-          [597, 620, 176, 176, function() {PixelTanks.purchase(3)}, true],
-          //bottom 6
-          [827, 404, 176, 176, function() {PixelTanks.purchase(0)}, true],
-          [1043, 404, 176, 176, function() {PixelTanks.purchase(1)}, true],
-          [1259, 404, 176, 176, function() {PixelTanks.purchase(4)}, true],
-          [827, 620, 176, 176, function() {PixelTanks.purchase(2)}, true],
-          [1043, 620, 176, 176, function() {PixelTanks.purchase(5)}, true],
-          [1259, 620, 176, 176, function() {PixelTanks.purchase(3)}, true],
-        ],
-        listeners: {},
-        cdraw: function() {
         },
       },
       inventory: {
@@ -585,21 +368,10 @@ class PixelTanks {
             const {x, y} = Menus;
             if (this.classTab) {
               if (x < 688 || x > 912 || y < 334 || y > 666) return this.classTab = this.loaded = false;
-              for (let xm = 0; xm < 2; xm++) {
-                for (let ym = 0; ym < 3; ym++) {
-                  if (Engine.collision(x, y, 0, 0, [702, 810][xm], [348, 456, 564][ym], 88, 88)) {
-                    if (PixelTanks.userData.classes[[[0, 5, 3], [1, 4, 2]][xm][ym]]) {
-                      const lastClass = PixelTanks.userData.class;
-                      PixelTanks.userData.class = [['tactical', 'fire', 'medic'], ['stealth', 'builder', 'warrior']][xm][ym];
-                      this.loaded = false;
-                      if (PixelTanks.userData.class === lastClass) {
-                        PixelTanks.userData.class = 'undefined';
-                        this.loaded = false;
-                      }
-                    } else alert('You need to buy this first!');
-                    return;
-                  }
-                }
+              for (let i = 0, key = [[[0, 5, 3], [1, 4, 2]][i%2][Math.floor(i/3)]], c = ['tactical', 'stealth', 'warrior', 'medic', 'builder', 'fire'][key]; i < 6; i++) {
+                if (!PixelTanks.userData.classes[key] || !Engine.collision(x, y, 0, 0, [702, 819][i%2], [348, 456, 564][Math.floor(i/3)], 88, 88)) continue;
+                PixelTanks.userData.class = PixelTanks.userData.class === c ? null : c;
+                return this.loaded = false;
               }
             } else if (this.itemTab) {
               if (x < 580 || x > 1020 || y < 334 || y > 666) return this.itemTab = this.loaded = false;
@@ -612,7 +384,6 @@ class PixelTanks {
                     this.loaded = false;
                     if (item === lastItem) {
                       PixelTanks.userData.items[this.currentItem-1] = 'undefined';
-                      this.loaded = false;
                     }
                   } else alert('You are not allowed to have more than 1 of the same item');
                   return;
@@ -620,15 +391,10 @@ class PixelTanks {
               }
             } else if (this.perkTab) {
               if (x < 634 || x > 966 || y < 334 || y > 666) return this.perkTab = this.loaded = false;
-              const xo = [652, 760, 868];
-              const yo = [352, 460, 568];
-              for (let i = 0; i < 9; i++) {
-                if (Engine.collision(x, y, 0, 0, xo[i%3], yo[Math.floor(i/3)], 80, 80)) {
-                  let simple = PixelTanks.userData.perk.reduce((a, c) => a.concat(Math.floor(c)), []);
-                  if (!simple.includes(i+1) && PixelTanks.userData.perks[i]) PixelTanks.userData.perk[Menus.menus.inventory.currentPerk-1] = i+1+PixelTanks.userData.perks[i]/10;
-                  if (simple.includes(i+1) && PixelTanks.userData.perks[i]) PixelTanks.userData.perk[Menus.menus.inventory.currentPerk-1] = 'undefined';
-                  this.loaded = false;
-                }
+              for (let i = 0, p = this.currentPerk-1; i < 9; i++) {
+                if (!PixelTanks.userData.perks[i] || !Engine.collision(x, y, 0, 0, [652, 760, 868][i%3], [352, 460, 568][Math.floor(i/3)], 80, 80)) continue;
+                PixelTanks.userData.perk[p] = Math.floor(PixelTanks.userData.perk[p]) === i+1 ? null : i+1+PixelTanks.userData.perks[i]/10;
+                return this.loaded = false;
               }  
             } else if (this.cosmeticTab) {
               if (x < 518 || x > 1082 || y < 280 || y > 720) return this.cosmeticTab = this.loaded = false;
@@ -824,7 +590,6 @@ class PixelTanks {
           [792, 873, 194, 79, () => PixelTanks.purchase(0, 5), true],
           [1249, 873, 194, 79, () => PixelTanks.purchase(0, 3), true],
         ],
-        listeners: {},
         keydown: function(e) {if (e.keyCode === 27) Menus.trigger('main')},
         cdraw: function() {
           GUI.drawText(PixelTanks.userData.stats[0]+' coins', 800, 160, 50, 0x000000, 0.5);
@@ -869,28 +634,26 @@ class PixelTanks {
           [1404, 572, 136, 136, () => PixelTanks.purchase(1, 22), true],
           [1404, 740, 136, 136, () => PixelTanks.purchase(1, 23), true],
         ],
-        listeners: {},
         keydown: function(e) {if (e.keyCode === 27) Menus.trigger('main')},
         cdraw: function() {
           GUI.drawText(PixelTanks.userData.stats[0]+' coins', 800, 160, 50, 0x000000, 0.5);
         },
       },
       pause: {
-        buttons: [[1218, 910, 368, 76, () => {
-          Menus.softUntrigger('pause');
-          PixelTanks.user.player.implode();
-          PixelTanks.main();
-        }, true],
+        buttons: [
+          [1218, 910, 368, 76, () => {
+            Menus.softUntrigger('pause');
+            PixelTanks.user.player.implode();
+            PixelTanks.main();
+          }, true],
         ],
         listeners: {
           keydown: e => {
             if (e.keyCode === 27) Menus.softUntrigger('pause');
           }
         },
-        cdraw: () => {},
       },
     }
-    
       for (const m in Menus.menus) Menus.menus[m] = new Menu(Menus.menus[m], m);
     });
     PixelTanks.socket = new MegaSocket(window.location.protocol === 'https:' ? 'wss://'+window.location.hostname : 'ws://129.146.45.71', {keepAlive: true, reconnect: true, autoconnect: true});
