@@ -5,23 +5,11 @@ class PixelTanks {
     PixelTanks.setup();
     PixelTanks.boot();
   }
-
-  static shortcut() {
-    if (PixelTanks.user.player) PixelTanks.user.player.implode();
-    PixelTanks.user.player = new Client('129.146.45.71', true, confirm('Ok for ffa, cancel for tdm') ? 'ffa' : 'tdm');
-    Menus.removeListeners();
-  }
   
   static setup() {
     document.body.innerHTML += `
-    <button id='cut' onclick='PixelTanks.shortcut()'>FFA Shortcut</button>
     <button id='pack' onclick='PixelTanks.loadTexturePack(prompt("Config URL:"))'>Load Texturepack</button>
     <style>
-      #cut {
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
       #pack {
         position: absolute;
         top: 0;
@@ -142,8 +130,8 @@ class PixelTanks {
           if (!this.username) {
             this.username = document.createElement('INPUT');
             this.password = document.createElement('INPUT');
-            const left = (window.innerWidth-window.innerHeight*1.6)/2+.564*window.innerHeight;
-            this.username.x = this.password.x = left;
+            const left = (window.innerWidth-window.innerHeight*1.6)/2+.564*window.innerWidth;
+            this.username.x = this.password.x = 564;
             this.username.w = this.password.w = .456*1600;
             this.username.h = this.password.h = 80;
             this.username.y = 392;
@@ -170,12 +158,6 @@ class PixelTanks {
           [540, 840, 88, 88, 'inventory', true],
           [756, 840, 88, 88, 'crate', true],
           [532, 392, 536, 136, 'world1', true],
-          /*[320, 920, 80, 80, function() {
-            clearInterval(PixelTanks.autosave);
-            PixelTanks.user.token = undefined;
-            PixelTanks.user.username = undefined;
-            Menus.trigger('start');
-          }],*/ // logout
         ],
         listeners: {
           keydown: function(e) {
@@ -722,9 +704,8 @@ class PixelTanks {
           if (!this.target) {
             this.time = Date.now();
             this.color = PixelTanks.userData.color;
-            this.target = {x: 0, y: 0};
-            this.cosmeticMenu = 0;
-            this.deathEffectsMenu = 0;
+            this.target = {x: 0, y: 0}; // use Menus.x/y
+            this.cosmeticMenu = this.deathEffectsMenu = 0;
           }
           const coins = PixelTanks.userData.stats[0], xp = PixelTanks.userData.stats[3], rank = PixelTanks.userData.stats[4];
           const coinsUP = (rank+1)*1000, xpUP = (rank+1)*100;
