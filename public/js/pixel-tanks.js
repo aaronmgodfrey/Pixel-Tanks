@@ -1,1 +1,2 @@
+window.onerror = (a, b, c) => alert(`{a}:{b}:{c}`);
 (load = i => document.head.appendChild(Object.assign(document.createElement('SCRIPT'), {src: 'https://cs6413110.github.io/Pixel-Tanks/public/js/'+['msgpackr', 'pathfinding', 'AI', 'Block', 'Client', 'Damage', 'Engine', 'GUI', 'MegaSocket', 'Menu', 'Menus', 'Network', 'PixelTanks', 'Shot', 'Singleplayer', 'Tank', 'A'][i]+'.js', onload: i++ < 16 ? () => load(i) : () => {window.onload = PixelTanks.start}})))(0);
