@@ -303,7 +303,7 @@ class PixelTanks {
           [880, 308, 488, 488, () => PixelTanks.openCrate(1, deathAmount), false],
           [300, 816, 104, 52, () => (cosmetAmount = 1), false],
           [424, 816, 104, 52, () => (cosmetAmount = 10), false],
-          [548, 816, 104, 52, () => (cosmetAmount = 100}, false],
+          [548, 816, 104, 52, () => (cosmetAmount = 100), false],
           [948, 816, 104, 52, () => (deathAmount = 1), false],
           [1072, 816, 104, 52, () => (deathAmount = 10), false],
           [1196, 816, 104, 52, () => (deathAmount = 100), false],
