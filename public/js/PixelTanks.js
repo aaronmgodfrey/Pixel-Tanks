@@ -1,8 +1,7 @@
 class PixelTanks {
   static loadMessages = ['Recharging Instas...', 'Summoning Turrets...', 'Sorting Cosmetics...', 'Spotting Stealths...', 'Putting Out Fires...', 'Generating Levels...', 'Loading Up Crates...', 'Filling Up Stocks...', 'Drawing Menus...', 'Placing Blocks...', 'Launching Missles...', 'Booting Game Engine...'];
-  
   static start() {
-    PixelTanks.setup();
+    PixelTanks.setup()
     PixelTanks.boot();
   }
   
@@ -40,21 +39,16 @@ class PixelTanks {
         transform: scale(1.2);
       }
     </style>`;
-    GUI.canvas = document.createElement('CANVAS');
     Menus.scaler = document.createElement('CANVAS');
+    document.body.appendChild(GUI.canvas = document.createElement('CANVAS'));
     GUI.draw = GUI.canvas.getContext('2d');
-    document.body.appendChild(GUI.canvas);
-    PixelTanks.resizer = 1//window.innerHeight/1000; // remove
     GUI.canvas.height = 1000;
     GUI.canvas.width = 1600;
-    GUI.drawText('Loading Font', 800, 500, 50, '#fffff', 0.5);
     window.oncontextmenu = () => false;
+    window.addEventListener('blur', e => (PixelTanks.focused = false));
     window.addEventListener('resize', e => { // TEMP move to GUI as static function
       for (const menu in Menus.menus) Menus.menus[menu].adapt();
       if (PixelTanks.user.player) PixelTanks.user.player.resize();
-    });
-    window.addEventListener('blur', e => {
-      PixelTanks.focused = false;
     });
     window.addEventListener('focus', e => {
       if (!PixelTanks.focused && PixelTanks.user.player) {
