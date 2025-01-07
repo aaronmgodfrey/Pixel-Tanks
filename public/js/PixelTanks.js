@@ -28,7 +28,7 @@ class PixelTanks {
       }
       @font-face {
         font-family: 'Font';
-        src: url('https://cs6413110.github.io/Pixel-Tanks/public/fonts/PixelOperator.ttf') format('truetype');
+        src: url('https://aaronmgodfrey.github.io/Pixel-Tanks/public/fonts/PixelOperator.ttf') format('truetype');
       }
       * {
         font-family: Font;
@@ -108,7 +108,7 @@ class PixelTanks {
     const newClass = 'undefined';
     let cosmetAmount = 1;
     let deathAmount = 1;
-    PixelTanks.loadTexturePack('https://cs6413110.github.io/Pixel-Tanks/public/js/config.js', () => {
+    PixelTanks.loadTexturePack('https://aaronmgodfrey.github.io/Pixel-Tanks/public/js/config.js', () => {
       PixelTanks.launch();
       Menus.menus = {
       start: {
