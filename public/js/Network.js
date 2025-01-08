@@ -58,7 +58,7 @@ class Network {
         PixelTanks.images.blocks[zone] = {...PixelTanks.images[zone], ...PixelTanks.images.blocks}; // ref or unref
       }
     }
-    static timeout = 15;
+    static timeout = 30;
     static perImage(name, src, ref) {
       let i = PixelTanks.images[ref][name] = new Image();
       i.crossOrigin = 'anonymous';
@@ -75,7 +75,7 @@ class Network {
         Network.loaded++;
       } else {
         Network.errored++;
-        alert(i.src+' failed with code '+s);
+        console.warn(i.src+' failed to load!');
         i = Network.failed;
       }
       let done = Network.loaded+Network.errored;
