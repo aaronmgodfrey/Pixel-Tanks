@@ -13,15 +13,15 @@ class GUI {
       GUI.draw.rotate(a*Math.PI/180);
     }
     GUI.draw.globalAlpha = t;
-    try {
+    //try {
       if (cx || cy || cy || ch) {
         GUI.draw.drawImage(image, cx, cy, cw, ch, a !== undefined ? -px+bx : x, a !== undefined ? -py+by : y, w, h);
       } else {
         GUI.draw.drawImage(image, a !== undefined ? -px+bx : x, a !== undefined ? -py+by : y, w, h);
       }
-    } catch(e) {
-      console.log('Draw failed: '+image+'; '+image?.src+'; '+e.stack);
-    }
+    //} catch(e) {
+    //  console.log('Draw failed: '+image+'; '+image?.src+'; '+e.stack);
+    //}
     GUI.draw.globalAlpha = 1;
     if (a !== undefined) {
       GUI.draw.rotate(-a*Math.PI/180);
