@@ -475,7 +475,7 @@ class Client {
       this.dy.t = Date.now()-(Date.now()-this.dy.t)%15;
       this.dy.o = this.tank.y;
     }
-    GUI.draw.setTransform(PixelTanks.resizer, 0, 0, PixelTanks.resizer, (-player.x+760)*PixelTanks.resizer, (-player.y+460)*PixelTanks.resizer);
+    GUI.draw.setTransform(1, 0, 0, 1, -player.x+760, -player.y+460);
     // create adaptive floor rendering
     GUI.drawImage(PixelTanks.images.blocks[this.zone].void, -5000, -5000, 10000, 10000, 1);
     GUI.drawImage(PixelTanks.images.blocks[this.zone].floor, 0, 0, 3000, 3000, 1);
@@ -495,7 +495,7 @@ class Client {
     }
     for (const ex of e) this.drawExplosion(ex);
 
-    GUI.draw.setTransform(PixelTanks.resizer, 0, 0, PixelTanks.resizer, 0, 0);
+    GUI.draw.setTransform(1, 0, 0, 1, 0, 0);
     if (this.menu) return Menus.menus[this.menu].draw();
     GUI.drawImage(PixelTanks.images.menus.ui, 0, 0, 1600, 1000, 1);
     GUI.drawText(this.kills, 1530, 40, 30, '#FFFFFF', 1);
