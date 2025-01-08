@@ -466,7 +466,7 @@ class PixelTanks {
             this.colorInput.y = 392;
             this.colorInput.w = 456;
             this.colorInput.h = 80;
-            this.username.style = 'top: '+(.392*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
+            this.colorInput.style = 'top: '+(.392*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
             document.body.appendChild(this.colorInput);
             this.elements.push(this.colorInput);
           }
