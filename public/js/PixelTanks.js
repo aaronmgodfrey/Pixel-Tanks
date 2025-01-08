@@ -34,6 +34,9 @@ class PixelTanks {
         font-family: Font;
       }
       input {
+        position: absolute;
+        background: transparent;
+        border: none;
         font-size: 6vh;
       }
       .expand:hover {
@@ -131,14 +134,12 @@ class PixelTanks {
             this.username.h = this.password.h = 80;
             this.username.y = 392;
             this.password.y = 520;
-            this.username.style = 'position: absolute; background: transparent; border: none; top: '+(.392*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
-            this.password.style = 'position: absolute; background: transparent; border: none; top: '+(.520*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
-            this.username.type = 'username';
+            this.username.style = 'top: '+(.392*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
+            this.password.style = 'top: '+(.520*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
+            this.username.type = this.username.autocomplete = 'username';
             this.password.type = 'password';
-            this.username.autocomplete = 'username';
             this.password.autocomplete = 'current-password';
-            this.username.maxLength = 20;
-            this.password.maxLength = 100;
+            this.password.maxLength = (this.username.maxLength = 20)*5;
             document.body.appendChild(this.username);
             document.body.appendChild(this.password);
             this.elements.push(this.username, this.password);
@@ -459,6 +460,15 @@ class PixelTanks {
             this.color = PixelTanks.userData.color;
             this.target = {x: 0, y: 0}; // use Menus.x/y
             this.cosmeticMenu = this.deathEffectsMenu = 0;
+            this.colorInput = document.createElement('INPUT');
+            const left = (window.innerWidth-window.innerHeight*1.6)/2+.564*window.innerHeight;
+            this.colorInput.x = 564;
+            this.colorInput.y = 392;
+            this.colorInput.w = 456;
+            this.colorInput.h = 80;
+            this.username.style = 'top: '+(.392*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
+            document.body.appendChild(this.colorInput);
+            this.elements.push(this.colorInput);
           }
           const coins = PixelTanks.userData.stats[0], xp = PixelTanks.userData.stats[3], rank = PixelTanks.userData.stats[4];
           const coinsUP = (rank+1)*1000, xpUP = (rank+1)*100;
