@@ -127,7 +127,7 @@ class PixelTanks {
           if (!this.username) {
             this.username = document.createElement('INPUT');
             this.password = document.createElement('INPUT');
-            const left = (window.innerWidth-window.innerHeight*1.6)/2+.564*window.innerWidth;
+            const left = (window.innerWidth-window.innerHeight*1.6)/2+.564*window.innerHeight;
             this.username.x = this.password.x = 564;
             this.username.w = this.password.w = .456*1600;
             this.username.h = this.password.h = 80;
