@@ -107,29 +107,27 @@ class PixelTanks {
   static boot() {
     PixelTanks.user = {};
     PixelTanks.loadMessage = PixelTanks.loadMessages[Math.floor(Math.random()*PixelTanks.loadMessages.length)];
-    const newClass = 'undefined';
-    let cosmetAmount = 1;
-    let deathAmount = 1;
+    let cosmetAmount = 1, deathAmount = 1;
     PixelTanks.loadTexturePack('https://aaronmgodfrey.github.io/Pixel-Tanks/public/js/config.js', () => {
       PixelTanks.launch();
       Menus.menus = {
-      start: {
-        buttons: [
-          [544, 648, 216, 116, () => PixelTanks.auth(Menus.menus.start.username.value, Menus.menus.start.password.value, 'login'), true],
-          [840, 648, 216, 116, () => PixelTanks.auth(Menus.menus.start.username.value, Menus.menus.start.password.value, 'signup'), true],
-        ],
-        listeners: {
-          keydown: function(e) {
-            if (e.keyCode === 13) PixelTanks.auth(this.username.value, this.password.value, 'login');
-          }
-        },
+        start: {
+          buttons: [
+            [544, 648, 216, 116, () => PixelTanks.auth(Menus.menus.start.username.value, Menus.menus.start.password.value, 'login'), true],
+            [840, 648, 216, 116, () => PixelTanks.auth(Menus.menus.start.username.value, Menus.menus.start.password.value, 'signup'), true],
+          ],
+          listeners: {
+            keydown: function(e) {
+              if (e.keyCode === 13) PixelTanks.auth(this.username.value, this.password.value, 'login');
+            }
+          },
         cdraw: function() {
           if (!this.username) {
             this.username = document.createElement('INPUT');
             this.password = document.createElement('INPUT');
             const left = (window.innerWidth-window.innerHeight*1.6)/2+.564*window.innerHeight;
             this.username.x = this.password.x = 564;
-            this.username.w = this.password.w = .456*1600;
+            this.username.w = this.password.w = 456;
             this.username.h = this.password.h = 80;
             this.username.y = 392;
             this.password.y = 520;
