@@ -44,6 +44,7 @@ class PixelTanks {
     GUI.canvas = document.createElement('CANVAS');
     document.body.appendChild(GUI.canvas);
     GUI.draw = GUI.canvas.getContext('2d');
+    GUI.draw.imageSmoothingEnabled = false;
     GUI.canvas.height = 1000;
     GUI.canvas.width = 1600;
     window.oncontextmenu = () => false;
@@ -165,9 +166,7 @@ class PixelTanks {
           if (!PixelTanks.userData.perks) PixelTanks.userData.perks = [false, false, false, false, false, false, false, false, false];
           if (!PixelTanks.userData.perk) PixelTanks.userData.perk = [0, 0];
           const i = PixelTanks.images.banners[PixelTanks.images.banners.banners[PixelTanks.userData.banner]];
-          GUI.draw.imageSmoothingEnabled = false;
           GUI.drawImage(i, 20, 500-120*2.5, 300, 600, 1); // BANNERS GUI
-          GUI.draw.imageSmoothingEnabled = true;
           GUI.drawText(PixelTanks.userData.banner, 20, 900, 100, '#ffffff', 0.5);
           GUI.drawText(PixelTanks.images.banners.banners[PixelTanks.userData.banner], 20, 950, 50, '#ffffff', 0.5);
           GUI.drawText(PixelTanks.user.username, 1280, 800, 100, '#ffffff', 0.5);
