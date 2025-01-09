@@ -1,4 +1,65 @@
 class GUI {
+  static {
+    document.body.innerHTML += `
+    <button id='pack' onclick='PixelTanks.loadTexturePack(prompt("Config URL:"))'>Load Texturepack</button>
+    <style>
+      #pack {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        background-color: black;
+      }
+      canvas {
+        display: inline;
+        height: 100%;
+        width: calc(100vh*1.6);
+      }
+      @font-face {
+        font-family: 'Font';
+        src: url('https://aaronmgodfrey.github.io/Pixel-Tanks/public/fonts/PixelOperator.ttf') format('truetype');
+      }
+      * {
+        font-family: Font;
+      }
+      input {
+        position: absolute;
+        background: transparent;
+        border: none;
+        font-size: 6vh;
+      }
+      .expand:hover {
+        transform: scale(1.2);
+      }
+    </style>`;
+    window.oncontextmenu = () => false;
+    window.addEventListener('blur', e => (PixelTanks.focused = false));
+    window.addEventListener('resize', e => { // TEMP move to GUI as static function
+      for (const menu in Menus.menus) Menus.menus[menu].adapt();
+      if (PixelTanks.user.player) PixelTanks.user.player.resize();
+    });
+    window.addEventListener('focus', e => {
+      if (!PixelTanks.focused && PixelTanks.user.player) {
+        if (PixelTanks.user.player.dx) PixelTanks.user.player.dx.t = Date.now();
+        if (PixelTanks.user.player.dy) PixelTanks.user.player.dy.t = Date.now();
+      }
+      PixelTanks.focused = true;
+    });
+    const ui = e => {
+      if (Client.input && Client.input.style.visibility === 'visible') return true;
+      e.preventDefault();
+      return false;
+    };
+    window.addEventListener('selectstart', ui);
+    window.addEventListener('dragstart', ui);
+    window.addEventListener('mousemove', Menus.mouseLog);
+  }
+
+  
   static resize() {
     PixelTanks.resizer = window.innerHeight/1000;
     GUI.canvas.height = window.innerHeight;
