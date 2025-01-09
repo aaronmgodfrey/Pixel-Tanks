@@ -448,8 +448,7 @@ class PixelTanks {
             if (this.cosmeticTab) {
               if (e.keyCode === 37 && this.cosmeticMenu > 0) this.cosmeticMenu--;
               if (e.keyCode === 39 && this.cosmeticMenu+1 !== Math.ceil(PixelTanks.userData.cosmetics.length/16)) this.cosmeticMenu++;
-            }
-            if (this.deathEffectsTab) {
+            } else if (this.deathEffectsTab) {
               if (e.keyCode === 37 && this.deathEffectsMenu > 0) this.deathEffectsMenu--;
               if (e.keyCode === 39 && this.deathEffectsMenu+1 !== Math.ceil(PixelTanks.userData.deathEffects.length/16)) this.deathEffectsMenu++;
             }
@@ -511,23 +510,20 @@ class PixelTanks {
           const deathEffectData = PixelTanks.images.deathEffects[PixelTanks.userData.deathEffect+'_'];
           if (PixelTanks.userData.deathEffect && deathEffectData) GUI.drawImage(PixelTanks.images.deathEffects[PixelTanks.userData.deathEffect], 448, 220, 88, 88, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-this.time)/deathEffectData.speed)%deathEffectData.frames)*200, 0, 200, 200);
           if (!(PixelTanks.userData.deathEffect && deathEffectData)) GUI.drawImage(PixelTanks.images.menus.broke, 448, 220, 88, 88, 1);
-          Menus.menus.inventory.buttonEffect = true;
           if (this.perkTab || this.healthTab || this.classTab || this.itemTab || this.cosmeticTab || this.deathEffectsTab) {
-            Menus.menus.inventory.buttonEffect = false;
+            Menus.menus.inventory.buttonEffect = false; // disable buttons????
             GUI.drawImage(PixelTanks.images.blocks.battlegrounds.void, 0, 0, 1600, 1600, .7);
           }
           if (this.classTab) {
             GUI.drawImage(PixelTanks.images.menus.classTab, 688, 334, 224, 332, 1);
-            const classX = [701, 810, 810, 701, 810, 701];
-            const classY = [348, 348, 564, 564, 456, 456];
+            const classX = [701, 810, 810, 701, 810, 701], classY = [348, 348, 564, 564, 456, 456];
             for (let i = 0; i < 6; i++) {
               if (!PixelTanks.userData.classes[i]) GUI.drawImage(PixelTanks.images.menus.locked, classX[i], classY[i], 88, 88, 1);
             }
-            if (PixelTanks.userData.class !== 'undefined') {
-              GUI.draw.strokeStyle = '#FFFF00';
-              GUI.draw.lineWidth = 10;
-              if (PixelTanks.userData.class === 'tactical') GUI.draw.strokeRect(701, 348, 88, 88); else if (PixelTanks.userData.class === 'fire') GUI.draw.strokeRect(701, 456, 88, 88); else if (PixelTanks.userData.class === 'medic') GUI.draw.strokeRect(701, 565, 88, 88); else if (PixelTanks.userData.class === 'stealth') GUI.draw.strokeRect(814, 348, 88, 88); else if (PixelTanks.userData.class === 'builder') GUI.draw.strokeRect(814, 456, 88, 88); else if (PixelTanks.userData.class === 'warrior') GUI.draw.strokeRect(814, 565, 88, 88);
-            }
+            GUI.draw.strokeStyle = '#FFFF00';
+            GUI.draw.lineWidth = 10;
+            // fix excessive if statement below
+            if (PixelTanks.userData.class === 'tactical') GUI.draw.strokeRect(701, 348, 88, 88); else if (PixelTanks.userData.class === 'fire') GUI.draw.strokeRect(701, 456, 88, 88); else if (PixelTanks.userData.class === 'medic') GUI.draw.strokeRect(701, 565, 88, 88); else if (PixelTanks.userData.class === 'stealth') GUI.draw.strokeRect(814, 348, 88, 88); else if (PixelTanks.userData.class === 'builder') GUI.draw.strokeRect(814, 456, 88, 88); else if (PixelTanks.userData.class === 'warrior') GUI.draw.strokeRect(814, 565, 88, 88);
           } else if (this.itemTab) {
             GUI.drawImage(PixelTanks.images.menus.itemTab, 580, 334, 440, 332, 1);
             const key = {airstrike: [598, 352], super_glu: [706, 352], duck_tape: [814, 352], shield: [922, 352], flashbang: [598, 460], bomb: [706, 460], dynamite: [814, 460], usb: [922, 460], weak: [598, 568], strong: [706, 568], spike: [814, 568], reflector: [922, 568]};
@@ -535,8 +531,7 @@ class PixelTanks {
           } else if (this.perkTab) {
             GUI.drawImage(PixelTanks.images.menus.perkTab, 634, 334, 332, 332, 1); //166x2
             const perks = ['shield', 'thermal', 'scavenger', 'cooldown', 'refresh', 'radar', 'upgrader', 'adrenaline', 'core'];
-            const x = [652, 760, 868];
-            const y = [352, 460, 568];
+            const x = [652, 760, 868], y = [352, 460, 568];
             for (let i = 0; i < 9; i++) {
               let level = PixelTanks.userData.perks[i], lock = !level;
               if (lock) level = 1;
@@ -598,7 +593,6 @@ class PixelTanks {
           [792, 873, 194, 79, () => PixelTanks.purchase(0, 5), true],
           [1249, 873, 194, 79, () => PixelTanks.purchase(0, 3), true],
         ],
-        keydown: function(e) {if (e.keyCode === 27) Menus.trigger('main')},
         cdraw: function() {
           GUI.drawText(PixelTanks.userData.stats[0]+' coins', 800, 160, 50, 0x000000, 0.5);
         },
@@ -668,13 +662,12 @@ class PixelTanks {
 
   static launch() {  
     setTimeout(() => {
-      Menus.trigger('start');
-      if (window.u && window.p) PixelTanks.auth(window.u, window.p, 'login');
+      if (window.u && window.p) PixelTanks.auth(window.u, window.p, 'login'); else Menus.trigger('start');
     }, 200);
   }
 
   static save() {
-    PixelTanks.playerData['pixel-tanks'] = PixelTanks.userData;
+    PixelTanks.playerData['pixel-tanks'] = PixelTanks.userData; // optimize db
     Network.update('playerdata', JSON.stringify(PixelTanks.playerData));
   }
 
