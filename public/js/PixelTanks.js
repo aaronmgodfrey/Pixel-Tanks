@@ -5,80 +5,20 @@ class PixelTanks {
     PixelTanks.setup();
     PixelTanks.boot();
   }
-  
   static setup() {
-    document.body.innerHTML += `
-    <button id='pack' onclick='PixelTanks.loadTexturePack(prompt("Config URL:"))'>Load Texturepack</button>
-    <style>
-      #pack {
-        position: absolute;
-        top: 0;
-        right: 0;
-      }
-      html, body {
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        background-color: black;
-      }
-      canvas {
-        display: inline;
-        height: 100%;
-        width: calc(100vh*1.6);
-      }
-      @font-face {
-        font-family: 'Font';
-        src: url('https://aaronmgodfrey.github.io/Pixel-Tanks/public/fonts/PixelOperator.ttf') format('truetype');
-      }
-      * {
-        font-family: Font;
-      }
-      input {
-        position: absolute;
-        background: transparent;
-        border: none;
-        font-size: 6vh;
-      }
-      .expand:hover {
-        transform: scale(1.2);
-      }
-    </style>`;
-    Menus.scaler = document.createElement('CANVAS');
     GUI.canvas = document.createElement('CANVAS');
-    document.body.appendChild(GUI.canvas);
     GUI.draw = GUI.canvas.getContext('2d');
     GUI.draw.imageSmoothingEnabled = false;
     GUI.canvas.height = 1000;
     GUI.canvas.width = 1600;
-    window.oncontextmenu = () => false;
-    window.addEventListener('blur', e => (PixelTanks.focused = false));
-    window.addEventListener('resize', e => { // TEMP move to GUI as static function
-      for (const menu in Menus.menus) Menus.menus[menu].adapt();
-      if (PixelTanks.user.player) PixelTanks.user.player.resize();
-    });
-    window.addEventListener('focus', e => {
-      if (!PixelTanks.focused && PixelTanks.user.player) {
-        if (PixelTanks.user.player.dx) PixelTanks.user.player.dx.t = Date.now();
-        if (PixelTanks.user.player.dy) PixelTanks.user.player.dy.t = Date.now();
-      }
-      PixelTanks.focused = true;
-    });
-    const ui = e => {
-      if (Client.input && Client.input.style.visibility === 'visible') return true;
-      e.preventDefault();
-      return false;
-    };
+    document.body.appendChild(GUI.canvas);
     let tickspeed, old = Date.now(), getTickspeed = () => {
       PixelTanks.tickspeed = tickspeed = Date.now()-old;
       old = Date.now();
       setTimeout(() => getTickspeed());
     }
-    getTickspeed();  
-    window.addEventListener('selectstart', ui);
-    window.addEventListener('dragstart', ui);
-    window.addEventListener('mousemove', Menus.mouseLog);
+    getTickspeed();
   }
-
   static updateBootProgress(progress) {
     GUI.clear();
     if (Math.random() < .05) PixelTanks.loadMessage = PixelTanks.loadMessages[Math.floor(Math.random()*PixelTanks.loadMessages.length)];
@@ -90,13 +30,11 @@ class PixelTanks {
     GUI.draw.fillStyle = '#FFFFFF';
     GUI.draw.fillRect(410, 610, progress*780, 40);
   }
-
-  static renderCosmetic(i, x, y, w, h, r) { // usage: PixelTanks.renderCosmetic(image, x, y, width, height, rotation);
+  static renderCosmetic(i, x, y, w, h, r) {
     if (!i) return;
     let yd = i.height, xd = yd*40/45, frames = i.width/xd, speed = 100, frame = Math.floor((Date.now()%(frames*speed))/speed); 
     GUI.drawImage(i, x, y, w, h, 1, w/2, w/2, 0, 0, r, frame*xd, 0, xd, yd);
   }
-
   static loadTexturePack(configURL, callback) {
     const config = document.createElement('SCRIPT');
     config.src = configURL;
@@ -106,7 +44,6 @@ class PixelTanks {
     }
     document.head.appendChild(config);
   }
-
   static boot() {
     PixelTanks.user = {};
     PixelTanks.loadMessage = PixelTanks.loadMessages[Math.floor(Math.random()*PixelTanks.loadMessages.length)];
