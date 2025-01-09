@@ -148,7 +148,7 @@ class PixelTanks {
       },
       main: {
         buttons: [
-          [972, 840, 88, 88, 'settings1', true],
+          [972, 840, 88, 88, 'settings', true],
           [532, 616, 536, 136, 'multiplayer', true],
           [648, 840, 88, 88, 'shop', true],
           [540, 840, 88, 88, 'inventory', true],
@@ -325,14 +325,14 @@ class PixelTanks {
           mousedown: function(e) {
             const key = {item1: [165, 404], item2: [381, 404], item3: [597, 404], item4: [827, 404], toolkit: [1043, 404], grapple: [1259, 404], boost: [165, 620], class: [381, 620], fire: [597, 620], powermissle: [827, 620], chat: [1043, 620], pause: [1259, 620]};
             for (const p in key) if (Menus.x > key[p][0] && Menus.x < key[p][0]+176 && Menus.y > key[p][1] && Menus.y < key[p][1]+176) {
-              if (Menus.menus.settings1.selected === p) {
-                if (!PixelTanks.hasKeybind(1000+e.button)) PixelTanks.userData.keybinds[Menus.menus.settings1.selected] = 1000+e.button; // mouse handler
+              if (Menus.menus.settings.selected === p) {
+                if (!PixelTanks.hasKeybind(1000+e.button)) PixelTanks.userData.keybinds[this.selected] = 1000+e.button; // mouse handler
                 return PixelTanks.save();
-              } else return Menus.menus.settings1.selected = p;
+              } else return Menus.menus.settings.selected = p;
             }
           },
           keydown: function(e) {
-            if (!PixelTanks.hasKeybind(e.keyCode)) PixelTanks.userData.keybinds[Menus.menus.settings1.selected] = e.keyCode; else alert('Imagine being so lazy you only hit 1 key to win');
+            if (!PixelTanks.hasKeybind(e.keyCode)) PixelTanks.userData.keybinds[this.selected] = e.keyCode; else alert('Imagine being so lazy you only hit 1 key to win');
             PixelTanks.save();
           }
         },
@@ -341,7 +341,7 @@ class PixelTanks {
           GUI.draw.fillStyle = '#A9A9A9'; // change selection  later?
           GUI.draw.lineWidth = 30; // border thickness
           for (const p in key) {
-            if (Menus.menus.settings1.selected === p) GUI.draw.strokeRect(key[p][0], key[p][1], 176, 176);
+            if (this.selected === p) GUI.draw.strokeRect(key[p][0], key[p][1], 176, 176);
             GUI.drawText(String.fromCharCode(PixelTanks.userData.keybinds[p]), key[p][0]+88, key[p][1]+88, 50, '#ffffff', .5);
           }
         },
@@ -507,7 +507,6 @@ class PixelTanks {
           if (PixelTanks.userData.cosmetic_hat && PixelTanks.userData.cosmetic_hat !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_hat], 448, 360, 88, 88, 0); else GUI.drawImage(PixelTanks.images.menus.broke, 448, 360, 88, 88, 1);
           if (PixelTanks.userData.cosmetic && PixelTanks.userData.cosmetic !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic], 448, 460, 88, 88, 0); else GUI.drawImage(PixelTanks.images.menus.broke, 448, 460, 88, 88, 1);
           if (PixelTanks.userData.cosmetic_body && PixelTanks.userData.cosmetic_body !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_body], 448, 560, 88, 88, 0); else GUI.drawImage(PixelTanks.images.menus.broke, 448, 560, 88, 88, 1);
-          if (newClass !== 'undefined') GUI.drawImage(PixelTanks.images.menus.alert, 1102, 806, 20, 20, 1);
           const deathEffectData = PixelTanks.images.deathEffects[PixelTanks.userData.deathEffect+'_'];
           if (PixelTanks.userData.deathEffect && deathEffectData) GUI.drawImage(PixelTanks.images.deathEffects[PixelTanks.userData.deathEffect], 448, 220, 88, 88, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-this.time)/deathEffectData.speed)%deathEffectData.frames)*200, 0, 200, 200);
           if (!(PixelTanks.userData.deathEffect && deathEffectData)) GUI.drawImage(PixelTanks.images.menus.broke, 448, 220, 88, 88, 1);
@@ -601,7 +600,6 @@ class PixelTanks {
         keydown: function(e) {if (e.keyCode === 27) Menus.trigger('main')},
         cdraw: function() {
           GUI.drawText(PixelTanks.userData.stats[0]+' coins', 800, 160, 50, 0x000000, 0.5);
-          if (newClass !== 'undefined') GUI.drawImage(PixelTanks.images.menus.alert, 406, 10, 20, 20, 1);
         },
       },
       shop2: {
