@@ -277,7 +277,7 @@ class PixelTanks {
           if (!this.gamemode) {
             this.gamemode = 'ffa';
             this.output = {FFA: '', DUELS: '', TDM: ''};
-            this.ip = '129.146.45.71:8080';
+            this.ip = '129.146.45.71:443';
             this.listeners.keydown({keyCode: -1, key: ''});
           }
           GUI.drawText(this.gamemode, 1200, 800, 50, '#FFFFFF', 0.5);
