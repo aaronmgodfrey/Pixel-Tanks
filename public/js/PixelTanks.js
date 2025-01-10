@@ -456,7 +456,7 @@ class PixelTanks {
             this.colorInput.w = 143;
             this.colorInput.h = 47;
             this.colorInput.style = 'top: '+(.392*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
-            this.colorInpupt.value = PixelTanks.userData.color;
+            this.colorInput.value = PixelTanks.userData.color;
             document.body.appendChild(this.colorInput);
             this.elements.push(this.colorInput);
           }
