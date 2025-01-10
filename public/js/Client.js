@@ -27,6 +27,7 @@ class Client {
     }
     #input {
       font-size: 3vh;
+      position: static;
       background-color: rgba(0, 0, 0, .2);
       border: none;
       outline: none;
