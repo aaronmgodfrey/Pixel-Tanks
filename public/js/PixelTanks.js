@@ -6,6 +6,7 @@ class PixelTanks {
     PixelTanks.boot();
   }
   static setup() {
+    GUI.setup();
     GUI.canvas = document.createElement('CANVAS');
     GUI.draw = GUI.canvas.getContext('2d');
     GUI.draw.imageSmoothingEnabled = false;
@@ -18,7 +19,6 @@ class PixelTanks {
       setTimeout(() => getTickspeed());
     }
     getTickspeed();
-    GUI.setup();
   }
   static updateBootProgress(progress) {
     GUI.clear();
