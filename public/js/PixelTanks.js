@@ -378,7 +378,6 @@ class PixelTanks {
             this.target = {x: e.clientX-window.innerWidth/2, y: e.clientY-window.innerHeight/2};
           },
           keydown: function(e) {
-            PixelTanks.userData.color = this.colorInput.value;
             if (this.cosmeticTab) {
               if (e.keyCode === 37 && this.cosmeticMenu > 0) this.cosmeticMenu--;
               if (e.keyCode === 39 && this.cosmeticMenu+1 !== Math.ceil(PixelTanks.userData.cosmetics.length/16)) this.cosmeticMenu++;
@@ -394,16 +393,17 @@ class PixelTanks {
             this.target = {x: 0, y: 0}; // use Menus.x/y
             this.cosmeticMenu = this.deathEffectsMenu = 0;
             this.colorInput = document.createElement('INPUT');
-            const left = (window.innerWidth-window.innerHeight*1.6)/2+.564*window.innerHeight;
+            const left = (window.innerWidth-window.innerHeight*1.6)/2+.1052*window.innerHeight;
             this.colorInput.x = 1052;
             this.colorInput.y = 252;
             this.colorInput.w = 143;
             this.colorInput.h = 47;
-            this.colorInput.style = 'top: '+(.392*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
+            this.colorInput.style = 'top: '+(.252*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
             this.colorInput.value = PixelTanks.userData.color;
             document.body.appendChild(this.colorInput);
             this.elements.push(this.colorInput);
           }
+          PixelTanks.userData.color = this.colorInput.value;
           const coins = PixelTanks.userData.stats[0], xp = PixelTanks.userData.stats[3], rank = PixelTanks.userData.stats[4];
           const coinsUP = (rank+1)*1000, xpUP = (rank+1)*100;
           GUI.draw.fillStyle = this.color;
