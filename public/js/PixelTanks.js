@@ -18,6 +18,7 @@ class PixelTanks {
       setTimeout(() => getTickspeed());
     }
     getTickspeed();
+    GUI.setup();
   }
   static updateBootProgress(progress) {
     GUI.clear();
