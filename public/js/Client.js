@@ -496,6 +496,8 @@ class Client {
     for (const ex of e) this.drawExplosion(ex);
 
     GUI.draw.setTransform(1, 0, 0, 1, 0, 0);
+    GUI.drawText(this.dedTime < Date.now()-10000 ? 'Hit F to Respawn' : this.hostupdate?.global || '', 800, 30, 60, '#ffffff', .5);
+    GUI.drawText('ST: '+(this.hostupdate?.tickspeed || '')+' CT: '+PixelTanks.tickspeed, 200, 30, 30, '#ffffff', 0);
     if (!this.ded) {
       if (this.menu) return Menus.menus[this.menu].draw();
       GUI.drawImage(PixelTanks.images.menus.ui, 0, 0, 1600, 1000, 1);
@@ -579,8 +581,6 @@ class Client {
         if (Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10, [308, 408, 1120, 1196, 1272][i]+45, 998, 15, '#FFFFFF', 1);
       }
     }
-    GUI.drawText(this.dedTime < Date.now()-10000 ? 'Hit F to Respawn' : this.hostupdate?.global || '', 800, 30, 60, '#ffffff', .5);
-    GUI.drawText('ST: '+(this.hostupdate?.tickspeed || '')+' CT: '+PixelTanks.tickspeed, 200, 30, 30, '#ffffff', 0);
     
     if (this.debugMode) {// 0 = disabled, 1 = ping, 2 = fps, 3 = ops, 4 = ups
       const infoset = [null, this.pings, this.fps, this.ops, this.ups][this.debugMode];
