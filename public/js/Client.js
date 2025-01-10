@@ -495,91 +495,92 @@ class Client {
     }
     for (const ex of e) this.drawExplosion(ex);
 
-    GUI.draw.setTransform(1, 0, 0, 1, 0, 0);
-    if (this.menu) return Menus.menus[this.menu].draw();
-    GUI.drawImage(PixelTanks.images.menus.ui, 0, 0, 1600, 1000, 1);
-    GUI.drawText(this.kills, 1530, 40, 30, '#FFFFFF', 1);
-    GUI.drawText(this.xp/10, 1530, 110, 30, '#FFFFFF', 1);
-    GUI.drawText(this.crates, 1530, 150, 30, '#FFFFFF', 1);
-    GUI.drawText(this.coins, 1530, 200, 30, '#FFFFFF', 1);
-    GUI.drawText(this.xp, 1530, 260, 30, '#FFFFFF', 1);
-    if (Engine.hasPerk(PixelTanks.userData.perk, 6)) {
-      GUI.draw.translate(800, 500);
-      if (player.eradar) for (const e of player.eradar) {
-        GUI.draw.rotate(e*Math.PI/180);
-        GUI.drawImage(PixelTanks.images.menus.arrow, -25, 100, 50, 50, 1);
-        GUI.draw.rotate(-e*Math.PI/180);
-      }
-      if (player.fradar) for (const f of player.fradar) {
-        GUI.draw.rotate(f*Math.PI/180);
-        GUI.drawImage(PixelTanks.images.menus.arrow_friendly, -25, 100, 50, 50, 1);
-        GUI.draw.rotate(-f*Math.PI/180);
-      }
-      GUI.draw.translate(-800, -500);
-    }
-    GUI.draw.globalAlpha = 0.5;
-    GUI.draw.fillStyle = PixelTanks.userData.color;
-    const c = [508, 672, 836, 1000]; // x coords of items
-    for (let i = 0; i < 4; i++) {
-      const item = PixelTanks.userData.items[i];
-      GUI.drawImage(PixelTanks.images.items[item], c[i], 908, 92, 92, 1);
-      if (Date.now() < this.timers.items[i].time+this.timers.items[i].cooldown) {
-        GUI.draw.fillStyle = '#000000';
-        GUI.draw.globalAlpha = .5;
-        GUI.draw.fillRect(c[i], 908, 92, 92);
-        GUI.draw.globalAlpha = 1;
-      } else {
-        GUI.draw.fillStyle = '#FFFFFF';
-        const tank = t.find(tank => tank.username === PixelTanks.user.username), blockedOn = item === 'bomb' && !this.collision(tank.x, tank.y);
-        if (blockedOn || (item === 'shield' && tank.shields <= 0) || (item === 'duck_tape' && tank.hp <= tank.maxHp/2) || (item === 'super_glu' && tank.hp <= tank.maxHp/2)) GUI.draw.fillStyle = '#00FF00';
-        GUI.draw.globalAlpha = (blockedOn ? .5 : 0)+.25*Math.abs(Math.sin(Math.PI*.5*((((Date.now()-(this.timers.items[i].time+this.timers.items[i].cooldown))%4000)/1000)-3)));
-        GUI.draw.fillRect(c[i], 908, 92, 92);
-      }
-      GUI.draw.globalAlpha = 1;
+    if (!this.ded) {
+      GUI.draw.setTransform(1, 0, 0, 1, 0, 0);
+      if (this.menu) return Menus.menus[this.menu].draw();
+      GUI.drawImage(PixelTanks.images.menus.ui, 0, 0, 1600, 1000, 1);
+      GUI.drawText(this.kills, 1530, 40, 30, '#FFFFFF', 1);
+      GUI.drawText(this.xp/10, 1530, 110, 30, '#FFFFFF', 1);
+      GUI.drawText(this.crates, 1530, 150, 30, '#FFFFFF', 1);
+      GUI.drawText(this.coins, 1530, 200, 30, '#FFFFFF', 1);
+      GUI.drawText(this.xp, 1530, 260, 30, '#FFFFFF', 1);
+      if (Engine.hasPerk(PixelTanks.userData.perk, 6)) {
+        GUI.draw.translate(800, 500);
+        if (player.eradar) for (const e of player.eradar) {
+          GUI.draw.rotate(e*Math.PI/180);
+          GUI.drawImage(PixelTanks.images.menus.arrow, -25, 100, 50, 50, 1);
+          GUI.draw.rotate(-e*Math.PI/180);
+        }
+        if (player.fradar) for (const f of player.fradar) {
+          GUI.draw.rotate(f*Math.PI/180);
+          GUI.drawImage(PixelTanks.images.menus.arrow_friendly, -25, 100, 50, 50, 1);
+          GUI.draw.rotate(-f*Math.PI/180);
+        }
+        GUI.draw.translate(-800, -500);
+     }
+      GUI.draw.globalAlpha = 0.5;
       GUI.draw.fillStyle = PixelTanks.userData.color;
-      GUI.draw.fillRect(c[i], 908+Math.min((Date.now()-this.timers.items[i].time)/this.timers.items[i].cooldown, 1)*92, 92, 92);
-      if (Math.ceil((this.timers.items[i].cooldown-(Date.now()-this.timers.items[i].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers.items[i].cooldown-(Date.now()-this.timers.items[i].time))/100)/10, c[i]+90, 998, 30, '#FFFFFF', 1);
-    }
-    for (let i = 0; i < 5; i++) {
-      let type = ['class', 'powermissle', 'toolkit', 'boost', 'grapple'][i];
-      let time = this.timers[type].time+this.timers[type].cooldown;
-      if (PixelTanks.userData.class === 'stealth' && i === 0) {
-        let mana = this.mana;
-        if (this.tank.invis) {
-          mana = Math.max(0, mana-(Date.now()-this.timers.class.time)/1000);
-        } else mana = Math.min(15, mana+(Date.now()-this.timers.class.time)/this.timers.class.cooldown);
-        if (mana === 15) {
-          GUI.draw.fillStyle = '#ffffff'; // next 2 lines can be simplified
-          GUI.draw.globalAlpha = .25*Math.abs(Math.sin(Math.PI*.5*((((Date.now()-(this.timers[type].time+this.timers[type].cooldown))%4000)/1000)-3)));
-          GUI.draw.fillRect([308, 408, 1120, 1196, 1272][i], 952, 48, 48);
+      const c = [508, 672, 836, 1000]; // x coords of items
+      for (let i = 0; i < 4; i++) {
+        const item = PixelTanks.userData.items[i];
+        GUI.drawImage(PixelTanks.images.items[item], c[i], 908, 92, 92, 1);
+        if (Date.now() < this.timers.items[i].time+this.timers.items[i].cooldown) {
+          GUI.draw.fillStyle = '#000000';
+          GUI.draw.globalAlpha = .5;
+          GUI.draw.fillRect(c[i], 908, 92, 92);
+          GUI.draw.globalAlpha = 1;
         } else {
+          GUI.draw.fillStyle = '#FFFFFF';
+          const tank = t.find(tank => tank.username === PixelTanks.user.username), blockedOn = item === 'bomb' && !this.collision(tank.x, tank.y);
+          if (blockedOn || (item === 'shield' && tank.shields <= 0) || (item === 'duck_tape' && tank.hp <= tank.maxHp/2) || (item === 'super_glu' && tank.hp <= tank.maxHp/2)) GUI.draw.fillStyle = '#00FF00';
+          GUI.draw.globalAlpha = (blockedOn ? .5 : 0)+.25*Math.abs(Math.sin(Math.PI*.5*((((Date.now()-(this.timers.items[i].time+this.timers.items[i].cooldown))%4000)/1000)-3)));
+          GUI.draw.fillRect(c[i], 908, 92, 92);
+        }
+        GUI.draw.globalAlpha = 1;
+        GUI.draw.fillStyle = PixelTanks.userData.color;
+        GUI.draw.fillRect(c[i], 908+Math.min((Date.now()-this.timers.items[i].time)/this.timers.items[i].cooldown, 1)*92, 92, 92);
+        if (Math.ceil((this.timers.items[i].cooldown-(Date.now()-this.timers.items[i].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers.items[i].cooldown-(Date.now()-this.timers.items[i].time))/100)/10, c[i]+90, 998, 30, '#FFFFFF', 1);
+      }
+      for (let i = 0; i < 5; i++) {
+        let type = ['class', 'powermissle', 'toolkit', 'boost', 'grapple'][i];
+        let time = this.timers[type].time+this.timers[type].cooldown;
+        if (PixelTanks.userData.class === 'stealth' && i === 0) {
+          let mana = this.mana;
+          if (this.tank.invis) {
+            mana = Math.max(0, mana-(Date.now()-this.timers.class.time)/1000);
+          } else mana = Math.min(15, mana+(Date.now()-this.timers.class.time)/this.timers.class.cooldown);
+          if (mana === 15) {
+            GUI.draw.fillStyle = '#ffffff'; // next 2 lines can be simplified
+            GUI.draw.globalAlpha = .25*Math.abs(Math.sin(Math.PI*.5*((((Date.now()-(this.timers[type].time+this.timers[type].cooldown))%4000)/1000)-3)));
+            GUI.draw.fillRect([308, 408, 1120, 1196, 1272][i], 952, 48, 48);
+          } else {
+            GUI.draw.fillStyle = '#000000';
+            GUI.draw.globalAlpha = .5;
+            GUI.draw.fillRect([308, 408, 1120, 1196, 1272][i], 952, 48, 48);
+            GUI.draw.fillStyle = PixelTanks.userData.color;
+            GUI.draw.globalAlpha = 1;
+            GUI.draw.fillRect([308, 408, 1120, 1196, 1272][i], 952+(15-mana)/15*48, 48, 48);
+            GUI.drawText((Math.ceil(this.mana)/10).toFixed(1), 353, 998, 15, '#FFFFFF', 1);
+          }
+          continue;
+        }
+        if (Date.now() <= time) {
           GUI.draw.fillStyle = '#000000';
           GUI.draw.globalAlpha = .5;
           GUI.draw.fillRect([308, 408, 1120, 1196, 1272][i], 952, 48, 48);
-          GUI.draw.fillStyle = PixelTanks.userData.color;
-          GUI.draw.globalAlpha = 1;
-          GUI.draw.fillRect([308, 408, 1120, 1196, 1272][i], 952+(15-mana)/15*48, 48, 48);
-          GUI.drawText((Math.ceil(this.mana)/10).toFixed(1), 353, 998, 15, '#FFFFFF', 1);
+        } else {
+          GUI.draw.fillStyle = '#ffffff';
+          GUI.draw.globalAlpha = .25*Math.abs(Math.sin(Math.PI*.5*((((Date.now()-(this.timers[type].time+this.timers[type].cooldown))%4000)/1000)-3)));
+          GUI.draw.fillRect([308, 408, 1120, 1196, 1272][i], 952, 48, 48);
         }
-        continue;
+        GUI.draw.fillStyle = PixelTanks.userData.color;
+        GUI.draw.globalAlpha = 1;
+        GUI.draw.fillRect([308, 408, 1120, 1196, 1272][i], 952+Math.min((Date.now()-this.timers[type].time)/this.timers[type].cooldown, 1)*48, 48, 48);
+        if (Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10, [308, 408, 1120, 1196, 1272][i]+45, 998, 15, '#FFFFFF', 1);
       }
-      if (Date.now() <= time) {
-        GUI.draw.fillStyle = '#000000';
-        GUI.draw.globalAlpha = .5;
-        GUI.draw.fillRect([308, 408, 1120, 1196, 1272][i], 952, 48, 48);
-      } else {
-        GUI.draw.fillStyle = '#ffffff';
-        GUI.draw.globalAlpha = .25*Math.abs(Math.sin(Math.PI*.5*((((Date.now()-(this.timers[type].time+this.timers[type].cooldown))%4000)/1000)-3)));
-        GUI.draw.fillRect([308, 408, 1120, 1196, 1272][i], 952, 48, 48);
-      }
-      GUI.draw.fillStyle = PixelTanks.userData.color;
-      GUI.draw.globalAlpha = 1;
-      GUI.draw.fillRect([308, 408, 1120, 1196, 1272][i], 952+Math.min((Date.now()-this.timers[type].time)/this.timers[type].cooldown, 1)*48, 48, 48);
-      if (Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10, [308, 408, 1120, 1196, 1272][i]+45, 998, 15, '#FFFFFF', 1);
     }
     GUI.drawText(this.dedTime < Date.now()-10000 ? 'Hit F to Respawn' : this.hostupdate?.global || '', 800, 30, 60, '#ffffff', .5);
     GUI.drawText('ST: '+(this.hostupdate?.tickspeed || '')+' CT: '+PixelTanks.tickspeed, 200, 30, 30, '#ffffff', 0);
-    
     
     if (this.debugMode) {// 0 = disabled, 1 = ping, 2 = fps, 3 = ops, 4 = ups
       const infoset = [null, this.pings, this.fps, this.ops, this.ups][this.debugMode];
