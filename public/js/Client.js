@@ -495,8 +495,8 @@ class Client {
     }
     for (const ex of e) this.drawExplosion(ex);
 
+    GUI.draw.setTransform(1, 0, 0, 1, 0, 0);
     if (!this.ded) {
-      GUI.draw.setTransform(1, 0, 0, 1, 0, 0);
       if (this.menu) return Menus.menus[this.menu].draw();
       GUI.drawImage(PixelTanks.images.menus.ui, 0, 0, 1600, 1000, 1);
       GUI.drawText(this.kills, 1530, 40, 30, '#FFFFFF', 1);
