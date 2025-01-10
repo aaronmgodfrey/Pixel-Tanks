@@ -434,11 +434,7 @@ class PixelTanks {
             this.target = {x: e.clientX-window.innerWidth/2, y: e.clientY-window.innerHeight/2};
           },
           keydown: function(e) {
-            if (e.key.length === 1 && this.color.length < 7) {
-              this.color += e.key;
-              PixelTanks.userData.color = this.color;
-            }
-            if (e.keyCode === 8) this.color = this.color.slice(0, -1);
+            PixelTanks.userData.color = this.colorInput.value;
             if (this.cosmeticTab) {
               if (e.keyCode === 37 && this.cosmeticMenu > 0) this.cosmeticMenu--;
               if (e.keyCode === 39 && this.cosmeticMenu+1 !== Math.ceil(PixelTanks.userData.cosmetics.length/16)) this.cosmeticMenu++;
@@ -451,16 +447,16 @@ class PixelTanks {
         cdraw: function() {
           if (!this.target) {
             this.time = Date.now();
-            this.color = PixelTanks.userData.color;
             this.target = {x: 0, y: 0}; // use Menus.x/y
             this.cosmeticMenu = this.deathEffectsMenu = 0;
             this.colorInput = document.createElement('INPUT');
             const left = (window.innerWidth-window.innerHeight*1.6)/2+.564*window.innerHeight;
-            this.colorInput.x = 564;
-            this.colorInput.y = 392;
-            this.colorInput.w = 456;
-            this.colorInput.h = 80;
+            this.colorInput.x = 1052;
+            this.colorInput.y = 252;
+            this.colorInput.w = 143;
+            this.colorInput.h = 47;
             this.colorInput.style = 'top: '+(.392*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
+            this.colorInpupt.value = PixelTanks.userData.color;
             document.body.appendChild(this.colorInput);
             this.elements.push(this.colorInput);
           }
@@ -468,7 +464,6 @@ class PixelTanks {
           const coinsUP = (rank+1)*1000, xpUP = (rank+1)*100;
           GUI.draw.fillStyle = this.color;
           GUI.draw.fillRect(1008, 260, 32, 32);
-          GUI.drawText(this.color, 1052, 260, 30, '#000000', 0);
           GUI.drawText(PixelTanks.user.username, 280, 420, 80, '#000000', .5);
           GUI.drawText('Coins: '+coins, 280, 500, 50, '#FFE900', .5);
           GUI.drawText('Rank: '+rank, 280, 550, 50, '#FF2400', .5);
