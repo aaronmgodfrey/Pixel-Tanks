@@ -1,5 +1,5 @@
 class GUI {
-  static {
+  static setup() {
     document.body.innerHTML += `
     <button id='pack' onclick='PixelTanks.loadTexturePack(prompt("Config URL:"))'>Load Texturepack</button>
     <style>
