@@ -185,13 +185,13 @@ class PixelTanks {
       },
       multiplayer: {
         buttons: [
-          [424, 28, 108, 108, 'main'],
+          [436, 24, 108, 108, 'main'],
           [340, 376, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'ffa'), true],
           [340, 532, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'duels'), true],
           [340, 688, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'tdm'), true],
           [340, 844, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'defense'), true],
           [868, 848, 368, 88, () => {
-            PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip, true, Menus.menus.multiplayer.gamemode);
+            PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip.value, true, Menus.menus.multiplayer.gamemode);
             Menus.removeListeners();
           }, true],
         ],
@@ -215,11 +215,18 @@ class PixelTanks {
           if (!this.gamemode) {
             this.gamemode = 'ffa';
             this.output = {FFA: '', DUELS: '', TDM: ''};
-            this.ip = '129.146.45.71:443';
-            this.listeners.keydown({keyCode: -1, key: ''});
+            this.ip = document.createElement('INPUT');
+            const left = (window.innerWidth-window.innerHeight*1.6)/2+.504*window.innerHeight;
+            this.ip.x = 504;
+            this.ip.y = 240;
+            this.ip.w = 592;
+            this.ip.h = 72;
+            this.ip.style = 'top: '+(.240*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.592)+'px; height: '+(window.innerHeight*.072)+'px;';
+            this.ip.value = '129.146.45.71:443';
+            document.body.appendChild(this.ip);
+            this.elements.push(this.ip);
           }
           GUI.drawText(this.gamemode, 1200, 800, 50, '#FFFFFF', 0.5);
-          GUI.drawText(this.ip, 800, 276, 50, '#FFFFFF', 0.5);
           GUI.drawText(this.output.FFA.length, 820, 434, 50, '#FFFFFF', 0.5);
           GUI.drawText(this.output.DUELS.length, 820, 590, 50, '#FFFFFF', 0.5);
           GUI.drawText(this.output.TDM.length, 820, 764, 50, '#FFFFFF', 0.5);
