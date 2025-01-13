@@ -1,5 +1,8 @@
 class Menu {
-  static scaler = document.createElement('CANVAS');
+  static {
+    this.scaler = document.createElement('CANVAS');
+    this.scaler.getContext('2d').imageSmoothingEnabled = false;
+  }
   constructor(data, id) {
     this.elements = [];
     this.loaded = false;
