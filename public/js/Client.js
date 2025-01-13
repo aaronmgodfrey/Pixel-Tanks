@@ -72,6 +72,7 @@ class Client {
     Client.messages = document.getElementById('messages');
     Client.input = document.getElementById('input');
     Client.messages.innerHTML = '';
+    Client.viewport.style.visibility = 'visible';
     this.resize();
     this.animate = Date.now();
   }
@@ -947,6 +948,7 @@ class Client {
     } else this.world.i.forEach(i => clearInterval(i));
     for (const listener of Client.listeners) document.removeEventListener(listener, this[listener]);
     cancelAnimationFrame(this.render);
+    Client.viewport.style.visibility = 'hidden';
     Menus.menus.pause.removeListeners();
     if (this.menu) Menus.softUntrigger();
     PixelTanks.user.player = undefined;
