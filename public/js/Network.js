@@ -75,7 +75,7 @@ class Network {
         Network.loaded++;
       } else {
         Network.errored++;
-        console.warn(i.src+' failed to load!');
+        alert(i.src+' failed to load!');
         i = Network.failed;
       }
       let done = Network.loaded+Network.errored;
