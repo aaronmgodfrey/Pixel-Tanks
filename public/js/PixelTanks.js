@@ -195,22 +195,6 @@ class PixelTanks {
             Menus.removeListeners();
           }, true],
         ],
-        listeners: {
-          keydown: function(e) {
-            if (e.key.length === 1) {
-              this.ip += e.key;
-            } else if (e.keyCode === 8) {
-              this.ip = this.ip.slice(0, -1);
-            } else if (e.keyCode !== -1) return;
-            /*this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip, {keepAlive: false, reconnect: true, autoconnect: true});
-            this.socket.on('connect', () => {
-              this.socket.send({username: PixelTanks.user.username, type: 'stats'});
-            });
-            this.socket.on('message', (d) => {
-              this.output = d;
-            });*/
-          }
-        },
         cdraw: function() {
           if (!this.gamemode) {
             this.gamemode = 'ffa';
