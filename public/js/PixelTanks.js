@@ -237,7 +237,6 @@ class PixelTanks {
         ],
         cdraw: function() {
           if (!this.time) this.time = Date.now(); // animatino :)
-          Menus.menus.crate.reward = [item, type, rarity, this.crates[type][rarity][n], this.crates[type][rarity][n].split('_').reduce((a, c) => (a.concat(c.charAt(0).toUpperCase()+c.slice(1))), []).join(' ')];
           if (this.reward) {
             GUI.clear();
             if (this.reward[1]) GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-this.time)/PixelTanks.images[['cosmetics', 'deathEffects'][type]][this.reward[3]+'_'].speed)%PixelTanks.images[name][this.reward[3]+'_'].frames)*200, 0, 200, 200); else GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1);
