@@ -89,7 +89,7 @@ class PixelTanks {
           [922, 840, 88, 88, 'settings', true],
           [532, 616, 536, 136, 'multiplayer', true],
           [705, 840, 88, 88, 'shop', true],
-          [597, 838, 88, 88, 'inventory', true],
+          [597, 840, 88, 88, 'inventory', true],
           [813, 840, 88, 88, 'crate', true],
           [532, 392, 536, 136, 'world1', true],
         ],
@@ -226,17 +226,32 @@ class PixelTanks {
       crate: {
         buttons: [
           [416, 20, 108, 108, 'main', true],
-          [232, 308, 488, 488, () => PixelTanks.openCrate(0, cosmetAmount), false],
-          [880, 308, 488, 488, () => PixelTanks.openCrate(1, deathAmount), false],
-          [300, 816, 104, 52, () => (cosmetAmount = 1), false],
-          [424, 816, 104, 52, () => (cosmetAmount = 10), false],
-          [548, 816, 104, 52, () => (cosmetAmount = 100), false],
-          [948, 816, 104, 52, () => (deathAmount = 1), false],
-          [1072, 816, 104, 52, () => (deathAmount = 10), false],
-          [1196, 816, 104, 52, () => (deathAmount = 100), false],
+          [232, 308, 488, 488, () => PixelTanks.openCrate(0, Menus.menus.crate.csize), false],
+          [880, 308, 488, 488, () => PixelTanks.openCrate(1, Menus.menus.crate.dsize), false],
+          [300, 816, 104, 52, () => (Menus.menus.crate.csize = 1), false],
+          [424, 816, 104, 52, () => (Menus.menus.crate.csize = 10), false],
+          [548, 816, 104, 52, () => (Menus.menus.crate.csize = 100), false],
+          [948, 816, 104, 52, () => (Menus.menus.crate.dsize = 1), false],
+          [1072, 816, 104, 52, () => (Menus.menus.crate.dsize = 10), false],
+          [1196, 816, 104, 52, () => (Menus.menus.crate.dsize = 100), false],
         ],
         cdraw: function() {
-          GUI.drawText('Crates: ' + PixelTanks.userData.stats[1], 800, 260, 30, '#ffffff', 0.5);
+          /*Menus.menus.crate.reward = [item, type, rarity, this.crates[type][rarity][n].split('_').reduce((a, c) => (a.concat(c.charAt(0).toUpperCase()+c.slice(1))), []).join(' ')];
+          if (this.reward) {
+            GUI.clear();
+            if (this.reward[1]) GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-start)/PixelTanks.images[name][crate[type][rarity][number]+'_'].speed)%PixelTanks.images[name][crate[type][rarity][number]+'_'].frames)*200, 0, 200, 200);
+            return;
+          }
+          *setTimeout(() => {
+        const start = Date.now(), render = setInterval(function() {
+          GUI.clear();
+          if (type) GUI.drawImage(item, 600, 400, 400, 400, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-start)/PixelTanks.images[name][crate[type][rarity][number]+'_'].speed)%PixelTanks.images[name][crate[type][rarity][number]+'_'].frames)*200, 0, 200, 200);
+          if (!type) GUI.drawImage(item, 600, 400, 400, 400, 1);
+          GUI.drawText('You Got', 800, 200, 100, '#ffffff', 0.5);
+          GUI.drawText(crate[type][rarity][number].split('_').reduce((a, c) => (a.concat(c.charAt(0).toUpperCase()+c.slice(1))), []).join(' '), 800, 800, 50, '#ffffff', 0.5);
+          GUI.drawText(rarity, 800, 900, 30, {mythic: '#FF0000', legendary: '#FFFF00', epic: '#A020F0', rare: '#0000FF', uncommon: '#32CD32', common: '#FFFFFF'}[rarity], 0.5);
+        }, 15);*/
+          GUI.drawText(`Crates: ${PixelTanks.userData.stats[1]}`, 800, 260, 30, '#ffffff', 0.5);
           GUI.draw.globalAlpha = 1;
           GUI.draw.strokeStyle = '#FFFF00';
           GUI.draw.lineWidth = 10;
@@ -246,6 +261,7 @@ class PixelTanks {
           if (deathAmount === 1) GUI.draw.strokeRect(948, 816, 104, 52);
           if (deathAmount === 10) GUI.draw.strokeRect(1072, 816, 104, 52);
           if (deathAmount === 100) GUI.draw.strokeRect(1196, 816, 104, 52);
+          
         }
       },
       settings: {
@@ -644,53 +660,27 @@ class PixelTanks {
       });
   }
 
-  static openCrate(type, stuffAmount) {
-    if (PixelTanks.userData.stats[1] < (type ? 5 : 1)*stuffAmount) return alert('Not Enough Crates');
-    PixelTanks.userData.stats[1] -= (type ? 5 : 1)*stuffAmount; 
-    let nimber = 100;
-    if (stuffAmount === 1) nimber = 1000;
-    if (stuffAmount === 10) nimber = 500;
-    if (stuffAmount === 100) nimber = 100;
-    let namber = -(nimber);
-    for (let i = 0; i < stuffAmount; i++) {
-      namber += nimber;
-      setTimeout(() => {
-        const price = type ? 5 : 1, name = type ? 'deathEffects' : 'cosmetics', rand = Math.floor(Math.random()*1001);
-        let crate = PixelTanks.crates;
-        let rarity = 'common'; // 70%
-        if (rand < 300) rarity = 'uncommon'; // 15%
-        if (rand < 150) rarity = 'rare'; // 10%
-        if (rand < 50) rarity = 'epic'; // 4%
-        if (rand < 10) rarity = 'legendary'; // .9%
-        if (rand < 1) rarity = 'mythic'; // .1%
-        let number = Math.floor(Math.random()*(crate[type][rarity].length)), item;
-        for (const e in this.images[name]) if (e === crate[type][rarity][number]) item = this.images[name][e];
-        if (item === undefined) return alert('Error while trying to give you cosmetic id "'+crate[type][rarity][number]+'"');
-        Menus.removeListeners();
-        const start = Date.now(), render = setInterval(function() {
-          GUI.clear();
-          if (type) GUI.drawImage(item, 600, 400, 400, 400, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-start)/PixelTanks.images[name][crate[type][rarity][number]+'_'].speed)%PixelTanks.images[name][crate[type][rarity][number]+'_'].frames)*200, 0, 200, 200);
-          if (!type) GUI.drawImage(item, 600, 400, 400, 400, 1);
-          GUI.drawText('You Got', 800, 200, 100, '#ffffff', 0.5);
-          GUI.drawText(crate[type][rarity][number].split('_').reduce((a, c) => (a.concat(c.charAt(0).toUpperCase()+c.slice(1))), []).join(' '), 800, 800, 50, '#ffffff', 0.5);
-          GUI.drawText(rarity, 800, 900, 30, {mythic: '#FF0000', legendary: '#FFFF00', epic: '#A020F0', rare: '#0000FF', uncommon: '#32CD32', common: '#FFFFFF'}[rarity], 0.5);
-        }, 15); // use built in menus renderer instead?
-        let done = false;
-        for (const i in PixelTanks.userData[name]) {
-          const [item, amount] = PixelTanks.userData[name][i].split('#');
-          if (item === crate[type][rarity][number]) {
-            done = true;
-            PixelTanks.userData[name][i] = item+'#'+(Number(amount)+1);
-          }
-        }
-        if (!done) PixelTanks.userData[name].unshift(crate[type][rarity][number]+'#1');
-        setTimeout(() => {
-          clearInterval(render);
-          if (i+1 >= stuffAmount) Menus.trigger('crate');
-          PixelTanks.save();
-        }, (nimber)-20);
-      }, namber);
-    }
+  static openCrate(type, a) {
+    const price = a*(type ? 5 : 1);
+    if (PixelTanks.userData.stats[1] < price) return alert('Not Enough Crates');
+    PixelTanks.userData.stats[1] -= a*(type ? 5 : 1);
+    Menus.menus[Menus.current].removeListeners();
+    for (let i = 0; i < a; i++) setTimeout(() => {
+      let r = Math.floor(Math.random()*1001), delay = [1000, 500, 50][Math.floor(Math.log10(a))], name = ['cosmetics', 'deathEffects'][type], rarity = (r < 1 ? 'mythic' : (r < 10 ? 'legendary' : (r < 50 ? 'epic' : (r < 150) ? 'rare' : (r < 300 ? 'uncommon': 'common')))), n = Math.floor(Math.random()*this.crates[type][rarity].length), image = this.images[name].find(c => this.crates[type][rarity][n] === c.src.split('/').slice(-1).replace('.png', '')); 
+      let done = false;
+      for (const i in PixelTanks.userData[name]) {
+        const [item, amount] = PixelTanks.userData[name][i].split('#');
+        if (item !== crate[type][rarity][number]) continue;
+        PixelTanks.userData[name][i] = done = item+'#'+(Number(amount)+1);
+      }
+      if (!done) PixelTanks.userData[name].unshift(crate[type][rarity][number]+'#1');
+      Menus.menus.crate.reward = [item, type, rarity, this.crates[type][rarity][n].split('_').reduce((a, c) => (a.concat(c.charAt(0).toUpperCase()+c.slice(1))), []).join(' ')];
+    }, i*delay);
+    setTimeout(() => {
+      Menus.menus.crate.reward = null;
+      Menus.menus[Menus.current].addListeners();
+      PixelTanks.save();
+    }, a*delay);
   }
 
   static hasKeybind = k => ['item1', 'item2', 'item3', 'item4', 'toolkit', 'grapple', 'boost', 'class', 'fire', 'powermissle', 'chat', 'pause'].some(v => PixelTanks.userData.keybinds[v] === k);
