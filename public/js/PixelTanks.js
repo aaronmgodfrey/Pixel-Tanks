@@ -226,8 +226,8 @@ class PixelTanks {
       crate: {
         buttons: [
           [416, 20, 108, 108, 'main', true],
-          [232, 308, 488, 488, () => PixelTanks.openCrate(0, Menus.menus.crate.csize), false],
-          [880, 308, 488, 488, () => PixelTanks.openCrate(1, Menus.menus.crate.dsize), false],
+          [232, 308, 488, 488, () => PixelTanks.openCrate(0, Menus.menus.crate.csize || 1), false],
+          [880, 308, 488, 488, () => PixelTanks.openCrate(1, Menus.menus.crate.dsize || 1), false],
           [300, 816, 104, 52, () => (Menus.menus.crate.csize = 1), false],
           [424, 816, 104, 52, () => (Menus.menus.crate.csize = 10), false],
           [548, 816, 104, 52, () => (Menus.menus.crate.csize = 100), false],
