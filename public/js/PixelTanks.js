@@ -236,21 +236,15 @@ class PixelTanks {
           [1196, 816, 104, 52, () => (Menus.menus.crate.dsize = 100), false],
         ],
         cdraw: function() {
-          /*Menus.menus.crate.reward = [item, type, rarity, this.crates[type][rarity][n].split('_').reduce((a, c) => (a.concat(c.charAt(0).toUpperCase()+c.slice(1))), []).join(' ')];
+          if (!this.time) this.time = Date.now(); // animatino :)
+          Menus.menus.crate.reward = [item, type, rarity, this.crates[type][rarity][n], this.crates[type][rarity][n].split('_').reduce((a, c) => (a.concat(c.charAt(0).toUpperCase()+c.slice(1))), []).join(' ')];
           if (this.reward) {
             GUI.clear();
-            if (this.reward[1]) GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-start)/PixelTanks.images[name][crate[type][rarity][number]+'_'].speed)%PixelTanks.images[name][crate[type][rarity][number]+'_'].frames)*200, 0, 200, 200);
-            return;
+            if (this.reward[1]) GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-this.time)/PixelTanks.images[['cosmetics', 'deathEffects'][type]][this.reward[3]+'_'].speed)%PixelTanks.images[name][this.reward[3]+'_'].frames)*200, 0, 200, 200); else GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1);
+            GUI.drawText('You Got', 800, 200, 100, '#ffffff', 0.5);
+            GUI.drawText(this.reward[4], 800, 800, 50, '#ffffff', 0.5);
+            return GUI.drawText(rarity, 800, 900, 30, {mythic: '#FF0000', legendary: '#FFFF00', epic: '#A020F0', rare: '#0000FF', uncommon: '#32CD32', common: '#FFFFFF'}[this.reward[2]], 0.5);
           }
-          *setTimeout(() => {
-        const start = Date.now(), render = setInterval(function() {
-          GUI.clear();
-          if (type) GUI.drawImage(item, 600, 400, 400, 400, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-start)/PixelTanks.images[name][crate[type][rarity][number]+'_'].speed)%PixelTanks.images[name][crate[type][rarity][number]+'_'].frames)*200, 0, 200, 200);
-          if (!type) GUI.drawImage(item, 600, 400, 400, 400, 1);
-          GUI.drawText('You Got', 800, 200, 100, '#ffffff', 0.5);
-          GUI.drawText(crate[type][rarity][number].split('_').reduce((a, c) => (a.concat(c.charAt(0).toUpperCase()+c.slice(1))), []).join(' '), 800, 800, 50, '#ffffff', 0.5);
-          GUI.drawText(rarity, 800, 900, 30, {mythic: '#FF0000', legendary: '#FFFF00', epic: '#A020F0', rare: '#0000FF', uncommon: '#32CD32', common: '#FFFFFF'}[rarity], 0.5);
-        }, 15);*/
           GUI.drawText(`Crates: ${PixelTanks.userData.stats[1]}`, 800, 260, 30, '#ffffff', 0.5);
           GUI.draw.globalAlpha = 1;
           GUI.draw.strokeStyle = '#FFFF00';
@@ -662,8 +656,7 @@ class PixelTanks {
 
   static openCrate(type, a) {
     const price = a*(type ? 5 : 1);
-    if (PixelTanks.userData.stats[1] < price) return alert('Not Enough Crates');
-    PixelTanks.userData.stats[1] -= a*(type ? 5 : 1);
+    if (PixelTanks.userData.stats[1] < price) return alert('Not Enough Crates'); else PixelTanks.userData.stats[1] -= a*(type ? 5 : 1);
     Menus.menus[Menus.current].removeListeners();
     for (let i = 0; i < a; i++) setTimeout(() => {
       let r = Math.floor(Math.random()*1001), delay = [1000, 500, 50][Math.floor(Math.log10(a))], name = ['cosmetics', 'deathEffects'][type], rarity = (r < 1 ? 'mythic' : (r < 10 ? 'legendary' : (r < 50 ? 'epic' : (r < 150) ? 'rare' : (r < 300 ? 'uncommon': 'common')))), n = Math.floor(Math.random()*this.crates[type][rarity].length), image = this.images[name].find(c => this.crates[type][rarity][n] === c.src.split('/').slice(-1).replace('.png', '')); 
@@ -674,7 +667,7 @@ class PixelTanks {
         PixelTanks.userData[name][i] = done = item+'#'+(Number(amount)+1);
       }
       if (!done) PixelTanks.userData[name].unshift(crate[type][rarity][number]+'#1');
-      Menus.menus.crate.reward = [item, type, rarity, this.crates[type][rarity][n].split('_').reduce((a, c) => (a.concat(c.charAt(0).toUpperCase()+c.slice(1))), []).join(' ')];
+      Menus.menus.crate.reward = [item, type, rarity, this.crates[type][rarity][n], this.crates[type][rarity][n].split('_').reduce((a, c) => (a.concat(c.charAt(0).toUpperCase()+c.slice(1))), []).join(' ')];
     }, i*delay);
     setTimeout(() => {
       Menus.menus.crate.reward = null;
