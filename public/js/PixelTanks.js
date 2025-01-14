@@ -243,7 +243,7 @@ class PixelTanks {
             if (this.reward[1]) GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-this.time)/PixelTanks.images[['cosmetics', 'deathEffects'][type]][this.reward[3]+'_'].speed)%PixelTanks.images[name][this.reward[3]+'_'].frames)*200, 0, 200, 200); else GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1);
             GUI.drawText('You Got', 800, 200, 100, '#ffffff', 0.5);
             GUI.drawText(this.reward[4], 800, 800, 50, '#ffffff', 0.5);
-            return GUI.drawText(rarity, 800, 900, 30, {mythic: '#FF0000', legendary: '#FFFF00', epic: '#A020F0', rare: '#0000FF', uncommon: '#32CD32', common: '#FFFFFF'}[this.reward[2]], 0.5);
+            return GUI.drawText(this.reward[2], 800, 900, 30, {mythic: '#FF0000', legendary: '#FFFF00', epic: '#A020F0', rare: '#0000FF', uncommon: '#32CD32', common: '#FFFFFF'}[this.reward[2]], 0.5);
           }
           GUI.drawText(`Crates: ${PixelTanks.userData.stats[1]}`, 800, 260, 30, '#ffffff', 0.5);
           GUI.draw.globalAlpha = 1;
