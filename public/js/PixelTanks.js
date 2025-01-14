@@ -656,11 +656,11 @@ class PixelTanks {
 
   static openCrate(type, a=1) {
     try {
-    const price = a*(type ? 5 : 1);
+    const price = a*(type ? 5 : 1), delay = [1000, 500, 50][Math.floor(Math.log10(a))];
     if (PixelTanks.userData.stats[1] < price) return alert('Not Enough Crates'); else PixelTanks.userData.stats[1] -= a*(type ? 5 : 1);
     Menus.menus[Menus.current].removeListeners();
     for (let i = 0; i < a; i++) setTimeout(() => {
-      let r = Math.floor(Math.random()*1001), delay = [1000, 500, 50][Math.floor(Math.log10(a))], name = ['cosmetics', 'deathEffects'][type], rarity = (r < 1 ? 'mythic' : (r < 10 ? 'legendary' : (r < 50 ? 'epic' : (r < 150) ? 'rare' : (r < 300 ? 'uncommon': 'common')))), n = Math.floor(Math.random()*this.crates[type][rarity].length), image = this.images[name].find(c => this.crates[type][rarity][n] === c.src.split('/').slice(-1).replace('.png', '')); 
+      let r = Math.floor(Math.random()*1001), name = ['cosmetics', 'deathEffects'][type], rarity = (r < 1 ? 'mythic' : (r < 10 ? 'legendary' : (r < 50 ? 'epic' : (r < 150) ? 'rare' : (r < 300 ? 'uncommon': 'common')))), n = Math.floor(Math.random()*this.crates[type][rarity].length), image = this.images[name].find(c => this.crates[type][rarity][n] === c.src.split('/').slice(-1).replace('.png', '')); 
       let done = false;
       for (const i in PixelTanks.userData[name]) {
         const [item, amount] = PixelTanks.userData[name][i].split('#');
