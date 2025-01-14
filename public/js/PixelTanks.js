@@ -660,6 +660,7 @@ class PixelTanks {
     if (PixelTanks.userData.stats[1] < price) return alert('Not Enough Crates'); else PixelTanks.userData.stats[1] -= a*(type ? 5 : 1);
     Menus.menus[Menus.current].removeListeners();
     for (let i = 0; i < a; i++) setTimeout(() => {
+      try {
       let r = Math.floor(Math.random()*1001), name = ['cosmetics', 'deathEffects'][type], rarity = (r < 1 ? 'mythic' : (r < 10 ? 'legendary' : (r < 50 ? 'epic' : (r < 150) ? 'rare' : (r < 300 ? 'uncommon': 'common')))), n = Math.floor(Math.random()*this.crates[type][rarity].length), image = this.images[name].find(c => this.crates[type][rarity][n] === c.src.split('/').slice(-1).replace('.png', '')); 
       let done = false;
       for (const i in PixelTanks.userData[name]) {
@@ -669,6 +670,7 @@ class PixelTanks {
       }
       if (!done) PixelTanks.userData[name].unshift(crate[type][rarity][number]+'#1');
       Menus.menus.crate.reward = [item, type, rarity, this.crates[type][rarity][n], this.crates[type][rarity][n].split('_').reduce((a, c) => (a.concat(c.charAt(0).toUpperCase()+c.slice(1))), []).join(' ')];
+      } catch(e) {alert(e)}
     }, i*delay);
     setTimeout(() => {
       Menus.menus.crate.reward = null;
