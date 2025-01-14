@@ -86,11 +86,11 @@ class PixelTanks {
       },
       main: {
         buttons: [
-          [972, 840, 88, 88, 'settings', true],
+          [922, 840, 88, 88, 'settings', true],
           [532, 616, 536, 136, 'multiplayer', true],
-          [648, 840, 88, 88, 'shop', true],
-          [540, 840, 88, 88, 'inventory', true],
-          [756, 840, 88, 88, 'crate', true],
+          [705, 840, 88, 88, 'shop', true],
+          [597, 838, 88, 88, 'inventory', true],
+          [813, 840, 88, 88, 'crate', true],
           [532, 392, 536, 136, 'world1', true],
         ],
         listeners: {
