@@ -655,6 +655,7 @@ class PixelTanks {
   }
 
   static openCrate(type, a=1) {
+    try {
     const price = a*(type ? 5 : 1);
     if (PixelTanks.userData.stats[1] < price) return alert('Not Enough Crates'); else PixelTanks.userData.stats[1] -= a*(type ? 5 : 1);
     Menus.menus[Menus.current].removeListeners();
@@ -674,6 +675,7 @@ class PixelTanks {
       Menus.menus[Menus.current].addListeners();
       PixelTanks.save();
     }, a*delay);
+    } catch(e) {alert(e)}
   }
 
   static hasKeybind = k => ['item1', 'item2', 'item3', 'item4', 'toolkit', 'grapple', 'boost', 'class', 'fire', 'powermissle', 'chat', 'pause'].some(v => PixelTanks.userData.keybinds[v] === k);
