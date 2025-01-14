@@ -99,6 +99,7 @@ class PixelTanks {
           } // BANNERS SWAP
         },
         cdraw: function() {
+          if (PixelTanks.userData.stats[1] === null) PixelTanks.userData.stats[1] = 10000;
           if (!PixelTanks.userData.banner) PixelTanks.userData.banner = 0; // TEMP BANNERS DB LINKER
           if (!PixelTanks.userData.perks) PixelTanks.userData.perks = [false, false, false, false, false, false, false, false, false];
           if (!PixelTanks.userData.perk) PixelTanks.userData.perk = [0, 0];
@@ -226,8 +227,8 @@ class PixelTanks {
       crate: {
         buttons: [
           [416, 20, 108, 108, 'main', true],
-          [232, 308, 488, 488, () => PixelTanks.openCrate(0, Menus.menus.crate.csize || 1), false],
-          [880, 308, 488, 488, () => PixelTanks.openCrate(1, Menus.menus.crate.dsize || 1), false],
+          [232, 308, 488, 488, () => PixelTanks.openCrate(0, Menus.menus.crate.csize), false],
+          [880, 308, 488, 488, () => PixelTanks.openCrate(1, Menus.menus.crate.dsize), false],
           [300, 816, 104, 52, () => (Menus.menus.crate.csize = 1), false],
           [424, 816, 104, 52, () => (Menus.menus.crate.csize = 10), false],
           [548, 816, 104, 52, () => (Menus.menus.crate.csize = 100), false],
@@ -653,7 +654,7 @@ class PixelTanks {
       });
   }
 
-  static openCrate(type, a) {
+  static openCrate(type, a=1) {
     const price = a*(type ? 5 : 1);
     if (PixelTanks.userData.stats[1] < price) return alert('Not Enough Crates'); else PixelTanks.userData.stats[1] -= a*(type ? 5 : 1);
     Menus.menus[Menus.current].removeListeners();
