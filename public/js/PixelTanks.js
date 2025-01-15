@@ -198,7 +198,9 @@ class PixelTanks {
         ],
         cdraw: function() {
           if (!this.gamemode) {
-            this.socket = new MegaSocket('', {keepAlive: true, autoconnect: false, reconnect: true});
+            this.socket = new MegaSocket('', {keepAlive: true, autoconnect: false, reconnect: false});
+            this.socket.on('connect', e => this.socket.send({event: 'ping'}));
+            this.socket.on('message', d => (this.output = d.data));
             this.gamemode = 'ffa';
             this.output = {FFA: '', DUELS: '', TDM: ''};
             this.ip = document.createElement('INPUT');
@@ -212,7 +214,11 @@ class PixelTanks {
             document.body.appendChild(this.ip);
             this.elements.push(this.ip);
           }
-          if (this.socket.url !== this.ip) {}
+          if (this.socket.url !== this.ip.value || this.socket.status === 'disconnected') {
+            this.socket.close();
+            this.socket.url = this.ip.value;
+            this.socket.connect();
+          }
           GUI.drawText(this.gamemode, 1200, 800, 50, '#FFFFFF', 0.5);
           GUI.drawText(this.output.FFA.length, 820, 434, 50, '#FFFFFF', 0.5);
           GUI.drawText(this.output.DUELS.length, 820, 590, 50, '#FFFFFF', 0.5);
