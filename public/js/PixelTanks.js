@@ -198,6 +198,7 @@ class PixelTanks {
         ],
         cdraw: function() {
           if (!this.gamemode) {
+            this.socket = new MegaSocket('', {keepAlive: true, autoconnect: false, reconnect: true});
             this.gamemode = 'ffa';
             this.output = {FFA: '', DUELS: '', TDM: ''};
             this.ip = document.createElement('INPUT');
@@ -211,6 +212,7 @@ class PixelTanks {
             document.body.appendChild(this.ip);
             this.elements.push(this.ip);
           }
+          if (this.socket.url !== this.ip) {}
           GUI.drawText(this.gamemode, 1200, 800, 50, '#FFFFFF', 0.5);
           GUI.drawText(this.output.FFA.length, 820, 434, 50, '#FFFFFF', 0.5);
           GUI.drawText(this.output.DUELS.length, 820, 590, 50, '#FFFFFF', 0.5);
@@ -544,11 +546,13 @@ class PixelTanks {
           [1068, 404, 136, 136, () => (Menus.menus.shop2.current = 6), true], // PixelTanks.purchase(1, 15) - 3
           [1236, 404, 136, 136, () => (Menus.menus.shop2.current = 7), true], // PixelTanks.purchase(1, 18) - 3
           [1404, 404, 136, 136, () => (Menus.menus.shop2.current = 8), true], // PixelTanks.purchase(1, 21) - 3
-          [793, 808, 194, 79, () => alert('in progress'), true]
+          [793, 808, 194, 79, () => {
+            let c = Menus.menus.shop2.current, p = PixelTanks.userData.perks[c];
+            PixelTanks.purchase(1, (p ? p+1 : 0)+[2, 3, 3, 3, 2, 2, 3, 3, 3].slice(0, c).reduce((a, b) => a+b, 0));
+          }, true]
         ],
         cdraw: function() {
           if (!this.current) this.current = 0;
-          this.loaded = false; // force rerender buttons next frame
           GUI.drawText(PixelTanks.userData.stats[0]+' coins', 800, 160, 50, 0x000000, 0.5);
           GUI.drawImage(PixelTanks.images.menus.perksheet, 600, 600, 400, 300, 1, 0, 0, 0, 0, undefined, this.current*400, 0, 400, 300);
         },
