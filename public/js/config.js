@@ -66,7 +66,7 @@ window.sourceMap = {
     common: ['explode', 'nuke', 'insta', 'evan'],
     uncommon: ['anvil', 'gameover', 'minecraft'],
     rare: ['darksouls', 'magic', 'shatter'],
-    epic: ['battery', 'skull', 'banhammer'],
+    epic: ['battery', 'skull', 'banhammer', 'blackhole'],
     legendary: ['error', 'tombstone', 'pokeball'],
     mythic: ['clicked', 'cat'],
     meta: {
@@ -89,6 +89,7 @@ window.sourceMap = {
       skull_: {frames: 11, speed: 50, kill: 1, type: 1},
       darksouls_: {frames: 56, speed: 50, kill: 33, type: 2},
       tombstone_: {frames: 36, speed: 50, kill: 8, type: 1},
+      blackhole_: {frames: 40, speed: 100, kill: 28, type: 2},
     }
   }
 }
