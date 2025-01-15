@@ -535,43 +535,23 @@ class PixelTanks {
         buttons: [
           [416, 20, 108, 108, 'main', true],
           [232, 208, 488, 96, 'shop', true],
-          //emergency cloak
-          [60, 404, 136, 136, () => PixelTanks.purchase(1, 0), true],
-          [60, 572, 136, 136, () => PixelTanks.purchase(1, 1), true],
-          //thermal armor
-          [228, 404, 136, 136, () => PixelTanks.purchase(1, 2), true],
-          [228, 572, 136, 136, () => PixelTanks.purchase(1, 3), true],
-          [228, 740, 136, 136, () => PixelTanks.purchase(1, 4), true],
-          //scav
-          [396, 404, 136, 136, () => PixelTanks.purchase(1, 5), true],
-          [396, 572, 136, 136, () => PixelTanks.purchase(1, 6), true],
-          [396, 740, 136, 136, () => PixelTanks.purchase(1, 7), true],
-          //lower cd
-          [564, 404, 136, 136, () => PixelTanks.purchase(1, 8), true],
-          [564, 572, 136, 136, () => PixelTanks.purchase(1, 9), true],
-          [564, 740, 136, 136, () => PixelTanks.purchase(1, 10), true],
-          //relfect boost
-          [732, 404, 136, 136, () => PixelTanks.purchase(1, 11), true],
-          [732, 572, 136, 136, () => PixelTanks.purchase(1, 12), true],
-          //double boost
-          [900, 404, 136, 136, () => PixelTanks.purchase(1, 13), true],
-          [900, 572, 136, 136, () => PixelTanks.purchase(1, 14), true],
-          //gripple
-          [1068, 404, 136, 136, () => PixelTanks.purchase(1, 15), true],
-          [1068, 572, 136, 136, () => PixelTanks.purchase(1, 16), true],
-          [1068, 740, 136, 136, () => PixelTanks.purchase(1, 17), true],
-          //ai
-          [1236, 404, 136, 136, () => PixelTanks.purchase(1, 18), true],
-          [1236, 572, 136, 136, () => PixelTanks.purchase(1, 19), true],
-          [1236, 740, 136, 136, () => PixelTanks.purchase(1, 20), true],
-          //living
-          [1404, 404, 136, 136, () => PixelTanks.purchase(1, 21), true],
-          [1404, 572, 136, 136, () => PixelTanks.purchase(1, 22), true],
-          [1404, 740, 136, 136, () => PixelTanks.purchase(1, 23), true],
+          [60, 404, 136, 136, () => (Menus.menus.shop2.current = 0), true], // PixelTanks.purchase(1, 0) - 2
+          [228, 404, 136, 136, () => (Menus.menus.shop2.current = 1), true], // PixelTanks.purchase(1, 2) - 3
+          [396, 404, 136, 136, () => (Menus.menus.shop2.current = 2), true], // PixelTanks.purchase(1, 5) - 3
+          [564, 404, 136, 136, () => (Menus.menus.shop2.current = 3), true], // PixelTanks.purchase(1, 8) - 3
+          [732, 404, 136, 136, () => (Menus.menus.shop2.current = 4), true], // PixelTanks.purchase(1, 11) - 2
+          [900, 404, 136, 136, () => (Menus.menus.shop2.current = 5), true], // PixelTanks.purchase(1, 13) - 2
+          [1068, 404, 136, 136, () => (Menus.menus.shop2.current = 6), true], // PixelTanks.purchase(1, 15) - 3
+          [1236, 404, 136, 136, () => (Menus.menus.shop2.current = 7), true], // PixelTanks.purchase(1, 18) - 3
+          [1404, 404, 136, 136, () => (Menus.menus.shop2.current = 8), true], // PixelTanks.purchase(1, 21) - 3
+          [793, 808, 194, 79, () => alert('in progress'), true]
         ],
-        keydown: function(e) {if (e.keyCode === 27) Menus.trigger('main')},
         cdraw: function() {
+          if (!this.current) this.current = 0;
+          this.loaded = false; // force rerender buttons next frame
           GUI.drawText(PixelTanks.userData.stats[0]+' coins', 800, 160, 50, 0x000000, 0.5);
+          GUI.drawImage(PixelTanks.images.menus[perks[i]], x[i%3], y[Math.floor(i/3)], 80, 80, 1, 0, 0, 0, 0, undefined, (level-1)*40, 0, 40, 40);
+          GUI.drawImage(PixelTanks.images.menus.perksheet, 600, 600, 400, 300, 1, 0, 0, 0, 0, undefined, this.current*400, 0, 400, 300);
         },
       },
       pause: {
