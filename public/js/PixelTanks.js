@@ -547,8 +547,8 @@ class PixelTanks {
           [1236, 404, 136, 136, () => (Menus.menus.shop2.current = 7), true], // PixelTanks.purchase(1, 18) - 3
           [1404, 404, 136, 136, () => (Menus.menus.shop2.current = 8), true], // PixelTanks.purchase(1, 21) - 3
           [793, 808, 194, 79, () => {
-            let c = Menus.menus.shop2.current, p = PixelTanks.userData.perks[c];
-            PixelTanks.purchase(1, (p ? p+1 : 0)+[2, 3, 3, 3, 2, 2, 3, 3, 3].slice(0, c).reduce((a, b) => a+b, 0));
+            let c = Menus.menus.shop2.current, p = PixelTanks.userData.perks[c], k = [2, 3, 3, 3, 2, 2, 3, 3, 3];
+            PixelTanks.purchase(1, (p ? Math.min(k[c], p+1) : 0)+k.slice(0, c).reduce((a, b) => a+b, 0));
           }, true]
         ],
         cdraw: function() {
