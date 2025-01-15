@@ -661,7 +661,10 @@ class PixelTanks {
     Menus.menus[Menus.current].removeListeners();
     for (let i = 0; i < a; i++) setTimeout(() => {
       try {
-      let r = Math.floor(Math.random()*1001), name = ['cosmetics', 'deathEffects'][type], rarity = (r < 1 ? 'mythic' : (r < 10 ? 'legendary' : (r < 50 ? 'epic' : (r < 150) ? 'rare' : (r < 300 ? 'uncommon': 'common')))), n = Math.floor(Math.random()*this.crates[type][rarity].length), image = Object.values(this.images[name]).find(c => this.crates[type][rarity][n] === c.src.split('/').slice(-1).replace('.png', '')); 
+      let r = Math.floor(Math.random()*1001), name = ['cosmetics', 'deathEffects'][type], rarity = (r < 1 ? 'mythic' : (r < 10 ? 'legendary' : (r < 50 ? 'epic' : (r < 150) ? 'rare' : (r < 300 ? 'uncommon': 'common')))), n = Math.floor(Math.random()*this.crates[type][rarity].length), image = Object.values(this.images[name]).find(c => {
+        alert('src: '+c.src+' sliced: '+c.src.split('/').slice(-1));
+        return this.crates[type][rarity][n] === c.src.split('/').slice(-1).replace('.png', '');
+      }); 
       let done = false;
       for (const i in PixelTanks.userData[name]) {
         const [item, amount] = PixelTanks.userData[name][i].split('#');
