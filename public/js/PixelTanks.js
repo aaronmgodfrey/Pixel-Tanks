@@ -190,7 +190,7 @@ class PixelTanks {
           [340, 376, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'ffa'), true],
           [340, 532, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'duels'), true],
           [340, 688, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'tdm'), true],
-          [340, 844, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'defense'), true],
+          [340, 844, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'cave leech'), true],
           [868, 848, 368, 88, () => {
             PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip.value, true, Menus.menus.multiplayer.gamemode);
             Menus.removeListeners();
