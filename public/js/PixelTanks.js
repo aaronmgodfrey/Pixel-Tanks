@@ -668,7 +668,7 @@ class PixelTanks {
         if (item !== this.crates[type][rarity][n]) continue;
         PixelTanks.userData[name][i] = done = item+'#'+(Number(amount)+1);
       }
-      if (!done) PixelTanks.userData[name].unshift(this.crates[type][rarity][number]+'#1');
+      if (!done) PixelTanks.userData[name].unshift(this.crates[type][rarity][n]+'#1');
       Menus.menus.crate.reward = [image, type, rarity, this.crates[type][rarity][n], this.crates[type][rarity][n].split('_').reduce((a, c) => (a.concat(c.charAt(0).toUpperCase()+c.slice(1))), []).join(' ')];
       } catch(e) {alert(e)}
     }, i*delay);
