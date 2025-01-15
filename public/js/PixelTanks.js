@@ -550,7 +550,6 @@ class PixelTanks {
           if (!this.current) this.current = 0;
           this.loaded = false; // force rerender buttons next frame
           GUI.drawText(PixelTanks.userData.stats[0]+' coins', 800, 160, 50, 0x000000, 0.5);
-          GUI.drawImage(PixelTanks.images.menus[perks[i]], x[i%3], y[Math.floor(i/3)], 80, 80, 1, 0, 0, 0, 0, undefined, (level-1)*40, 0, 40, 40);
           GUI.drawImage(PixelTanks.images.menus.perksheet, 600, 600, 400, 300, 1, 0, 0, 0, 0, undefined, this.current*400, 0, 400, 300);
         },
       },
