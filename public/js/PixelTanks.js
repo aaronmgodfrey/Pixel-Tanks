@@ -256,8 +256,10 @@ class PixelTanks {
           GUI.drawText(`Crates: ${PixelTanks.userData.stats[1]}`, 800, 260, 30, '#ffffff', 0.5);
           GUI.draw.strokeStyle = '#FFFF00';
           GUI.draw.lineWidth = 10;
-          GUI.draw.strokeRect([300, 424, 548][Math.log10(this.csize)], 816, 104, 52);
-          GUI.draw.strokeRect([948, 1072, 1196][Math.log10(this.dsize)], 816, 104, 52);
+          1, 10, 100
+          10, 100, 1000
+          GUI.draw.strokeRect([300, 424, 548][Math.log10(this.csize*10)-1], 816, 104, 52);
+          GUI.draw.strokeRect([948, 1072, 1196][Math.log10(this.dsize*10)-1], 816, 104, 52);
         }
       },
       settings: {
