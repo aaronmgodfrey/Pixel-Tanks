@@ -221,6 +221,7 @@ class PixelTanks {
             });
             this.socket.on('message', d => {
               if (d.event === 'preview') this.preview = d;
+              if (this.currentRoom >= Object.values(this.preview[this.gamemode]).length) this.currentRoom = 0;
             });
             document.body.appendChild(this.ip);
             this.elements.push(this.ip);
