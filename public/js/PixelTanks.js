@@ -208,7 +208,7 @@ class PixelTanks {
             this.ip.h = 72;
             this.ip.style = 'top: '+(.240*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.592)+'px; height: '+(window.innerHeight*.072)+'px;';
             this.ip.value = '129.146.45.71:443';
-            this.socket = new MegaSocket(this.ip.value, {keepAlive: true, autoconnect: true, reconnect: false});
+            this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value, {keepAlive: true, autoconnect: true, reconnect: false});
             this.socket.on('connect', e => this.socket.send({event: 'ping'}));
             this.socket.on('message', d => (this.output = d.data));
             document.body.appendChild(this.ip);
