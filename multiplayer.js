@@ -952,7 +952,7 @@ wss.on('connection', socket => {
     } else if (data.type === 'preview') {
       const m = {event: 'preview', ffa: {}, tdm: {}, duels: {}, p: 0, tickspeed};
       for (const room in servers) for (const type in joinKey) if (servers[room] instanceof joinKey[type]) {
-        m[type][room] = servers[room].pt.reduce((a, c) => a.concat(c.username), []);
+        m[type][room] = servers[room].pt.reduce((a, c) => a.concat((c.ded ? '.' : '')+c.username), []);
         m.p++;
       }
       socket.send(m);
