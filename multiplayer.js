@@ -916,7 +916,8 @@ wss.on('connection', socket => {
       let server;
       if (data.room) {
         if (data.room.length > 6) return socket.kick('Invalid Room.'); 
-        servers[data.room] = server = servers[data.room] || new joinKey[data.gamemode]();
+        if (!servers[data.room]) servers[data.room] = new joinKey[data.gamemode]();
+        server = data.room;
       } else {
         for (const id in servers) { // OPTIMIZE THIS
           if (servers[id] instanceof joinKey[data.gamemode]) {
