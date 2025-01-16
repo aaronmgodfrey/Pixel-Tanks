@@ -199,7 +199,6 @@ class PixelTanks {
         cdraw: function() {
           if (!this.gamemode) {
             this.gamemode = 'ffa';
-            this.output = {FFA: '', DUELS: '', TDM: ''};
             this.ip = document.createElement('INPUT');
             const left = (window.innerWidth-window.innerHeight*1.6)/2+.504*window.innerHeight;
             this.ip.x = 504;
@@ -210,7 +209,9 @@ class PixelTanks {
             this.ip.value = '129.146.45.71:443';
             this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value, {keepAlive: true, autoconnect: true, reconnect: false});
             this.socket.on('connect', e => this.socket.send({event: 'ping'}));
-            this.socket.on('message', d => (this.output = d.data));
+            this.socket.on('message', d => {
+              if (d.event === 'preview') this.preview = d.data;
+            });
             document.body.appendChild(this.ip);
             this.elements.push(this.ip);
           }
@@ -220,14 +221,13 @@ class PixelTanks {
             this.socket.connect();
           }
           GUI.drawText(this.gamemode, 1200, 800, 50, '#FFFFFF', 0.5);
-          GUI.drawText(this.output.FFA.length, 820, 434, 50, '#FFFFFF', 0.5);
-          GUI.drawText(this.output.DUELS.length, 820, 590, 50, '#FFFFFF', 0.5);
-          GUI.drawText(this.output.TDM.length, 820, 764, 50, '#FFFFFF', 0.5);
-          let offset = 0;
-          for (const server of this.output[this.gamemode.toUpperCase()]) {
-            if (server !== null) for (const player of server) {
-              GUI.drawText(player, 880, 400+40*offset, 50, '#FFFFFF', 0);
-              offset++;
+          if (this.preview) {
+            GUI.drawText(JSON.stringify(this.preview), 800, 300, 20, '#ffffff', 0.5);
+            GUI.drawText(Object.values(this.preview.ffa).length, 820, 434, 50, '#FFFFFF', 0.5);
+            GUI.drawText(Object.values(this.preview.duels).length, 820, 590, 50, '#FFFFFF', 0.5);
+            GUI.drawText(Object.values(this.preview.tdm).length, 820, 764, 50, '#FFFFFF', 0.5);
+            for (const room in this.preview[this.gamemode]) {
+              
             }
           }
         }
