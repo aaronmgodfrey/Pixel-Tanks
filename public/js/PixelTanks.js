@@ -254,16 +254,10 @@ class PixelTanks {
             return GUI.drawText(this.reward[2], 800, 900, 30, {mythic: '#FF0000', legendary: '#FFFF00', epic: '#A020F0', rare: '#0000FF', uncommon: '#32CD32', common: '#FFFFFF'}[this.reward[2]], 0.5);
           }
           GUI.drawText(`Crates: ${PixelTanks.userData.stats[1]}`, 800, 260, 30, '#ffffff', 0.5);
-          GUI.draw.globalAlpha = 1;
           GUI.draw.strokeStyle = '#FFFF00';
           GUI.draw.lineWidth = 10;
-          if (cosmetAmount === 1) GUI.draw.strokeRect(300, 816, 104, 52);
-          if (cosmetAmount === 10) GUI.draw.strokeRect(424, 816, 104, 52);
-          if (cosmetAmount === 100) GUI.draw.strokeRect(548, 816, 104, 52);
-          if (deathAmount === 1) GUI.draw.strokeRect(948, 816, 104, 52);
-          if (deathAmount === 10) GUI.draw.strokeRect(1072, 816, 104, 52);
-          if (deathAmount === 100) GUI.draw.strokeRect(1196, 816, 104, 52);
-          
+          GUI.draw.strokeRect([300, 424, 548][Math.log10(this.csize)], 816, 104, 52);
+          GUI.draw.strokeRect([948, 1072, 1196][Math.log10(this.dsize)], 816, 104, 52);
         }
       },
       settings: {
