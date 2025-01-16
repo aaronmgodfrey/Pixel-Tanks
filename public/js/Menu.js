@@ -1,4 +1,3 @@
-try {
 class Menu {
   static {
     this.scaler = document.createElement('CANVAS');
@@ -59,4 +58,3 @@ class Menu {
     if (!this.loaded) this.loaded = this.compile() || 1;
   }
 }
-} catch(e) {alert(e)}
