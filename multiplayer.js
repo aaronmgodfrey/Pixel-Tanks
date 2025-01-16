@@ -1,5 +1,4 @@
 const settings = {
-  name: 'Pixel Tanks',
   authserver: 'localhost',
   players_per_room: 20,
   upsl: 120,
@@ -915,17 +914,22 @@ wss.on('connection', socket => {
         return setTimeout(() => socket.close());
       }*/
       let server;
-      for (const id in servers) { // OPTIMIZE THIS
-        if (servers[id] instanceof joinKey[data.gamemode]) {
-          if (data.gamemode === 'ffa' && servers[id].pt.length >= settings.players_per_room) continue;
-          if (data.gamemode === 'duels' && servers[id].pt.length !== 1) continue;
-          if (data.gamemode === 'tdm' && servers[id].mode !== 0) continue;
-          if (data.gamemode === 'defense' && servers[id].pt.length > 10) continue;
-          server = id;
-          break;
+      if (data.room) {
+        if (data.room.length > 6) return socket.kick('Invalid Room.'); 
+        servers[data.room] = server = servers[data.room] || new joinKey[data.gamemode]();
+      } else {
+        for (const id in servers) { // OPTIMIZE THIS
+          if (servers[id] instanceof joinKey[data.gamemode]) {
+            if (data.gamemode === 'ffa' && servers[id].pt.length >= settings.players_per_room) continue;
+            if (data.gamemode === 'duels' && servers[id].pt.length !== 1) continue;
+            if (data.gamemode === 'tdm' && servers[id].mode !== 0) continue;
+            if (data.gamemode === 'defense' && servers[id].pt.length > 10) continue;
+            server = id;
+            break;
+          }
         }
+        if (!server) servers[server = genID()] = new joinKey[data.gamemode]();
       }
-      if (!server) servers[server = genID()] = new joinKey[data.gamemode]();
       if (servers[server].pt.some(t => t.username === socket.username)) return socket.kick('You are already in the server!');
       socket.room = server;
       data.tank.authority = ''; // OPTIMIZE THIS
