@@ -238,7 +238,7 @@ class PixelTanks {
             GUI.drawText(Object.values(this.preview.tdm).length, 678, 712, 50, '#000000', 0.5);
             let room = Object.keys(this.preview[this.gamemode])[this.currentRoom], players = Object.values(this.preview[this.gamemode])[this.currentRoom];
             GUI.drawText(!Object.values(this.preview[this.gamemode]).length ? 'No Rooms' : 'Room('+(this.currentRoom+1)+'/'+Object.values(this.preview[this.gamemode]).length+') '+Object.keys(this.preview[this.gamemode])[this.currentRoom], 1047, 410, 50, '#ffffff', 0.5);
-            for (let i = 0; i < players.length; i++) GUI.drawText(players[i].replace('#', ''), 1047, 452+25*i, 20, players[i].includes('#') ? '#A9A9A9' : '#ffffff', 0.5);
+            for (let i = 0; i < players.length; i++) GUI.drawText(players[i].replace('#', ''), 1047, 452+25*i, 20, players[i].includes('#') ? '#454545' : '#ffffff', 0.5);
           }
         }
       },
