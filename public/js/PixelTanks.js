@@ -199,7 +199,7 @@ class PixelTanks {
         listeners: {
           keydown: function(e) {
             if (e.keyCode === 37 && this.currentRoom > 0) this.currentRoom--;
-            if (e.keyCode === 39) if (this.currentRoom+1 >= Object.values(this.preview[this.gamemode]).length) this.currentRoom++; else this.currentRoom = 0;
+            if (e.keyCode === 39) if (this.currentRoom+1 < Object.values(this.preview[this.gamemode]).length) this.currentRoom++; else this.currentRoom = 0;
           }
         },
         cdraw: function() {
@@ -237,7 +237,7 @@ class PixelTanks {
             GUI.drawText(Object.values(this.preview.duels).length, 678, 562, 50, '#FFFFFF', 0.5);
             GUI.drawText(Object.values(this.preview.tdm).length, 678, 712, 50, '#FFFFFF', 0.5);
             let room = Object.keys(this.preview[this.gamemode])[this.currentRoom], players = Object.values(this.preview[this.gamemode])[this.currentRoom];
-            GUI.drawText('Room('+this.currentRoom+'/'+Object.values(this.preview[this.gamemode]).length+') '+this.preroom, 1047, 396, 50, '#ffffff', 0.5);
+            GUI.drawText('Room('+this.currentRoom+'/'+Object.values(this.preview[this.gamemode]).length+') '+Object.keys(this.preview[this.gamemode])[this.currentRoom], 1047, 396, 50, '#ffffff', 0.5);
             for (let i = 0; i < players.length; i++) GUI.drawText(players[i].replace('#', ''), 1047, 452+25*i, 20, players[i].includes('#') ? '#A9A9A9' : '#ffffff', 0.5);
           }
         }
