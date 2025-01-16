@@ -220,7 +220,7 @@ class PixelTanks {
             document.body.appendChild(this.ip);
             this.elements.push(this.ip);
           }
-          if (this.socket.url !== this.ip.value || this.socket.status === 'disconnected') {
+          if (this.socket.url.replace('ws://', '').replace('wss://', '') !== this.ip.value || this.socket.status === 'disconnected') {
             this.socket.close();
             this.socket.url = (window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value;
             this.socket.connect();
