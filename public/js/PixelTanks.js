@@ -198,9 +198,6 @@ class PixelTanks {
         ],
         cdraw: function() {
           if (!this.gamemode) {
-            this.socket = new MegaSocket('', {keepAlive: true, autoconnect: false, reconnect: false});
-            this.socket.on('connect', e => this.socket.send({event: 'ping'}));
-            this.socket.on('message', d => (this.output = d.data));
             this.gamemode = 'ffa';
             this.output = {FFA: '', DUELS: '', TDM: ''};
             this.ip = document.createElement('INPUT');
@@ -211,6 +208,9 @@ class PixelTanks {
             this.ip.h = 72;
             this.ip.style = 'top: '+(.240*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.592)+'px; height: '+(window.innerHeight*.072)+'px;';
             this.ip.value = '129.146.45.71:443';
+            this.socket = new MegaSocket(this.ip.value, {keepAlive: true, autoconnect: true, reconnect: false});
+            this.socket.on('connect', e => this.socket.send({event: 'ping'}));
+            this.socket.on('message', d => (this.output = d.data));
             document.body.appendChild(this.ip);
             this.elements.push(this.ip);
           }
