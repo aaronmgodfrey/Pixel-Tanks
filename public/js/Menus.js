@@ -27,7 +27,10 @@ class Menus {
   static redraw() {
     if (Menus.current) Menus.menus[Menus.current].draw();
   }
-  static removeListeners = () => Menus.stop() && Menus.menus[Menus.current].removeListeners();
+  static removeListeners() {
+    Menus.stop();
+    Menus.menus[Menus.current].removeListeners();
+  }
   static menus = {
     start: {
       buttons: [
