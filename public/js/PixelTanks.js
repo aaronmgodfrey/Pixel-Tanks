@@ -211,7 +211,7 @@ class PixelTanks {
             this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value, {keepAlive: true, autoconnect: true, reconnect: false});
             this.socket.on('connect', e => {
               alert('Connected to '+this.socket.url);
-              this.socket.send({event: 'preview'})
+              this.socket.send({type: 'preview'})
             });
             this.socket.on('message', d => {
               alert(JSON.stringify(d));
