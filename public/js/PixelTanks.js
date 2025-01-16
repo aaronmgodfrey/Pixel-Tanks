@@ -199,6 +199,7 @@ class PixelTanks {
         cdraw: function() {
           if (!this.gamemode) {
             this.gamemode = 'ffa';
+            this.currentRoom = 0;
             this.ip = document.createElement('INPUT');
             const left = (window.innerWidth-window.innerHeight*1.6)/2+.504*window.innerHeight;
             this.ip.x = 504;
@@ -208,7 +209,7 @@ class PixelTanks {
             this.ip.style = 'top: '+(.240*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.592)+'px; height: '+(window.innerHeight*.072)+'px;';
             this.ip.value = '129.146.45.71:443';
             this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value, {keepAlive: true, autoconnect: true, reconnect: false});
-            this.socket.on('connect', e => this.socket.send({event: 'ping'}));
+            this.socket.on('connect', e => this.socket.send({event: 'preview'}));
             this.socket.on('message', d => {
               if (d.event === 'preview') this.preview = d.data;
             });
@@ -226,6 +227,7 @@ class PixelTanks {
             GUI.drawText(Object.values(this.preview.ffa).length, 820, 434, 50, '#FFFFFF', 0.5);
             GUI.drawText(Object.values(this.preview.duels).length, 820, 590, 50, '#FFFFFF', 0.5);
             GUI.drawText(Object.values(this.preview.tdm).length, 820, 764, 50, '#FFFFFF', 0.5);
+            
             for (const room in this.preview[this.gamemode]) {
               
             }
