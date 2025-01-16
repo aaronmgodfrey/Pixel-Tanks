@@ -1,83 +1,59 @@
 class Menus {
-  static start() {
-    Menus.renderer = requestAnimationFrame(Menus.render);
-  }
-  
-  static render() {
-    Menus.renderer = requestAnimationFrame(Menus.render);
-    GUI.clear();
-    Menus.redraw();
-  }
-  
-  static mouseLog(e) {
+  static start = () => (Menus.renderer = requestAnimationFrame(Menus.render));
+  static render = () => Menus.start() && GUI.clear() && Menus.redraw();
+  static mouseLog = e => {
     Menus.x = (e.clientX-(window.innerWidth-window.innerHeight*1.6)/2)/window.innerHeight*1000;
     Menus.y = e.clientY/window.innerHeight*1000;
   }
-  
-  static stop() {
-    cancelAnimationFrame(Menus.renderer);
-    Menus.renderer = undefined;
-  }
-  
+  static stop = () => (Menus.renderer = cancelAnimationFrame(Menus.renderer));
   static trigger(name) {
     if (Menus.current) Menus.menus[Menus.current].removeListeners();
-    if (Menus.renderer === undefined) Menus.start();
-    Menus.current = name;
-    Menus.menus[Menus.current].addListeners();
+    if (!Menus.renderer) Menus.start();
+    Menus.menus[Menus.current = name].addListeners();
   }
-
   static softTrigger(name) {
-    PixelTanks.user.player.menu = name;
-    for (const b of Menus.menus[name].elements) b.style.visibility = 'visible';
+    for (const b of Menus.menus[PixelTanks.user.player.menu = name].elements) b.style.visibility = 'visible';
   }
-
   static softUntrigger() {
     for (const b of Menus.menus[PixelTanks.user.player.menu].elements) b.style.visibility = 'hidden';
     PixelTanks.user.player.menu = false;
   }
-  
   static redraw() {
-    if (!Menus.current) return; else Menus.menus[Menus.current].draw();
+    if (Menus.current) Menus.menus[Menus.current].draw();
   }
-  
-  static removeListeners() {
-    Menus.stop();
-    Menus.menus[Menus.current].removeListeners();
-  }
-
+  static removeListeners = () => Menus.stop() && Menus.menus[Menus.current].removeListeners();
   static menus = {
-  start: {
-    buttons: [
-            [544, 648, 216, 116, () => PixelTanks.auth(Menus.menus.start.username.value, Menus.menus.start.password.value, 'login'), true],
-            [840, 648, 216, 116, () => PixelTanks.auth(Menus.menus.start.username.value, Menus.menus.start.password.value, 'signup'), true],
-          ],
-          listeners: {
-            keydown: function(e) {
-              if (e.keyCode === 13) PixelTanks.auth(this.username.value, this.password.value, 'login');
-            }
-          },
-        cdraw: function() {
-          if (!this.username) {
-            this.username = document.createElement('INPUT');
-            this.password = document.createElement('INPUT');
-            const left = (window.innerWidth-window.innerHeight*1.6)/2+.564*window.innerHeight;
-            this.username.x = this.password.x = 564;
-            this.username.w = this.password.w = 456;
-            this.username.h = this.password.h = 80;
-            this.username.y = 392;
-            this.password.y = 520;
-            this.username.style = 'top: '+(.392*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
-            this.password.style = 'top: '+(.520*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
-            this.username.type = this.username.autocomplete = 'username';
-            this.password.type = 'password';
-            this.password.autocomplete = 'current-password';
-            this.password.maxLength = (this.username.maxLength = 20)*5;
-            document.body.appendChild(this.username);
-            document.body.appendChild(this.password);
-            this.elements.push(this.username, this.password);
-          }
-        },
+    start: {
+      buttons: [
+        [544, 648, 216, 116, () => PixelTanks.auth(Menus.menus.start.username.value, Menus.menus.start.password.value, 'login'), true],
+        [840, 648, 216, 116, () => PixelTanks.auth(Menus.menus.start.username.value, Menus.menus.start.password.value, 'signup'), true],
+      ],
+      listeners: {
+        keydown: function(e) {
+          if (e.keyCode === 13) PixelTanks.auth(this.username.value, this.password.value, 'login');
+        }
       },
+      cdraw: function() {
+        if (!this.username) {
+          this.username = document.createElement('INPUT');
+          this.password = document.createElement('INPUT');
+          const left = (window.innerWidth-window.innerHeight*1.6)/2+.564*window.innerHeight;
+          this.username.x = this.password.x = 564;
+          this.username.w = this.password.w = 456;
+          this.username.h = this.password.h = 80;
+          this.username.y = 392;
+          this.password.y = 520;
+          this.username.style = 'top: '+(.392*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
+          this.password.style = 'top: '+(.520*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
+          this.username.type = this.username.autocomplete = 'username';
+          this.password.type = 'password';
+          this.password.autocomplete = 'current-password';
+          this.password.maxLength = (this.username.maxLength = 20)*5;
+          document.body.append(this.username, this.password);
+          this.elements.push(this.username, this.password);
+        }
+      },
+    },
       main: {
         buttons: [
           [922, 840, 88, 88, 'settings', true],
