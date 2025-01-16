@@ -216,7 +216,7 @@ class PixelTanks {
           }
           if (this.socket.url !== this.ip.value || this.socket.status === 'disconnected') {
             this.socket.close();
-            this.socket.url = this.ip.value;
+            this.socket.url = (window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value;
             this.socket.connect();
           }
           GUI.drawText(this.gamemode, 1200, 800, 50, '#FFFFFF', 0.5);
