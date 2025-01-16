@@ -70,7 +70,7 @@ const hasAccess = (username, clearanceLevel) => { // 1 => full auth only, 2 => a
   return (clearanceLevel === 4 || Storage.owners.includes(username)) || (clearanceLevel === 3 && (isVIP || isAdmin)) || (clearanceLevel === 2 && isAdmin);
 }
 const alpha = [...'abcdefghijklmnopqrstuvwxyz'], genID = () => {
-  let id;
+  let id = '';
   for (let i = 0; i < 6; i++) id += alpha[Math.floor(Math.random()*26)].toUpperCase();
   return Object.keys(servers).includes(id) ? genID() : id;
 }
