@@ -230,14 +230,13 @@ class PixelTanks {
             this.socket.url = (window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value.split('#')[0];
             this.socket.connect();
           } else if (this.socket.status === 'connected') if (Math.floor((Date.now()-this.time)/15)%6 === 0) this.socket.send({type: 'preview'});
-          GUI.drawText(this.gamemode, 1200, 800, 50, '#FFFFFF', 0.5);
+          GUI.drawText(this.gamemode.toUpperCase(), 1047, 800, 50, '#FFFFFF', 0.5);
           if (this.preview) {
-            GUI.drawText(JSON.stringify(this.preview), 800, 100, 20, '#000000', 0.5);
-            GUI.drawText(Object.values(this.preview.ffa).length, 678, 408, 50, '#FFFFFF', 0.5);
-            GUI.drawText(Object.values(this.preview.duels).length, 678, 562, 50, '#FFFFFF', 0.5);
-            GUI.drawText(Object.values(this.preview.tdm).length, 678, 712, 50, '#FFFFFF', 0.5);
+            GUI.drawText(Object.values(this.preview.ffa).length, 678, 408, 50, '#000000', 0.5);
+            GUI.drawText(Object.values(this.preview.duels).length, 678, 562, 50, '#000000', 0.5);
+            GUI.drawText(Object.values(this.preview.tdm).length, 678, 712, 50, '#000000', 0.5);
             let room = Object.keys(this.preview[this.gamemode])[this.currentRoom], players = Object.values(this.preview[this.gamemode])[this.currentRoom];
-            GUI.drawText(!Object.values(this.preview[this.gamemode]).length ? 'No Rooms' : 'Room('+(this.currentRoom+1)+'/'+Object.values(this.preview[this.gamemode]).length+') '+Object.keys(this.preview[this.gamemode])[this.currentRoom], 1047, 396, 50, '#ffffff', 0.5);
+            GUI.drawText(!Object.values(this.preview[this.gamemode]).length ? 'No Rooms' : 'Room('+(this.currentRoom+1)+'/'+Object.values(this.preview[this.gamemode]).length+') '+Object.keys(this.preview[this.gamemode])[this.currentRoom], 1047, 410, 50, '#ffffff', 0.5);
             for (let i = 0; i < players.length; i++) GUI.drawText(players[i].replace('#', ''), 1047, 452+25*i, 20, players[i].includes('#') ? '#A9A9A9' : '#ffffff', 0.5);
           }
         }
