@@ -1,6 +1,12 @@
 class Menus {
-  static start = () => (Menus.renderer = requestAnimationFrame(Menus.render));
-  static render = () => Menus.start() && GUI.clear() && Menus.redraw();
+  static start() {
+    Menus.renderer = requestAnimationFrame(Menus.render);
+  }
+  static render() {
+    Menus.renderer = requestAnimationFrame(Menus.render);
+    GUI.clear();
+    Menus.redraw();
+  }
   static mouseLog = e => {
     Menus.x = (e.clientX-(window.innerWidth-window.innerHeight*1.6)/2)/window.innerHeight*1000;
     Menus.y = e.clientY/window.innerHeight*1000;
