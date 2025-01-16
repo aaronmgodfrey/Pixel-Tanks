@@ -70,6 +70,11 @@ const hasAccess = (username, clearanceLevel) => { // 1 => full auth only, 2 => a
   const isAdmin = Storage.admins.includes(username), isVIP = Storage.vips.includes(username);
   return (clearanceLevel === 4 || Storage.owners.includes(username)) || (clearanceLevel === 3 && (isVIP || isAdmin)) || (clearanceLevel === 2 && isAdmin);
 }
+const alpha = [...'abcdefghijklmnopqrstuvwxyz'], genID = () => {
+  let id;
+  for (let i = 0; i < 6; i++) id += alpha[Math.floor(Math.random()*26)].toUpperCase();
+  return Object.keys(servers).includes(id) ? genID() : id;
+}
 const auth = async(username, token) => {
   const response = await fetch('http://'+settings.authserver+`/verify?username=${username}&token=${token}`);
   const text = await response.text();
@@ -920,7 +925,7 @@ wss.on('connection', socket => {
           break;
         }
       }
-      if (!server) servers[server = Math.random()] = new joinKey[data.gamemode]();
+      if (!server) servers[server = genID()] = new joinKey[data.gamemode]();
       if (servers[server].pt.some(t => t.username === socket.username)) return socket.kick('You are already in the server!');
       socket.room = server;
       data.tank.authority = ''; // OPTIMIZE THIS
