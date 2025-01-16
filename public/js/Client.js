@@ -49,7 +49,8 @@ class Client {
     this.paused = this.canRespawn = false;
     this.multiplayer = multiplayer;
     this.gamemode = gamemode;
-    this.ip = ip;
+    this.ip = ip.split('#')[0];
+    if (ip.includes('#')) this.room = ip.split('#')[1];
     this.left = this.up = null;
     this.lastUpdate = {};
     this.speed = 4;
@@ -62,7 +63,7 @@ class Client {
     this.ups = [];
     this.fps = [];
     this.pings = [];
-    this.joinData = {username: PixelTanks.user.username, token: PixelTanks.user.token, type: 'join', gamemode: this.gamemode, tank: {rank: PixelTanks.userData.stats[4], perk: PixelTanks.userData.perk, username: PixelTanks.user.username, class: PixelTanks.userData.class, cosmetic_hat: PixelTanks.userData.cosmetic_hat, cosmetic: PixelTanks.userData.cosmetic, cosmetic_body: PixelTanks.userData.cosmetic_body, deathEffect: PixelTanks.userData.deathEffect, color: PixelTanks.userData.color === "random" ? Engine.getRandomColor() : PixelTanks.userData.color}};
+    this.joinData = {username: PixelTanks.user.username, token: PixelTanks.user.token, type: 'join', room: this.room, gamemode: this.gamemode, tank: {rank: PixelTanks.userData.stats[4], perk: PixelTanks.userData.perk, username: PixelTanks.user.username, class: PixelTanks.userData.class, cosmetic_hat: PixelTanks.userData.cosmetic_hat, cosmetic: PixelTanks.userData.cosmetic, cosmetic_body: PixelTanks.userData.cosmetic_body, deathEffect: PixelTanks.userData.deathEffect, color: PixelTanks.userData.color === "random" ? Engine.getRandomColor() : PixelTanks.userData.color}};
     this.reset();
     if (this.multiplayer) this.connect();
     if (!this.multiplayer) this.generateWorld();
