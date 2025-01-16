@@ -948,7 +948,10 @@ wss.on('connection', socket => {
       if (!hasAccess(socket.username, f[1])) return socket.send({status: 'error', message: `You don't have access to this.`});
       log(`${socket.username} ran command: ${data.data.join(' ')}`);
       f[3](data.data, socket, server, t, t.privateLogs);
-    } else if (data.type === 'list') {
+    } else if (data.type === 'preview') {
+      const d = {}, gamemode = data.gamemode || 'ffa';
+      for (const room in servers) if (servers[room] instanceof joinKey[gamemode]) d[room] = servers[room].pt.reduce((a, c) => a.concat(c.username), []);
+      
       socket.send({event: 'list', players: servers[socket.room].pt.reduce((a, c) => a.concat(c.username), [])});
     } else if (data.type === 'stats') {
       let gamemodes = {FFA: [], DUELS: [], TDM: [], Defense: [], event: 'stats'};
