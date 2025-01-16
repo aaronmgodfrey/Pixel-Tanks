@@ -215,7 +215,7 @@ class PixelTanks {
             this.ip.h = 72;
             this.ip.style = 'top: '+(.240*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.592)+'px; height: '+(window.innerHeight*.072)+'px;';
             this.ip.value = '129.146.45.71:443';
-            this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value, {keepAlive: true, autoconnect: true, reconnect: false});
+            this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value.split('#')[0], {keepAlive: true, autoconnect: true, reconnect: false});
             this.socket.on('connect', e => {
               this.socket.send({type: 'preview'});
             });
@@ -225,9 +225,9 @@ class PixelTanks {
             document.body.appendChild(this.ip);
             this.elements.push(this.ip);
           }
-          if (this.socket.url.replace('ws://', '').replace('wss://', '') !== this.ip.value || this.socket.status === 'disconnected') {
+          if (this.socket.url.replace('ws://', '').replace('wss://', '') !== this.ip.value.split('#')[0] || this.socket.status === 'disconnected') {
             this.socket.close();
-            this.socket.url = (window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value;
+            this.socket.url = (window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value.split('#')[0];
             this.socket.connect();
           } else if (this.socket.status === 'connected') if (Math.floor((Date.now()-this.time)/15)%300 === 0) this.socket.send({type: 'preview'});
           GUI.drawText(this.gamemode, 1200, 800, 50, '#FFFFFF', 0.5);
