@@ -204,6 +204,7 @@ class PixelTanks {
         },
         cdraw: function() {
           if (!this.gamemode) {
+            this.time = Date.now();
             this.gamemode = 'ffa';
             this.currentRoom = 0;
             this.ip = document.createElement('INPUT');
@@ -216,11 +217,9 @@ class PixelTanks {
             this.ip.value = '129.146.45.71:443';
             this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value, {keepAlive: true, autoconnect: true, reconnect: false});
             this.socket.on('connect', e => {
-              alert('Connected to '+this.socket.url);
-              this.socket.send({type: 'preview'})
+              this.socket.send({type: 'preview'});
             });
             this.socket.on('message', d => {
-              alert(JSON.stringify(d));
               if (d.event === 'preview') this.preview = d;
             });
             document.body.appendChild(this.ip);
@@ -230,16 +229,16 @@ class PixelTanks {
             this.socket.close();
             this.socket.url = (window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value;
             this.socket.connect();
-          }
+          } else if (this.socket.status === 'connected') if (Math.floor((Date.now()-this.time)/15)%300 === 0) this.socket.send({type: 'preview'});
           GUI.drawText(this.gamemode, 1200, 800, 50, '#FFFFFF', 0.5);
           if (this.preview) {
             GUI.drawText(JSON.stringify(this.preview), 800, 100, 20, '#000000', 0.5);
-            GUI.drawText(Object.values(this.preview.ffa).length, 820, 434, 50, '#FFFFFF', 0.5);
-            GUI.drawText(Object.values(this.preview.duels).length, 820, 590, 50, '#FFFFFF', 0.5);
-            GUI.drawText(Object.values(this.preview.tdm).length, 820, 764, 50, '#FFFFFF', 0.5);
+            GUI.drawText(Object.values(this.preview.ffa).length, 678, 408, 50, '#FFFFFF', 0.5);
+            GUI.drawText(Object.values(this.preview.duels).length, 678, 562, 50, '#FFFFFF', 0.5);
+            GUI.drawText(Object.values(this.preview.tdm).length, 678, 712, 50, '#FFFFFF', 0.5);
             let room = Object.keys(this.preview[this.gamemode])[this.currentRoom], players = Object.values(this.preview[this.gamemode])[this.currentRoom];
-            GUI.drawText('Room: '+room, 1010, 764, 50, '#ffffff', 0);
-            GUI.drawText('Players: '+JSON.stringify(players), 1010, 850, 50, '#ffffff', 0);
+            GUI.drawText('Room('+this.currentRoom+'/'+Object.values(this.preview[this.gamemode]).length+') '+this.preroom, 1047, 396, 50, '#ffffff', 0.5);
+            for (let i = 0; i < players.length; i++) GUI.drawText(players[i].replace('#', ''), 1047, 452+25*i, 20, players[i].includes('#') ? '#A9A9A9' : '#ffffff', 0.5);
           }
         }
       },
