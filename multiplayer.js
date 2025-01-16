@@ -917,10 +917,12 @@ wss.on('connection', socket => {
       if (data.room) {
         if (data.room.length > 6) return socket.kick('Invalid Room.'); 
         if (!servers[data.room]) servers[data.room] = new joinKey[data.gamemode]();
+        servers[data.room].private = true;
         server = data.room;
       } else {
         for (const id in servers) { // OPTIMIZE THIS
           if (servers[id] instanceof joinKey[data.gamemode]) {
+            if (servers[id].private) continue;
             if (data.gamemode === 'ffa' && servers[id].pt.length >= settings.players_per_room) continue;
             if (data.gamemode === 'duels' && servers[id].pt.length !== 1) continue;
             if (data.gamemode === 'tdm' && servers[id].mode !== 0) continue;
