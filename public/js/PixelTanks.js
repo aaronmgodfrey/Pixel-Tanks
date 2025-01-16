@@ -196,6 +196,12 @@ class PixelTanks {
             Menus.removeListeners();
           }, true],
         ],
+        listeners: {
+          keydown: function(e) {
+            if (e.keyCode === 37 && this.currentRoom > 0) this.currentRoom--;
+            if (e.keyCode === 39) if (this.currentRoom+1 >= Object.values(this.preview[this.gamemode]).length) this.currentRoom++; else this.currentRoom = 0;
+          }
+        }
         cdraw: function() {
           if (!this.gamemode) {
             this.gamemode = 'ffa';
@@ -215,7 +221,7 @@ class PixelTanks {
             });
             this.socket.on('message', d => {
               alert(JSON.stringify(d));
-              if (d.event === 'preview') this.preview = d.data;
+              if (d.event === 'preview') this.preview = d;
             });
             document.body.appendChild(this.ip);
             this.elements.push(this.ip);
@@ -231,10 +237,9 @@ class PixelTanks {
             GUI.drawText(Object.values(this.preview.ffa).length, 820, 434, 50, '#FFFFFF', 0.5);
             GUI.drawText(Object.values(this.preview.duels).length, 820, 590, 50, '#FFFFFF', 0.5);
             GUI.drawText(Object.values(this.preview.tdm).length, 820, 764, 50, '#FFFFFF', 0.5);
-            
-            for (const room in this.preview[this.gamemode]) {
-              
-            }
+            let room = Object.keys(this.preview[this.gamemode])[this.currentRoom], players = Object.values(this.preview[this.gamemode])[this.currentRoom];
+            GUI.drawText('Room: '+room, 1010, 764, 50, '#ffffff', 0);
+            GUI.drawText('Players: '+JSON.stringify(players), 1010, 850, 50, '#ffffff', 0);
           }
         }
       },
