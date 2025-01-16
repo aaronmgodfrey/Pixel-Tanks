@@ -1,4 +1,5 @@
 const settings = {
+  name: 'Pixel Tanks',
   authserver: 'localhost',
   players_per_room: 20,
   upsl: 120,
@@ -949,19 +950,12 @@ wss.on('connection', socket => {
       log(`${socket.username} ran command: ${data.data.join(' ')}`);
       f[3](data.data, socket, server, t, t.privateLogs);
     } else if (data.type === 'preview') {
-      const d = {}, gamemode = data.gamemode || 'ffa';
-      for (const room in servers) if (servers[room] instanceof joinKey[gamemode]) d[room] = servers[room].pt.reduce((a, c) => a.concat(c.username), []);
-      
-      socket.send({event: 'list', players: servers[socket.room].pt.reduce((a, c) => a.concat(c.username), [])});
-    } else if (data.type === 'stats') {
-      let gamemodes = {FFA: [], DUELS: [], TDM: [], Defense: [], event: 'stats'};
-      for (const id in servers) {
-        gamemodes[servers[id].constructor.name][id] = [];
-        for (const pt of servers[id].pt) {
-          gamemodes[servers[id].constructor.name][id].push(pt.username);
-        }
+      const m = {event: 'preview', ffa: {}, tdm: {}, duels: {}, p: 0, tickspeed};
+      for (const room in servers) for (const type in joinKey) if (servers[room] instanceof joinKey[type]) {
+        m[type][room] = servers[room].pt.reduce((a, c) => a.concat(c.username), []);
+        m.p++;
       }
-      socket.send(gamemodes);
+      socket.send(m);
     }
   });
   socket.on('close', (code, reason) => {
