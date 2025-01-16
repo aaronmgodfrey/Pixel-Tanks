@@ -491,12 +491,11 @@ class PixelTanks {
             const a = this.cosmeticMenu === 0, b = this.cosmeticMenu === Math.floor(PixelTanks.userData.cosmetics.length/16);
             GUI.drawImage(PixelTanks.images.menus.cosmeticTab, 518+(a ? 62 : 0), 280, 564-(a ? 62 : 0)-(b ? 62 : 0), 440, 1, 0, 0, 0, 0, undefined, (a ? 31 : 0)*4, 0, (282-(a ? 31 : 0)-(b ? 31 : 0))*4, 880);
             for (let i = this.cosmeticMenu*16; i < Math.min((this.cosmeticMenu+1)*16, PixelTanks.userData.cosmetics.length); i++) {
-              try {
-                PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetics[i].split('#')[0]], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88, 0);
-              } catch(e) {
-                GUI.draw.fillStyle = '#FF0000';
-                GUI.draw.fillRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88);
-              }
+              for (const rarity in PixelTanks.crates[0]) if (PixelTanks.crates[0][rarity].includes(PixelTanks.userData.cosmetics[i].split('#')[0])) GUI.draw.fillStyle = [ '#FFFFFF', '#32CD32', '#0000FF', '#A020F0', '#FFFF00', '#FF0000']['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic'].indexOf(rarity);
+              GUI.draw.globalAlpha = 0.5;
+              GUI.draw.fillRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88);
+              GUI.draw.globalAlpha = 1;
+              PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetics[i].split('#')[0]], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88, 0);
               GUI.drawText(PixelTanks.userData.cosmetics[i].split('#')[1], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 30, '#FF0000', .5);
               if (PixelTanks.userData.cosmetics[i].split('#')[0] === PixelTanks.userData[Menus.menus.inventory.cosmeticType]) {
                 GUI.draw.strokeStyle = '#FFFF22';
@@ -508,7 +507,11 @@ class PixelTanks {
             const a = this.deathEffectsMenu === 0, b = this.deathEffectsMenu === Math.floor(PixelTanks.userData.deathEffects.length/16);
             GUI.drawImage(PixelTanks.images.menus.cosmeticTab, 518+(a ? 62 : 0), 280, 564-(a ? 62 : 0)-(b ? 62 : 0), 440, 1, 0, 0, 0, 0, undefined, (a ? 31 : 0)*4, 0, (282-(a ? 31 : 0)-(b ? 31 : 0))*4, 880);
             for (let i = this.deathEffectsMenu*16; i < Math.min((this.deathEffectsMenu+1)*16, PixelTanks.userData.deathEffects.length); i++) {
+              for (const rarity in PixelTanks.crates[1]) if (PixelTanks.crates[1][rarity].includes(PixelTanks.userData.deathEffects[i].split('#')[0])) GUI.draw.fillStyle = [ '#FFFFFF', '#32CD32', '#0000FF', '#A020F0', '#FFFF00', '#FF0000']['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic'].indexOf(rarity);
               const d = PixelTanks.images.deathEffects[PixelTanks.userData.deathEffects[i].split('#')[0]+'_'];
+              GUI.draw.globalAlpha = 0.5;
+              GUI.draw.fillRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88);
+              GUI.draw.globalAlpha = 1;
               if (d) GUI.drawImage(PixelTanks.images.deathEffects[PixelTanks.userData.deathEffects[i].split('#')[0]], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-this.time)/d.speed)%d.frames)*200, 0, 200, 200);
               GUI.drawText(PixelTanks.userData.deathEffects[i].split('#')[1], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 30, '#FF0000', .5);
               if (PixelTanks.userData.deathEffects[i].split('#')[0] === PixelTanks.userData.deathEffect) {
