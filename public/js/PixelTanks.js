@@ -229,7 +229,7 @@ class PixelTanks {
             this.socket.close();
             this.socket.url = (window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value.split('#')[0];
             this.socket.connect();
-          } else if (this.socket.status === 'connected') if (Math.floor((Date.now()-this.time)/15)%300 === 0) this.socket.send({type: 'preview'});
+          } else if (this.socket.status === 'connected') if (Math.floor((Date.now()-this.time)/15)%6 === 0) this.socket.send({type: 'preview'});
           GUI.drawText(this.gamemode, 1200, 800, 50, '#FFFFFF', 0.5);
           if (this.preview) {
             GUI.drawText(JSON.stringify(this.preview), 800, 100, 20, '#000000', 0.5);
