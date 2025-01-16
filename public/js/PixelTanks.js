@@ -215,7 +215,7 @@ class PixelTanks {
             this.elements.push(this.ip);
           }
           if (this.socket.url !== this.ip.value || this.socket.status === 'disconnected') {
-            this.socket.close();
+            //this.socket.close();
             this.socket.url = this.ip.value;
             this.socket.connect();
           }
