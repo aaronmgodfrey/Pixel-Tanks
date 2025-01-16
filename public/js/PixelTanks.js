@@ -201,7 +201,7 @@ class PixelTanks {
             if (e.keyCode === 37 && this.currentRoom > 0) this.currentRoom--;
             if (e.keyCode === 39) if (this.currentRoom+1 >= Object.values(this.preview[this.gamemode]).length) this.currentRoom++; else this.currentRoom = 0;
           }
-        }
+        },
         cdraw: function() {
           if (!this.gamemode) {
             this.gamemode = 'ffa';
