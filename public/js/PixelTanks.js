@@ -214,11 +214,11 @@ class PixelTanks {
             document.body.appendChild(this.ip);
             this.elements.push(this.ip);
           }
-          //if (this.socket.url !== this.ip.value || this.socket.status === 'disconnected') {
-            //this.socket.close();
-            //this.socket.url = this.ip.value;
-            //this.socket.connect();
-          //}
+          if (this.socket.url !== this.ip.value || this.socket.status === 'disconnected') {
+            this.socket.close();
+            this.socket.url = this.ip.value;
+            this.socket.connect();
+          }
           GUI.drawText(this.gamemode, 1200, 800, 50, '#FFFFFF', 0.5);
           GUI.drawText(this.output.FFA.length, 820, 434, 50, '#FFFFFF', 0.5);
           GUI.drawText(this.output.DUELS.length, 820, 590, 50, '#FFFFFF', 0.5);
