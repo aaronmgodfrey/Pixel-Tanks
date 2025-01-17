@@ -190,7 +190,10 @@ class Menus {
           this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value.split('#')[0], {keepAlive: true, autoconnect: true, reconnect: false});
           this.socket.on('connect', e => (this.socket.send({type: 'preview'})));
           this.socket.on('message', d => {
-            if (d.event === 'preview') this.preview = d;
+            if (d.event === 'preview') {
+              this.preview = d;
+              this.loaded = false;
+            }
             if (this.currentRoom >= Object.values(this.preview[this.gamemode]).length) this.currentRoom = 0;
           });
           this.elements.push(document.body.appendChild(this.ip));
