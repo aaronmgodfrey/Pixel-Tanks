@@ -166,6 +166,7 @@ class Menus {
         [964, 232, 368, 88, () => {
           Menus.removeListeners();
           PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip.value, true, Menus.menus.multiplayer.gamemode);
+          Menus.menus.multiplayer.ip.value = Menus.menus.multiplayer.ip.value.split('#')[0];
         }, true],
       ],
       listeners: {
@@ -202,7 +203,7 @@ class Menus {
         } else if (this.socket.status === 'connected') if (Math.floor((Date.now()-PixelTanks.t)/15)%6 === 0) this.socket.send({type: 'preview'});
         GUI.drawText(this.gamemode.toUpperCase(), 1047, 800, 50, '#FFFFFF', 0.5);
         if (!this.preview) return;
-        for (let i = 0; i < 3; i++) GUI.drawText(Object.values(this.preview[['ffa', 'duels', 'tdm'][i]]).length, 768, [526, 670, 826][i], 50, '#000000', 0.5);
+        for (let i = 0; i < 3; i++) GUI.drawText(Object.values(this.preview[['ffa', 'duels', 'tdm'][i]]).length, 700, [506, 650, 806][i], 50, '#000000', 0.5);
         let room = Object.keys(this.preview[this.gamemode])[this.currentRoom], v = Object.values(this.preview[this.gamemode]), players = v[this.currentRoom];
         GUI.drawText(!v.length ? 'No Rooms' : 'Room('+(this.currentRoom+1)+'/'+v.length+') '+room, 1047, 410, 50, '#ffffff', 0.5);
         for (let i = 0; i < players.length; i++) GUI.drawText(players[i].replace('#', ''), 1047, 452+25*i, 20, players[i].includes('#') ? '#454545' : '#ffffff', 0.5);
