@@ -33,9 +33,9 @@ window.sourceMap = {
     {
       ref: 'banners',
       path: 'banners',
-      load: ['bigsister', 'iceberg', 'tunnel', 'forest', 'ruins', 'snow', 'mango', 'soviet', 'gateway', 'tower', 'blueprint', 'castle', 'cave', 'drg', 'fix', 'gems', 'ice', 'island', 'lazer', 'leviathan', 'peak', 'sculkwall', 'solar', 'sonc', 'turret', 'warden'],
+      load: ['bog', 'dragon', 'stars', 'fossil', 'space', 'ruins', 'bigsister', 'iceberg', 'tunnel', 'forest', 'ruins', 'snow', 'mango', 'soviet', 'gateway', 'tower', 'blueprint', 'castle', 'cave', 'drg', 'fix', 'gems', 'ice', 'island', 'lazer', 'leviathan', 'peak', 'sculkwall', 'solar', 'sonc', 'turret', 'warden'],
       meta: {
-        banners: ['bigsister', 'iceberg', 'tunnel', 'forest', 'ruins', 'snow', 'mango', 'soviet', 'gateway', 'tower', 'blueprint', 'castle', 'cave', 'drg', 'fix', 'gems', 'ice', 'island', 'lazer', 'leviathan', 'peak', 'sculkwall', 'solar', 'sonc', 'turret', 'warden'],
+        banners: ['bog', 'dragon', 'stars', 'fossil', 'space', 'ruins', 'bigsister', 'iceberg', 'tunnel', 'forest', 'ruins', 'snow', 'mango', 'soviet', 'gateway', 'tower', 'blueprint', 'castle', 'cave', 'drg', 'fix', 'gems', 'ice', 'island', 'lazer', 'leviathan', 'peak', 'sculkwall', 'solar', 'sonc', 'turret', 'warden'],
       }
     },
     {
@@ -53,8 +53,8 @@ window.sourceMap = {
   cosmetic: {
     path: 'cosmetics',
     common: ['medic', 'police', 'log', 'small_scratch', 'spikes', 'moustache', 'pumpkin_face', 'army', 'hardhat', 'halo', 'lego', 'present', 'pumpkin_hat', 'top_hat', 'stamp', 'dead', 'earmuffs', 'ban', 'sweat', 'lava', 'bricks'],
-    uncommon: ['block', 'chip', 'deep_scratch', 'evil_eye', 'inferno_eye', 'motherboard', 'blue_wings', 'blue_horns', 'white_wings', 'white_horns', 'gold_wings', 'gold_horns', 'devil_wings', 'devil_horns', 'hazard', 'angel_wings', 'bat_wings', 'locked', 'mini_tank', 'dust', 'pouch'],
-    rare: ['blue_tint', 'glitch', 'blue_helmet', 'white_helmet', 'helmet', 'gold_helmet', 'hacker_hoodie', 'purple', 'visor', 'veins', 'cookie', 'splattered'],
+    uncommon: ['scared', 'block', 'chip', 'deep_scratch', 'evil_eye', 'inferno_eye', 'motherboard', 'blue_wings', 'blue_horns', 'white_wings', 'white_horns', 'gold_wings', 'gold_horns', 'devil_wings', 'devil_horns', 'hazard', 'angel_wings', 'bat_wings', 'locked', 'mini_tank', 'dust', 'pouch'],
+    rare: ['cracked', 'blue_tint', 'glitch', 'blue_helmet', 'white_helmet', 'helmet', 'gold_helmet', 'hacker_hoodie', 'purple', 'visor', 'veins', 'cookie', 'splattered'],
     epic: ['christmas_hat', 'christmas_lights', 'dizzy', 'rage', 'toxic', 'error', 'supersight', 'crown', 'darkcrown'],
     legendary: ['plasma', 'cry', 'missing', 'hoodie', 'galaxy'],
     admin: [],
