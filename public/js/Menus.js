@@ -155,9 +155,9 @@ class Menus {
         [336, 456, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'ffa'), true],
         [336, 612, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'duels'), true],
         [336, 768, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'tdm'), true],
-        [868, 852, 44, 44, () => (Menus.menus.multiplayer.currentRoom = Menus.menus.multiplayer.currentRoom > 0 ? Menus.menus.multiplayer.currentRoom-1 : 0), true],
-        [1156, 852, 44, 44, () => (Menus.menus.multiplayer.currentRoom = Menus.menus.multiplayer.currentRoom+1 < Object.values(Menus.menus.multiplayer.preview[Menus.menus.multiplayer.gamemode]).length ? Menus.menus.multiplayer.currentRoom+1 : 0), true],
-        [964, 852, 184, 88, () => {
+        [872, 856, 88, 88, () => (Menus.menus.multiplayer.currentRoom = Menus.menus.multiplayer.currentRoom > 0 ? Menus.menus.multiplayer.currentRoom-1 : 0), true],
+        [1160, 856, 88, 88, () => (Menus.menus.multiplayer.currentRoom = Menus.menus.multiplayer.currentRoom+1 < Object.values(Menus.menus.multiplayer.preview[Menus.menus.multiplayer.gamemode]).length ? Menus.menus.multiplayer.currentRoom+1 : 0), true],
+        [968, 856, 184, 88, () => {
           let room = Object.values(Menus.menus.multiplayer.preview[Menus.menus.multiplayer.gamemode])[Menus.menus.multiplayer.currentRoom];
           if (room.replaceAll('*', '').length === 0) return;
           Menus.removeListeners();
@@ -181,7 +181,7 @@ class Menus {
           this.ip = document.createElement('INPUT');
           const left = (window.innerWidth-window.innerHeight*1.6)/2+.276*window.innerHeight;
           this.ip.x = 276;
-          this.ip.y = 232;
+          this.ip.y = 244;
           this.ip.w = 592;
           this.ip.h = 72;
           this.ip.style = 'top: '+(.232*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.592)+'px; height: '+(window.innerHeight*.072)+'px;';
