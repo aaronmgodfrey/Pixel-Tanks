@@ -179,12 +179,12 @@ class Menus {
           this.gamemode = 'ffa';
           this.currentRoom = 0;
           this.ip = document.createElement('INPUT');
-          const left = (window.innerWidth-window.innerHeight*1.6)/2+.280*window.innerHeight;
-          this.ip.x = 280;
-          this.ip.y = 236;
+          const left = (window.innerWidth-window.innerHeight*1.6)/2+.284*window.innerHeight;
+          this.ip.x = 284;
+          this.ip.y = 240;
           this.ip.w = 592;
           this.ip.h = 72;
-          this.ip.style = 'top: '+(.236*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.592)+'px; height: '+(window.innerHeight*.072)+'px;';
+          this.ip.style = 'top: '+(.240*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.592)+'px; height: '+(window.innerHeight*.072)+'px;';
           this.ip.value = '129.146.45.71:443';
           this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value.split('#')[0], {keepAlive: true, autoconnect: true, reconnect: false});
           this.socket.on('connect', e => (this.socket.send({type: 'preview'})));
