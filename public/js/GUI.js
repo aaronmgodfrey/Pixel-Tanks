@@ -18,6 +18,7 @@ class GUI {
         display: inline;
         height: 100%;
         width: calc(100vh*1.6);
+        image-rendering: pixelated;
       }
       @font-face {
         font-family: 'Font';
