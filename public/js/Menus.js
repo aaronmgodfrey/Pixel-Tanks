@@ -1,5 +1,7 @@
 class Menus {
-  static start = () => (this.renderer = requestAnimationFrame(this.render));
+  static start() {
+    this.renderer = requestAnimationFrame(this.render);
+  }
   static render() {
     this.start();
     GUI.clear();
@@ -9,7 +11,9 @@ class Menus {
     this.x = (e.clientX-(window.innerWidth-window.innerHeight*1.6)/2)/window.innerHeight*1000;
     this.y = e.clientY/window.innerHeight*1000;
   }
-  static stop = () => (this.renderer = cancelAnimationFrame(this.renderer));
+  static stop() {
+    this.renderer = cancelAnimationFrame(this.renderer);
+  }
   static trigger(name) {
     if (this.current) this.menus[this.current].removeListeners();
     if (!this.renderer) this.start();
