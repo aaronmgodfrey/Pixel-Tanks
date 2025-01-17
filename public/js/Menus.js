@@ -1,41 +1,41 @@
 class Menus {
   static start() {
-    this.renderer = requestAnimationFrame(this.render);
+    Menus.renderer = requestAnimationFrame(Menus.render);
   }
   static render() {
-    this.start();
+    Menus.start();
     GUI.clear();
-    this.redraw();
+    Menus.redraw();
   }
   static mouseLog = e => {
-    this.x = (e.clientX-(window.innerWidth-window.innerHeight*1.6)/2)/window.innerHeight*1000;
-    this.y = e.clientY/window.innerHeight*1000;
+    Menus.x = (e.clientX-(window.innerWidth-window.innerHeight*1.6)/2)/window.innerHeight*1000;
+    Menus.y = e.clientY/window.innerHeight*1000;
   }
   static stop() {
-    this.renderer = cancelAnimationFrame(this.renderer);
+    Menus.renderer = cancelAnimationFrame(Menus.renderer);
   }
   static trigger(name) {
-    if (this.current) this.menus[this.current].removeListeners();
-    if (!this.renderer) this.start();
-    this.menus[this.current = name].addListeners();
+    if (Menus.current) Menus.menus[Menus.current].removeListeners();
+    if (!Menus.renderer) Menus.start();
+    Menus.menus[Menus.current = name].addListeners();
   }
   static softTrigger(name) {
-    for (const b of this.menus[PixelTanks.user.player.menu = name].elements) b.style.visibility = 'visible';
+    for (const b of Menus.menus[PixelTanks.user.player.menu = name].elements) b.style.visibility = 'visible';
   }
   static softUntrigger() {
-    for (const b of this.menus[PixelTanks.user.player.menu].elements) b.style.visibility = 'hidden';
+    for (const b of Menus.menus[PixelTanks.user.player.menu].elements) b.style.visibility = 'hidden';
     PixelTanks.user.player.menu = false;
   }
   static redraw() {
-    if (this.current) this.menus[this.current].draw();
+    if (Menus.current) Menus.menus[Menus.current].draw();
   }
   static removeListeners() {
-    this.stop();
-    this.menus[this.current].removeListeners();
+    Menus.stop();
+    Menus.menus[Menus.current].removeListeners();
   }
   static menus = {
     start: {
-      buttons: [[544, 648, 216, 116, () => PixelTanks.auth(this.menus.start.username.value, this.menus.start.password.value, 'login'), true], [840, 648, 216, 116, () => PixelTanks.auth(this.menus.start.username.value, this.menus.start.password.value, 'signup'), true]],
+      buttons: [[544, 648, 216, 116, () => PixelTanks.auth(Menus.menus.start.username.value, Menus.menus.start.password.value, 'login'), true], [840, 648, 216, 116, () => PixelTanks.auth(Menus.menus.start.username.value, Menus.menus.start.password.value, 'signup'), true]],
       listeners: {
         keydown: function(e) {
           if (e.keyCode === 13) PixelTanks.auth(this.username.value, this.password.value, 'login');
@@ -152,12 +152,12 @@ class Menus {
     multiplayer: {
       buttons: [
         [436, 24, 108, 108, 'main'],
-        [340, 376, 416, 116, () => (this.menus.multiplayer.gamemode = 'ffa'), true],
-        [340, 532, 416, 116, () => (this.menus.multiplayer.gamemode = 'duels'), true],
-        [340, 688, 416, 116, () => (this.menus.multiplayer.gamemode = 'tdm'), true],
+        [340, 376, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'ffa'), true],
+        [340, 532, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'duels'), true],
+        [340, 688, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'tdm'), true],
         [868, 848, 368, 88, () => {
-          this.removeListeners();
-          PixelTanks.user.player = new Client(this.menus.multiplayer.ip.value, true, this.menus.multiplayer.gamemode);
+          Menus.removeListeners();
+          PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip.value, true, Menus.menus.multiplayer.gamemode);
         }, true],
       ],
       listeners: {
@@ -202,7 +202,7 @@ class Menus {
       }
     },
     crate: {
-      buttons: [[416, 20, 108, 108, 'main', true], [232, 308, 488, 488, () => PixelTanks.openCrate(0, this.menus.crate.csize), false], [880, 308, 488, 488, () => PixelTanks.openCrate(1, this.menus.crate.dsize), false], [300, 816, 104, 52, () => (this.menus.crate.csize = 1), false], [424, 816, 104, 52, () => (this.menus.crate.csize = 10), false], [548, 816, 104, 52, () => (this.menus.crate.csize = 100), false], [948, 816, 104, 52, () => (this.menus.crate.dsize = 1), false], [1072, 816, 104, 52, () => (this.menus.crate.dsize = 10), false], [1196, 816, 104, 52, () => (this.menus.crate.dsize = 100), false]],
+      buttons: [[416, 20, 108, 108, 'main', true], [232, 308, 488, 488, () => PixelTanks.openCrate(0, Menus.menus.crate.csize), false], [880, 308, 488, 488, () => PixelTanks.openCrate(1, Menus.menus.crate.dsize), false], [300, 816, 104, 52, () => (Menus.menus.crate.csize = 1), false], [424, 816, 104, 52, () => (Menus.menus.crate.csize = 10), false], [548, 816, 104, 52, () => (Menus.menus.crate.csize = 100), false], [948, 816, 104, 52, () => (Menus.menus.crate.dsize = 1), false], [1072, 816, 104, 52, () => (Menus.menus.crate.dsize = 10), false], [1196, 816, 104, 52, () => (Menus.menus.crate.dsize = 100), false]],
       cdraw: function() {
         if (!this.time) this.time = Date.now(); // animatino :)
         if (this.reward) {
