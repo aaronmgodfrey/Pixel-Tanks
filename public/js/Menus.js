@@ -1,42 +1,37 @@
 class Menus {
-  static start() {
-    Menus.renderer = requestAnimationFrame(Menus.render);
-  }
+  static start = () => (this.renderer = requestAnimationFrame(this.render));
   static render() {
-    Menus.renderer = requestAnimationFrame(Menus.render);
+    this.start();
     GUI.clear();
-    Menus.redraw();
+    this.redraw();
   }
   static mouseLog = e => {
-    Menus.x = (e.clientX-(window.innerWidth-window.innerHeight*1.6)/2)/window.innerHeight*1000;
-    Menus.y = e.clientY/window.innerHeight*1000;
+    this.x = (e.clientX-(window.innerWidth-window.innerHeight*1.6)/2)/window.innerHeight*1000;
+    this.y = e.clientY/window.innerHeight*1000;
   }
-  static stop = () => (Menus.renderer = cancelAnimationFrame(Menus.renderer));
+  static stop = () => (this.renderer = cancelAnimationFrame(this.renderer));
   static trigger(name) {
-    if (Menus.current) Menus.menus[Menus.current].removeListeners();
-    if (!Menus.renderer) Menus.start();
-    Menus.menus[Menus.current = name].addListeners();
+    if (this.current) this.menus[this.current].removeListeners();
+    if (!this.renderer) this.start();
+    this.menus[this.current = name].addListeners();
   }
   static softTrigger(name) {
-    for (const b of Menus.menus[PixelTanks.user.player.menu = name].elements) b.style.visibility = 'visible';
+    for (const b of this.menus[PixelTanks.user.player.menu = name].elements) b.style.visibility = 'visible';
   }
   static softUntrigger() {
-    for (const b of Menus.menus[PixelTanks.user.player.menu].elements) b.style.visibility = 'hidden';
+    for (const b of this.menus[PixelTanks.user.player.menu].elements) b.style.visibility = 'hidden';
     PixelTanks.user.player.menu = false;
   }
   static redraw() {
-    if (Menus.current) Menus.menus[Menus.current].draw();
+    if (this.current) this.menus[this.current].draw();
   }
   static removeListeners() {
-    Menus.stop();
-    Menus.menus[Menus.current].removeListeners();
+    this.stop();
+    this.menus[this.current].removeListeners();
   }
   static menus = {
     start: {
-      buttons: [
-        [544, 648, 216, 116, () => PixelTanks.auth(Menus.menus.start.username.value, Menus.menus.start.password.value, 'login'), true],
-        [840, 648, 216, 116, () => PixelTanks.auth(Menus.menus.start.username.value, Menus.menus.start.password.value, 'signup'), true],
-      ],
+      buttons: [[544, 648, 216, 116, () => PixelTanks.auth(this.menus.start.username.value, this.menus.start.password.value, 'login'), true], [840, 648, 216, 116, () => PixelTanks.auth(this.menus.start.username.value, this.menus.start.password.value, 'signup'), true]],
       listeners: {
         keydown: function(e) {
           if (e.keyCode === 13) PixelTanks.auth(this.username.value, this.password.value, 'login');
@@ -63,237 +58,206 @@ class Menus {
         }
       },
     },
-      main: {
-        buttons: [
-          [922, 840, 88, 88, 'settings', true],
-          [532, 616, 536, 136, 'multiplayer', true],
-          [705, 840, 88, 88, 'shop', true],
-          [597, 840, 88, 88, 'inventory', true],
-          [813, 840, 88, 88, 'crate', true],
-          [532, 392, 536, 136, 'world1', true],
-        ],
-        listeners: {
-          keydown: function(e) {
-            if (e.keyCode === 37) PixelTanks.userData.banner = (PixelTanks.images.banners.banners.length+PixelTanks.userData.banner-1)%PixelTanks.images.banners.banners.length; else if (e.keyCode === 39) PixelTanks.userData.banner = (PixelTanks.userData.banner+1)%PixelTanks.images.banners.banners.length;
-          } // BANNERS SWAP
-        },
-        cdraw: function() {
-          if (PixelTanks.userData.stats[1] === null) PixelTanks.userData.stats[1] = 10000;
-          if (!PixelTanks.userData.banner) PixelTanks.userData.banner = 0; // TEMP BANNERS DB LINKER
-          if (!PixelTanks.userData.perks) PixelTanks.userData.perks = [false, false, false, false, false, false, false, false, false];
-          if (!PixelTanks.userData.perk) PixelTanks.userData.perk = [0, 0];
-          const i = PixelTanks.images.banners[PixelTanks.images.banners.banners[PixelTanks.userData.banner]];
-          GUI.drawImage(i, 20, 500-120*2.5, 300, 600, 1); // BANNERS GUI
-          GUI.drawText(PixelTanks.userData.banner, 20, 900, 100, '#ffffff', 0.5);
-          GUI.drawText(PixelTanks.images.banners.banners[PixelTanks.userData.banner], 20, 950, 50, '#ffffff', 0.5);
-          GUI.drawText(PixelTanks.user.username, 1280, 800, 100, '#ffffff', 0.5);
-          PixelTanks.renderBottom(1200, 600, 160, PixelTanks.userData.color);
-          GUI.drawImage(PixelTanks.images.tanks.bottom, 1200, 600, 160, 160, 1);
-          PixelTanks.renderTop(1200, 600, 160, PixelTanks.userData.color);
-          GUI.drawImage(PixelTanks.images.tanks.top, 1200, 600, 160, 180, 1);
-          PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_body], 1200, 600, 160, 180, 1);
-          PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic], 1200, 600, 160, 180, 1);
-          PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_hat], 1200, 600, 160, 180, 1);
-        },
+    main: {
+      buttons: [[922, 840, 88, 88, 'settings', true], [532, 616, 536, 136, 'multiplayer', true], [705, 840, 88, 88, 'shop', true], [597, 840, 88, 88, 'inventory', true], [813, 840, 88, 88, 'crate', true], [532, 392, 536, 136, 'world1', true]],
+      listeners: {
+        keydown: function(e) {
+          if (e.keyCode === 37) PixelTanks.userData.banner = (PixelTanks.images.banners.banners.length+PixelTanks.userData.banner-1)%PixelTanks.images.banners.banners.length; else if (e.keyCode === 39) PixelTanks.userData.banner = (PixelTanks.userData.banner+1)%PixelTanks.images.banners.banners.length;
+        } // BANNERS SWAP
       },
-      world1: {
-        buttons: [[416, 20, 108, 108, 'main', true], [1068, 20, 108, 108, 'world2', true]],
-        listeners: {
-          mousedown: function(e) {
-            for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
-              Menus.removeListeners();
-              PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+1, false, null);
-            }
-          }
-        },
+      cdraw: function() {
+        const i = PixelTanks.images.banners[PixelTanks.images.banners.banners[PixelTanks.userData.banner]];
+        GUI.drawImage(i, 20, 500-120*2.5, 300, 600, 1); // BANNERS GUI
+        GUI.drawText(PixelTanks.userData.banner, 20, 900, 100, '#ffffff', 0.5);
+        GUI.drawText(PixelTanks.images.banners.banners[PixelTanks.userData.banner], 20, 950, 50, '#ffffff', 0.5);
+        GUI.drawText(PixelTanks.user.username, 1280, 800, 100, '#ffffff', 0.5);
+        PixelTanks.renderBottom(1200, 600, 160, PixelTanks.userData.color);
+        GUI.drawImage(PixelTanks.images.tanks.bottom, 1200, 600, 160, 160, 1);
+        PixelTanks.renderTop(1200, 600, 160, PixelTanks.userData.color);
+        GUI.drawImage(PixelTanks.images.tanks.top, 1200, 600, 160, 180, 1);
+        for (let i = 0; i < 3; i++) PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData['cosmetic'+['_body', '', '_hat'][i]]], 1200, 600, 160, 180, 1);
       },
-      world2: {
-        buttons: [[416, 20, 108, 108, 'world1', true], [1068, 20, 108, 108, 'world3', true]],
-        listeners: {
-          mousedown: function(e) {
-            for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
-              Menus.removeListeners();
-              PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+21, false, null);
-            }
-          }
-        },
-      },
-      world3: {
-        buttons: [[416, 20, 108, 108, 'world2', true], [1068, 20, 108, 108, 'world4', true]],
-        listeners: {
-          mousedown: function(e) {
-            for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
-              Menus.removeListeners();
-              PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+41, false, null);
-            }
-          }
-        },
-      },
-      world4: {
-        buttons: [[416, 20, 108, 108, 'world3', true], [1068, 20, 108, 108, 'world5', true]],
-        listeners: {
-          mousedown: function(e) {
-            for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
-              Menus.removeListeners();
-              PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+61, false, null);
-            }
-          }
-        },
-      },
-      world5: {
-        buttons: [[416, 20, 108, 108, 'world4', true], [1068, 20, 108, 108, 'world1', true]],
-        listeners: {
-          mousedown: function(e) {
-            for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
-              Menus.removeListeners();
-              PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+81, false, null);
-            }
-          }
-        },
-      },
-      victory: {
-        buttons: [
-          [656, 603, 313, 112, () => Menus.trigger('main'), true],
-          [558, 726, 505, 114, () => alert('no'), true],
-        ],
-      },
-      defeat: {
-        buttons: [
-          [656, 603, 313, 112, () => Menus.trigger('main'), true],
-          [558, 726, 505, 114, () => alert('no'), true],
-        ],
-      },
-      multiplayer: {
-        buttons: [
-          [436, 24, 108, 108, 'main'],
-          [340, 376, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'ffa'), true],
-          [340, 532, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'duels'), true],
-          [340, 688, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'tdm'), true],
-          [340, 844, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'cave leech'), true],
-          [868, 848, 368, 88, () => {
-            PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip.value, true, Menus.menus.multiplayer.gamemode);
+    },
+    world1: {
+      buttons: [[416, 20, 108, 108, 'main', true], [1068, 20, 108, 108, 'world2', true]],
+      listeners: {
+        mousedown: function(e) {
+          for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
             Menus.removeListeners();
-          }, true],
-        ],
-        listeners: {
-          keydown: function(e) {
-            if (e.keyCode === 37 && this.currentRoom > 0) this.currentRoom--;
-            if (e.keyCode === 39) if (this.currentRoom+1 < Object.values(this.preview[this.gamemode]).length) this.currentRoom++; else this.currentRoom = 0;
-          }
-        },
-        cdraw: function() {
-          if (!this.gamemode) {
-            this.time = Date.now();
-            this.gamemode = 'ffa';
-            this.currentRoom = 0;
-            this.ip = document.createElement('INPUT');
-            const left = (window.innerWidth-window.innerHeight*1.6)/2+.504*window.innerHeight;
-            this.ip.x = 504;
-            this.ip.y = 240;
-            this.ip.w = 592;
-            this.ip.h = 72;
-            this.ip.style = 'top: '+(.240*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.592)+'px; height: '+(window.innerHeight*.072)+'px;';
-            this.ip.value = '129.146.45.71:443';
-            this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value.split('#')[0], {keepAlive: true, autoconnect: true, reconnect: false});
-            this.socket.on('connect', e => {
-              this.socket.send({type: 'preview'});
-            });
-            this.socket.on('message', d => {
-              if (d.event === 'preview') this.preview = d;
-              if (this.currentRoom >= Object.values(this.preview[this.gamemode]).length) this.currentRoom = 0;
-            });
-            document.body.appendChild(this.ip);
-            this.elements.push(this.ip);
-          }
-          if (this.socket.url.replace('ws://', '').replace('wss://', '') !== this.ip.value.split('#')[0] || this.socket.status === 'disconnected') {
-            this.socket.close();
-            this.socket.url = (window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value.split('#')[0];
-            this.socket.connect();
-          } else if (this.socket.status === 'connected') if (Math.floor((Date.now()-this.time)/15)%6 === 0) this.socket.send({type: 'preview'});
-          GUI.drawText(this.gamemode.toUpperCase(), 1047, 800, 50, '#FFFFFF', 0.5);
-          if (this.preview) {
-            GUI.drawText(Object.values(this.preview.ffa).length, 678, 408, 50, '#000000', 0.5);
-            GUI.drawText(Object.values(this.preview.duels).length, 678, 562, 50, '#000000', 0.5);
-            GUI.drawText(Object.values(this.preview.tdm).length, 678, 712, 50, '#000000', 0.5);
-            let room = Object.keys(this.preview[this.gamemode])[this.currentRoom], players = Object.values(this.preview[this.gamemode])[this.currentRoom];
-            GUI.drawText(!Object.values(this.preview[this.gamemode]).length ? 'No Rooms' : 'Room('+(this.currentRoom+1)+'/'+Object.values(this.preview[this.gamemode]).length+') '+Object.keys(this.preview[this.gamemode])[this.currentRoom], 1047, 410, 50, '#ffffff', 0.5);
-            for (let i = 0; i < players.length; i++) GUI.drawText(players[i].replace('#', ''), 1047, 452+25*i, 20, players[i].includes('#') ? '#454545' : '#ffffff', 0.5);
+            PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+1, false, null);
           }
         }
       },
-      crate: {
-        buttons: [
-          [416, 20, 108, 108, 'main', true],
-          [232, 308, 488, 488, () => PixelTanks.openCrate(0, Menus.menus.crate.csize), false],
-          [880, 308, 488, 488, () => PixelTanks.openCrate(1, Menus.menus.crate.dsize), false],
-          [300, 816, 104, 52, () => (Menus.menus.crate.csize = 1), false],
-          [424, 816, 104, 52, () => (Menus.menus.crate.csize = 10), false],
-          [548, 816, 104, 52, () => (Menus.menus.crate.csize = 100), false],
-          [948, 816, 104, 52, () => (Menus.menus.crate.dsize = 1), false],
-          [1072, 816, 104, 52, () => (Menus.menus.crate.dsize = 10), false],
-          [1196, 816, 104, 52, () => (Menus.menus.crate.dsize = 100), false],
-        ],
-        cdraw: function() {
-          if (!this.time) this.time = Date.now(); // animatino :)
-          if (this.reward) {
-            GUI.clear();
-            if (this.reward[1]) GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-this.time)/PixelTanks.images[['cosmetics', 'deathEffects'][this.reward[1]]][this.reward[3]+'_'].speed)%PixelTanks.images[['cosmetics', 'deathEffects'][this.reward[1]]][this.reward[3]+'_'].frames)*200, 0, 200, 200); else GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1);
-            GUI.drawText('You Got', 800, 200, 100, '#ffffff', 0.5);
-            GUI.drawText(this.reward[4], 800, 800, 50, '#ffffff', 0.5);
-            return GUI.drawText(this.reward[2], 800, 900, 30, {mythic: '#FF0000', legendary: '#FFFF00', epic: '#A020F0', rare: '#0000FF', uncommon: '#32CD32', common: '#FFFFFF'}[this.reward[2]], 0.5);
+    },
+    world2: {
+      buttons: [[416, 20, 108, 108, 'world1', true], [1068, 20, 108, 108, 'world3', true]],
+      listeners: {
+        mousedown: function(e) {
+          for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
+            Menus.removeListeners();
+            PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+21, false, null);
           }
-          GUI.drawText(`Crates: ${PixelTanks.userData.stats[1]}`, 800, 260, 30, '#ffffff', 0.5);
-          GUI.draw.strokeStyle = '#FFFF00';
-          GUI.draw.lineWidth = 10;
-          1, 10, 100
-          10, 100, 1000
-          GUI.draw.strokeRect([300, 424, 548][Math.log10(this.csize*10)-1], 816, 104, 52);
-          GUI.draw.strokeRect([948, 1072, 1196][Math.log10(this.dsize*10)-1], 816, 104, 52);
         }
       },
-      settings: {
-        buttons: [[416, 20, 108, 108, 'main', true]],
-        listeners: {
-          mousedown: function(e) {
-            const key = {item1: [165, 404], item2: [381, 404], item3: [597, 404], item4: [827, 404], toolkit: [1043, 404], grapple: [1259, 404], boost: [165, 620], class: [381, 620], fire: [597, 620], powermissle: [827, 620], chat: [1043, 620], pause: [1259, 620]};
-            for (const p in key) if (Menus.x > key[p][0] && Menus.x < key[p][0]+176 && Menus.y > key[p][1] && Menus.y < key[p][1]+176) {
-              if (Menus.menus.settings.selected === p) {
-                if (!PixelTanks.hasKeybind(1000+e.button)) PixelTanks.userData.keybinds[this.selected] = 1000+e.button; // mouse handler
-                return PixelTanks.save();
-              } else return Menus.menus.settings.selected = p;
-            }
-          },
-          keydown: function(e) {
-            if (!PixelTanks.hasKeybind(e.keyCode)) PixelTanks.userData.keybinds[this.selected] = e.keyCode; else alert('Imagine being so lazy you only hit 1 key to win');
-            PixelTanks.save();
+    },
+    world3: {
+      buttons: [[416, 20, 108, 108, 'world2', true], [1068, 20, 108, 108, 'world4', true]],
+      listeners: {
+        mousedown: function(e) {
+          for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
+            Menus.removeListeners();
+            PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+41, false, null);
           }
-        },
-        cdraw: function() {
+        }
+      },
+    },
+    world4: {
+      buttons: [[416, 20, 108, 108, 'world3', true], [1068, 20, 108, 108, 'world5', true]],
+      listeners: {
+        mousedown: function(e) {
+          for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
+            Menus.removeListeners();
+            PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+61, false, null);
+          }
+        }
+      },
+    },
+    world5: {
+      buttons: [[416, 20, 108, 108, 'world4', true], [1068, 20, 108, 108, 'world1', true]],
+      listeners: {
+        mousedown: function(e) {
+          for (const c of PixelTanks.levelCoords) if (Engine.collision(Menus.x, Menus.y, 0, 0, c[0], c[1], 200, 100)) {
+            Menus.removeListeners();
+            PixelTanks.user.player = new Client(PixelTanks.levelCoords.indexOf(c)+81, false, null);
+          }
+        }
+      },
+    },
+    victory: { // INCOMPLETE VICTORY/DEFEAT MENUS
+      buttons: [
+        [656, 603, 313, 112, () => Menus.trigger('main'), true],
+        [558, 726, 505, 114, () => alert('no'), true],
+      ],
+    },
+    defeat: {
+      buttons: [
+        [656, 603, 313, 112, () => Menus.trigger('main'), true],
+        [558, 726, 505, 114, () => alert('no'), true],
+      ],
+    },
+    multiplayer: {
+      buttons: [
+        [436, 24, 108, 108, 'main'],
+        [340, 376, 416, 116, () => (this.menus.multiplayer.gamemode = 'ffa'), true],
+        [340, 532, 416, 116, () => (this.menus.multiplayer.gamemode = 'duels'), true],
+        [340, 688, 416, 116, () => (this.menus.multiplayer.gamemode = 'tdm'), true],
+        [868, 848, 368, 88, () => {
+          this.removeListeners();
+          PixelTanks.user.player = new Client(this.menus.multiplayer.ip.value, true, this.menus.multiplayer.gamemode);
+        }, true],
+      ],
+      listeners: {
+        keydown: function(e) {
+          if (e.keyCode === 37 && this.currentRoom > 0) this.currentRoom--;
+          if (e.keyCode === 39) if (this.currentRoom+1 < Object.values(this.preview[this.gamemode]).length) this.currentRoom++; else this.currentRoom = 0;
+        }
+      },
+      cdraw: function() {
+        if (!this.gamemode) {
+          this.time = Date.now();
+          this.gamemode = 'ffa';
+          this.currentRoom = 0;
+          this.ip = document.createElement('INPUT');
+          const left = (window.innerWidth-window.innerHeight*1.6)/2+.504*window.innerHeight;
+          this.ip.x = 504;
+          this.ip.y = 240;
+          this.ip.w = 592;
+          this.ip.h = 72;
+          this.ip.style = 'top: '+(.240*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.592)+'px; height: '+(window.innerHeight*.072)+'px;';
+          this.ip.value = '129.146.45.71:443';
+          this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value.split('#')[0], {keepAlive: true, autoconnect: true, reconnect: false});
+          this.socket.on('connect', e => (this.socket.send({type: 'preview'})));
+          this.socket.on('message', d => {
+            if (d.event === 'preview') this.preview = d;
+            if (this.currentRoom >= Object.values(this.preview[this.gamemode]).length) this.currentRoom = 0;
+          });
+          this.elements.push(document.body.appendChild(this.ip));
+        }
+        let ip = this.ip.value.split('#')[0];
+        if (this.socket.url.replace('ws://', '').replace('wss://', '') !== ip || this.socket.status === 'disconnected') {
+          this.socket.close();
+          this.socket.url = (window.location.protocol === 'https:' ? 'wss://' : 'ws://')+ip;
+          this.socket.connect();
+        } else if (this.socket.status === 'connected') if (Math.floor((Date.now()-this.time)/15)%6 === 0) this.socket.send({type: 'preview'});
+        GUI.drawText(this.gamemode.toUpperCase(), 1047, 800, 50, '#FFFFFF', 0.5);
+        if (!this.preview) return;
+        for (let i = 0; i < 3; i++) GUI.drawText(Object.values(this.preview[['ffa', 'duels', 'tdm'][i]]).length, 678, [408, 562, 712][i], 50, '#000000', 0.5);
+        let room = Object.keys(this.preview[this.gamemode])[this.currentRoom], v = Object.values(this.preview[this.gamemode]), players = v[this.currentRoom];
+        GUI.drawText(!v.length ? 'No Rooms' : 'Room('+(this.currentRoom+1)+'/'+v.length+') '+room, 1047, 410, 50, '#ffffff', 0.5);
+        for (let i = 0; i < players.length; i++) GUI.drawText(players[i].replace('#', ''), 1047, 452+25*i, 20, players[i].includes('#') ? '#454545' : '#ffffff', 0.5);
+      }
+    },
+    crate: {
+      buttons: [[416, 20, 108, 108, 'main', true], [232, 308, 488, 488, () => PixelTanks.openCrate(0, this.menus.crate.csize), false], [880, 308, 488, 488, () => PixelTanks.openCrate(1, this.menus.crate.dsize), false], [300, 816, 104, 52, () => (this.menus.crate.csize = 1), false], [424, 816, 104, 52, () => (this.menus.crate.csize = 10), false], [548, 816, 104, 52, () => (this.menus.crate.csize = 100), false], [948, 816, 104, 52, () => (this.menus.crate.dsize = 1), false], [1072, 816, 104, 52, () => (this.menus.crate.dsize = 10), false], [1196, 816, 104, 52, () => (this.menus.crate.dsize = 100), false]],
+      cdraw: function() {
+        if (!this.time) this.time = Date.now(); // animatino :)
+        if (this.reward) {
+          GUI.clear();
+          if (this.reward[1]) GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-this.time)/PixelTanks.images[['cosmetics', 'deathEffects'][this.reward[1]]][this.reward[3]+'_'].speed)%PixelTanks.images[['cosmetics', 'deathEffects'][this.reward[1]]][this.reward[3]+'_'].frames)*200, 0, 200, 200); else GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1);
+          GUI.drawText('You Got', 800, 200, 100, '#ffffff', 0.5);
+          GUI.drawText(this.reward[4], 800, 800, 50, '#ffffff', 0.5);
+          return GUI.drawText(this.reward[2], 800, 900, 30, ['#FF0000', '#FFFF00', '#A020F0', '#0000FF', '#32CD32', '#FFFFFF'][['mythic', 'legendary', 'epic', 'rare', 'uncommon', 'common'].indexOf(this.reward[2])], 0.5);
+        }
+        GUI.drawText(`Crates: ${PixelTanks.userData.stats[1]}`, 800, 260, 30, '#ffffff', 0.5);
+        GUI.draw.strokeStyle = '#FFFF00';
+        GUI.draw.lineWidth = 10;
+        GUI.draw.strokeRect([300, 424, 548][Math.log10(this.csize*10)-1], 816, 104, 52);
+        GUI.draw.strokeRect([948, 1072, 1196][Math.log10(this.dsize*10)-1], 816, 104, 52);
+      }
+    },
+    settings: {
+      buttons: [[416, 20, 108, 108, 'main', true]],
+      listeners: {
+        mousedown: function(e) {
           const key = {item1: [165, 404], item2: [381, 404], item3: [597, 404], item4: [827, 404], toolkit: [1043, 404], grapple: [1259, 404], boost: [165, 620], class: [381, 620], fire: [597, 620], powermissle: [827, 620], chat: [1043, 620], pause: [1259, 620]};
-          GUI.draw.fillStyle = '#A9A9A9'; // change selection  later?
-          GUI.draw.lineWidth = 30; // border thickness
-          for (const p in key) {
-            if (this.selected === p) GUI.draw.strokeRect(key[p][0], key[p][1], 176, 176);
-            GUI.drawText(String.fromCharCode(PixelTanks.userData.keybinds[p]), key[p][0]+88, key[p][1]+88, 50, '#ffffff', .5);
+          for (const p in key) if (Menus.x > key[p][0] && Menus.x < key[p][0]+176 && Menus.y > key[p][1] && Menus.y < key[p][1]+176) {
+            if (Menus.menus.settings.selected === p) {
+              if (!PixelTanks.hasKeybind(1000+e.button)) PixelTanks.userData.keybinds[this.selected] = 1000+e.button; // mouse handler
+              return PixelTanks.save();
+            } else return Menus.menus.settings.selected = p;
           }
         },
+        keydown: function(e) {
+          if (!PixelTanks.hasKeybind(e.keyCode)) PixelTanks.userData.keybinds[this.selected] = e.keyCode; else alert('Imagine being so lazy you only hit 1 key to win');
+          PixelTanks.save();
+        }
       },
-      inventory: {
-        buttons: [
-          [416, 20, 108, 108, 'main', true],
-          [1064, 460, 88, 88, PixelTanks.upgrade, true],
-          [1112, 816, 88, 88, () => PixelTanks.switchTab('classTab'), false],
-          [400, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 1), false],
-          [488, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 2), false],
-          [576, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 3), false],
-          [664, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 4), false],
-          [448, 360, 88, 88, () => PixelTanks.switchTab('cosmeticTab', 'cosmetic_hat'), false],
-          [448, 460, 88, 88, () => PixelTanks.switchTab('cosmeticTab', 'cosmetic'), false],
-          [448, 560, 88, 88, () => PixelTanks.switchTab('cosmeticTab', 'cosmetic_body'), false],
-          [448, 220, 88, 88, () => PixelTanks.switchTab('deathEffectsTab'), false],
-          [844, 816, 88, 88, () => PixelTanks.switchTab('perkTab', 1), false],
-          [932, 816, 88, 88, () => PixelTanks.switchTab('perkTab', 2), false],
-        ],
+      cdraw: function() {
+        const key = {item1: [165, 404], item2: [381, 404], item3: [597, 404], item4: [827, 404], toolkit: [1043, 404], grapple: [1259, 404], boost: [165, 620], class: [381, 620], fire: [597, 620], powermissle: [827, 620], chat: [1043, 620], pause: [1259, 620]};
+        GUI.draw.fillStyle = '#A9A9A9'; // change selection  later?
+        GUI.draw.lineWidth = 30; // border thickness
+        for (const p in key) {
+          if (this.selected === p) GUI.draw.strokeRect(key[p][0], key[p][1], 176, 176);
+          GUI.drawText(String.fromCharCode(PixelTanks.userData.keybinds[p]), key[p][0]+88, key[p][1]+88, 50, '#ffffff', .5);
+        }
+      },
+    },
+    inventory: {
+      buttons: [
+        [416, 20, 108, 108, 'main', true],
+        [1064, 460, 88, 88, PixelTanks.upgrade, true],
+        [1112, 816, 88, 88, () => PixelTanks.switchTab('classTab'), false],
+        [400, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 1), false],
+        [488, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 2), false],
+        [576, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 3), false],
+        [664, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 4), false],
+        [448, 360, 88, 88, () => PixelTanks.switchTab('cosmeticTab', 'cosmetic_hat'), false],
+        [448, 460, 88, 88, () => PixelTanks.switchTab('cosmeticTab', 'cosmetic'), false],
+        [448, 560, 88, 88, () => PixelTanks.switchTab('cosmeticTab', 'cosmetic_body'), false],
+        [448, 220, 88, 88, () => PixelTanks.switchTab('deathEffectsTab'), false],
+        [844, 816, 88, 88, () => PixelTanks.switchTab('perkTab', 1), false],
+        [932, 816, 88, 88, () => PixelTanks.switchTab('perkTab', 2), false],
+      ],
         listeners: {
           mousedown: function(e) {
             const {x, y} = Menus;
