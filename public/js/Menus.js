@@ -168,7 +168,6 @@ class Menus {
       },
       cdraw: function() {
         if (!this.gamemode) {
-          this.time = Date.now();
           this.gamemode = 'ffa';
           this.currentRoom = 0;
           this.ip = document.createElement('INPUT');
@@ -192,7 +191,7 @@ class Menus {
           this.socket.close();
           this.socket.url = (window.location.protocol === 'https:' ? 'wss://' : 'ws://')+ip;
           this.socket.connect();
-        } else if (this.socket.status === 'connected') if (Math.floor((Date.now()-this.time)/15)%6 === 0) this.socket.send({type: 'preview'});
+        } else if (this.socket.status === 'connected') if (Math.floor((Date.now()-PixelTanks.t)/15)%6 === 0) this.socket.send({type: 'preview'});
         GUI.drawText(this.gamemode.toUpperCase(), 1047, 800, 50, '#FFFFFF', 0.5);
         if (!this.preview) return;
         for (let i = 0; i < 3; i++) GUI.drawText(Object.values(this.preview[['ffa', 'duels', 'tdm'][i]]).length, 768, [526, 670, 826][i], 50, '#000000', 0.5);
@@ -204,10 +203,9 @@ class Menus {
     crate: {
       buttons: [[416, 20, 108, 108, 'main', true], [232, 308, 488, 488, () => PixelTanks.openCrate(0, Menus.menus.crate.csize), false], [880, 308, 488, 488, () => PixelTanks.openCrate(1, Menus.menus.crate.dsize), false], [300, 816, 104, 52, () => (Menus.menus.crate.csize = 1), false], [424, 816, 104, 52, () => (Menus.menus.crate.csize = 10), false], [548, 816, 104, 52, () => (Menus.menus.crate.csize = 100), false], [948, 816, 104, 52, () => (Menus.menus.crate.dsize = 1), false], [1072, 816, 104, 52, () => (Menus.menus.crate.dsize = 10), false], [1196, 816, 104, 52, () => (Menus.menus.crate.dsize = 100), false]],
       cdraw: function() {
-        if (!this.time) this.time = Date.now(); // animatino :)
         if (this.reward) {
           GUI.clear();
-          if (this.reward[1]) GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-this.time)/PixelTanks.images[['cosmetics', 'deathEffects'][this.reward[1]]][this.reward[3]+'_'].speed)%PixelTanks.images[['cosmetics', 'deathEffects'][this.reward[1]]][this.reward[3]+'_'].frames)*200, 0, 200, 200); else GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1);
+          if (this.reward[1]) GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-PixelTanks.t)/PixelTanks.images[['cosmetics', 'deathEffects'][this.reward[1]]][this.reward[3]+'_'].speed)%PixelTanks.images[['cosmetics', 'deathEffects'][this.reward[1]]][this.reward[3]+'_'].frames)*200, 0, 200, 200); else GUI.drawImage(this.reward[0], 600, 400, 400, 400, 1);
           GUI.drawText('You Got', 800, 200, 100, '#ffffff', 0.5);
           GUI.drawText(this.reward[4], 800, 800, 50, '#ffffff', 0.5);
           return GUI.drawText(this.reward[2], 800, 900, 30, ['#FF0000', '#FFFF00', '#A020F0', '#0000FF', '#32CD32', '#FFFFFF'][['mythic', 'legendary', 'epic', 'rare', 'uncommon', 'common'].indexOf(this.reward[2])], 0.5);
@@ -351,7 +349,6 @@ class Menus {
         },
         cdraw: function() {
           if (!this.target) {
-            this.time = Date.now();
             this.target = {x: 0, y: 0}; // use Menus.x/y
             this.cosmeticMenu = this.deathEffectsMenu = 0;
             this.colorInput = document.createElement('INPUT');
@@ -403,7 +400,7 @@ class Menus {
           if (PixelTanks.userData.cosmetic && PixelTanks.userData.cosmetic !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic], 448, 460, 88, 88, 0); else GUI.drawImage(PixelTanks.images.menus.broke, 448, 460, 88, 88, 1);
           if (PixelTanks.userData.cosmetic_body && PixelTanks.userData.cosmetic_body !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_body], 448, 560, 88, 88, 0); else GUI.drawImage(PixelTanks.images.menus.broke, 448, 560, 88, 88, 1);
           const deathEffectData = PixelTanks.images.deathEffects[PixelTanks.userData.deathEffect+'_'];
-          if (PixelTanks.userData.deathEffect && deathEffectData) GUI.drawImage(PixelTanks.images.deathEffects[PixelTanks.userData.deathEffect], 448, 220, 88, 88, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-this.time)/deathEffectData.speed)%deathEffectData.frames)*200, 0, 200, 200);
+          if (PixelTanks.userData.deathEffect && deathEffectData) GUI.drawImage(PixelTanks.images.deathEffects[PixelTanks.userData.deathEffect], 448, 220, 88, 88, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-PixelTanks.t)/deathEffectData.speed)%deathEffectData.frames)*200, 0, 200, 200);
           if (!(PixelTanks.userData.deathEffect && deathEffectData)) GUI.drawImage(PixelTanks.images.menus.broke, 448, 220, 88, 88, 1);
           if (this.perkTab || this.healthTab || this.classTab || this.itemTab || this.cosmeticTab || this.deathEffectsTab) {
             Menus.menus.inventory.buttonEffect = false; // disable buttons????
@@ -469,7 +466,7 @@ class Menus {
               GUI.draw.globalAlpha = 0.5;
               GUI.draw.fillRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88);
               GUI.draw.globalAlpha = 1;
-              if (d) GUI.drawImage(PixelTanks.images.deathEffects[PixelTanks.userData.deathEffects[i].split('#')[0]], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-this.time)/d.speed)%d.frames)*200, 0, 200, 200);
+              if (d) GUI.drawImage(PixelTanks.images.deathEffects[PixelTanks.userData.deathEffects[i].split('#')[0]], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-PixelTanks.t)/d.speed)%d.frames)*200, 0, 200, 200);
               GUI.drawText(PixelTanks.userData.deathEffects[i].split('#')[1], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 30, '#FF0000', .5);
               if (PixelTanks.userData.deathEffects[i].split('#')[0] === PixelTanks.userData.deathEffect) {
                 GUI.draw.strokeStyle = 0xffff22;
