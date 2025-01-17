@@ -521,7 +521,8 @@ class Menus {
       },
       pause: {
         buttons: [
-          [1218, 910, 368, 76, () => {
+          [664, 684, 280, 104, () => (Menus.softUntrigger('pause')), true]
+          [664, 560, 320, 104, () => {
             Menus.softUntrigger('pause');
             PixelTanks.user.player.implode();
             PixelTanks.main();
