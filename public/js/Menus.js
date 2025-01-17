@@ -173,7 +173,7 @@ class Menus {
           this.currentRoom = 0;
           this.ip = document.createElement('INPUT');
           const left = (window.innerWidth-window.innerHeight*1.6)/2+.504*window.innerHeight;
-          this.ip.x = 504;
+          this.ip.x = 268;
           this.ip.y = 240;
           this.ip.w = 592;
           this.ip.h = 72;
@@ -195,7 +195,7 @@ class Menus {
         } else if (this.socket.status === 'connected') if (Math.floor((Date.now()-this.time)/15)%6 === 0) this.socket.send({type: 'preview'});
         GUI.drawText(this.gamemode.toUpperCase(), 1047, 800, 50, '#FFFFFF', 0.5);
         if (!this.preview) return;
-        for (let i = 0; i < 3; i++) GUI.drawText(Object.values(this.preview[['ffa', 'duels', 'tdm'][i]]).length, 678, [408, 562, 712][i], 50, '#000000', 0.5);
+        for (let i = 0; i < 3; i++) GUI.drawText(Object.values(this.preview[['ffa', 'duels', 'tdm'][i]]).length, 768, [496, 660, 816][i], 50, '#000000', 0.5);
         let room = Object.keys(this.preview[this.gamemode])[this.currentRoom], v = Object.values(this.preview[this.gamemode]), players = v[this.currentRoom];
         GUI.drawText(!v.length ? 'No Rooms' : 'Room('+(this.currentRoom+1)+'/'+v.length+') '+room, 1047, 410, 50, '#ffffff', 0.5);
         for (let i = 0; i < players.length; i++) GUI.drawText(players[i].replace('#', ''), 1047, 452+25*i, 20, players[i].includes('#') ? '#454545' : '#ffffff', 0.5);
