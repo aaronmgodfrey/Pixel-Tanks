@@ -312,7 +312,7 @@ class DUELS extends Multiplayer {
   constructor() {
     super(duelsLevels);
     this.round = 1;
-    this.mode = 0; // 0 -> waiting for other player, 1 -> 10 second ready timer, 2-> match active
+    this.mode = 0; // 0 -> waiting for other player, 1 -> 10 second ready timer, 2-> match active, 3 -> gameover
     this.wins = {};
   }
 
@@ -358,6 +358,7 @@ class DUELS extends Multiplayer {
     this.wins[m.username] = this.wins[m.username] === undefined ? 1 : this.wins[m.username]+1;
     if (this.wins[m.username] === 3) {
       this.global = m.username+' Wins!';
+      this.mode++;
       setTimeout(() => {
         t.socket.send({event: 'gameover', type: 'defeat'});
         m.socket.send({event: 'gameover', type: 'victory'});
@@ -831,8 +832,10 @@ wss.on('connection', socket => {
       let server;
       if (data.room) {
         if (data.room.length > 6) return socket.kick('Invalid Room.'); 
-        if (!servers[data.room]) servers[data.room] = new joinKey[data.gamemode]();
-        servers[data.room].private = true;
+        if (!servers[data.room]) {
+          servers[data.room] = new joinKey[data.gamemode]();
+          servers[data.room].private = true;
+        }
         server = data.room;
       } else {
         for (const id in servers) { // OPTIMIZE THIS
