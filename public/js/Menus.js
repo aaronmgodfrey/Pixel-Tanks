@@ -155,6 +155,14 @@ class Menus {
         [336, 456, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'ffa'), true],
         [336, 612, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'duels'), true],
         [336, 768, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'tdm'), true],
+        [868, 852, 44, 44, () => (Menus.menus.multiplayer.currentRoom = Menus.menus.multiplayer.currentRoom > 0 ? Menus.menus.multiplayer.currentRoom-1 : 0), true],
+        [1156, 852, 44, 44, () => (Menus.menus.multiplayer.currentRoom = Menus.menus.multiplayer.currentRoom+1 < Object.values(Menus.menus.multiplayer.preview[Menus.menus.multiplayer.gamemode]).length ? Menus.menus.multiplayer.currentRoom+1 : 0), true],
+        [964, 852, 184, 88, () => {
+          let room = Object.values(Menus.menus.multiplayer.preview[Menus.menus.multiplayer.gamemode])[Menus.menus.multiplayer.currentRoom];
+          if (room.replaceAll('*', '').length === 0) return;
+          Menus.removeListeners();
+          PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip.value+'#'+room, true, Menus.menus.multiplayer.gamemode);
+        }, true],
         [964, 232, 368, 88, () => {
           Menus.removeListeners();
           PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip.value, true, Menus.menus.multiplayer.gamemode);
@@ -171,12 +179,12 @@ class Menus {
           this.gamemode = 'ffa';
           this.currentRoom = 0;
           this.ip = document.createElement('INPUT');
-          const left = (window.innerWidth-window.innerHeight*1.6)/2+.504*window.innerHeight;
-          this.ip.x = 268;
-          this.ip.y = 240;
+          const left = (window.innerWidth-window.innerHeight*1.6)/2+.276*window.innerHeight;
+          this.ip.x = 276;
+          this.ip.y = 232;
           this.ip.w = 592;
           this.ip.h = 72;
-          this.ip.style = 'top: '+(.240*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.592)+'px; height: '+(window.innerHeight*.072)+'px;';
+          this.ip.style = 'top: '+(.232*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.592)+'px; height: '+(window.innerHeight*.072)+'px;';
           this.ip.value = '129.146.45.71:443';
           this.socket = new MegaSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://')+this.ip.value.split('#')[0], {keepAlive: true, autoconnect: true, reconnect: false});
           this.socket.on('connect', e => (this.socket.send({type: 'preview'})));
