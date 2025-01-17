@@ -318,7 +318,11 @@ class DUELS extends Multiplayer {
 
   add(socket, data) {
     super.add(socket, data);
-    if (this.mode !== 0) this.pt[this.pt.length-1].spectator = true;
+    if (this.mode !== 0) {
+      const t = this.pt[this.pt.length-1], s = this.pt[0];
+      t.spectator = t.ded = true;
+      this.override(t, t.x = s.x, t.y = s.y);
+    }
     if (this.pt.length === 1) {
       this.global = 'Waiting For Player...';
     } else {
