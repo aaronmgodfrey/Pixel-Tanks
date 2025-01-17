@@ -510,7 +510,7 @@ class TDM extends Multiplayer {
   }
 }
 
-const joinKey = {'ffa': FFA, 'duels': DUELS, 'tdm': TDM, 'defense': Defense};
+const joinKey = {'ffa': FFA, 'duels': DUELS, 'tdm': TDM};
 const Commands = {
   admin: [Object, 1, 2, data => {
     if (!Storage.admins.includes(data[1])) Storage.admins.push(data[1]);
@@ -837,7 +837,6 @@ wss.on('connection', socket => {
             if (data.gamemode === 'ffa' && servers[id].pt.length >= settings.players_per_room) continue;
             if (data.gamemode === 'duels' && servers[id].pt.length !== 1) continue;
             if (data.gamemode === 'tdm' && servers[id].mode !== 0) continue;
-            if (data.gamemode === 'defense' && servers[id].pt.length > 10) continue;
             server = id;
             break;
           }
