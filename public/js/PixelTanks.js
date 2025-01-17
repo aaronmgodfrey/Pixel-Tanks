@@ -1,6 +1,7 @@
 class PixelTanks {
   static loadMessages = ['Recharging Instas...', 'Summoning Turrets...', 'Sorting Cosmetics...', 'Spotting Stealths...', 'Putting Out Fires...', 'Generating Levels...', 'Loading Up Crates...', 'Filling Up Stocks...', 'Drawing Menus...', 'Placing Blocks...', 'Launching Missles...', 'Booting Game Engine...'];
   static levelCoords = [[116, 248], [356, 204], [596, 260], [839, 240], [1056, 204], [1272, 272], [1340, 400], [1212, 536], [964, 516], [732, 560], [508, 528], [284, 480], [64, 548], [36, 676], [148, 804], [384, 844], [624, 788], [864, 808], [1100, 848], [1336, 808]];
+  static t = Date.now();
   static start() {
     PixelTanks.setup();
     PixelTanks.boot();
