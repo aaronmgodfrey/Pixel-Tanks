@@ -152,10 +152,10 @@ class Menus {
     multiplayer: {
       buttons: [
         [436, 24, 108, 108, 'main'],
-        [340, 376, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'ffa'), true],
-        [340, 532, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'duels'), true],
-        [340, 688, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'tdm'), true],
-        [868, 848, 368, 88, () => {
+        [340, 460, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'ffa'), true],
+        [340, 616, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'duels'), true],
+        [340, 772, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'tdm'), true],
+        [968, 236, 368, 88, () => {
           Menus.removeListeners();
           PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip.value, true, Menus.menus.multiplayer.gamemode);
         }, true],
