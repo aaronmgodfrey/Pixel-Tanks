@@ -155,9 +155,9 @@ class Menus {
         [336, 456, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'ffa'), true],
         [336, 612, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'duels'), true],
         [336, 768, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'tdm'), true],
-        [872, 856, 88, 88, () => (Menus.menus.multiplayer.currentRoom = Menus.menus.multiplayer.currentRoom > 0 ? Menus.menus.multiplayer.currentRoom-1 : 0), true],
-        [1160, 856, 88, 88, () => (Menus.menus.multiplayer.currentRoom = Menus.menus.multiplayer.currentRoom+1 < Object.values(Menus.menus.multiplayer.preview[Menus.menus.multiplayer.gamemode]).length ? Menus.menus.multiplayer.currentRoom+1 : 0), true],
-        [968, 856, 184, 88, () => {
+        [864, 848, 88, 88, () => (Menus.menus.multiplayer.currentRoom = Menus.menus.multiplayer.currentRoom > 0 ? Menus.menus.multiplayer.currentRoom-1 : 0), true],
+        [1152, 848, 88, 88, () => (Menus.menus.multiplayer.currentRoom = Menus.menus.multiplayer.currentRoom+1 < Object.values(Menus.menus.multiplayer.preview[Menus.menus.multiplayer.gamemode]).length ? Menus.menus.multiplayer.currentRoom+1 : 0), true],
+        [960, 848, 184, 88, () => {
           let room = Object.values(Menus.menus.multiplayer.preview[Menus.menus.multiplayer.gamemode])[Menus.menus.multiplayer.currentRoom];
           if (room.replaceAll('*', '').length === 0) return;
           Menus.removeListeners();
