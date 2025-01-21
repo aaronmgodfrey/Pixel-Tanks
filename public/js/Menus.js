@@ -278,8 +278,8 @@ class Menus {
             if (this.classTab) {
               if (x < 688 || x > 912 || y < 334 || y > 666) return this.classTab = this.loaded = false;
               for (let i = 0; i < 6; i++) {
-                let key = [[[0, 5, 3], [1, 4, 2]][i%2][Math.floor(i/3)]], c = ['tactical', 'stealth', 'warrior', 'medic', 'builder', 'fire'][key];
-                if (!PixelTanks.userData.classes[key] || !Engine.collision(x, y, 0, 0, [702, 819][i%2], [348, 456, 564][Math.floor(i/3)], 88, 88)) continue;
+                let key = [[[0, 5, 3], [1, 4, 2]][i%2][Math.floor(i/2)]], c = ['tactical', 'stealth', 'warrior', 'medic', 'builder', 'fire'][key];
+                if (!PixelTanks.userData.classes[key] || !Engine.collision(x, y, 0, 0, [702, 819][i%2], [348, 456, 564][Math.floor(i/2)], 88, 88)) continue;
                 PixelTanks.userData.class = PixelTanks.userData.class === c ? null : c;
                 return this.loaded = false;
               }
