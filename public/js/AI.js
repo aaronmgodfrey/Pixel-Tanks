@@ -234,11 +234,11 @@ class AI {
             setTimeout(() => (this.canBashed = true), 1000);
             this.damageCalc(this.x, this.y, 100*(entity.rank/50+.6), Engine.getUsername(entity.team));
           }
-          const thermal = Engine.hasPerk(this.perk, 2), size = entity.role === 0 ? 100 : 80;
+          /*const thermal = Engine.hasPerk(this.perk, 2), size = entity.role === 0 ? 100 : 80;
           if (thermal && !entity.thermaled && Engine.collision(this.x, this.y, 80, 80, entity.x, entity.y, size, size)) {
             entity.thermaled = setTimeout(() => (entity.thermaled = false), 1000) && 1;
             entity.damageCalc(entity.x, entity.y, thermal*10, Engine.getUsername(this.team));
-          }
+          }*/
         }
       }
     }
