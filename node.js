@@ -71,4 +71,4 @@ wss.on('connection', function connection(ws) {
     sockets.delete(ws)
   });
 });
-server.listen(80);
+server.listen(443);
