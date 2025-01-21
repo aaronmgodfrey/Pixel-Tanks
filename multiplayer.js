@@ -936,6 +936,7 @@ wss.on('connection', socket => {
     if (servers[socket.room]) servers[socket.room].disconnect(socket, code, reason);
   });
 });
+server.listen(settings.port);
 console.log('Listening on port '+settings.port);
 
 const discord = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
