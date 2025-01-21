@@ -183,7 +183,7 @@ class AI {
       const diff = (this.tr-this.r+360)%360, dir = diff < 180 ? 1 : -1;
       this.r = diff > this.barrelSpeed ? (this.r+dir*this.barrelSpeed+360)%360 : this.tr;
     }
-    const radar = Engine.hasPerk(this.perk, 6);
+    /*const radar = Engine.hasPerk(this.perk, 6);
     if (radar && !this.ded) {
       this.eradar.length = this.fradar.length = 0;
       for (const t of this.host.pt.concat(this.host.ai)) {
@@ -193,7 +193,7 @@ class AI {
         } else if (radar > 1) this.fradar.push(Engine.toAngle(t.x-this.x, t.y-this.y));
       }
       this.host.updateEntity(this, ['eradar', 'fradar']);
-    }
+    }*/
     if (this.dedEffect) (this.dedEffect.time = Date.now()-this.dedEffect.start) && this.setValue('dedEffect', this.dedEffect);
     if (this.pushback !== 0) this.pushback += 0.5;
     if (Date.now()-this.fireTime < 4000) {
