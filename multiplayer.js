@@ -856,6 +856,7 @@ wss.on('connection', socket => {
       return socket.close();
     }
     if (!socket.username) socket.username = data.username;
+    console.log(JSON.stringify(data));
     if (data.op === 'database') database(data, ws); // AUTH SERVER
     if (data.op === 'auth') auth(data, ws); // AUTH SERVER
     if (data.type === 'update') {
