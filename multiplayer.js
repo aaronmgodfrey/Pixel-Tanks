@@ -17,7 +17,7 @@ const {dalle, gpt, bing} = require('gpti');
 
 // START AUTH SERVER
 const {MongoClient} = require('mongodb');
-const http = require('http'));
+const http = require('http');
 
 const client = new MongoClient('mongodb+srv://cs641311:355608-G38@cluster0.z6wsn.mongodb.net/?retryWrites=true&w=majority');
 const tokens = new Set(), sockets = new Set();
