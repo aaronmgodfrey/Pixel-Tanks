@@ -937,10 +937,10 @@ wss.on('connection', socket => {
 });
 console.log('Listening on port '+settings.port);
 
-const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
+const discord = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
 const token = fs.readFileSync('discord.json', 'utf8').replace(/\n/g, ''), channel = '1301321677220741180'; // temp, move to file
-const toDiscord = m => client.channels.cache.get(channel)?.send(m);
-client.on('messageCreate', m => {
+const toDiscord = m => discord.channels.cache.get(channel)?.send(m);
+discord.on('messageCreate', m => {
   if (m.channel.id !== channel || m.author.id === '1301716399999160392') return;
   if (m.content.startsWith('/')) {
     m.delete(1000);
@@ -960,5 +960,5 @@ client.on('messageCreate', m => {
   }
   for (const server of Object.values(servers)) server.logs.push({m: '[DISCORD]['+m.author.username+'] '+m.content, c: '#ffffff'});
 });
-client.on('ready', () => console.log(`Logged in as ${client.user.tag}!`));
-client.login(token);
+discord.on('ready', () => console.log(`Logged in as ${client.user.tag}!`));
+discord.login(token);
