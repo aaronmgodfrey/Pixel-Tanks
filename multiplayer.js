@@ -856,9 +856,8 @@ wss.on('connection', socket => {
       return socket.close();
     }
     if (!socket.username) socket.username = data.username;
-    console.log(JSON.stringify(data));
-    if (data.op === 'database') database(data, ws); // AUTH SERVER
-    if (data.op === 'auth') auth(data, ws); // AUTH SERVER
+    if (data.op === 'database') database(data, socket); // AUTH SERVER
+    if (data.op === 'auth') auth(data, socket); // AUTH SERVER
     if (data.type === 'update') {
       if (Storage.bans.includes(data.username)) return socket.kick('You are banned!');
       if (servers[socket.room]) servers[socket.room].update(data); else return socket.kick(`You aren't in a room!`);
