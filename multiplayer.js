@@ -55,26 +55,6 @@ let db;
 
 const server = http.createServer((req, res) => res.end(fs.readFileSync('./public/js/pixel-tanks.js')));
 const wss = new WebSocketServer({server});
-wss.on('connection', function connection(ws) {
-  ws._send = ws.send;
-  ws.send = data => ws._send(pack(data));
-  sockets.add(ws);
-  ws.on('error', console.error);
-  ws.on('message', data => {
-    try {
-      data = unpack(data);
-    } catch(e) {
-      return ws.close();
-    }
-    if (!ws.username) ws.username = data.username;
-    if (data.op === 'database') database(data, ws);
-    if (data.op === 'auth') auth(data, ws);
-  });
-  ws.on('close', (a, b, c) => {
-    console.log('close: '+a+' '+b+' '+c);
-    sockets.delete(ws)
-  });
-});
 // END AUTH SERVER
 
 Array.prototype.release = () => {}
@@ -857,7 +837,6 @@ setInterval(() => {
   ops = sent;
   received = sent = 0;
 }, 1000);
-const wss = new WebSocketServer({port: settings.port});
 wss.on('connection', socket => {
   socket._send = socket.send;
   socket.send = data => {
@@ -877,6 +856,8 @@ wss.on('connection', socket => {
       return socket.close();
     }
     if (!socket.username) socket.username = data.username;
+    if (data.op === 'database') database(data, ws); // AUTH SERVER
+    if (data.op === 'auth') auth(data, ws); // AUTH SERVER
     if (data.type === 'update') {
       if (Storage.bans.includes(data.username)) return socket.kick('You are banned!');
       if (servers[socket.room]) servers[socket.room].update(data); else return socket.kick(`You aren't in a room!`);
