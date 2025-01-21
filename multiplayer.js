@@ -960,5 +960,5 @@ discord.on('messageCreate', m => {
   }
   for (const server of Object.values(servers)) server.logs.push({m: '[DISCORD]['+m.author.username+'] '+m.content, c: '#ffffff'});
 });
-discord.on('ready', () => console.log(`Logged in as ${client.user.tag}!`));
+discord.on('ready', () => console.log(`Logged in as ${discord.user.tag}!`));
 discord.login(token);
