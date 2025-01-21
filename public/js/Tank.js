@@ -1,7 +1,7 @@
 class Tank {
   static args = ['username', 'rank', 'class', 'perk', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'deathEffect', 'color', 'authority'];
   static raw = ['authority', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'flashbanged', 'dedEffect'];
-  static s = ['rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'flashbanged', 'dedEffect', 'gambleCounter', 'phasing'];
+  static s = ['rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'flashbanged', 'dedEffect', 'gambleCounter'];
   static u = ['x', 'y'];
   constructor() {
     this.cells = new Set();
@@ -16,7 +16,7 @@ class Tank {
     for (const p of Tank.args) this[p] = data[p];
     if (data.socket) this.socket = data.socket;
     this.host = host;
-    this.fire = this.phasing = false;
+    this.fire = false;
     this.gambleCounter = this.fireTime = 0;
     this.hp = this.maxHp = this.rank*10+300;
     this.canShield = this.canBashed = this.canInvis = !(this.damage = false);
@@ -104,7 +104,7 @@ class Tank {
     }
   }
   damageCalc(x, y, a, u) {
-    if ((((Date.now()-this.core) < 1000 || this.reflect || this.immune) && a > 0) || this.ded || this.phasing) return;
+    if ((((Date.now()-this.core) < 1000 || this.reflect || this.immune) && a > 0) || this.ded) return;
     const hx = Math.floor((this.x+40)/100), hy = Math.floor((this.y+40)/100);
     for (let i = Math.max(0, hx-1); i <= Math.min(29, hx+1); i++) for (let l = Math.max(0, hy-1); l <= Math.min(29, hy+1); l++) for (const entity of this.host.cells[i][l]) {
       if (entity instanceof Shot) if (entity.target) if (entity.target.id === this.id && entity.type === 'usb' && a >= 0) a = Math.max(0, a+(Math.abs(a/5))*(Engine.getTeam(entity.team) === Engine.getTeam(this.team) ? -1 : 1));
