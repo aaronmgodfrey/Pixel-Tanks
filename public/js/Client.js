@@ -49,7 +49,7 @@ class Client {
     this.paused = this.canRespawn = false;
     this.multiplayer = multiplayer;
     this.gamemode = gamemode;
-    this.ip = this.multiplayer ? ip.split('#')[0] : null; // maybe move ip to connect??
+    this.ip = this.multiplayer ? ip.split('#')[0] : ''; // maybe move ip to connect??
     if (ip.includes('#')) this.room = ip.split('#')[1];
     this.left = this.up = null;
     this.lastUpdate = {};
