@@ -116,7 +116,7 @@ const alpha = [...'abcdefghijklmnopqrstuvwxyz'], genID = () => {
   for (let i = 0; i < 6; i++) id += alpha[Math.floor(Math.random()*26)].toUpperCase();
   return Object.keys(servers).includes(id) ? genID() : id;
 }
-const auth = async(username, token) => {
+const authen = async(username, token) => {
   const response = await fetch('http://'+settings.authserver+`/verify?username=${username}&token=${token}`);
   const text = await response.text();
   console.log(text);
