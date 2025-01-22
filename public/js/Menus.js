@@ -257,27 +257,13 @@ class Menus {
       },
     },
     inventory: {
-      buttons: [
-        [416, 20, 108, 108, 'main', true],
-        [1064, 460, 88, 88, PixelTanks.upgrade, true],
-        [1112, 816, 88, 88, () => PixelTanks.switchTab('classTab'), false],
-        [400, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 1), false],
-        [488, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 2), false],
-        [576, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 3), false],
-        [664, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 4), false],
-        [448, 360, 88, 88, () => PixelTanks.switchTab('cosmeticTab', 'cosmetic_hat'), false],
-        [448, 460, 88, 88, () => PixelTanks.switchTab('cosmeticTab', 'cosmetic'), false],
-        [448, 560, 88, 88, () => PixelTanks.switchTab('cosmeticTab', 'cosmetic_body'), false],
-        [448, 220, 88, 88, () => PixelTanks.switchTab('deathEffectsTab'), false],
-        [844, 816, 88, 88, () => PixelTanks.switchTab('perkTab', 1), false],
-        [932, 816, 88, 88, () => PixelTanks.switchTab('perkTab', 2), false],
-      ],
-        listeners: {
-          mousedown: function(e) {
-            const {x, y} = Menus;
-            if (this.classTab) {
-              if (x < 688 || x > 912 || y < 334 || y > 666) return this.classTab = this.loaded = false;
-              for (let i = 0; i < 6; i++) {
+      buttons: [[416, 20, 108, 108, 'main', true], [1064, 460, 88, 88, PixelTanks.upgrade, true], [1112, 816, 88, 88, () => PixelTanks.switchTab('classTab'), false], [400, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 1), false], [488, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 2), false], [576, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 3), false], [664, 816, 88, 88, () => PixelTanks.switchTab('itemTab', 4), false], [448, 360, 88, 88, () => PixelTanks.switchTab('cosmeticTab', 'cosmetic_hat'), false], [448, 460, 88, 88, () => PixelTanks.switchTab('cosmeticTab', 'cosmetic'), false], [448, 560, 88, 88, () => PixelTanks.switchTab('cosmeticTab', 'cosmetic_body'), false], [448, 220, 88, 88, () => PixelTanks.switchTab('deathEffectsTab'), false], [844, 816, 88, 88, () => PixelTanks.switchTab('perkTab', 1), false], [932, 816, 88, 88, () => PixelTanks.switchTab('perkTab', 2), false]],
+      listeners: {
+        mousedown: function(e) {
+          const {x, y} = Menus;
+          if (this.classTab) {
+            if (x < 688 || x > 912 || y < 334 || y > 666) return this.classTab = this.loaded = false;
+            for (let i = 0; i < 6; i++) {
                 let key = [[[0, 5, 3], [1, 4, 2]][i%2][Math.floor(i/2)]], c = ['tactical', 'stealth', 'warrior', 'medic', 'builder', 'fire'][key];
                 if (!PixelTanks.userData.classes[key] || !Engine.collision(x, y, 0, 0, [702, 819][i%2], [348, 456, 564][Math.floor(i/2)], 88, 88)) continue;
                 PixelTanks.userData.class = PixelTanks.userData.class === c ? null : c;
@@ -350,13 +336,8 @@ class Menus {
             this.target = {x: e.clientX-window.innerWidth/2, y: e.clientY-window.innerHeight/2};
           },
           keydown: function(e) {
-            if (this.cosmeticTab) {
-              if (e.keyCode === 37 && this.cosmeticMenu > 0) this.cosmeticMenu--;
-              if (e.keyCode === 39 && this.cosmeticMenu+1 !== Math.ceil(PixelTanks.userData.cosmetics.length/16)) this.cosmeticMenu++;
-            } else if (this.deathEffectsTab) {
-              if (e.keyCode === 37 && this.deathEffectsMenu > 0) this.deathEffectsMenu--;
-              if (e.keyCode === 39 && this.deathEffectsMenu+1 !== Math.ceil(PixelTanks.userData.deathEffects.length/16)) this.deathEffectsMenu++;
-            }
+            if (e.keyCode === 37) if (this.cosmeticTab && this.cosmeticMenu > 0) this.cosmeticMenu--; else if (this.deathEffectsTab && this.deathEffectsMenu > 0) this.deathEffectsMenu--;
+            if (e.keyCode === 39) if (this.cosmeticTab && this.cosmeticMenu+1 !== Math.ceil(PixelTanks.userData.cosmetics.length/16)) this.cosmeticMenu++; else if (this.deathEffectsTab && this.deathEffectsMenu+1 !== Math.ceil(PixelTanks.userData.deathEffects.length/16)) this.deathEffectsMenu++;
           }
         },
         cdraw: function() {
@@ -392,19 +373,19 @@ class Menus {
             GUI.draw.globalAlpha = 1;
           }
           for (let i = 0; i < 4; i++) {
-            if (PixelTanks.userData.items[i] !== 'undefined') GUI.drawImage(PixelTanks.images.items[PixelTanks.userData.items[i]], [404, 492, 580, 668][i], 820, 80, 80, 1);
+            if (PixelTanks.userData.items[i]) GUI.drawImage(PixelTanks.images.items[PixelTanks.userData.items[i]], [404, 492, 580, 668][i], 820, 80, 80, 1);
             if (PixelTanks.userData.items[i] === 'undefined') GUI.drawImage(PixelTanks.images.menus.broke, [404, 492, 580, 668][i], 820, 80, 80, 1);
           }
           let perkKey = [0, 'shield', 'thermal', 'scavenger', 'cooldown', 'refresh', 'radar', 'upgrader', 'adrenaline', 'core'];
-          if (PixelTanks.userData.perk[0] && (PixelTanks.userData.perk[0] !== 'undefined')) GUI.drawImage(PixelTanks.images.menus[perkKey[Math.floor(PixelTanks.userData.perk[0])]], 844, 816, 88, 88, 1, 0, 0, 0, 0, undefined, ((PixelTanks.userData.perk[0]%1)*10-1)*40, 0, 40, 40); else GUI.drawImage(PixelTanks.images.menus.broke, 844, 816, 88, 88, 1);
-          if (PixelTanks.userData.perk[1] && (PixelTanks.userData.perk[1] !== 'undefined')) GUI.drawImage(PixelTanks.images.menus[perkKey[Math.floor(PixelTanks.userData.perk[1])]], 932, 816, 88, 88, 1, 0, 0, 0, 0, undefined, ((PixelTanks.userData.perk[1]%1)*10-1)*40, 0, 40, 40); else GUI.drawImage(PixelTanks.images.menus.broke, 932, 816, 88, 88, 1);
+          if (PixelTanks.userData.perk[0]) GUI.drawImage(PixelTanks.images.menus[perkKey[Math.floor(PixelTanks.userData.perk[0])]], 844, 816, 88, 88, 1, 0, 0, 0, 0, undefined, ((PixelTanks.userData.perk[0]%1)*10-1)*40, 0, 40, 40); else GUI.drawImage(PixelTanks.images.menus.broke, 844, 816, 88, 88, 1);
+          if (PixelTanks.userData.perk[1]) GUI.drawImage(PixelTanks.images.menus[perkKey[Math.floor(PixelTanks.userData.perk[1])]], 932, 816, 88, 88, 1, 0, 0, 0, 0, undefined, ((PixelTanks.userData.perk[1]%1)*10-1)*40, 0, 40, 40); else GUI.drawImage(PixelTanks.images.menus.broke, 932, 816, 88, 88, 1);
           PixelTanks.renderBottom(680, 380, 240, PixelTanks.userData.color);
           GUI.drawImage(PixelTanks.images.tanks.bottom, 680, 380, 240, 240, 1);
           PixelTanks.renderTop(680, 380, 240, PixelTanks.userData.color, (-Math.atan2(this.target.x, this.target.y)*180/Math.PI+360)%360);
           GUI.drawImage(PixelTanks.images.tanks.top, 680, 380, 240, 270, 1, 120, 120, 0, 0, (-Math.atan2(this.target.x, this.target.y)*180/Math.PI+360)%360);
-          if (PixelTanks.userData.cosmetic_body !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_body], 680, 380, 240, 270, (-Math.atan2(this.target.x, this.target.y)*180/Math.PI+360)%360);
-          if (PixelTanks.userData.cosmetic !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic], 680, 380, 240, 270, (-Math.atan2(this.target.x, this.target.y)*180/Math.PI+360)%360);
-          if (PixelTanks.userData.cosmetic_hat !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_hat], 680, 380, 240, 270, (-Math.atan2(this.target.x, this.target.y)*180/Math.PI+360)%360);
+          if (PixelTanks.userData.cosmetic_body) PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_body], 680, 380, 240, 270, (-Math.atan2(this.target.x, this.target.y)*180/Math.PI+360)%360);
+          if (PixelTanks.userData.cosmetic) PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic], 680, 380, 240, 270, (-Math.atan2(this.target.x, this.target.y)*180/Math.PI+360)%360);
+          if (PixelTanks.userData.cosmetic_hat) PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_hat], 680, 380, 240, 270, (-Math.atan2(this.target.x, this.target.y)*180/Math.PI+360)%360);
           const key = {tactical: [7, 7], fire: [7, 61], medic: [7, 115], stealth: [61, 7], builder: [61, 61], warrior: [61, 115]};
           if (!PixelTanks.userData.class) PixelTanks.userData.class = 'undefined';
           if (PixelTanks.userData.classes && PixelTanks.userData.class && PixelTanks.userData.class !== 'undefined') GUI.drawImage(PixelTanks.images.menus.classTab, 1112, 816, 88, 88, 1, 0, 0, 0, 0, undefined, key[PixelTanks.userData.class][0]*4, key[PixelTanks.userData.class][1]*4, 176, 176); else GUI.drawImage(PixelTanks.images.menus.broke, 1112, 816, 88, 88, 1);
@@ -481,7 +462,7 @@ class Menus {
               if (d) GUI.drawImage(PixelTanks.images.deathEffects[PixelTanks.userData.deathEffects[i].split('#')[0]], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-PixelTanks.t)/d.speed)%d.frames)*200, 0, 200, 200);
               GUI.drawText(PixelTanks.userData.deathEffects[i].split('#')[1], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 30, '#FF0000', .5);
               if (PixelTanks.userData.deathEffects[i].split('#')[0] === PixelTanks.userData.deathEffect) {
-                GUI.draw.strokeStyle = 0xffff22;
+                GUI.draw.strokeStyle = '#ffff22';
                 GUI.draw.lineWidth = 10;
                 GUI.draw.strokeRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88);
               }
@@ -490,18 +471,9 @@ class Menus {
         },
       },
       shop: {
-        buttons: [
-          [416, 20, 108, 108, 'main', true],
-          [880, 208, 488, 96, 'shop2', true],
-          [326, 544, 194, 79, () => PixelTanks.purchase(0, 0), true],
-          [792, 544, 194, 79, () => PixelTanks.purchase(0, 1), true],
-          [1249, 544, 194, 79, () => PixelTanks.purchase(0, 4), true],
-          [326, 873, 194, 79, () => PixelTanks.purchase(0, 2), true],
-          [792, 873, 194, 79, () => PixelTanks.purchase(0, 5), true],
-          [1249, 873, 194, 79, () => PixelTanks.purchase(0, 3), true],
-        ],
+        buttons: [[416, 20, 108, 108, 'main', true], [880, 208, 488, 96, 'shop2', true], [326, 544, 194, 79, () => PixelTanks.purchase(0, 0), true], [792, 544, 194, 79, () => PixelTanks.purchase(0, 1), true], [1249, 544, 194, 79, () => PixelTanks.purchase(0, 4), true], [326, 873, 194, 79, () => PixelTanks.purchase(0, 2), true], [792, 873, 194, 79, () => PixelTanks.purchase(0, 5), true], [1249, 873, 194, 79, () => PixelTanks.purchase(0, 3), true]],
         cdraw: function() {
-          GUI.drawText(PixelTanks.userData.stats[0]+' coins', 800, 160, 50, 0x000000, 0.5);
+          GUI.drawText(PixelTanks.userData.stats[0]+' coins', 800, 160, 50, '#ffffff', 0.5);
         },
       },
       shop2: {
