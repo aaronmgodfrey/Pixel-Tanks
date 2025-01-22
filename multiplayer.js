@@ -762,7 +762,6 @@ const Commands = {
     for (let i = server.ai.length-1; i >= 0; i--) server.ai[i].destroy();
   }],
   ai: [Object, 2, 7, (data, socket, server) => {
-    return socket.kick('nah');
     for (let i = 0; i < Number(data[5]); i++) A.template('AI').init(Math.floor(Number(data[1]) / 100) * 100 + 10, Math.floor(Number(data[2]) / 100) * 100 + 10, Number(data[3]), Math.min(20, Math.max(0, Number(data[4]))), data[6], server);
   }],
   spectate: [Object, 3, 2, data => {
