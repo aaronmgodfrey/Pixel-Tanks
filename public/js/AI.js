@@ -1,6 +1,7 @@
 class AI {
+  static time = Date.now();
   static args = ['x', 'y', 'role', 'rank', 'team', 'host'];
-  static raw = ['role', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'ammo', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'flashbanged', 'dedEffect', 'gambleCounter'];
+  static raw = ['role', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'ammo', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'dedEffect', 'gambleCounter'];
   static u = [];
   constructor() {
     this.cells = new Set();
@@ -13,41 +14,37 @@ class AI {
     const displayNames = ["Aaran", "Aaren", "Aarman", "Aaron", "Abraham", "Ace", "Adam", "Addison", "Aden", "Adie", "Adrien", "Aiden", "Al", "Alan", "Albert", "Albie", "Aldred", "Alec", "Aled", "Alex", "Alexander", "Alexei", "Alf", "Alfie", "Alfred", "Ali", "Allan", "Alvin", "Ammar", "Andrea", "Andreas", "Andrew", "Andy", "Angus", "Anthony", "Antonio", "Archie", "Argyle", "Ari", "Aria", "Arian", "Arlo", "Arthur", "Ash", "Ashley", "Ashton", "Averon", "Avi", "Axel", "Bailey", "Barath", "Barkley", "Barney", "Baron", "Barry", "Baxter", "Buer", "Ben", "Benedict", "Benjamin", "Benji", "Bennett", "Benny", "Bernard", "Bill", "Billy", "Blake", "Bob", "Bobby", "Bowie", "Bracken", "Brad", "Braden", "Bradley", "Bread", "Brady", "Brandon", "Bret", "Brett", "Brian", "Brodie", "Brogan", "Brooke", "Brooklyn", "Bruce", "Bruno", "Bryce", "Bryson", "Buddy", "Bully", "Cade", "Cayde-6", "Caden",  "Calib", "Callie", "Calum", "Calvin", "Cameron", "Carl", "Karl", "Carlo", "Carlos", "Carson", "Carter", "Casey", "Casper", "Cassy", "Cayden", "Ceilan", "Chad", "Charles", "Charlie", "Chase", "Chester", "Chris", "Christian", "Christie", "Christoph", "Christopher", "Christy", "CJ", "Clark", "Clayton", "Clement", "Clifford", "Clyde", "Cody", "Cole", "Colin", "Colt", "Colton", "Connor", "Cooper", "Corbin", "Corrie", "Cosmo", "Craig", "Cruiz", "Cruz", "Cyrus", "Daegan", "Dakota", "Dale", "Dalton", "Damian", "Damien", "Dan", "Dane", "Daniel", "Danny", "Dante", "David", "Davis", "Davy", "Dawson", "Deacon", "Deagan", "Dean", "Dennis", "Denny", "Derek", "Deshawn", "Desmond", "Dev", "Devin", "Devon", "Dex", "Dexter", "Diego", "Dillan", "Donald", "Donnie", "Dorian", "Douglas", "Drew", "Dylan", "Ed", "Eddie", "Eden", "Edison", "Eduardo", "Edward", "Edwin", "Elliot", "Ellis", "Elvin", "Emile", "Enzo", "Eren", "Eric", "Ethan", "Evan", "Ezra", "Fazbear", "Farren", "Faruzan", "Felix", "Flint", "Flynn", "Francesco", "Francis", "Francisco", "Franco", "Frank", "Frankie", "Franklin", "Fred", "Freddie", "Frederick", "Gabriel", "Gareth", "Garrett", "Garry", "Gary", "Gavin", "Gene", "Geoff", "Geoffrey", "Geometry", "George", "Georgia", "Jorge", "Glenn", "Gordon", "Grant", "Grayson", "Greg", "Gregory", "Greig", "Griffin", "Gus", "Gustav", "Guy", "Hayden", "Hansen", "Hao", "Haris", "Harley", "Harold", "Harper", "Harrington", "Harris", "Harrison", "Harry", "Harvey", "Hector", "Henry", "Herbert", "Hiro", "Howard", "Howie", "Hubert", "Hugo", "Hunter", "Ian", "Igor", "Isaac", "Ivan", "Jace", "Jack", "Jackie", "Jackson", "Jacob", "Jacques", "Jake", "James", "Jamie", "Jared", "Jason", "Jaxson", "Jay", "Jayden", "Jayson", "Jean", "Jed", "Jeht", "Jeremy", "Jerrick", "Jerry", "Jesse", "Jock", "Jody", "Joe", "Joel", "Joey", "Johansson", "John", "Johnathan", "Johnny", "Jonas", "Joseph", "Josh", "Joshua", "Juan", "Jude", "Junior", "Justin", "Kade", "Kayden", "Kai", "Kalvin", "Kayne", "Keaton", "Keith", "Ken", "Kenneth", "Kenton", "Kevin", "Kirk", "Kodi", "Kris", "Kruz", "Kyle", "Kyro", "Lance", "Lancelot", "Landon", "Lauren", "Laurence", "Lee", "Lenny", "Leo", "Leon", "Leonardo", "Levi", "Levy", "Lewis", "Lex", "Liam", "Lincoln", "Lloyd", "Lock", "Logan", "Loki", "Lorenzo", "Louis", "Luca", "Lucas", "Luke", "Mac", "Mack", "Mackie", "Macy", "Maddox", "Madison", "Magnus", "Marco", "Marcos", "Marcus", "Mario", "Mark", "Martin", "Mason", "Mathew", "Matt", "Matteo", "Max", "Maximus", "Maxwell", "Michael", "Mickey", "Miguel", "Mika", "Mikey", "Miles", "Miller", "Milo", "Morgan", "Morris", "Morton", "Murray", "Muse", "Mylo", "Nate", "Nathan", "Nathaniel", "Neil", "Neo", "Nicholas", "Nick", "Nicky", "Nicolas", "Noah", "Noel", "Norman", "Odin", "Olaf", "Oliver", "Omar", "Oscar", "Oswald", "Otto", "Owen", "Oz", "Pablo", "Pacey", "Parker", "Patrick", "Paul", "Pedro", "Peirce", "Peter", "Philip", "Phoenix", "Porter", "Preston", "Prince", "Percy", "Quinn", "Quentin", "Ralph", "Ramsey", "Rana", "Raphael", "Ray", "Raymond", "Reed", "Regan", "Reggie", "Reid", "Ren", "Rio", "Rex", "Riccardo", "Rico", "Richard", "Riley", "Robert", "Robin", "Ronald", "Ronin", "Rookie", "Rowan", "Ruben", "Ruby", "Ryan", "Sam", "Samuel", "Saul", "Scott", "Sean", "Seb", "Sebastian", "Seth", "Shawn", "Sheriff", "Sidney", "Simon", "Skye", "Stanley", "Stephen", "Steve", "Steeve", "Stewart", "Sullivan", "Terry", "Theo", "Theodore", "Thomas", "Tim", "Timothy", "Titus", "Tobey", "Tobias", "Todd", "Tom", "Tommy", "Tony", "Travis", "Tristan", "Tyler", "Uzi", "Victor", "Vince", "Vincent", "Vincenzo", "Walter", "Wayde", "Wayne", "Will", "William", "Wilson", "Xander", "Xavier", "Xiao", "Yuri", "Zack",  "Zane", "Zenith", "Hehehe", "Loaf", "Bartholomew", "Obama", "Jeff", "Halp i can't aim", "Not_A_Turret", "Dingus", "AAAAA", "ToTallyHuman", "Fool", "Bafoon", "x-Cool-Dude-x", "Dummy",];
     this.username = displayNames[Math.floor(Math.random()*displayNames.length)];
     if (!this.team.includes(':')) this.team = this.username+':'+this.team;
-    this.maxHp = this.hp = (this.role === 0) ? this.rank*6+180 : this.rank*10+300;
-    this.barrelSpeed = Math.random()*3+2;
+    this.maxHp = this.hp = this.role === 0 ? this.rank*6+180 : this.rank*10+300;
+	  
+    this.barrelSpeed = Math.random()*3+2; // HOOK TO BALANCING
+
+	  
     this.seeUser = this.target = this.obstruction = this.bond = this.path = this.damage = false;
+	  
     this.r = this.tr = this.baseRotation = this.baseFrame = this.mode = this.pushback = this.immune = this.shields = 0;
     this.canFire = this.canPowermissle = this.canBoost = this.canBashed = true;
     this.fire = this.reloading = this.canClass = false;
-    this.gambleCounter = 0;
-    this.fireTime = 0;
-    for (let i = 0; i < 4; i++) if (Math.random() < rank/20) this['canItem'+i] = this.role !== 0;
-    if (this.role !== 0) if (Math.random() < (rank/20)) this.canClass = true;
+	  
+    this.gambleCounter = this.fireTime = 0;
+	  
+    for (let i = 0; i < 4; i++) if (Math.random() < rank/20) this.canClass = this['canItem'+i] = this.role !== 0;
     if (this.role !== 0) this.giveAbilities(); else this.ammo = 120;
+	  
     const summoner = host.pt.find(t => t.username === Engine.getUsername(this.team));
     if (summoner) {
       for (const c of ['cosmetic_hat', 'cosmetic', 'cosmetic_body', 'color']) this[c] = summoner[c];
     } else {
-      let crate = { // start of bread code
-         common: ['medic', 'police', 'small_scratch', 'spikes', 'moustache', 'pumpkin_face', 'army', 'hardhat', 'halo', 'lego', 'present', 'pumpkin_hat', 'top_hat', 'stamp', 'dead', 'earmuffs', 'ban', 'sweat', 'lava', 'ink', 'bricks'],
-    uncommon: ['chip', 'deep_scratch', 'evil_eye', 'inferno_eye', 'motherboard', 'blue_wings', 'blue_horns', 'white_wings', 'white_horns', 'gold_wings', 'gold_horns', 'devil_wings', 'devil_horns', 'hazard', 'angel_wings', 'bat_wings', 'locked', 'mini_tank', 'dust', 'pouch'],
-    rare: ['blue_tint', 'glitch', 'blue_helmet', 'white_helmet', 'helmet', 'gold_helmet', 'hacker_hoodie', 'purple', 'sus', 'veins', 'cookie'],
-    epic: ['christmas_hat', 'christmas_lights', 'dizzy', 'rage', 'toxic', 'error', 'supersight', 'crown', 'darkcrown'],
-    legendary: ['plasma', 'cry', 'missing', 'hoodie'],
-    mythic: ['terminator', 'mlg_glasses', 'power_armor', 'corrupted'],
-      }
-      for (let i = 0; i < 3; i++) { // why cringe 3 for loop?
+      /*for (let i = 0; i < 3; i++) { // why cringe 3 for loop?
         let rand = Math.floor(Math.random()*1001);
 	let rarity = rand < 1 ? 'mythic' : rand < 10 ? 'legendary' : rand < 50 ? 'epic' : rank < 150 ? 'rare' : rand < 300 ? 'uncommon' : 'common';
         let number = Math.floor(Math.random()*(crate[rarity].length)), item;
         item = crate[rarity][number];
         //for (const e in crate[rarity]) if (e === crate[rarity][number]) item = crate[rarity][number];
         this[['cosmetic_hat', 'cosmetic', 'cosmetic_body'][i]] = item;
-      } // end of bread code
+      } // end of bread code*/
       this.color = Engine.getRandomColor();
     }
     this.host.loadCells(this, this.x, this.y, 80, 80);
-    this.lookInterval = setInterval(() => this.identify(), 200); // remove, laggy :(
     host.updateEntity(this, AI.raw);
     for (const p of AI.raw) {
       this.raw[p] = this[p];
@@ -77,93 +74,35 @@ class AI {
     }
     if (this.canClass && this.mode !== 0 && Math.random() < 1/300) {
       let cooldown = 0;
-      if (this.class === 'tactical') {
-        this.fireCalc(this.target.x, this.target.y, 'megamissle');
-        cooldown = 25000;
-      } else if (this.class === 'stealth') {
-        this.host.useAbility(this, 'invis');
-        cooldown = 40000;
-      } else if (this.class === 'builder') {
-        this.host.useAbility(this, 'turret');
-        cooldown = 20000;
-      } else if (this.class === 'warrior') {
-        this.host.useAbility(this, 'buff');
-        cooldown = 40000;
-      } else if (this.class === 'medic') {
-        this.host.useAbility(this, 'healwave'); // greedy self-heal :D
-        cooldown = 30000;
-      } else if (this.class === 'fire') {
+      if (this.class === 'tactical') this.fireCalc(this.target.x, this.target.y, 'megamissle'); // 25
+      if (this.class === 'stealth') this.host.useAbility(this, 'invis'); // 40
+      if (this.class === 'builder') this.host.useAbility(this, 'turret'); // 20
+      if (this.class === 'warrior') this.host.useAbility(this, 'buff'); // 40
+      if (this.class === 'medic') this.host.useAbility(this, 'healwave'); // greedy self-heal :D // 30
+      if (this.class === 'fire') {
         for (let i = -30, len = 30; i < len; i += 5) A.template('Shot').init(this.x+40, this.y+40, 70, this.r+90+i, 'fire', this.team, this.rank, this.host);
-        cooldown = 10000;
+        cooldown = 10000; // 10
       }
       this.canClass = false;
-      setTimeout(() => {
-        this.canClass = true;
-      }, cooldown);
+      setTimeout(() => (this.canClass = true), cooldown);
     }
     for (let i = 0; i < 4; i++) {
       if (this['canItem'+i] && Math.random() < 1/300) {
         const item = this.items[i];
         let cooldown = 0;
-        if (item === 'airstrike') {
-          if (this.mode !== 0) {
-            this.host.useAbility(this, 'airstrike'+this.target.x+'x'+this.target.y);
-            cooldown = 20000;
-          }
-        } else if (item === 'super_glu') {
-          if (this.hp < this.maxHp*.75) {
-            this.host.useAbility(this, 'glu');
-            cooldown = 30000;
-          }
-        } else if (item === 'duck_tape') {
-          if (this.hp < this.maxHp*.75) {
-            this.host.useAbility(this, 'tape');
-            cooldown = 30000;
-          }
-        } else if (item === 'shield') {
-          if (this.shields === 0) {
-            this.host.useAbility(this, 'shield');
-            cooldown = 30000;
-          }
-        } else if (item === 'flashbang') {
-          this.host.useAbility(this, 'flashbang'+this.target.x+'x'+this.target.y);
-          cooldown = 20000;
-        } else if (item === 'bomb') {
-          if (this.obstruction) {
-            this.host.useAbility(this, 'bomb');
-            cooldown = 5000;
-          }
-        } else if (item === 'dynamite') {
-          // lol no :)
-        } else if (item === 'usb') {
-          // idk
-        } else if (item === 'weak') {
-          if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) {
-            this.host.useAbility(this, 'block#weak');
-            cooldown = 4000;
-          }
-        } else if (item === 'strong') {
-          if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) {
-            this.host.useAbility(this, 'block#strong');
-            cooldown = 8000;
-          }
-        } else if (item === 'spike') {
-          if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) {
-            this.host.useAbility(this, 'block#spike');
-            cooldown = 10000;
-          }
-        } else if (item === 'reflector') {
-          if (this.mode !== 0) {
-            this.host.useAbility(this, 'reflector');
-            cooldown = 10000;
-          }
-        }
-        if (cooldown !== 0) {
-          this['canItem'+i] = false;
-          setTimeout(() => {
-            this['canItem'+i] = true;
-          }, cooldown);
-        }
+        if (item === 'airstrike') if (this.mode !== 0) this.host.useAbility(this, 'airstrike'+this.target.x+'x'+this.target.y); // 20
+        if (item === 'super_glu') if (this.hp < this.maxHp*.75) this.host.useAbility(this, 'glu'); // 30
+        if (item === 'duck_tape') if (this.hp < this.maxHp*.75) this.host.useAbility(this, 'tape'); // 30
+        if (item === 'shield') if (this.shields === 0) this.host.useAbility(this, 'shield'); // 30
+        // ded items
+        // dyna, usb
+        if (item === 'weak') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#weak'); // 4
+        if (item === 'strong') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#strong'); // 8
+        if (item === 'spike') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#spike'); // 10
+        if (item === 'reflector') if (this.mode !== 0) this.host.useAbility(this, 'reflector'); // 10
+        if (!cooldown) continue; 
+        this['canItem'+i] = false;
+        setTimeout(() => (this['canItem'+i] = true), cooldown);
       }
     }
   }
@@ -245,16 +184,17 @@ class AI {
   }
   move() {
     const {x, y, path, baseRotation} = this;
-    if ((x-10)%100 === 0 && (y-10)%100 === 0) this.onBlock();
-    if (!path || !path.p.length) return;
-    const now = Date.now();
-    const len = path.p.length-1;
-    let frames = Math.min(Math.floor((now-path.t)/15), len*25);
+    if ((x-10)%100 === 0 && (y-10)%100 === 0) this.onBlock(); // check for block realignment if not on block
+    if (!path || !path.p.length) return; // if invalid return :D
+    const now = Date.now(); // timing
+    const len = path.p.length-1; // last path indice
+    let frames = Math.min(Math.floor((now-path.t)/15), len*25); // get the current step in the movement process
     if (this.immune+500 > path.t) frames = Math.min(frames+3*Math.floor(Math.min(now-Math.max(this.immune, path.t), this.immune+500-path.t)/15), len*25);
-    const f = Math.floor(frames/25);
-    const n = Math.min(f+1, len);
+    // ^^^ if boost then recalculate based on boost time
+    const f = Math.floor(frames/25); // last path
+    const n = Math.min(f+1, len); // current block
     const dx = path.p[n][0]-path.p[f][0], dy = path.p[n][1]-path.p[f][1];
-    const offset = 4*(frames%25);
+    const offset = 4*(frames%25); // movement
     const nx = 10+path.p[f][0]*100+offset*dx, ny = 10+path.p[f][1]*100+offset*dy;
     this.baseRotation = [[135, 180, 225], [90, baseRotation, 270], [45, 0, 315]][dy+1][dx+1];
     this.tr = this.baseRotation;
@@ -263,7 +203,7 @@ class AI {
       if (this.canBoost && Math.random() < 1/300) {
         this.canBoost = false;
         this.immune = Date.now();
-        setTimeout(() => {this.canBoost = true}, 5000);
+        setTimeout(() => (this.canBoost = true), 5000);
       }
       this.x = nx;
       this.y = ny;
@@ -279,11 +219,10 @@ class AI {
   }
 
   onBlock() {
-    if (!this.path) this.generatePath();
-    if (!this.path.p || !this.path.p.length) this.generatePath();
-    if (this.path.p && this.path.p.length > 0) {
-      const final = this.path.p[this.path.p.length - 1];
-      if ((this.x - 10) / 100 === final[0] && (this.y - 10) / 100 === final[1]) this.generatePath();
+    if (!this.path || !this.path.p || !this.path.p.length) this.generatePath(); // or if not on block and no path
+    if (this.path.p && this.path.p.length > 0) { // why would path be invalid like this????
+      const final = this.path.p[this.path.p.length-1]; // if arrived
+      if ((this.x-10) / 100 === final[0] && (this.y-10) / 100 === final[1]) this.generatePath();
     }
   }
 
@@ -388,10 +327,10 @@ class AI {
     }
     if (type === 'powermissle') {
       this.canPowermissle = false;
-      setTimeout(() => {this.canPowermissle = true}, 10000);
+      setTimeout(() => (this.canPowermissle = true), 10000);
     } else if (type !== 'megamissle') {
       this.canFire = false;
-      setTimeout(() => {this.canFire = true}, type === 'shotgun' ? 600 : 200);
+      setTimeout(() => (this.canFire = true), type === 'shotgun' ? 600 : 200);
     }
     if (this.role === --this.ammo) this.reloading = true;
   }
@@ -415,9 +354,7 @@ class AI {
       return this.destroy();
     }
     this.healTimeout = setTimeout(() => {
-      this.healInterval = setInterval(() => {
-        this.hp = Math.min(this.hp+.4, this.maxHp);
-      }, 15);
+      this.healInterval = setInterval(() => (this.hp = Math.min(this.hp+.4, this.maxHp)), 15);
     }, 10000);
   }
   reset() {
