@@ -64,16 +64,7 @@ class Menus {
     },
     main: {
       buttons: [[922, 840, 88, 88, 'settings', true], [532, 616, 536, 136, 'multiplayer', true], [705, 840, 88, 88, 'shop', true], [597, 840, 88, 88, 'inventory', true], [813, 840, 88, 88, 'crate', true], [532, 392, 536, 136, 'world1', true]],
-      listeners: {
-        keydown: function(e) {
-          if (e.keyCode === 37) PixelTanks.userData.banner = (PixelTanks.images.banners.banners.length+PixelTanks.userData.banner-1)%PixelTanks.images.banners.banners.length; else if (e.keyCode === 39) PixelTanks.userData.banner = (PixelTanks.userData.banner+1)%PixelTanks.images.banners.banners.length;
-        } // BANNERS SWAP
-      },
       cdraw: function() {
-        const i = PixelTanks.images.banners[PixelTanks.images.banners.banners[PixelTanks.userData.banner]];
-        GUI.drawImage(i, 20, 500-120*2.5, 300, 600, 1); // BANNERS GUI
-        GUI.drawText(PixelTanks.userData.banner, 20, 900, 100, '#ffffff', 0.5);
-        GUI.drawText(PixelTanks.images.banners.banners[PixelTanks.userData.banner], 20, 950, 50, '#ffffff', 0.5);
         GUI.drawText(PixelTanks.user.username, 1280, 800, 100, '#ffffff', 0.5);
         PixelTanks.renderBottom(1200, 600, 160, PixelTanks.userData.color);
         GUI.drawImage(PixelTanks.images.tanks.bottom, 1200, 600, 160, 160, 1);
