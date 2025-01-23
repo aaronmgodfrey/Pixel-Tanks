@@ -31,14 +31,6 @@ window.sourceMap = {
       },
     },
     {
-      ref: 'banners',
-      path: 'banners',
-      load: ['bog', 'dragon', 'stars', 'fossil', 'space', 'ruins', 'bigsister', 'iceberg', 'tunnel', 'forest', 'ruins', 'snow', 'mango', 'soviet', 'gateway', 'tower', 'blueprint', 'castle', 'cave', 'drg', 'fix', 'gems', 'ice', 'island', 'lazer', 'leviathan', 'peak', 'sculkwall', 'solar', 'sonc', 'turret', 'warden'],
-      meta: {
-        banners: ['bog', 'dragon', 'stars', 'fossil', 'space', 'ruins', 'bigsister', 'iceberg', 'tunnel', 'forest', 'ruins', 'snow', 'mango', 'soviet', 'gateway', 'tower', 'blueprint', 'castle', 'cave', 'drg', 'fix', 'gems', 'ice', 'island', 'lazer', 'leviathan', 'peak', 'sculkwall', 'solar', 'sonc', 'turret', 'warden'],
-      }
-    },
-    {
       ref: 'items',
       path: 'items',
       load: ['airstrike', 'duck_tape', 'super_glu', 'shield', 'flashbang', 'bomb', 'dynamite', 'weak', 'strong', 'spike', 'reflector', 'usb'],
