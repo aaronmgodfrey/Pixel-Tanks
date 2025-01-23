@@ -444,7 +444,10 @@ class Client {
     let wind = Engine.hasPerk(PixelTanks.userData.perk, 8), doubleSpeed = wind && ((Date.now()-this.timers.class.time) < 1000+2000*wind);
     const br = (this.left === null) ? (this.up ? 180 : 0) : (this.left ? (this.up === null ? 90 : (this.up ? 135 : 45)) : (this.up === null ? 270 : (this.up ? 225: 315)));
     const diff = (br-this.tank.baseRotation+360)%360, dir = diff < 180 ? 1 : -1;
-    this.tank.baseRotation = diff > 12 ? (this.tank.baseRotation+dir*12+360)%360 : br;
+    if (!this.lastBaseRotation || Date.now()-this.lastBaseRotation > 15) {
+      this.tank.baseRotation = diff > 12 ? (this.tank.baseRotation+(dir*12)+360)%360 : br;
+      this.lastBaseRotation = Date.now();
+    }
     if (this.b) this.tank.baseFrame = ((this.b.o ? 0 : 1)+Math.floor((Date.now()-this.b.t)/120))%2;
     const player = t.find(tank => tank.username === PixelTanks.user.username);
     if (player) {
