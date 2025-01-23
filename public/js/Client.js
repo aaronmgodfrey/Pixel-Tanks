@@ -442,7 +442,7 @@ class Client {
     }
     const t = this.hostupdate.pt, b = this.hostupdate.b, s = this.hostupdate.s, a = this.hostupdate.ai, e = this.hostupdate.d;
     let wind = Engine.hasPerk(PixelTanks.userData.perk, 8), doubleSpeed = wind && ((Date.now()-this.timers.class.time) < 1000+2000*wind);
-    const br = (this.left === null) ? (this.up ? 180 : 0) : (this.left ? (this.up === null ? 90 : (this.up ? 135 : 45)) : (this.up === null ? 270 : (this.up ? 225: 315)));
+    let br = (this.left === null) ? (this.up ? 180 : 0) : (this.left ? (this.up === null ? 90 : (this.up ? 135 : 45)) : (this.up === null ? 270 : (this.up ? 225: 315)));
     //let br = (this.left === null) ? (0) : (this.left ? (this.up === null ? 90 : (this.up ? 135 : 45)) : (this.up === null ? 90 : (this.up ? 45: 135)));
     if (Math.abs((br-this.tank.baseRotation+360)%360) > Math.abs((br+180-this.tank.baseRotation+360)%360)) br += 180;
     const diff = (br-this.tank.baseRotation+360)%360, dir = diff < 180 ? 1 : -1;
