@@ -37,7 +37,7 @@ class Shot {
       return false;
     } else if (this.type === 'fire') {
       if (isBlock) return this.host.b.push(A.template('Block').init(e.x, e.y, 'fire', this.team, this.host));
-      if (e && !e.immune) {
+      if (e && !((e instanceof Tank && e.immune) || (e instanceof AI && e.immune+500 > Date.now()))) {
         e.fireTime = Date.now();
         e.fire = this.team;
         e.fireRank = this.rank;
