@@ -154,7 +154,7 @@ class AI {
       const c = cell.split('x'), x = c[0], y = c[1];
       for (const entity of this.host.cells[x][y]) {
         const teamMatch = Engine.match(this, entity);
-        if (!this.immune && entity instanceof Block) {
+        if (this.immune+500 < Date.now() && entity instanceof Block) { // AI DIFF this.immune is a timestamp
           if (!Engine.collision(this.x, this.y, 80, 80, entity.x, entity.y, 100, 100)) continue;
           if (entity.type === 'fire') (this.fire = entity.team) && (this.fireTime = Date.now()) && (this.fireRank = this.host.pt.find(t => t.username === Engine.getUsername(entity.team))?.rank || 20);
           if (entity.type === 'spike' && !teamMatch) {
@@ -168,7 +168,7 @@ class AI {
             }, 1000);
           };
         } else if (!teamMatch && !entity.ded && (entity instanceof Tank || entity instanceof AI)) {
-          if (!this.immune && entity.buff && this.canBashed && Engine.collision(this.x, this.y, 80, 80, entity.x, entity.y, 80, 80)) {
+          if (this.immune+500 < Date.now() && entity.buff && this.canBashed && Engine.collision(this.x, this.y, 80, 80, entity.x, entity.y, 80, 80)) {
             this.canBashed = false;
             setTimeout(() => (this.canBashed = true), 1000);
             this.damageCalc(this.x, this.y, 100*(entity.rank/50+.6), Engine.getUsername(entity.team));
@@ -183,6 +183,8 @@ class AI {
     }
   }
   move() {
+	
+	  
     const {x, y, path, baseRotation} = this;
     if ((x-10)%100 === 0 && (y-10)%100 === 0) this.onBlock(); // check for block realignment if not on block
     if (!path || !path.p.length) return; // if invalid return :D
@@ -287,6 +289,7 @@ class AI {
 
   identify() {
     let previousTargetExists = false;
+    // filter to all other tanks, sort by distance
     const tanks = this.host.pt.concat(this.host.ai).filter(t => t.x && t.y).sort((a, b) => {
       if ((a.id === this.target.id && !a.ded) || (b.id === this.target.id && !b.ded)) previousTargetExists = true;
       return (a.x-this.x)**2+(a.y-this.y)**2 > (b.x-this.x)**2+(b.y-this.y)**2;
@@ -300,12 +303,12 @@ class AI {
         if (!target) target = t;
       }
       if (target && (bond || this.role !== 3)) break;
-    }
+    } // locate
     if (bond) this.bond = bond; 
     if (!target) {
       if (this.target) {
         this.seeTarget = false;
-        if (!this.seeTimeout) this.seeTimeout = setTimeout(() => {
+        if (!this.seeTimeout) this.seeTimeout = setTimeout(() => { // target despawn timer
           this.mode = 0;
           this.target = false;
         }, previousTargetExists && this.role !== 0 ? 10000 : 0);
@@ -321,7 +324,7 @@ class AI {
   fireCalc(tx, ty, type) {
     this.pushback = type && type.includes('missle') ? -9 : -6;
     let co = this.role === 0 ? 50 : 40, d = this.role === 0 ? 85 : 70
-    if (type === undefined) type = this.role !== 0 && Math.sqrt((tx - this.x) ** 2 + (ty - this.y) ** 2) < 150 ? 'shotgun' : 'bullet';
+    if (type === undefined) type = this.role !== 0 && Math.sqrt((tx-this.x)**2 + (ty-this.y)**2) < 150 ? 'shotgun' : 'bullet';
     for (let [i, len] = type === 'shotgun' ? [-10, 15] : [0, 1]; i < len; i += 5) {
       A.template('Shot').init(this.x+co, this.y+co, d, this.r+90+i, type, this.team, this.rank, this.host);
     }
