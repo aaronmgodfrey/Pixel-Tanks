@@ -199,6 +199,7 @@ class AI {
     }
   }
   move() {
+    console.log(JSON.stringify(path));
     //this.pos = {t: Date.now(), f: 30, o: Date.now()} // timestamp of last computation and final frame of current path and path time origin
 	  // path = {t: Date.now(), p: [[0, 2]], }
     // pos always set upon path gen
@@ -284,7 +285,8 @@ class AI {
 
 	  */
     let cir, coords = [], limiter, tpx, tpy, epx, epy;
-
+    this.pos.t = Date.now();
+    this.pos.o = 0;
     
     if (this.role === 3 && this.bond) {
       epx = Math.floor((this.bond.x+40)/100);
