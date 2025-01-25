@@ -227,7 +227,7 @@ class AI {
     // add base rotation cringe
     this.host.loadCells(this, this.x, this.y, 80, 80);
     // OLD CODE
-    return;
+    /*
     const {x, y, path, baseRotation} = this;
     const now = Date.now(); // timing
     const len = path.p.length-1; // last path indice
@@ -253,7 +253,7 @@ class AI {
     } else {
       this.path.t = this.path.o+Date.now()-this.obstruction.t;
     }
-    this.host.loadCells(this, this.x, this.y, 80, 80);
+    this.host.loadCells(this, this.x, this.y, 80, 80);*/
   }
 
   collision(x, y) {
