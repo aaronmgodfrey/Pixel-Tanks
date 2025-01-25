@@ -223,9 +223,9 @@ class AI {
       }
       this.x = nx;
       this.y = ny;
-      //this.pos.t = Date.now();
-      //this.pos.f = f;
-    } else this.pos.t = Date.now();
+    }
+    this.pos.t = Date.now();
+    this.pos.f = f;
     this.baseRotation = [[135, 180, 225], [90, this.baseRotation, 270], [45, 0, 315]][dy+1][dx+1];
     this.tr = this.baseRotation;
     // add base rotation cringe
