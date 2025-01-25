@@ -3,7 +3,7 @@ class AI {
   static args = ['x', 'y', 'role', 'rank', 'team', 'host'];
   static raw = ['role', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'ammo', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'dedEffect', 'gambleCounter'];
   static u = [];
-  static routes = [,];
+  //static routes = [,];
   constructor() {
     this.cells = new Set();
     this.raw = {};
