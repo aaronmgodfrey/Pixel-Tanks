@@ -71,13 +71,13 @@ class AI {
       if ((this.x-10)%100 === 0 && (this.y-10)%100 === 0) {
         this.onBlock(); 
       } else if (!this.path && !this.grapple) {
-        let speed = 4;
-        let nx = speed*((this.x+10)%100 > 50 ? 1 : -1);
-        let ny = speed*((this.y+10)%100 > 50 ? 1 : -1);
+        let speed = 4, tx = 100*Math.floor(this.x/100)+10, ty = 100*Math.floor(this.y/100)+10;
+        let nx = speed*(this.x-tx < 0 ? 1 : -1);
+        let ny = speed*(this.y-ty < 0 ? 1 : -1);
 	this.obstruction = this.canMove(nx, ny);
         if (!this.obstruction) { //ai can't boost during this rn
-          if ((this.x+10)%100 > speed*2 || (this.x+10)%100 < 100-speed*2) this.x += nx; else this.x = 100*Math.floor(this.x/100)+10;
-          if ((this.y+10)%100 > speed*2 || (this.y+10)%100 < 100-speed*2) this.y += ny; else this.y = 100*Math.floor(this.y/100)+10;
+          if (Math.abs(this.x+nx-tx) < speed) this.x += nx; else this.x = 100*Math.floor(this.x/100)+10;
+          if (Math.abs(this.y+ny-ty) < speed) this.y += ny; else this.y = 100*Math.floor(this.y/100)+10;
         }
 	return;
       }
