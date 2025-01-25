@@ -174,9 +174,8 @@ class Tank {
   }
   collision(x, y) {
     if (x < 0 || y < 0 || x + 80 > 6000 || y + 80 > 6000) return false;
-    for (const cell of this.cells) {
-      const c = cell.split('x'), x = c[0], y = c[1];
-      for (const b of this.host.cells[x][y]) if (b instanceof Block &&Engine.collision(x, y, 80, 80, b.x, b.y, 100, 100) && b.c) return false;
+    for (let hx = Math.floor((this.x+40)/100), i = Math.max(0, hx-2); i <= Math.min(29, hx+2); i++) for (let hy = Math.floor((this.y+40)/100), l = Math.max(0, hy-2); l <= Math.min(29, hy+2); l++) {
+      for (const b of this.host.cells[i][l]) if (b instanceof Block &&Engine.collision(x, y, 80, 80, b.x, b.y, 100, 100) && b.c) return false;
     }
     return true;
   }
