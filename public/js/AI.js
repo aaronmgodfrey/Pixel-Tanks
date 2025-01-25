@@ -286,7 +286,8 @@ class AI {
 	  */
     let cir, coords = [], limiter, tpx, tpy, epx, epy;
     this.pos.t = Date.now();
-    this.pos.o = 0;
+    this.pos.o = Date.now();
+    this.pos.f = 0;
     
     if (this.role === 3 && this.bond) {
       epx = Math.floor((this.bond.x+40)/100);
