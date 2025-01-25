@@ -199,7 +199,6 @@ class AI {
     }
   }
   move() {
-    console.log(JSON.stringify(this.path));
     //this.pos = {t: Date.now(), f: 30, o: Date.now()} // timestamp of last computation and final frame of current path and path time origin
 	  // path = {t: Date.now(), p: [[0, 2]], }
     // pos always set upon path gen
@@ -212,6 +211,7 @@ class AI {
       l -= 1; // set to end of path
       o = 25;
     }
+	  console.log('l='+l);
     const dx = this.path.p[l][0]-this.path.p[l+1][0], dy = this.path.p[l][1]-this.path.p[l+1][1];
     const nx = this.path.p[l][0]*100+10+o*dx, ny = this.path.p[l][1]*100+10+o*dy;
     this.obstruction = this.collision(nx, ny);
