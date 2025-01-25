@@ -30,7 +30,7 @@ class Shot {
       this.offset = [g.x-this.x, g.y-this.y];
       if (pullGrapple) this.update = () => {};
       if (this.type === 'grapple') {
-        if (e instanceof AI) return true;
+        //if (e instanceof AI) return true;
         if (g.grapple) g.grapple.bullet.destroy();
         g.grapple = {target: pullGrapple ? {x: e ? e.x : this.x, y: e ? e.y : this.y} : this.host.pt.find(t => t.username === Engine.getUsername(this.team)), bullet: this};
       } else if (this.type === 'usb') setTimeout(() => this.destroy(), 30000);
