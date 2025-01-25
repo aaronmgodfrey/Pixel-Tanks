@@ -206,7 +206,7 @@ class AI {
     // calculate frames since last pos check (path gen is 0 for safety)
     let f = Math.min(this.pos.f+Math.floor((n-this.pos.t)/15), (this.path.p.length-1)*25);
     // add boost and subtract toolkit frames here
-    let l = Math.floor(f/25), o = f-this.pos.f;
+    let l = Math.floor(f/25), o = (f-this.pos.f)%25;
     if (f === (this.path.p.length-1)*25) {
       l -= 1; // set to end of path
       o = 25;
@@ -215,7 +215,7 @@ class AI {
     const dx = this.path.p[l+1][0]-this.path.p[l][0], dy = this.path.p[l+1][1]-this.path.p[l][1];
     const nx = this.path.p[l][0]*100+10+4*o*dx, ny = this.path.p[l][1]*100+10+4*o*dy;
     this.obstruction = this.collision(nx, ny);
-    if (!this.obstruction) {
+    if (!this.obstruction || true) {
       if (this.canBoost && Math.random() < 1/300) {
         this.canBoost = false;
         //this.immune = Date.now();
