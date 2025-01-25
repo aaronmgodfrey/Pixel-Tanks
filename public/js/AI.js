@@ -267,7 +267,10 @@ class AI {
   }
   
   canMove(x, y) {
-    for (const b of this.host.b) if (Engine.collision(x, y, 80, 80, b.x, b.y, 100, 100) && b.c) return {x: b.x+50, y: b.y+50, t: this.obstruction ? this.obstruction.t : Date.now()};
+    for (const cell of this.cells) {
+      const c = cell.split('x'), x = c[0], y = c[1];
+      for (const b of this.host.cells[x][y]) if (b instanceof Block && Engine.collision(x, y, 80, 80, b.x, b.y, 100, 100) && b.c) return {x: b.x+50, y: b.y+50, t: this.obstruction ? this.obstruction.t : Date.now()};
+    }
     return false;
   }
 
@@ -299,7 +302,10 @@ class AI {
 	
   collision(x, y) {
     if (x < 0 || y < 0 || x + 80 > 6000 || y + 80 > 6000) return false;
-    for (const b of this.host.b) if (Engine.collision(x, y, 80, 80, b.x, b.y, 100, 100) && b.c) return false;
+    for (const cell of this.cells) {
+      const c = cell.split('x'), x = c[0], y = c[1];
+      for (const b of this.host.cells[x][y]) if (b instanceof Block && Engine.collision(x, y, 80, 80, b.x, b.y, 100, 100) && b.c) return false;
+    }
     return true;
   }
 	
