@@ -73,8 +73,9 @@ class AI {
       } else if (!this.path) {
         // move to block centre
         // theoretically should be possible if not blocked in all cases
+	return;
       }
-      //if (!this.path || !this.path.p.length) return; // if invalid return :D // should theoretically never happen
+      if (!this.path || !this.path.p.length) return; // if invalid return :D // should theoretically never happen
       this.move();
     }
     if (this.obstruction && !this.seeTarget) {
