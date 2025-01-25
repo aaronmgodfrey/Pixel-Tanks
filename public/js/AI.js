@@ -208,10 +208,10 @@ class AI {
     // add boost and subtract toolkit frames here
     let l = Math.floor(f/25), o = f-this.pos.f;
     if (f === this.path.p.length*25) {
-      l -= 1; // set to end of path
+      l -= 2; // set to end of path
       o = 25;
     }
-	  console.log('l='+l);
+	  console.log('l='+l+' p='+JSON.stringify(this.path.p));
     const dx = this.path.p[l+1][0]-this.path.p[l][0], dy = this.path.p[l+1][1]-this.path.p[l][1];
     const nx = this.path.p[l][0]*100+10+4*o*dx, ny = this.path.p[l][1]*100+10+4*o*dy;
     this.obstruction = this.collision(nx, ny);
