@@ -206,7 +206,7 @@ class AI {
     // calculate frames since last pos check (path gen is 0 for safety)
     let f = Math.min(this.pos.f+Math.floor((n-this.pos.t)/15), (this.path.p.length-1)*25);
     // add boost and subtract toolkit frames here
-    let l = Math.floor(f/25), o = (f-this.pos.f)%25;
+    let l = Math.floor(f/25), o = f%25;
     if (f === (this.path.p.length-1)*25) {
       l -= 1; // set to end of path
       o = 25;
@@ -223,8 +223,8 @@ class AI {
       }
       this.x = nx;
       this.y = ny;
-      this.pos.t = Date.now();
-      this.pos.f = f;
+      //this.pos.t = Date.now();
+      //this.pos.f = f;
     } else this.pos.t = Date.now();
     this.baseRotation = [[135, 180, 225], [90, this.baseRotation, 270], [45, 0, 315]][dy+1][dx+1];
     this.tr = this.baseRotation;
