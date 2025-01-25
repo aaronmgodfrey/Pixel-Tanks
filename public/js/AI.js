@@ -3,9 +3,11 @@ class AI {
   static args = ['x', 'y', 'role', 'rank', 'team', 'host'];
   static raw = ['role', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'ammo', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'dedEffect', 'gambleCounter'];
   static u = [];
+  static routes = [,];
   constructor() {
     this.cells = new Set();
     this.raw = {};
+    this.pos = {};
     this.items = [];
   }
   init(x, y, role, rank, team, host) {
@@ -54,6 +56,7 @@ class AI {
   }
 
   regen() {}
+	
   giveAbilities() {
     const available = ['airstrike', 'super_glu', 'duck_tape', 'shield',/* 'flashbang',*/ 'bomb', 'dynamite', 'usb', 'weak', 'strong', 'spike', 'reflector'];
     const classes = ['tactical', 'stealth', 'warrior', 'builder', 'fire', 'medic'];
@@ -62,7 +65,18 @@ class AI {
   }
 
   think() {
-    if (this.role !== 0) this.move();
+    
+    if (this.role !== 0) {
+      // maybe add a time check if time past path maximum to regenerate path??? Currently just moving to farthest for next tick path regen
+      if ((this.x-10)%100 === 0 && (this.y-10)%100 === 0) {
+        this.onBlock(); 
+      } else if (!this.path) {
+        // move to block centre
+        // theoretically should be possible if not blocked in all cases
+      }
+      //if (!this.path || !this.path.p.length) return; // if invalid return :D // should theoretically never happen
+      this.move();
+    }
     if (this.obstruction && !this.seeTarget) {
       this.tr = Engine.toAngle(this.obstruction.x-(this.x+40), this.obstruction.y-(this.y+40));
       if (this.canPowermissle && this.role !== 0 && Math.random() <= 1/600) this.fireCalc(this.obstruction.x, this.obstruction.y, 'powermissle');
@@ -113,15 +127,6 @@ class AI {
   }
 
   update() {
-    if (!this.reloading) this.think(); else {
-      this.ammo += .1;
-      if (this.ammo >= 120) this.reloading = false;
-    }
-    if ((!this.target && this.role === 0) || this.reloading) return this.r = (this.r+1)%360;
-    if (!(this.role === 0 && this.mode === 0)) {
-      const diff = (this.tr-this.r+360)%360, dir = diff < 180 ? 1 : -1;
-      this.r = diff > this.barrelSpeed ? (this.r+dir*this.barrelSpeed+360)%360 : this.tr;
-    }
     /*const radar = Engine.hasPerk(this.perk, 6);
     if (radar && !this.ded) {
       this.eradar.length = this.fradar.length = 0;
@@ -181,13 +186,49 @@ class AI {
         }
       }
     }
+    // AI BASED UPDATING
+    if (!this.reloading) this.think(); else {
+      this.ammo += .1;
+      if (this.ammo >= 120) this.reloading = false;
+    }
+    if ((!this.target && this.role === 0) || this.reloading) return this.r = (this.r+1)%360;
+    if (!(this.role === 0 && this.mode === 0)) {
+      const diff = (this.tr-this.r+360)%360, dir = diff < 180 ? 1 : -1;
+      this.r = diff > this.barrelSpeed ? (this.r+dir*this.barrelSpeed+360)%360 : this.tr;
+    }
   }
   move() {
-	
-	  
+    //this.pos = {t: Date.now(), f: 30, o: Date.now()} // timestamp of last computation and final frame of current path and path time origin
+	  // path = {t: Date.now(), p: [[0, 2]], }
+    // pos always set upon path gen
+    const n = Date.now();
+    // calculate frames since last pos check (path gen is 0 for safety)
+    let f = Math.min(this.pos.f+Math.floor((n-this.pos.t)/15), this.path.p.length*25);
+    // add boost and subtract toolkit frames here
+    let l = Math.floor(f/25), o = f-this.pos.f;
+    if (f === this.path.p.length) {
+      l -= 1; // set to end of path
+      o = 25;
+    }
+    const dx = this.path.p[l][0]-this.path.p[l+1][0], dy = this.path.p[l][1]-this.path.p[l+1][1];
+    const nx = this.path.p[l][0]*100+10+o*dx, ny = this.path.p[l][1]*100+10+o*dy;
+    this.obstruction = this.collision(nx, ny);
+    if (!this.obstruction) {
+      if (this.canBoost && Math.random() < 1/300) {
+        this.canBoost = false;
+        //this.immune = Date.now();
+        setTimeout(() => (this.canBoost = true), 5000);
+      }
+      this.x = nx;
+      this.y = ny;
+    } else this.pos.t = Date.now();
+    this.baseRotation = [[135, 180, 225], [90, this.baseRotation, 270], [45, 0, 315]][dy+1][dx+1];
+    this.tr = this.baseRotation;
+    // add base rotation cringe
+    this.host.loadCells(this, this.x, this.y, 80, 80);
+    // OLD CODE
+    return;
     const {x, y, path, baseRotation} = this;
-    if ((x-10)%100 === 0 && (y-10)%100 === 0) this.onBlock(); // check for block realignment if not on block
-    if (!path || !path.p.length) return; // if invalid return :D
     const now = Date.now(); // timing
     const len = path.p.length-1; // last path indice
     let frames = Math.min(Math.floor((now-path.t)/15), len*25); // get the current step in the movement process
@@ -229,9 +270,21 @@ class AI {
   }
 
   generatePath() {
-    const sx = (this.x-10)/100, sy = (this.y-10)/100;
+    const sx = (this.x-10)/100, sy = (this.y-10)/100, tx = Math.floor((this.target.x+40)/100), ty = Math.floor((this.target.y+40)/100), ranged = Math.max(sx-tx, sy-ty) > [1, 5, 5][this.role-1];
+    /*
+    // def ranged
+    if ((this.mode === 0 && Math.random() < .5) || (this.role === 1 && this.mode === 1 && !ranged) || (this.role === 3 && this.bond)) {
+      cir = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
+    } else cir = [[0, -3], [1, -3], [2, -2], [3, -1], [3, 0], [3, 1], [2, 2], [1, 3], [0, 3], [-1, 3], [-2, 2], [-3, 1], [-3, 0], [-3, -1], [-2, -2], [-1, -3]];
+    
+
+
+	  
+
+	  */
     let cir, coords = [], limiter, tpx, tpy, epx, epy;
-    let tx = Math.floor((this.target.x+40)/100), ty = Math.floor((this.target.y+40)/100), ranged = Math.max(sx-tx, sy-ty) > [1, 5, 5][this.role-1];
+
+    
     if (this.role === 3 && this.bond) {
       epx = Math.floor((this.bond.x+40)/100);
       epy = Math.floor((this.bond.y+40)/100);
@@ -259,13 +312,6 @@ class AI {
       tpx = tx;
       tpy = ty;
     }
-    if (this.role === 3 && this.bond) {
-      limiter = [2];
-    } else if (this.role === 1 && !ranged) {
-      limiter = [2, 3];
-    } else {
-      limiter = [2, 3, 4];
-    }
     for (const c of cir) {
       const x = c[0]+epx, y = c[1]+epy, d = (x-tpx)**2+(y-tpy)**2;
       if (x >= 0 && y >= 0 && x <= 59 && y <= 59) coords.push({x, y, d});
@@ -276,15 +322,16 @@ class AI {
       const r = this.choosePath(coords.length);
       const {x, y} = coords[r];
       const p = Engine.pathfind(sx, sy, x, y, this.host.map.clone());
-      if (limiter.includes(p.length) || true) return this.path = {p, m: this.mode, t: Date.now(), o: Date.now()};
-      coords.splice(r, 1);
-      if (!coords.length) return this.path = {p: [], m: this.mode, t: Date.now(), o: Date.now()}; 
+      return this.path = {p, m: this.mode, t: Date.now(), o: Date.now()};
     }
     if (this.mode !== 0) this.path = {p: Engine.pathfind(sx, sy, tx, ty, this.host.map.clone()).slice(0, 5), m: this.mode, t: Date.now(), o: Date.now()}; 
   }
 
   choosePath(p) {
     return Math.floor(Math.random()*p);
+  }
+
+  pathfind() {
   }
 
   identify() {
@@ -321,7 +368,7 @@ class AI {
     }
   }
 
-  fireCalc(tx, ty, type) {
+  fireCalc(tx, ty, type) { // needs cohesion with Client.fireCalc
     this.pushback = type && type.includes('missle') ? -9 : -6;
     let co = this.role === 0 ? 50 : 40, d = this.role === 0 ? 85 : 70
     if (type === undefined) type = this.role !== 0 && Math.sqrt((tx-this.x)**2 + (ty-this.y)**2) < 150 ? 'shotgun' : 'bullet';
