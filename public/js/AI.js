@@ -76,8 +76,8 @@ class AI {
         let ny = speed*((this.y+10)%100 > 50 ? 1 : -1);
 	this.obstruction = this.canMove(nx, ny);
         if (!this.obstruction) { //ai can't boost during this rn
-          if ((this.x+10)%100 > speed || (this.x+10)%100 < 100-speed) this.x += nx; else this.x = 100*Math.floor(this.x/100)+10;
-          if ((this.y+10)%100 > speed || (this.y+10)%100 < 100-speed) this.y += ny; else this.y = 100*Math.floor(this.y/100)+10;
+          if ((this.x+10)%100 > speed*2 || (this.x+10)%100 < 100-speed*2) this.x += nx; else this.x = 100*Math.floor(this.x/100)+10;
+          if ((this.y+10)%100 > speed*2 || (this.y+10)%100 < 100-speed*2) this.y += ny; else this.y = 100*Math.floor(this.y/100)+10;
         }
 	return;
       }
