@@ -288,7 +288,7 @@ class AI {
       this.x = Math.floor(this.x/4)*4;
       this.y = Math.floor(this.y/4)*4;
     }
-    //this.host.override(this, ox, oy);
+    this.host.loadCells(this, this.x, this.y, 80, 80);
   }
 	
   collision(x, y) {
