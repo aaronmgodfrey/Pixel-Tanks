@@ -152,7 +152,7 @@ class AI {
     } else this.fire = false;
     if (this.damage) this.damage.y-- && this.host.updateEntity(this, ['damage']);
     if (this.grapple) this.grappleCalc();
-    if (this.reflect) for (let hx = Math.floor((this.x+40)/100), i = Math.max(0, hx-2); i <= Math.min(29, hx+2); i++) for (let hy = Math.floor((this.y+40)/100), l = Math.max(0, hy-2); l <= Math.min(29, hy+2); l++) {
+    if (this.reflect) for (let hx = Math.floor((this.x+40)/100), i = Math.max(0, hx-2); i <= Math.min(59, hx+2); i++) for (let hy = Math.floor((this.y+40)/100), l = Math.max(0, hy-2); l <= Math.min(59, hy+2); l++) {
       for (const entity of this.host.cells[i][l]) {
         if (!(entity instanceof Shot)) continue;
         const xd = entity.x-(this.x+40), yd = entity.y-(this.y+40), td = Math.sqrt(xd**2+yd**2), aspectRatio = Shot.settings[entity.type][1]/td; 
@@ -302,7 +302,7 @@ class AI {
 	
   collision(x, y) {
     if (x < 0 || y < 0 || x + 80 > 6000 || y + 80 > 6000) return false;
-    for (let hx = Math.floor((this.x+40)/100), i = Math.max(0, hx-2); i <= Math.min(29, hx+2); i++) for (let hy = Math.floor((this.y+40)/100), l = Math.max(0, hy-2); l <= Math.min(29, hy+2); l++) {
+    for (let hx = Math.floor((this.x+40)/100), i = Math.max(0, hx-2); i <= Math.min(59, hx+2); i++) for (let hy = Math.floor((this.y+40)/100), l = Math.max(0, hy-2); l <= Math.min(59, hy+2); l++) {
       for (const b of this.host.cells[i][l]) if (b instanceof Block && Engine.collision(x, y, 80, 80, b.x, b.y, 100, 100) && b.c) return false;
     }
     return true;
