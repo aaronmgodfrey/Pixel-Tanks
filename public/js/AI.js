@@ -199,7 +199,7 @@ class AI {
     }
   }
   move() {
-    console.log(JSON.stringify(path));
+    console.log(JSON.stringify(this.path));
     //this.pos = {t: Date.now(), f: 30, o: Date.now()} // timestamp of last computation and final frame of current path and path time origin
 	  // path = {t: Date.now(), p: [[0, 2]], }
     // pos always set upon path gen
