@@ -211,7 +211,7 @@ class AI {
       l -= 2; // set to end of path
       o = 25;
     }
-	  console.log('l='+l+' p='+JSON.stringify(this.path.p));
+	  //console.log('l='+l+' p='+JSON.stringify(this.path.p));
     const dx = this.path.p[l+1][0]-this.path.p[l][0], dy = this.path.p[l+1][1]-this.path.p[l][1];
     const nx = this.path.p[l][0]*100+10+4*o*dx, ny = this.path.p[l][1]*100+10+4*o*dy;
     this.obstruction = this.collision(nx, ny);
@@ -223,6 +223,8 @@ class AI {
       }
       this.x = nx;
       this.y = ny;
+      this.pos.t = Date.now();
+      this.pos.f = f;
     } else this.pos.t = Date.now();
     this.baseRotation = [[135, 180, 225], [90, this.baseRotation, 270], [45, 0, 315]][dy+1][dx+1];
     this.tr = this.baseRotation;
