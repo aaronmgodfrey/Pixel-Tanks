@@ -76,7 +76,7 @@ class AI {
 	return;
       }
       if (!this.path || !this.path.p.length) return; // if invalid return :D // should theoretically never happen
-      this.move();
+      if (this.grapple) this.path = false; else this.move();
     }
     if (this.obstruction && !this.seeTarget) {
       this.tr = Engine.toAngle(this.obstruction.x-(this.x+40), this.obstruction.y-(this.y+40));
@@ -259,12 +259,38 @@ class AI {
     }
     this.host.loadCells(this, this.x, this.y, 80, 80);*/
   }
-
+  
   collision(x, y) {
     for (const b of this.host.b) if (Engine.collision(x, y, 80, 80, b.x, b.y, 100, 100) && b.c) return {x: b.x+50, y: b.y+50, t: this.obstruction ? this.obstruction.t : Date.now()};
     return false;
   }
 
+  grappleCalc() { // PORTED from Tank.grappleCalc
+    if (this.stunned) return this.grapple.bullet.destroy() && (this.grapple = false);
+    const dx = this.grapple.target.x - this.x, dy = this.grapple.target.y - this.y, ox = this.x, oy = this.y;
+    if (dx**2 + dy**2 > 400) {
+      const angle = Math.atan2(dy, dx);
+      const mx = Math.round(Math.cos(angle)*5)*4;
+      const my = Math.round(Math.sin(angle)*5)*4;
+      if (this.collision(this.x+mx, this.y)) this.x += mx;
+      if (this.collision(this.x, this.y+my)) this.y += my;
+      this.grapple.bullet.sx = this.x+40;
+      this.grapple.bullet.sy = this.y+40;
+      if ((!this.collision(this.x+mx, this.y) || Math.abs(mx) < 2) && (!this.collision(this.x, this.y+my) || Math.abs(my) < 2)) {
+        this.grapple.bullet.destroy();
+        this.grapple = false;
+        this.x = Math.floor(this.x/4)*4;
+        this.y = Math.floor(this.y/4)*4; // no override so useless??!?!
+      }
+    } else {
+      this.grapple.bullet.destroy();
+      this.grapple = false;
+      this.x = Math.floor(this.x/4)*4;
+      this.y = Math.floor(this.y/4)*4;
+    }
+    //this.host.override(this, ox, oy);
+  }
+	
   onBlock() {
     if (!this.path || !this.path.p || !this.path.p.length) this.generatePath(); // or if not on block and no path
     if (this.path.p && this.path.p.length > 0) { // why would path be invalid like this????
