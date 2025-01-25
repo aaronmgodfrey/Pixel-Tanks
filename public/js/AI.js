@@ -214,7 +214,7 @@ class AI {
 	  //console.log('l='+l+' p='+JSON.stringify(this.path.p));
     const dx = this.path.p[l+1][0]-this.path.p[l][0], dy = this.path.p[l+1][1]-this.path.p[l][1];
     const nx = this.path.p[l][0]*100+10+4*o*dx, ny = this.path.p[l][1]*100+10+4*o*dy;
-    this.obstruction = this.collision(nx, ny);
+    this.obstruction = this.canMove(nx, ny);
     if (!this.obstruction) {
       if (this.canBoost && Math.random() < 1/300) {
         this.canBoost = false;
@@ -260,7 +260,7 @@ class AI {
     this.host.loadCells(this, this.x, this.y, 80, 80);*/
   }
   
-  collision(x, y) {
+  canMove(x, y) {
     for (const b of this.host.b) if (Engine.collision(x, y, 80, 80, b.x, b.y, 100, 100) && b.c) return {x: b.x+50, y: b.y+50, t: this.obstruction ? this.obstruction.t : Date.now()};
     return false;
   }
@@ -289,6 +289,12 @@ class AI {
       this.y = Math.floor(this.y/4)*4;
     }
     //this.host.override(this, ox, oy);
+  }
+	
+  collision(x, y) {
+    if (x < 0 || y < 0 || x + 80 > 6000 || y + 80 > 6000) return false;
+    for (const b of this.host.b) if (Engine.collision(x, y, 80, 80, b.x, b.y, 100, 100) && b.c) return false;
+    return true;
   }
 	
   onBlock() {
