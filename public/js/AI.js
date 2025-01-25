@@ -71,9 +71,15 @@ class AI {
       if ((this.x-10)%100 === 0 && (this.y-10)%100 === 0) {
         this.onBlock(); 
       } else if (!this.path) {
-        // move to block centre
-        // theoretically should be possible if not blocked in all cases
-	return;
+        let speed = 4;
+        let nx = speed*((this.x+10)%100 > 50 ? 1 : -1);
+        let ny = speed*((this.y+10)%100 > 50 ? 1 : -1);
+	      this.obstruction = this.canMove(nx, ny);
+        if (!this.obstruction) { //ai can't boost during this rn
+          if ((this.x+10)%100 < speed || (this.x+10)%100 > 100-speed) this.x += nx; else this.x = Math.floor(this.x/100)+10;
+          if ((this.y+10)%100 < speed || (this.y+10)%100 > 100-speed) this.y += ny; else this.y = Math.floor(this.y/100)+10;
+        }
+	      return;
       }
       if (!this.path || !this.path.p.length) return; // if invalid return :D // should theoretically never happen
       if (this.grapple) this.path = false; else this.move();
