@@ -213,7 +213,7 @@ class AI {
     }
 	  console.log('l='+l);
     const dx = this.path.p[l+1][0]-this.path.p[l][0], dy = this.path.p[l+1][1]-this.path.p[l][1];
-    const nx = this.path.p[l][0]*100+10+o*dx, ny = this.path.p[l][1]*100+10+o*dy;
+    const nx = this.path.p[l][0]*100+10+4*o*dx, ny = this.path.p[l][1]*100+10+4*o*dy;
     this.obstruction = this.collision(nx, ny);
     if (!this.obstruction) {
       if (this.canBoost && Math.random() < 1/300) {
