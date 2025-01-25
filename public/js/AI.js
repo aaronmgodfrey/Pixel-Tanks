@@ -207,7 +207,7 @@ class AI {
     let f = Math.min(this.pos.f+Math.floor((n-this.pos.t)/15), this.path.p.length*25);
     // add boost and subtract toolkit frames here
     let l = Math.floor(f/25), o = f-this.pos.f;
-    if (f === this.path.p.length) {
+    if (f === this.path.p.length*25) {
       l -= 1; // set to end of path
       o = 25;
     }
