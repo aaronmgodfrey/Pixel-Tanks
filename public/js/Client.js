@@ -375,7 +375,7 @@ class Client {
       username += ' ['+t.team.split(':')[1]+']';
     }
     
-    if (teamname === 'RED') {
+    if (!(t.ded && t.role)) if (teamname === 'RED') {
       GUI.drawText(username, t.x+40, t.y-25, 50, '#ff0000', 0.5);
     } else if (teamname === 'BLUE') {
       GUI.drawText(username, t.x+40, t.y-25, 50, '#0000ff', 0.5);
