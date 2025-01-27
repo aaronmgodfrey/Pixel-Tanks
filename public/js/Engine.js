@@ -217,7 +217,7 @@ class Engine {
   destroyEntity() {}
 
   ondeath(t, m={}) {
-    for (let i = this.ai.length-1; i >= 0; i--) if (Engine.getUsername(this.ai[i].team) === t.username) this.ai[i].destroy();
+    for (let i = this.ai.length-1; i >= 0; i--) if (Engine.getUsername(this.ai[i].team) === t.username && this.ai[i].role === 0) this.ai[i].destroy();
     if (!m.regenInterval) {
       clearTimeout(m.regenTimeout);
       m.regenTimeout = setTimeout(() => (m.regenInterval = setInterval(() => m.regen(), 15)), 1000);
