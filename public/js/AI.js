@@ -16,7 +16,6 @@ class AI {
     this.username = displayNames[Math.floor(Math.random()*displayNames.length)];
     if (!this.team.includes(':')) this.team = this.username+':'+this.team;
     this.maxHp = this.hp = this.role === 0 ? this.rank*6+180 : this.rank*10+300;
-	  
     this.barrelSpeed = Math.random()*3+2; // HOOK TO BALANCING
 
 	  
@@ -204,23 +203,25 @@ class AI {
     }
   }
   move() {
+    if (this.stunned) return this.path.t = Date.now();
     const n = Date.now();
-    // calculate frames since last pos check (path gen is 0 for safety)
     let f = Math.min(this.path.f+Math.floor((n-this.path.t)/15), (this.path.p.length-1)*25);
+    let boostTime = Math.floor((Math.min(this.path.t, this.immune+500)-Math.max(this.path.t, this.immune))/15);
+    f = Math.min(f+boostTime, (this.path.p.length-1)*25);
+    
     // add boost and subtract toolkit frames here
     let l = Math.floor(f/25), o = f%25;
     if (f === (this.path.p.length-1)*25) {
       l -= 1; // set to end of path
       o = 25;
     }
-	  //console.log('l='+l+' p='+JSON.stringify(this.path.p));
     const dx = this.path.p[l+1][0]-this.path.p[l][0], dy = this.path.p[l+1][1]-this.path.p[l][1];
     const nx = this.path.p[l][0]*100+10+4*o*dx, ny = this.path.p[l][1]*100+10+4*o*dy;
     this.obstruction = this.canMove(nx, ny);
     if (!this.obstruction) {
       if (this.canBoost && Math.random() < 1/300) {
         this.canBoost = false;
-        //this.immune = Date.now();
+        this.immune = Date.now();
         setTimeout(() => (this.canBoost = true), 5000);
       }
       this.x = nx;
@@ -232,34 +233,6 @@ class AI {
     this.tr = this.baseRotation;
     // add base rotation cringe
     this.host.loadCells(this, this.x, this.y, 80, 80);
-    // OLD CODE
-    /*
-    const {x, y, path, baseRotation} = this;
-    const now = Date.now(); // timing
-    const len = path.p.length-1; // last path indice
-    let frames = Math.min(Math.floor((now-path.t)/15), len*25); // get the current step in the movement process
-    if (this.immune+500 > path.t) frames = Math.min(frames+3*Math.floor(Math.min(now-Math.max(this.immune, path.t), this.immune+500-path.t)/15), len*25);
-    // ^^^ if boost then recalculate based on boost time
-    const f = Math.floor(frames/25); // last path
-    const n = Math.min(f+1, len); // current block
-    const dx = path.p[n][0]-path.p[f][0], dy = path.p[n][1]-path.p[f][1];
-    const offset = 4*(frames%25); // movement
-    const nx = 10+path.p[f][0]*100+offset*dx, ny = 10+path.p[f][1]*100+offset*dy;
-    this.baseRotation = [[135, 180, 225], [90, baseRotation, 270], [45, 0, 315]][dy+1][dx+1];
-    this.tr = this.baseRotation;
-    this.obstruction = this.collision(nx, ny);
-    if (!this.obstruction) {
-      if (this.canBoost && Math.random() < 1/300) {
-        this.canBoost = false;
-        this.immune = Date.now();
-        setTimeout(() => (this.canBoost = true), 5000);
-      }
-      this.x = nx;
-      this.y = ny;
-    } else {
-      this.path.t = this.path.o+Date.now()-this.obstruction.t;
-    }
-    this.host.loadCells(this, this.x, this.y, 80, 80);*/
   }
   
   canMove(x, y) {
@@ -295,7 +268,6 @@ class AI {
     }
     this.host.loadCells(this, this.x, this.y, 80, 80);
   }
-	
   collision(x, y) {
     if (x < 0 || y < 0 || x + 80 > 6000 || y + 80 > 6000) return false;
     for (let hx = Math.floor((this.x+40)/100), i = Math.max(0, hx-2); i <= Math.min(59, hx+2); i++) for (let hy = Math.floor((this.y+40)/100), l = Math.max(0, hy-2); l <= Math.min(59, hy+2); l++) {
@@ -456,7 +428,7 @@ class AI {
     if (this.role === --this.ammo) this.reloading = true;
   }
 
-  damageCalc(x, y, a, u) {
+  damageCalc(x, y, a, u) { // sync with Tank.damageCalc
     if (this.immune+500 > Date.now() || this.reflect) return;
     const hx = Math.floor((this.x+40)/100), hy = Math.floor((this.y+40)/100);
     for (let i = Math.max(0, hx-1); i <= Math.min(59, hx+1); i++) for (let l = Math.max(0, hy-1); l <= Math.min(59, hy+1); l++) for (const entity of this.host.cells[i][l]) {
@@ -470,7 +442,6 @@ class AI {
     clearInterval(this.healInterval);
     clearTimeout(this.healTimeout);
     if (this.hp <= 0) {
-      console.log('AI TEAM: '+this.team);
       if (this.host.ondeath && this.role !== 0) this.host.ondeath(this, this.host.pt.concat(this.host.ai).find(t => t.username === u));
       return this.destroy();
     }
