@@ -202,7 +202,7 @@ class AI {
     if (this.stunned && this.path) return this.path.t = Date.now(); else if (this.stunned) return;
     let nx, ny, tx, ty, dx, dy;
     let n = Date.now(), boostTime = 0, speed = n < this.immune+500 ? 16 : 4;
-    if (!this.path) {
+    if (!this.path || !this.path.p.length) {
       tx = 100*Math.floor(this.x/100)+10;
       ty = 100*Math.floor(this.y/100)+10;
       nx = speed*(dx = this.x-tx < 0 ? 1 : -1);
