@@ -290,6 +290,7 @@ class Client {
 
   drawTank(t) {
     if (!Engine.collision(100*(Math.floor((this.tank.x+40)/100)-10), 100*(Math.floor((this.tank.y+40)/100)-7), 2100, 1500, t.x, t.y, t.role === 0 ? 100 : 80, t.role === 0 ? 100 : 80)) return;
+    if (!t.team) return document.write(JSON.stringify(t));
     const p = t.username === PixelTanks.user.username;
     let a = 1;
     if (this.ded && t.invis && !p) return;
