@@ -492,6 +492,6 @@ class AI {
       const [x, y] = cell.split('x');
       this.host.cells[x][y].delete(this);
     }
-    this.release();
+    //this.release();
   }
 }
