@@ -208,6 +208,7 @@ class AI {
     let boostTime = 0;
     let f = Math.min(this.path.f+Math.floor((n-this.path.t)/15), (this.path.p.length-1)*25);
     if (this.immune) boostTime = Math.floor((Math.min(this.path.t, this.immune+500)-Math.max(n, this.immune))/15);
+    this.host.logs.unshift({m: boostTime, c: '#ffffff'});
     f = Math.min(f+boostTime, (this.path.p.length-1)*25);
     
     // add boost and subtract toolkit frames here
