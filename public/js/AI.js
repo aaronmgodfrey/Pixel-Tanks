@@ -197,6 +197,7 @@ class AI {
         this.lastBaseRotation = Date.now();
       }
     }
+    if (this.ded+10000 < Date.now()) this.destroy();
   }
   move() {
     if (this.stunned && this.path) return this.path.t = Date.now(); else if (this.stunned) return;
