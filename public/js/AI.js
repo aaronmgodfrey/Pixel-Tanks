@@ -205,8 +205,9 @@ class AI {
   move() {
     if (this.stunned) return this.path.t = Date.now();
     const n = Date.now();
+    let boostTime = 0;
     let f = Math.min(this.path.f+Math.floor((n-this.path.t)/15), (this.path.p.length-1)*25);
-    let boostTime = Math.floor((Math.min(this.path.t, this.immune+500)-Math.max(this.path.t, this.immune))/15);
+    if (this.immune) boostTime = Math.floor((Math.min(this.path.t, this.immune+500)-Math.max(n, this.immune))/15);
     f = Math.min(f+boostTime, (this.path.p.length-1)*25);
     
     // add boost and subtract toolkit frames here
