@@ -1,7 +1,3 @@
-let tps = 0, tpsi = setInterval(() => {
-  console.log('TPS: '+tps);
-  tps = 0;
-}, 1000);
 class Engine {
   constructor(levels, difficulty) {
     if (!A.templates.Block) {
