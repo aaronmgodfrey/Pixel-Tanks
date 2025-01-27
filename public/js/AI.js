@@ -3,11 +3,10 @@ class AI {
   static args = ['x', 'y', 'role', 'rank', 'team', 'host'];
   static raw = ['role', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'ammo', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'dedEffect', 'gambleCounter'];
   static u = [];
-  //static routes = [,];
+  static routes = [[[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]], [[0, -3], [1, -3], [2, -2], [3, -1], [3, 0], [3, 1], [2, 2], [1, 3], [0, 3], [-1, 3], [-2, 2], [-3, 1], [-3, 0], [-3, -1], [-2, -2], [-1, -3]]];
   constructor() {
     this.cells = new Set();
     this.raw = {};
-    this.pos = {};
     this.items = [];
   }
   init(x, y, role, rank, team, host) {
@@ -205,12 +204,9 @@ class AI {
     }
   }
   move() {
-    //this.pos = {t: Date.now(), f: 30, o: Date.now()} // timestamp of last computation and final frame of current path and path time origin
-	  // path = {t: Date.now(), p: [[0, 2]], }
-    // pos always set upon path gen
     const n = Date.now();
     // calculate frames since last pos check (path gen is 0 for safety)
-    let f = Math.min(this.pos.f+Math.floor((n-this.pos.t)/15), (this.path.p.length-1)*25);
+    let f = Math.min(this.path.f+Math.floor((n-this.path.t)/15), (this.path.p.length-1)*25);
     // add boost and subtract toolkit frames here
     let l = Math.floor(f/25), o = f%25;
     if (f === (this.path.p.length-1)*25) {
@@ -229,9 +225,9 @@ class AI {
       }
       this.x = nx;
       this.y = ny;
-      this.pos.f = f;
+      this.path.f = f;
     }
-    this.pos.t = Date.now();
+    this.path.t = Date.now();
     this.baseRotation = [[135, 180, 225], [90, this.baseRotation, 270], [45, 0, 315]][dy+1][dx+1];
     this.tr = this.baseRotation;
     // add base rotation cringe
@@ -317,22 +313,48 @@ class AI {
   }
 
   generatePath() {
+    // early checks for blockage
     const sx = (this.x-10)/100, sy = (this.y-10)/100, tx = Math.floor((this.target.x+40)/100), ty = Math.floor((this.target.y+40)/100), ranged = Math.max(sx-tx, sy-ty) > [1, 5, 5][this.role-1];
-    /*
-    // def ranged
-    if ((this.mode === 0 && Math.random() < .5) || (this.role === 1 && this.mode === 1 && !ranged) || (this.role === 3 && this.bond)) {
-      cir = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
-    } else cir = [[0, -3], [1, -3], [2, -2], [3, -1], [3, 0], [3, 1], [2, 2], [1, 3], [0, 3], [-1, 3], [-2, 2], [-3, 1], [-3, 0], [-3, -1], [-2, -2], [-1, -3]];
+    let route = ((this.mode === 0 && Math.random() < .5) || (this.role === 1 && this.mode === 1 && !ranged) || (this.role === 3 && this.bond)) ? 0 : 1;
+    let coords = [];
+    let epx, epy, tpx, tpy;
+    if (this.role === 3 && this.bond) {
+	    epx = Math.floor((this.bond.x+40)/100);
+      epy = Math.floor((this.bond.y+40)/100);
+      tpx = sx;
+      tpy = sy;
+    } else if (this.mode === 1 && !ranged) {
+      epx = tx;
+      epx = ty;
+      tpx = sx;
+      tpy = sy;
+    } else {
+      epx = sx;
+      epy = sy;
+      if (this.mode === 0) {
+        const d = Engine.toPoint(this.r);
+        tpx = d.x+epx;
+        tpy = d.y+epy;
+      } else {
+        tpx = tx;
+        tpy = ty;
+      }
+    }
+    for (const c of AI.routes[route]) {
+      const x = c[0]+epx, y = c[1]+epy, d = (x-tpx)**2+(y-tpy)**2; // splice if blocked
+      if (x >= 0 && y >= 0 && x <= 59 && y <= 59) coords.push({x, y, d});
+    }
+    if (!coords.length) return;
+    coords.sort((a, b) => this.mode !== 2 ? a.d - b.d : b.d - a.d);
+    const r = this.choosePath(coords.length);
+    const p = Engine.pathfind(sx, sy, coords[r].x, coords[r].y, this.host.map.clone()); // loop through if first fails????
+    this.path = {p, m: this.mode, t: Date.now(), f: 0}; // change path if mode change
     
-
-
 	  
-
-	  */
+    /*
     let cir, coords = [], limiter, tpx, tpy, epx, epy;
-    this.pos.t = Date.now();
-    this.pos.o = Date.now();
-    this.pos.f = 0;
+    this.path.t = Date.now();
+    this.path.f = 0;
     
     if (this.role === 3 && this.bond) {
       epx = Math.floor((this.bond.x+40)/100);
@@ -373,7 +395,7 @@ class AI {
       const p = Engine.pathfind(sx, sy, x, y, this.host.map.clone());
       return this.path = {p, m: this.mode, t: Date.now(), o: Date.now()};
     }
-    if (this.mode !== 0) this.path = {p: Engine.pathfind(sx, sy, tx, ty, this.host.map.clone()).slice(0, 5), m: this.mode, t: Date.now(), o: Date.now()}; 
+    if (this.mode !== 0) this.path = {p: Engine.pathfind(sx, sy, tx, ty, this.host.map.clone()).slice(0, 5), m: this.mode, t: Date.now(), o: Date.now()}; */
   }
 
   choosePath(p) {
