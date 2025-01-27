@@ -63,7 +63,7 @@ class AI {
   }
 
   think() {
-    
+    if (this.ded) return;
     if (this.role !== 0) {
       // maybe add a time check if time past path maximum to regenerate path??? Currently just moving to farthest for next tick path regen
       if ((this.x-10)%100 === 0 && (this.y-10)%100 === 0) this.onBlock();
@@ -446,7 +446,7 @@ class AI {
     clearTimeout(this.healTimeout);
     if (this.hp <= 0) {
       if (this.host.ondeath && this.role !== 0) this.host.ondeath(this, this.host.pt.concat(this.host.ai).find(t => t.username === u));
-      return this.destroy();
+      return this.ded = Date.now();
     }
     this.healTimeout = setTimeout(() => {
       this.healInterval = setInterval(() => (this.hp = Math.min(this.hp+.4, this.maxHp)), 15);
