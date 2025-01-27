@@ -21,7 +21,7 @@ class AI {
 	  
     this.seeUser = this.target = this.obstruction = this.bond = this.path = this.damage = false;
 	  
-    this.r = this.tr = this.baseRotation = this.baseFrame = this.mode = this.pushback = this.immune = this.shields = 0;
+    this.r = this.br = this.tr = this.baseRotation = this.baseFrame = this.mode = this.pushback = this.immune = this.shields = 0;
     this.canFire = this.canPowermissle = this.canBoost = this.canBashed = true;
     this.fire = this.reloading = this.canClass = false;
 	  
@@ -66,20 +66,7 @@ class AI {
     
     if (this.role !== 0) {
       // maybe add a time check if time past path maximum to regenerate path??? Currently just moving to farthest for next tick path regen
-      if ((this.x-10)%100 === 0 && (this.y-10)%100 === 0) {
-        this.onBlock(); 
-      } else if (!this.path && !this.grapple) {
-        let speed = 4, tx = 100*Math.floor(this.x/100)+10, ty = 100*Math.floor(this.y/100)+10;
-        let nx = speed*(this.x-tx < 0 ? 1 : -1);
-        let ny = speed*(this.y-ty < 0 ? 1 : -1);
-	this.obstruction = this.canMove(this.x+nx, this.y+ny);
-        if (!this.obstruction) { //ai can't boost during this rn
-          if (Math.abs(this.x-tx) > speed) this.x += nx; else this.x = 100*Math.floor(this.x/100)+10;
-          if (Math.abs(this.y-ty) > speed) this.y += ny; else this.y = 100*Math.floor(this.y/100)+10;
-        }
-	return;
-      }
-      if (!this.path || !this.path.p.length) return; // if invalid return :D // should theoretically never happen
+      if ((this.x-10)%100 === 0 && (this.y-10)%100 === 0) this.onBlock();
       if (this.grapple) this.path = false; else this.move();
     }
     if (this.obstruction && !this.seeTarget) {
@@ -87,7 +74,7 @@ class AI {
       if (this.canPowermissle && this.role !== 0 && Math.random() <= 1/600) this.fireCalc(this.obstruction.x, this.obstruction.y, 'powermissle');
       if (this.canFire) this.fireCalc(this.obstruction.x, this.obstruction.y);
     } else if (this.mode !== 0) {
-      this.tr = Engine.toAngle(this.target.x - this.x, this.target.y - this.y);
+      this.tr = Engine.toAngle(this.target.x-this.x, this.target.y-this.y);
       if (this.canPowermissle && this.role !== 0 && Math.random() <= 1/600) this.fireCalc(this.target.x, this.target.y, 'powermissle');
       if (this.canFire) this.fireCalc(this.target.x, this.target.y);
     }
@@ -201,38 +188,52 @@ class AI {
       const diff = (this.tr-this.r+360)%360, dir = diff < 180 ? 1 : -1;
       this.r = diff > this.barrelSpeed ? (this.r+dir*this.barrelSpeed+360)%360 : this.tr;
     }
+    if (this.role !== 0) {
+      let dis = (Math.abs(this.br-this.baseRotation)+360)%360;
+      if (dis > 90 && dis < 270) this.br = (this.br+180+360)%360;
+      const diff = (this.br-this.baseRotation+360)%360, dir = diff < 180 ? 1 : -1;
+      if (!this.lastBaseRotation || Date.now()-this.lastBaseRotation > 15) {
+        this.baseRotation = diff > 12 ? (this.baseRotation+(dir*12)+360)%360 : this.br;
+        this.lastBaseRotation = Date.now();
+      }
+    }
   }
   move() {
-    if (this.stunned) return this.path.t = Date.now();
-    const n = Date.now();
-    let boostTime = 0;
-    let f = Math.min(this.path.f+Math.floor((n-this.path.t)/15), (this.path.p.length-1)*25);
-    if (this.immune) boostTime = Math.max(0, 3*Math.floor((Math.min(n, this.immune+500)-Math.max(this.path.t, this.immune))/15));
-    f = Math.min(f+boostTime, (this.path.p.length-1)*25);
-    
-    // add boost and subtract toolkit frames here
-    let l = Math.floor(f/25), o = f%25;
-    if (f === (this.path.p.length-1)*25) {
-      l -= 1; // set to end of path
-      o = 25;
+    if (this.stunned && this.path) return this.path.t = Date.now(); else if (this.stunned) return;
+    let nx, ny, tx, ty, dx, dy;
+    let n = Date.now(), boostTime = 0, speed = n < this.immune+500 ? 16 : 4;
+    if (!this.path) {
+      tx = 100*Math.floor(this.x/100)+10;
+      ty = 100*Math.floor(this.y/100)+10;
+      nx = speed*(dx = this.x-tx < 0 ? 1 : -1);
+      ny = speed*(dy = this.y-ty < 0 ? 1 : -1);
+      this.obstruction = this.canMove(this.x+nx, this.y+ny);
+    } else {
+      let max = (this.path.p.length-1)*25, f = Math.min(this.path.f+Math.floor((n-this.path.t)/15), max);
+      if (this.immune) f = Math.min(f+Math.max(0, 3*Math.floor((Math.min(n, this.immune+500)-Math.max(this.path.t, this.immune))/15)), max);
+      let l = Math.floor(f/25), o = f%25;
+      if (f === max) {
+        l -= 1; // set to end of path
+        o = 25;
+      }
+      dx = this.path.p[l+1][0]-this.path.p[l][0];
+      dy = this.path.p[l+1][1]-this.path.p[l][1];
+      nx = this.path.p[l][0]*100+10+4*o*dx;
+      ny = this.path.p[l][1]*100+10+4*o*dy;
+      this.path.t = Date.now();
+      this.obstruction = this.canMove(nx, ny);
     }
-    const dx = this.path.p[l+1][0]-this.path.p[l][0], dy = this.path.p[l+1][1]-this.path.p[l][1];
-    const nx = this.path.p[l][0]*100+10+4*o*dx, ny = this.path.p[l][1]*100+10+4*o*dy;
-    this.obstruction = this.canMove(nx, ny);
     if (!this.obstruction) {
       if (this.canBoost && Math.random() < 1/300) {
         this.canBoost = false;
         this.immune = Date.now();
         setTimeout(() => (this.canBoost = true), 5000);
       }
-      this.x = nx;
-      this.y = ny;
-      this.path.f = f;
+      if (this.path) this.x = nx; else if (Math.abs(this.x-tx) > speed) this.x += nx; else this.x = 100*Math.floor(this.x/100)+10;
+      if (this.path) this.y = ny; else if (Math.abs(this.y-ty) > speed) this.y += ny; else this.y = 100*Math.floor(this.y/100)+10;
+      if (this.path) this.path.f = f;
     }
-    this.path.t = Date.now();
-    this.baseRotation = [[135, 180, 225], [90, this.baseRotation, 270], [45, 0, 315]][dy+1][dx+1];
-    this.tr = this.baseRotation;
-    // add base rotation cringe
+    this.tr = this.br = [[135, 180, 225], [90, this.baseRotation, 270], [45, 0, 315]][dy+1][dx+1];
     this.host.loadCells(this, this.x, this.y, 80, 80);
   }
   
