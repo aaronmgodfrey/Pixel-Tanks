@@ -185,7 +185,6 @@ class Engine {
   }
 
   tick() {
-    tps++;
     this.ontick();
     for (const s of this.s) s.update();
     for (let i = this.ai.length-1; i >= 0; i--) this.ai[i].update();
