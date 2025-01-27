@@ -201,8 +201,8 @@ class AI {
   move() {
     if (this.stunned && this.path) return this.path.t = Date.now(); else if (this.stunned) return;
     let nx, ny, tx, ty, dx, dy, f;
-    let n = Date.now(), boostTime = 0, speed = n < this.immune+500 ? 16 : 4;
-    if (!this.path || !this.path.p.length) {
+    let n = Date.now(), boostTime = 0, speed = n < this.immune+500 ? 16 : 4, b = !this.path || !this.path.p.length;
+    if (b) {
       tx = 100*Math.floor(this.x/100)+10;
       ty = 100*Math.floor(this.y/100)+10;
       nx = speed*(dx = this.x-tx < 0 ? 1 : -1);
@@ -230,9 +230,9 @@ class AI {
         this.immune = Date.now();
         setTimeout(() => (this.canBoost = true), 5000);
       }
-      if (this.path) this.x = nx; else if (Math.abs(this.x-tx) > speed) this.x += nx; else this.x = 100*Math.floor(this.x/100)+10;
-      if (this.path) this.y = ny; else if (Math.abs(this.y-ty) > speed) this.y += ny; else this.y = 100*Math.floor(this.y/100)+10;
-      if (this.path) this.path.f = f;
+      if (!b) this.x = nx; else if (Math.abs(this.x-tx) > speed) this.x += nx; else this.x = 100*Math.floor(this.x/100)+10;
+      if (!b) this.y = ny; else if (Math.abs(this.y-ty) > speed) this.y += ny; else this.y = 100*Math.floor(this.y/100)+10;
+      if (!b) this.path.f = f;
     }
     this.tr = this.br = [[135, 180, 225], [90, this.baseRotation, 270], [45, 0, 315]][dy+1][dx+1];
     this.host.loadCells(this, this.x, this.y, 80, 80);
