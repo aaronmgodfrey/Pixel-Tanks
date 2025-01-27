@@ -1,3 +1,7 @@
+let tps = 0, tpsi = setInterval(() => {
+  console.log('TPS: '+tps);
+  tps = 0;
+}, 1000);
 class Engine {
   constructor(levels, difficulty) {
     if (!A.templates.Block) {
@@ -28,7 +32,6 @@ class Engine {
   }
 
   useAbility(t, a) {
-    if (t.phasing) return;
     if (a === 'dynamite') {
       for (let i = this.s.length-1; i >= 0; i--) {
         const s = this.s[i];
@@ -186,6 +189,7 @@ class Engine {
   }
 
   tick() {
+    tps++;
     this.ontick();
     for (const s of this.s) s.update();
     for (let i = this.ai.length-1; i >= 0; i--) this.ai[i].update();
