@@ -290,11 +290,10 @@ class Client {
 
   drawTank(t) {
     if (!Engine.collision(100*(Math.floor((this.tank.x+40)/100)-10), 100*(Math.floor((this.tank.y+40)/100)-7), 2100, 1500, t.x, t.y, t.role === 0 ? 100 : 80, t.role === 0 ? 100 : 80)) return;
-    if (!t.team) return document.write(JSON.stringify(t));
     const p = t.username === PixelTanks.user.username;
     let a = 1;
     if (this.ded && t.invis && !p) return;
-    if (t.phasing) a = .75;
+    if (t.ded && t.mode !== undefined) a = 0;
     if ((t.invis && Engine.getTeam(this.team) === Engine.getTeam(t.team)) || t.ded) a = .5;
     if (t.invis && Engine.getTeam(this.team) !== Engine.getTeam(t.team) && !t.ded) a = Math.sqrt(Math.pow(t.x-this.tank.x, 2)+Math.pow(t.y-this.tank.y, 2)) > 200 && !this.ded ? 0 : .2;
     GUI.draw.globalAlpha = a;
