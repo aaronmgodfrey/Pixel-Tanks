@@ -200,7 +200,7 @@ class AI {
   }
   move() {
     if (this.stunned && this.path) return this.path.t = Date.now(); else if (this.stunned) return;
-    let nx, ny, tx, ty, dx, dy;
+    let nx, ny, tx, ty, dx, dy, f;
     let n = Date.now(), boostTime = 0, speed = n < this.immune+500 ? 16 : 4;
     if (!this.path || !this.path.p.length) {
       tx = 100*Math.floor(this.x/100)+10;
@@ -209,7 +209,8 @@ class AI {
       ny = speed*(dy = this.y-ty < 0 ? 1 : -1);
       this.obstruction = this.canMove(this.x+nx, this.y+ny);
     } else {
-      let max = (this.path.p.length-1)*25, f = Math.min(this.path.f+Math.floor((n-this.path.t)/15), max);
+      let max = (this.path.p.length-1)*25;
+      f = Math.min(this.path.f+Math.floor((n-this.path.t)/15), max);
       if (this.immune) f = Math.min(f+Math.max(0, 3*Math.floor((Math.min(n, this.immune+500)-Math.max(this.path.t, this.immune))/15)), max);
       let l = Math.floor(f/25), o = f%25;
       if (f === max) {
