@@ -403,7 +403,7 @@ class AI {
       if (c === t) {
         let t = c;
         while (t) {
-          p.push(t);
+          p.push([t.x, t.y]);
           t = t.parent;
         }
 	this.cleanPath(e, f);
