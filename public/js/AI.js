@@ -438,6 +438,10 @@ class AI {
       c.g = c.h = c.f = 0;
       c.parent = null;
     }
+	  for (let y = 0; y < 59; y++) for (let x = 0; x < 59; x++) {
+      this.host.map[y][x].g = this.host.map[y][x].h = this.host.map[y][x].f = 0;
+      this.host.map[y][x].parent = null;
+    }
   }
 
   identify() {
