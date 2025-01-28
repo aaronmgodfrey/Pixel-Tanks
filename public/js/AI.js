@@ -66,7 +66,7 @@ class AI {
 
   think() {
     if (this.ded) return;
-     if (Math.floor((Date.now()-time)/15)%Math.floor(this.reaction/15) === 0) this.identify(); // change reaction to be in frames direct, not ms
+     if (Math.floor((Date.now()-AI.time)/15)%Math.floor(this.reaction/15) === 0) this.identify(); // change reaction to be in frames direct, not ms
     if (this.role !== 0) {
       // maybe add a time check if time past path maximum to regenerate path??? Currently just moving to farthest for next tick path regen
       if ((this.x-10)%100 === 0 && (this.y-10)%100 === 0) this.onBlock();
