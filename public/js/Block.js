@@ -14,7 +14,7 @@ class Block {
     if (!(this.c = !['fire', 'airstrike', 'spike', 'supplyairstrike'].includes(type))) if (type !== 'spike') this.sd = setTimeout(() => this.destroy(), type === 'fire' ? 2500 : Math.abs(this.timer)*1000+200);
     if (type === 'airstrike' && this.timer > 0) for (let i = 0; i < 5; i++) this.t.push(setTimeout(() => this.host.d.push(A.template('Damage').init(this.x+[0, 100, 0, 100, 50][i], this.y+[0, 0, 100, 100, 50][i], 150, 150, 200, this.team, this.host)), this.timer*1000+Math.random()*200));
     if (type === 'supplyairstrike' && this.timer < 0) this.t.push(setTimeout(() => this.host.b.push(A.template('Block').init(this.x+50, this.y+50, 'crate', this.team, this.host)), 5000));
-    if (this.c && this.x % 100 === 0 && this.y % 100 === 0 && this.x >= 0 && this.x <= 5900 && this.y >= 0 && this.y <= 5900) host.map.setWalkableAt(Engine.r(Math.floor(this.x/100)), Engine.r(Math.floor(this.y/100)), false);
+    if (this.c && this.x % 100 === 0 && this.y % 100 === 0 && this.x >= 0 && this.x <= 5900 && this.y >= 0 && this.y <= 5900) host.map[Engine.r(this.y/100)][Engine.r(this.x/100)].walkable = false;
     host.loadCells(this, this.x, this.y, 100, 100);
     host.updateEntity(this, this.hp === Infinity ? Block.raw2 : Block.raw);
     return this;
@@ -41,7 +41,7 @@ class Block {
       const [x, y] = cell.split('x');
       this.host.cells[x][y].delete(this);
       for (const e of this.host.cells[x][y]) if (e instanceof Block && e.x % 100 === 0 && e.y % 100 === 0) continue cell;
-      this.host.map.setWalkableAt(x, y, true);
+      this.host.map[y][x].walkable = true;
     }
     this.release();
   }
