@@ -291,7 +291,7 @@ class AI {
   generatePath() {
     // early checks for blockage
     const sx = (this.x-10)/100, sy = (this.y-10)/100, tx = Math.floor((this.target.x+40)/100), ty = Math.floor((this.target.y+40)/100), ranged = Math.max(sx-tx, sy-ty) > [1, 5, 5][this.role-1];
-    let route = ((this.mode === 0 && true/*Math.random() < .5*/) || (this.role === 1 && this.mode === 1 && !ranged) || (this.role === 3 && this.bond)) ? 0 : 1;
+    let route = ((this.mode === 0 && Math.random() < .5) || (this.role === 1 && this.mode === 1 && !ranged) || (this.role === 3 && this.bond)) ? 0 : 1;
     let coords = [];
     let epx, epy, tpx, tpy;
     if (this.role === 3 && this.bond) {
@@ -324,7 +324,6 @@ class AI {
     coords.sort((a, b) => this.mode !== 2 ? a.d - b.d : b.d - a.d);
     const r = this.choosePath(coords.length);
     const p = this.pathfind(sx, sy, coords[r].x, coords[r].y); // loop through if first fails????
-    console.log(p);
     this.path = {p, m: this.mode, t: Date.now(), f: 0}; // change path if mode change
     
 	  
@@ -406,7 +405,6 @@ class AI {
         let t = c;
         while (t) {
           p.push([t.x, t.y]);
-	  console.log(t.x, t.y);
           t = t.parent;
         }
 	this.cleanPath(e, f);
