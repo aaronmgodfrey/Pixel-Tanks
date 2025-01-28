@@ -407,6 +407,7 @@ class AI {
         while (t) {
           p.push([t.x, t.y]);
           t = t.parent;
+	  console.log(t.x, t.y);
         }
 	this.cleanPath(e, f);
         return p.reverse();
