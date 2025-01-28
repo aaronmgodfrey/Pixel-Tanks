@@ -324,6 +324,7 @@ class AI {
     coords.sort((a, b) => this.mode !== 2 ? a.d - b.d : b.d - a.d);
     const r = this.choosePath(coords.length);
     const p = this.pathfind(sx, sy, coords[r].x, coords[r].y); // loop through if first fails????
+    console.log(p);
     this.path = {p, m: this.mode, t: Date.now(), f: 0}; // change path if mode change
     
 	  
