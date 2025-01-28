@@ -11,12 +11,15 @@ class Engine {
     }
     this.spawn = {x: 0, y: 0};
     this.spawns = [];
-    for (const property of ['ai', 's', 'pt', 'b', 'd', 'i', 'logs', 'cells', 'updates', 'deletions', 'ids']) this[property] = [];
+    for (const property of ['ai', 's', 'pt', 'b', 'd', 'i', 'logs', 'cells', 'map', 'updates', 'deletions', 'ids']) this[property] = [];
     for (let y = 0; y < 60; y++) {
       this.cells[y] = [];
-      for (let x = 0; x < 60; x++) this.cells[y][x] = new Set();
+      this.map[y] = [];
+      for (let x = 0; x < 60; x++) {
+        this.cells[y][x] = new Set();
+        this.map[y][x] = {x, y, walkable: true, g: 0, h: 0, f: 0, parent: null};
+      }
     }
-    this.map = new PF.Grid(60, 60);
     this.difficulty = difficulty;
     if (isNaN(this.difficulty)) this.difficulty = 20;
     this.levelReader(levels[Math.floor(Math.random()*levels.length)]);
@@ -274,12 +277,6 @@ class Engine {
     while (this.ids.includes(id)) id = Engine.id(type);
     this.ids.push(id);
     return id;
-  }
-
-  static finder = new PF.AStarFinder({allowDiagonal: true, dontCrossCorners: true});
-
-  static pathfind(sx, sy, tx, ty, map) {
-    return Engine.finder.findPath(sx, sy, tx, ty, map);
   }
 
   static raycast(x1, y1, x2, y2, walls) {
