@@ -431,14 +431,14 @@ class Menus {
             for (let i = this.cosmeticMenu*16; i < Math.min((this.cosmeticMenu+1)*16, PixelTanks.userData.cosmetics.length); i++) {
               for (const rarity of ['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic']) if (PixelTanks.crates[0][rarity].includes(PixelTanks.userData.cosmetics[i].split('#')[0])) GUI.draw.fillStyle = [ '#FFFFFF', '#32CD32', '#0000FF', '#A020F0', '#FFFF00', '#FF0000'][['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic'].indexOf(rarity)];
               GUI.draw.globalAlpha = 0.5;
-              GUI.draw.fillRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88);
+              GUI.draw.fillRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 80, 80);
               GUI.draw.globalAlpha = 1;
-              PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetics[i].split('#')[0]], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88, 0);
+              PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetics[i].split('#')[0]], 602+(i%4)*108, 298+Math.floor((i%16)/4)*108, 72, 80, 0);
               GUI.drawText(PixelTanks.userData.cosmetics[i].split('#')[1], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 30, '#FF0000', .5);
               if (PixelTanks.userData.cosmetics[i].split('#')[0] === PixelTanks.userData[Menus.menus.inventory.cosmeticType]) {
                 GUI.draw.strokeStyle = '#FFFF22';
                 GUI.draw.lineWidth = 10;
-                GUI.draw.strokeRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88);
+                GUI.draw.strokeRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 80, 80);
               }
             }
           } else if (this.deathEffectsTab) {
@@ -448,14 +448,14 @@ class Menus {
               for (const rarity of ['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic']) if (PixelTanks.crates[1][rarity].includes(PixelTanks.userData.deathEffects[i].split('#')[0])) GUI.draw.fillStyle = [ '#FFFFFF', '#32CD32', '#0000FF', '#A020F0', '#FFFF00', '#FF0000'][['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic'].indexOf(rarity)];
               const d = PixelTanks.images.deathEffects[PixelTanks.userData.deathEffects[i].split('#')[0]+'_'];
               GUI.draw.globalAlpha = 0.5;
-              GUI.draw.fillRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88);
+              GUI.draw.fillRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 80, 80);
               GUI.draw.globalAlpha = 1;
-              if (d) GUI.drawImage(PixelTanks.images.deathEffects[PixelTanks.userData.deathEffects[i].split('#')[0]], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-PixelTanks.t)/d.speed)%d.frames)*200, 0, 200, 200);
+              if (d) GUI.drawImage(PixelTanks.images.deathEffects[PixelTanks.userData.deathEffects[i].split('#')[0]], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 80, 80, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-PixelTanks.t)/d.speed)%d.frames)*200, 0, 200, 200);
               GUI.drawText(PixelTanks.userData.deathEffects[i].split('#')[1], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 30, '#FF0000', .5);
               if (PixelTanks.userData.deathEffects[i].split('#')[0] === PixelTanks.userData.deathEffect) {
                 GUI.draw.strokeStyle = '#ffff22';
                 GUI.draw.lineWidth = 10;
-                GUI.draw.strokeRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 88, 88);
+                GUI.draw.strokeRect(598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 80, 80);
               }
             }
           }
