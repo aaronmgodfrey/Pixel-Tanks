@@ -408,7 +408,8 @@ class AI {
           t = t.parent;
         }
 	this.cleanPath(e, f);
-        return p.concat([x, y]).reverse();
+	p.push([x, y]);
+        return p.reverse();
       }
       f.add(c);
       const n = this.getCells(c);
