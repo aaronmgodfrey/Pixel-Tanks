@@ -392,7 +392,7 @@ class AI {
     ];
     for (const r of d) {
       let x = c.x+r[0], y = c.y+r[1], g = true;
-      for (const s of r[2]) if (this.host.map[s[1]] === undefined || this.host.map[s[1]][s[0]] === undefined || !this.host.map[s[1]][s[0]].walkable) g = false;
+      for (const s of r[2]) if (this.host.map[c.y+s[1]] === undefined || this.host.map[c.y+s[1]][c.x+s[0]] === undefined || !this.host.map[c.y+s[1]][c.x+s[0]].walkable) g = false;
       if (g) n.push(this.host.map[y][x]);
     }
     console.log(n);
