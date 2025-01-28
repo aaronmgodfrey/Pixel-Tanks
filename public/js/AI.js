@@ -396,7 +396,7 @@ class AI {
     return n;
   }
   pathfind(x, y, tx, ty) {
-    const e = [], s = this.host.map[y][x], t = this.host.map[ty][tx], p = [], f = new Set();
+    const e = [s], s = this.host.map[y][x], t = this.host.map[ty][tx], p = [], f = new Set();
     while (e.length) {
       e.sort((a, b) => a.f-b.f);
       const c = e.shift();
