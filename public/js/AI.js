@@ -391,7 +391,7 @@ class AI {
     ];
     for (const r of d) {
       const x = c.x+r[0], y = c.y+r[1];
-      for (const s of r[3]) if (this.host.map[s[1]] && this.host.map[s[1]][s[0]] && this.host.map[s[1]][s[0]].walkable) n.push(this.host.map[s[1]][s[0]]);
+      for (const s of r[2]) if (this.host.map[s[1]] && this.host.map[s[1]][s[0]] && this.host.map[s[1]][s[0]].walkable) n.push(this.host.map[s[1]][s[0]]);
     }
     return n;
   }
