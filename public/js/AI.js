@@ -412,7 +412,7 @@ class AI {
       f.add(c);
       const n = this.getCells(c);
       for (const o of n) {
-        if (f.has(o)) return;
+        if (f.has(o)) continue;
         const score = c.g+1;
         if (!e.includes(o) || score < o.g) {
           o.g = score;
