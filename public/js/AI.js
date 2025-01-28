@@ -291,11 +291,11 @@ class AI {
   generatePath() {
     // early checks for blockage
     const sx = (this.x-10)/100, sy = (this.y-10)/100, tx = Math.floor((this.target.x+40)/100), ty = Math.floor((this.target.y+40)/100), ranged = Math.max(sx-tx, sy-ty) > [1, 5, 5][this.role-1];
-    let route = ((this.mode === 0 && Math.random() < .5) || (this.role === 1 && this.mode === 1 && !ranged) || (this.role === 3 && this.bond)) ? 0 : 1;
+    let route = ((this.mode === 0 && true/*Math.random() < .5*/) || (this.role === 1 && this.mode === 1 && !ranged) || (this.role === 3 && this.bond)) ? 0 : 1;
     let coords = [];
     let epx, epy, tpx, tpy;
     if (this.role === 3 && this.bond) {
-	    epx = Math.floor((this.bond.x+40)/100);
+      epx = Math.floor((this.bond.x+40)/100);
       epy = Math.floor((this.bond.y+40)/100);
       tpx = sx;
       tpy = sy;
@@ -323,7 +323,7 @@ class AI {
     if (!coords.length) return;
     coords.sort((a, b) => this.mode !== 2 ? a.d - b.d : b.d - a.d);
     const r = this.choosePath(coords.length);
-    const p = Engine.pathfind(sx, sy, coords[r].x, coords[r].y, this.host.map.clone()); // loop through if first fails????
+    const p = this.pathfind(sx, sy, coords[r].x, coords[r].y); // loop through if first fails????
     this.path = {p, m: this.mode, t: Date.now(), f: 0}; // change path if mode change
     
 	  
@@ -377,8 +377,53 @@ class AI {
   choosePath(p) {
     return Math.floor(Math.random()*p);
   }
-
-  pathfind() {
+  getCells(c) {
+    const n = [];
+    const d = [
+      [0, -1, [[0, -1]]], // up
+      [0, 1, [[0, 1]]], // down
+      [-1, 0, [[1, 0]]], // left
+      [1, 0, [[-1, 0]]], // right
+      [1, -1, [[0, -1], [1, 0], [1, -1]]], // top right
+      [1, 1, [[0, 1], [1, 0], [1, 1]]], // bottom right
+      [-1, 1, [[0, 1], [-1, 0], [-1, 1]]], // bottom left
+      [-1, -1, [[0, -1], [-1, 0], [-1, -1]]], // top left
+    ];
+    for (const r of d) {
+      const x = c.x+r[0], y = c.y+r[1];
+      for (const s of r[3]) if (this.host.map[s[1]] && this.host.map[s[1]][s[0]] && this.host.map[s[1]][s[0]].walkable) n.push(this.host.map[s[1]][s[0]]);
+    }
+    return n;
+  }
+  pathfind(x, y, tx, ty) {
+    const e = [], s = this.host.map[y][x], t = this.host.map[ty][tx], p = [], f = new Set();
+    while (e.length) {
+      e.sort((a, b) => a.f-b.f);
+      const c = e.shift();
+      if (c === t) {
+        let t = c;
+        while (t) {
+          let m = t;
+          p.push(t);
+          t = t.parent;
+          m.parent = null;
+        }
+        return p.reverse();
+      }
+      f.add(c);
+      const n = this.getCells(c);
+      for (const o of n) {
+        if (f.has(o)) return;
+        const score = c.g+1;
+        if (!e.includes(o) || score < o.g) {
+          o.g = score;
+          o.h = Math.abs(o.x-tx)+Math.abs(o.y-ty);
+          o.f = o.g+o.h;
+          if (!e.includes(o)) e.push(o);
+        }
+      }
+    }
+    return [];
   }
 
   identify() {
