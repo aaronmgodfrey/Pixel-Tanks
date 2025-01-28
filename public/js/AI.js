@@ -391,7 +391,7 @@ class AI {
     ];
     for (const r of d) {
       const x = c.x+r[0], y = c.y+r[1];
-      for (const s of r[2]) if (this.host.map[s[1]] && this.host.map[s[1]][s[0]] && this.host.map[s[1]][s[0]].walkable) n.push(this.host.map[s[1]][s[0]]);
+      for (const s of r[2]) if (this.host.map[s[1]] && this.host.map[s[1]][s[0]] && this.host.map[s[1]][s[0]].walkable) n.push(this.host.map[y][x]);
     }
     return n;
   }
@@ -426,8 +426,14 @@ class AI {
     return [];
   }
   cleanPath(e, f) {
-    for (const c of e) c.parent = null;
-    for (const c of f) c.parent = null;
+    for (const c of e) {
+      c.g = c.h = c.f = 0;
+      c.parent = null;
+    }
+    for (const c of f) {
+      c.g = c.h = c.f = 0;
+      c.parent = null;
+    }
   }
 
   identify() {
