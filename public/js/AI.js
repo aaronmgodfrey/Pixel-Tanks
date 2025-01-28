@@ -403,11 +403,10 @@ class AI {
       if (c === t) {
         let t = c;
         while (t) {
-          let m = t;
           p.push(t);
           t = t.parent;
-          m.parent = null;
         }
+	this.cleanPath(e, f);
         return p.reverse();
       }
       f.add(c);
@@ -423,7 +422,12 @@ class AI {
         }
       }
     }
+    this.cleanPath(e, f);
     return [];
+  }
+  cleanPath(e, f) {
+    for (const c of e) c.parent = null;
+    for (const c of f) c.parent = null;
   }
 
   identify() {
