@@ -770,7 +770,7 @@ const Commands = {
       for (let i = -2; i <= 2; i++) {
         const airstrike = A.template('Block');
         airstrike.timer = i/5+5;
-        airstrike.init(x+i*Math.cos(Math.PI*rotation/180)*100, y+i*Math.sin(Math.PI*rotation/180)*100, 'airstrike', ':', this);
+        airstrike.init(x+i*Math.cos(Math.PI*rotation/180)*100, y+i*Math.sin(Math.PI*rotation/180)*100, 'airstrike', ':', server);
         server.b.push(airstrike);
       }
     }
