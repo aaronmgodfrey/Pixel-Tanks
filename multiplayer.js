@@ -766,6 +766,7 @@ const Commands = {
   }],
   nuke: [FFA, 2, -1, (data, socket, server) => {
     for (let y = 0; y < 20; y++) for (let x = 0; x < 20; x++) {
+      const rotation = Math.floor(Math.random()*360);
       for (let i = -2; i <= 2; i++) {
         const airstrike = A.template('Block');
         airstrike.timer = i/5+5;
