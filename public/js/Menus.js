@@ -200,7 +200,7 @@ class Menus {
         for (let i = 0; i < 3; i++) GUI.drawText(Object.values(this.preview[['ffa', 'duels', 'tdm'][i]]).length, 700, [506, 650, 806][i], 50, '#000000', 0.5);
         let room = Object.keys(this.preview[this.gamemode])[this.currentRoom], v = Object.values(this.preview[this.gamemode]), players = v[this.currentRoom];
         GUI.drawText(!v.length ? 'No Rooms' : 'Room('+(this.currentRoom+1)+'/'+v.length+') '+room, 1047, 410, 50, '#ffffff', 0.5);
-        for (let i = 0; i < players.length; i++) GUI.drawText(players[i].replace('#', ''), 1047, 452+25*i, 20, players[i].includes('#') ? '#454545' : '#ffffff', 0.5);
+        for (let i = 0; i < players.length; i++) GUI.drawText(players[i].replace('#', ''), 1047, 452+35*i, 30, players[i].includes('#') ? '#454545' : '#ffffff', 0.5);
       }
     },
     crate: {
