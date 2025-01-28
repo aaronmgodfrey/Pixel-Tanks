@@ -206,8 +206,8 @@ class AI {
     if (b) {
       tx = 100*Math.floor(this.x/100)+10;
       ty = 100*Math.floor(this.y/100)+10;
-      nx = speed*(dx = this.x-tx < 0 ? 1 : -1);
-      ny = speed*(dy = this.y-ty < 0 ? 1 : -1);
+      nx = speed*(dx = (this.x-tx < 0 ? 1 : -1));
+      ny = speed*(dy = (this.y-ty < 0 ? 1 : -1));
       this.obstruction = this.canMove(this.x+nx, this.y+ny);
     } else {
       let max = (this.path.p.length-1)*25;
@@ -396,7 +396,7 @@ class AI {
     return n;
   }
   pathfind(x, y, tx, ty) {
-    const e = [s], s = this.host.map[y][x], t = this.host.map[ty][tx], p = [], f = new Set();
+    const s = this.host.map[y][x], t = this.host.map[ty][tx], p = [], e = [s], f = new Set();
     while (e.length) {
       e.sort((a, b) => a.f-b.f);
       const c = e.shift();
