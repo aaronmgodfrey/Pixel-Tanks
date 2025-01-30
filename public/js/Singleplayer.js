@@ -94,13 +94,13 @@ class Singleplayer extends Engine {
       this.global = ez+' Enemies remaining!';
     }
 
-  ontick() { // maybe code an onmove?
-    if (this.survivalTimeout) {
-      const time = 60-Math.floor((Date.now()-this.startTime)/1000);
-      this.global = time <= 0 ? 'Survived!' : 'Survive for '+time+' second'+(time !== 1 ? 's' : '')+'!';
+    ontick() { // maybe code an onmove?
+      if (this.survivalTimeout) {
+        const time = 60-Math.floor((Date.now()-this.startTime)/1000);
+        this.global = time <= 0 ? 'Survived!' : 'Survive for '+time+' second'+(time !== 1 ? 's' : '')+'!';
+      }
+      if (!this.victoryTimeout) for (const goal of this.spawns) if (Engine.collision(this.pt[0].x, this.pt[0].y, 80, 80, goal.x, goal.y, 100, 100)) this.victory();
     }
-    if (!this.victoryTimeout) for (const goal of this.spawns) if (Engine.collision(this.pt[0].x, this.pt[0].y, 80, 80, goal.x, goal.y, 100, 100)) this.victory();
-  }
 
   victory() {
     clearTimeout(this.survivalTimeout);
