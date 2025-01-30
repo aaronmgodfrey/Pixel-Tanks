@@ -131,13 +131,21 @@ class Menus {
     victory: { // INCOMPLETE VICTORY/DEFEAT MENUS
       buttons: [
         [580, 556, 432, 104, () => alert('fix'), true],
-        [656, 680, 280, 104, () => Menus.trigger('main'), true],
+        [656, 680, 280, 104, () => {
+          Menus.softUntrigger('victory');
+          PixelTanks.user.player.implode();
+          Menus.trigger('main')
+        }, true],
       ],
     },
     defeat: {
       buttons: [
         [580, 556, 432, 104, () => alert('fix'), true],
-        [656, 680, 280, 104, () => Menus.trigger('main'), true],
+        [656, 680, 280, 104, () => {
+          Menus.softUntrigger('defeat');
+          PixelTanks.user.player.implode();
+          Menus.trigger('main')
+        }, true],
       ],
     },
     multiplayer: {
