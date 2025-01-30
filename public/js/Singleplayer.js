@@ -104,7 +104,7 @@ class Singleplayer extends Engine {
     this.victoryTimeout = setTimeout(() => {
       PixelTanks.user.player.implode();
       Menus.menus.victory.stats = {kills: 'n/a', coins: 'n/a'};
-      Menus.softtrigger('victory');
+      Menus.softTrigger('victory');
     }, 3000);
   }
 
@@ -119,7 +119,7 @@ class Singleplayer extends Engine {
     setTimeout(() => {
       PixelTanks.user.player.implode();
       Menus.menus.defeat.stats = {kills: 'n/a', coins: 'n/a'};
-      Menus.softtrigger('defeat');
+      Menus.softTrigger('defeat');
     }, 5000);
   }
 
