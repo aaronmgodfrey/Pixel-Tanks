@@ -94,52 +94,53 @@ class Singleplayer extends Engine {
       this.global = ez+' Enemies remaining!';
     }
 
-  ontick() { // maybe code an onmove?
-    if (this.survivalTimeout) {
-      const time = 60-Math.floor((Date.now()-this.startTime)/1000);
-      this.global = time <= 0 ? 'Survived!' : 'Survive for '+time+' second'+(time !== 1 ? 's' : '')+'!';
-    }
-    if (!this.victoryTimeout) for (const goal of this.spawns) if (Engine.collision(this.pt[0].x, this.pt[0].y, 80, 80, goal.x, goal.y, 100, 100)) this.victory();
-  }
-
-  victory() {
-    clearTimeout(this.survivalTimeout);
-    this.victoryTimeout = setTimeout(() => {
-      //PixelTanks.user.player.implode();
-      Menus.menus.victory.stats = {kills: 'n/a', coins: 'n/a'};
-      Menus.softTrigger('victory');
-    }, 3000);
-  }
-
-  ondeath(t, m) {
-    super.ondeath(t, m);
-    if (t.username !== PixelTanks.user.username) {
-      let e = 0;
-      for (const ai of this.ai) if (Engine.getTeam(ai.team) === 'squad' && !ai.ded) e++;
-      if (e === 0 && !this.victoryTimeout) {
-        if (levels[level-1][0] === 1) this.global = 'All enemies defeated!';
-        this.victory();
+    ontick() { // maybe code an onmove?
+      if (this.survivalTimeout) {
+        const time = 60-Math.floor((Date.now()-this.startTime)/1000);
+        this.global = time <= 0 ? 'Survived!' : 'Survive for '+time+' second'+(time !== 1 ? 's' : '')+'!';
       }
-      if (levels[level-1][0] === 1) this.global = e+' Enemies remaining!';
-      return PixelTanks.user.player.killRewards();
+      if (!this.victoryTimeout) for (const goal of this.spawns) if (Engine.collision(this.pt[0].x, this.pt[0].y, 80, 80, goal.x, goal.y, 100, 100)) this.victory();
     }
-    setTimeout(() => {
-      //PixelTanks.user.player.implode();
-      Menus.menus.defeat.stats = {kills: 'n/a', coins: 'n/a'};
-      Menus.softTrigger('defeat');
-    }, 5000);
-  }
-
-  override(data) {
-    PixelTanks.user.player.tank.x = data.x;
-    PixelTanks.user.player.tank.y = data.y;
-    if (PixelTanks.user.player.dx) {
-      PixelTanks.user.player.dx.t = Date.now()
-      PixelTanks.user.player.dx.o = PixelTanks.user.player.tank.x;
+  
+    victory() {
+      clearTimeout(this.survivalTimeout);
+      this.victoryTimeout = setTimeout(() => {
+        //PixelTanks.user.player.implode();
+        Menus.menus.victory.stats = {kills: 'n/a', coins: 'n/a'};
+        Menus.softTrigger('victory');
+      }, 3000);
     }
-    if (PixelTanks.user.player.dy) {
-      PixelTanks.user.player.dy.t = Date.now();
-      PixelTanks.user.player.dy.o = PixelTanks.user.player.tank.y;
+  
+    ondeath(t, m) {
+      super.ondeath(t, m);
+      if (t.username !== PixelTanks.user.username) {
+        let e = 0;
+        for (const ai of this.ai) if (Engine.getTeam(ai.team) === 'squad' && !ai.ded) e++;
+        if (e === 0 && !this.victoryTimeout) {
+          if (levels[level-1][0] === 1) this.global = 'All enemies defeated!';
+          this.victory();
+        }
+        if (levels[level-1][0] === 1) this.global = e+' Enemies remaining!';
+        return PixelTanks.user.player.killRewards();
+      }
+      setTimeout(() => {
+        //PixelTanks.user.player.implode();
+        Menus.menus.defeat.stats = {kills: 'n/a', coins: 'n/a'};
+        Menus.softTrigger('defeat');
+      }, 5000);
+    }
+  
+    override(data) {
+      PixelTanks.user.player.tank.x = data.x;
+      PixelTanks.user.player.tank.y = data.y;
+      if (PixelTanks.user.player.dx) {
+        PixelTanks.user.player.dx.t = Date.now()
+        PixelTanks.user.player.dx.o = PixelTanks.user.player.tank.x;
+      }
+      if (PixelTanks.user.player.dy) {
+        PixelTanks.user.player.dy.t = Date.now();
+        PixelTanks.user.player.dy.o = PixelTanks.user.player.tank.y;
+      }
     }
   }
 }
