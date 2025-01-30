@@ -88,11 +88,6 @@ class Singleplayer extends Engine {
       this.survivalTimeout = setTimeout(() => this.victory(), 60000);
       this.startTime = Date.now();
     }
-    if (levels[level-1][0] === 1) {
-      this.aiLeft = 0;
-      this.aiAmount = for (const ai of this.ai) this.aiLeft++;
-    }
-    
 
   ontick() { // maybe code an onmove?
     // add gamemode type if statmenets
@@ -100,7 +95,6 @@ class Singleplayer extends Engine {
       const time = 60-Math.floor((Date.now()-this.startTime)/1000);
       this.global = time <= 0 ? 'Survived!' : 'Survive for '+time+' second'+(time !== 1 ? 's' : '')+'!';
     }
-    if (this.aiLeft) this.global = this.aiLeft <= 0 ? 'Completed!' : this.aiLeft+' Enemies remaining!';
     if (!this.victoryTimeout) for (const goal of this.spawns) if (Engine.collision(this.pt[0].x, this.pt[0].y, 80, 80, goal.x, goal.y, 100, 100)) this.victory();
   }
 
@@ -116,7 +110,6 @@ class Singleplayer extends Engine {
   ondeath(t, m) {
     super.ondeath(t, m);
     if (t.username !== PixelTanks.user.username) {
-      if (this.aiLeft) this.aiLeft--;
       let e = 0;
       for (const ai of this.ai) if (Engine.getTeam(ai.team) === 'squad' && !ai.ded) e++;
       if (e === 0 && !this.victoryTimeout) this.victory();
