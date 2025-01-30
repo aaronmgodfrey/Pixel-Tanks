@@ -478,14 +478,11 @@ class AI {
       this.mode = (this.hp < .3 * this.maxHp && this.role !== 1) ? 2 : 1;
     }
   }
-
-  fireCalc(tx, ty, type) { // needs cohesion with Client.fireCalc
+  fireCalc(tx, ty, type) {
     this.pushback = type && type.includes('missle') ? -9 : -6;
-    let co = this.role === 0 ? 50 : 40, d = this.role === 0 ? 85 : 70
+    let co = this.role === 0 ? 50 : 40, d = this.role === 0 ? 85 : 70;
     if (type === undefined) type = this.role !== 0 && Math.sqrt((tx-this.x)**2 + (ty-this.y)**2) < 150 ? 'shotgun' : 'bullet';
-    for (let [i, len] = type === 'shotgun' ? [-10, 15] : [0, 1]; i < len; i += 5) {
-      A.template('Shot').init(this.x+co, this.y+co, d, this.r+90+i, type, this.team, this.rank, this.host);
-    }
+    for (let [i, len] = type === 'shotgun' ? [-10, 15] : [0, 1]; i < len; i += 5) A.template('Shot').init(this.x+co, this.y+co, d, this.r+90+i, type, this.team, this.rank, this.host);
     if (type === 'powermissle') {
       this.canPowermissle = false;
       setTimeout(() => (this.canPowermissle = true), 10000);
