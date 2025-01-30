@@ -83,6 +83,7 @@ class Singleplayer extends Engine {
     ];
   constructor(level) {
     if (level > Singleplayer.levels.length || level < 1) level = 1;
+    this.level = level;
     super([Singleplayer.levels[level-1]], Math.floor((level-1)/20)*5);
     if (Singleplayer.levels[level-1][0] === 3) {
       this.survivalTimeout = setTimeout(() => this.victory(), 60000);
@@ -117,10 +118,10 @@ class Singleplayer extends Engine {
       let e = 0;
       for (const ai of this.ai) if (Engine.getTeam(ai.team) === 'squad' && !ai.ded) e++;
       if (e === 0 && !this.victoryTimeout) {
-        if (Singleplayer.levels[level-1][0] === 1) this.global = 'All enemies defeated!';
+        if (Singleplayer.levels[this.level-1][0] === 1) this.global = 'All enemies defeated!';
         this.victory();
       }
-      if (Singleplayer.levels[level-1][0] === 1) this.global = e+' Enemies remaining!';
+      if (Singleplayer.levels[this.level-1][0] === 1) this.global = e+' Enemies remaining!';
       return PixelTanks.user.player.killRewards();
     }
     setTimeout(() => {
