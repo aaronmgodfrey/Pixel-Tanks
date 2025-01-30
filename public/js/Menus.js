@@ -130,14 +130,14 @@ class Menus {
     },
     victory: { // INCOMPLETE VICTORY/DEFEAT MENUS
       buttons: [
-        [656, 603, 313, 112, () => Menus.trigger('main'), true],
-        [558, 726, 505, 114, () => alert('no'), true],
+        [580, 556, 432, 104, () => alert('fix'), true],
+        [656, 680, 280, 104, () => Menus.trigger('main'), true],
       ],
     },
     defeat: {
       buttons: [
-        [656, 603, 313, 112, () => Menus.trigger('main'), true],
-        [558, 726, 505, 114, () => alert('no'), true],
+        [580, 556, 432, 104, () => alert('fix'), true],
+        [656, 680, 280, 104, () => Menus.trigger('main'), true],
       ],
     },
     multiplayer: {
