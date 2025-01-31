@@ -16,6 +16,7 @@ class Menu {
     let compiled = this.elements.some(e => e.tagName === 'BUTTON');
     if (!compiled) for (const b of this.buttons) {
       let button = document.createElement('BUTTON'), image = document.createElement('IMG');
+      button.image = image;
       button.onclick = () => (typeof b[4] === 'function' ? b[4]() : Menus.trigger(b[4]));
       button.width = image.width = window.innerHeight*(button.w = Menu.scaler.width = b[2])/1000;
       button.height = image.height = window.innerHeight*(button.h = Menu.scaler.height = b[3])/1000;
@@ -34,7 +35,7 @@ class Menu {
       Menu.scaler.width = e.b[2];
       Menu.scaler.height = e.b[3];
       Menu.scaler.getContext('2d').drawImage(GUI.canvas, -e.b[0], -e.b[1], 1600, 1000);
-      e.children[0].src = Menus.scaler.toDataURL();
+      e.image.src = Menus.scaler.toDataURL();
     }
   }
   adapt() {
