@@ -106,9 +106,9 @@ class Singleplayer extends Engine {
   victory() {
     clearTimeout(this.survivalTimeout);
     this.victoryTimeout = setTimeout(() => {
-      //PixelTanks.user.player.implode();
+      PixelTanks.user.player.implode();
       Menus.menus.victory.stats = {kills: 'n/a', coins: 'n/a'};
-      Menus.softTrigger('victory');
+      Menus.trigger('victory');
     }, 3000);
   }
 
@@ -117,7 +117,7 @@ class Singleplayer extends Engine {
     if (t.username !== PixelTanks.user.username) {
       let e = 0;
       for (const ai of this.ai) if (Engine.getTeam(ai.team) === 'squad' && !ai.ded) e++;
-      if (e === 0 && !this.victoryTimeout) {
+      if (e === 0) {
         if (Singleplayer.levels[this.level-1][0] === 1) this.global = 'All enemies defeated!';
         this.victory();
       }
