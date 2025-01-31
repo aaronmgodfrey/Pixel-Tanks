@@ -83,12 +83,12 @@ class Singleplayer extends Engine {
     ];
   constructor(level) {
     if (level > Singleplayer.levels.length || level < 1) level = 1;
-    this.level = level;
     super([Singleplayer.levels[level-1]], Math.floor((level-1)/20)*5);
     if (Singleplayer.levels[level-1][0] === 3) {
       this.survivalTimeout = setTimeout(() => this.victory(), 60000);
       this.startTime = Date.now();
     }
+    this.level = level;
     if (Singleplayer.levels[level-1][0] === 1) {
       let ez = 0;
       for (const ai of this.ai) if (ai.role !== 0) ez++;
