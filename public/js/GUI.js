@@ -1,6 +1,8 @@
 class GUI {
   static setup() {
     document.body.innerHTML += `
+    <title>Pixel Tanks</title>
+    <link rel='icon' href='https://aaronmgodfrey.github.io/Pixel-Tanks/public/images/logo.png' />
     <button id='pack' onclick='PixelTanks.loadTexturePack(prompt("Config URL:"))'>Load Texturepack</button>
     <style>
       #pack {
