@@ -117,6 +117,7 @@ class Singleplayer extends Engine {
     if (t.username !== PixelTanks.user.username) {
       let e = 0;
       for (const ai of this.ai) if (Engine.getTeam(ai.team) === 'squad' && !ai.ded) e++;
+      alert(e);
       if (e === 0) {
         if (Singleplayer.levels[this.level-1][0] === 1) this.global = 'All enemies defeated!';
         this.victory();
