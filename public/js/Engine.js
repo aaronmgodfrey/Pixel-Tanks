@@ -225,7 +225,7 @@ class Engine {
       clearTimeout(m.regenTimeout);
       m.regenTimeout = setTimeout(() => (m.regenInterval = setInterval(() => m.regen(), 15)), 1000);
     }
-    if (t instanceof Tank) t.ded = true;
+    t.ded = true;
     if (m.socket) m.socket.send({event: 'kill'});
     if (m.deathEffect) t.dedEffect = {x: t.x, y: t.y, r: t.r, id: m.deathEffect, start: Date.now(), time: 0};
   }
