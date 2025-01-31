@@ -34,8 +34,11 @@ class GUI {
         border: none;
         font-size: 6vh;
       }
+      .expand {
+        transition: transform .5s;
+      }
       .expand:hover {
-        transform: scale(1.2);
+        transform: scale(1.1);
       }
     </style>`;
     window.oncontextmenu = () => false;
