@@ -31,7 +31,7 @@ class Menu {
       this.elements.push(button);
     }
     if (compiled) for (const e of this.elements) {
-      if (e.tagName !== 'button') continue;
+      if (e.tagName !== 'BUTTON') continue;
       Menu.scaler.width = e.b[2];
       Menu.scaler.height = e.b[3];
       Menu.scaler.getContext('2d').drawImage(GUI.canvas, -e.b[0], -e.b[1], 1600, 1000);
