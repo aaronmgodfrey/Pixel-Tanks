@@ -16,7 +16,7 @@ class Menu {
     // remove old elements from dom to reduce lag here eventually
     // or recycle? preferably recycle
     //this.elements = this.elements.reduce((a, c) => (c.tagName !== 'button' ? a.concat(c) : a), []);
-    let compiled = this.elements.some(e => e.tagName === 'button');
+    let compiled = this.elements.some(e => e.tagName === 'BUTTON');
     document.title = compiled+' '+JSON.stringify(this.elements);
     if (!compiled) for (const b of this.buttons) {
       let button = document.createElement('BUTTON'), image = document.createElement('IMG');
