@@ -120,8 +120,7 @@ class Singleplayer extends Engine {
       if (e === 0) {
         if (Singleplayer.levels[this.level-1][0] === 1) this.global = 'All enemies defeated!';
         this.victory();
-      }
-      if (Singleplayer.levels[this.level-1][0] === 1) this.global = e+' Enemies remaining!';
+      } else if (Singleplayer.levels[this.level-1][0] === 1) this.global = e+' Enem'+(e > 1 ? 'ies' : 'y')+' remaining!';
       return PixelTanks.user.player.killRewards();
     }
     setTimeout(() => {
