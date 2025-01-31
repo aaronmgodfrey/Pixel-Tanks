@@ -35,7 +35,7 @@ class Menu {
       Menu.scaler.width = e.b[2];
       Menu.scaler.height = e.b[3];
       Menu.scaler.getContext('2d').drawImage(GUI.canvas, -e.b[0], -e.b[1], 1600, 1000);
-      e.image.src = Menus.scaler.toDataURL();
+      e.image.src = Menu.scaler.toDataURL();
     }
   }
   adapt() {
