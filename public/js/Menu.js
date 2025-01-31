@@ -17,6 +17,7 @@ class Menu {
     // or recycle? preferably recycle
     //this.elements = this.elements.reduce((a, c) => (c.tagName !== 'button' ? a.concat(c) : a), []);
     let compiled = this.elements.some(e => e.tagName === 'button');
+    document.title = this.compiled+' '+JSON.stringify(this.elements);
     if (!compiled) for (const b of this.buttons) {
       let button = document.createElement('BUTTON'), image = document.createElement('IMG');
       button.onclick = () => (typeof b[4] === 'function' ? b[4]() : Menus.trigger(b[4]));
