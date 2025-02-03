@@ -510,9 +510,11 @@ class AI {
     clearTimeout(this.damageTimeout);
     this.damageTimeout = setTimeout(() => {this.damage = false}, 1000);
     this.damage = {d: (this.damage ? this.damage.d : 0)+a, x, y};
-    clearTimeout(this.regenTimeout);
-    this.regenInterval = clearInterval(this.regenInterval);
-    this.regenTimeout = setTimeout(() => (this.regenInterval = setInterval(() => this.regen(), 15)), 10000);
+    if (a > 1) {
+      clearTimeout(this.regenTimeout);
+      this.regenInterval = clearInterval(this.regenInterval);
+      this.regenTimeout = setTimeout(() => (this.regenInterval = setInterval(() => this.regen(), 15)), 10000);
+    }
     let core = Engine.hasPerk(this.perk, 9), shield = Engine.hasPerk(this.perk, 1);
     if (this.hp <= 0 && this.host.ondeath) if (!core || Math.random() > 0.50) {
       this.gambleCounter = 0;
@@ -541,15 +543,17 @@ class AI {
     this.damageTimeout = setTimeout(() => {this.damage = false}, 1000);
     this.damage = {d: (this.damage ? this.damage.d : 0)+a, x, y};
     this.hp -= a;
-    clearInterval(this.healInterval);
-    clearTimeout(this.healTimeout);
     if (this.hp <= 0) {
       if (this.host.ondeath && this.role !== 0) this.host.ondeath(this, this.host.pt.concat(this.host.ai).find(t => t.username === u));
       return this.ded = Date.now();
     }
-    this.healTimeout = setTimeout(() => {
-      this.healInterval = setInterval(() => (this.hp = Math.min(this.hp+.4, this.maxHp)), 15);
-    }, 10000);
+    if (a > 1) {
+      clearInterval(this.healInterval);
+      clearTimeout(this.healTimeout);
+      this.healTimeout = setTimeout(() => {
+        this.healInterval = setInterval(() => (this.hp = Math.min(this.hp+.4, this.maxHp)), 15);
+      }, 10000);
+    }
   }
   reset() {
     for (const p of AI.raw) Object.defineProperty(this, p, {value: undefined, writable: true});
