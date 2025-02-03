@@ -120,9 +120,11 @@ class Tank {
     clearTimeout(this.damageTimeout);
     this.damageTimeout = setTimeout(() => {this.damage = false}, 1000);
     this.damage = {d: (this.damage ? this.damage.d : 0)+a, x, y};
-    clearTimeout(this.regenTimeout);
-    this.regenInterval = clearInterval(this.regenInterval);
-    this.regenTimeout = setTimeout(() => (this.regenInterval = setInterval(() => this.regen(), 15)), 10000);
+    if (a > 1) {
+      clearTimeout(this.regenTimeout);
+      this.regenInterval = clearInterval(this.regenInterval);
+      this.regenTimeout = setTimeout(() => (this.regenInterval = setInterval(() => this.regen(), 15)), 10000);
+    }
     let core = Engine.hasPerk(this.perk, 9), shield = Engine.hasPerk(this.perk, 1);
     if (this.hp <= 0 && this.host.ondeath) if (!core || Math.random() > 0.50) {
       this.gambleCounter = 0;
