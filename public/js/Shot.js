@@ -80,7 +80,7 @@ class Shot {
     } else if (this.type === 'dynamite') {
       this.r += 5;
       this.host.updateEntity(this, Shot.u2);
-    }
+    } else if (this.type === 'fire' && Date.now()-this.e > 3000) return this.destroy();
   }
   reset = () => this.cells.clear();
   destroy() {
