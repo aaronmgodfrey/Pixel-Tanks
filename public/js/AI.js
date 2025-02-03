@@ -285,7 +285,7 @@ class AI {
 	
   onBlock() {
     if (!this.path || !this.path.p || !this.path.p.length) this.generatePath(); // or if not on block and no path
-    if (this.path.p && this.path.p.length > 0) { // why would path be invalid like this????
+    if (this.path.p.length > 0) {
       const final = this.path.p[this.path.p.length-1]; // if arrived
       if ((this.x-10) / 100 === final[0] && (this.y-10) / 100 === final[1]) this.generatePath();
     }
@@ -302,7 +302,7 @@ class AI {
       epy = Math.floor((this.bond.y+40)/100);
       tpx = sx;
       tpy = sy;
-    } else if (this.mode === 1 && !ranged) {
+    } else if (this.mode === 1 && ranged) {
       epx = tx;
       epx = ty;
       tpx = sx;
