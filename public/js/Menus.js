@@ -340,6 +340,11 @@ class Menus {
           }
         },
         cdraw: function() {
+          if (!PixelTanks.userData.perk || !PixelTanks.userData.perks) {
+            alert('Your perks got corrupted! Resetting...');
+            PixelTanks.userData.perk = [0, 0];
+            PixelTanks.userData.perks = [false, false, false, false, false, false, false, false, false];
+          }
           if (!this.target) {
             this.target = {x: 0, y: 0}; // use Menus.x/y
             this.cosmeticMenu = this.deathEffectsMenu = 0;
