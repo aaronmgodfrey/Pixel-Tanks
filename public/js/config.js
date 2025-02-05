@@ -83,5 +83,9 @@ window.sourceMap = {
       tombstone_: {frames: 36, speed: 50, kill: 8, type: 1},
       blackhole_: {frames: 40, speed: 100, kill: 28, type: 2},
     }
-  }
+  },
+  sounds: {
+    path: 'sounds',
+    load: ['battlegrounds'],
+  },
 }
