@@ -72,9 +72,8 @@ class Network {
       Network.total++;
     }
     static perMp3(name, src) {
-      const a = PixelTanks.sounds[name] = new Audio();
+      const a = PixelTanks.sounds[name] = new Audio(src+'.mp3');
       a.crossOrigin = 'anonymous';
-      a.src = src+'.mp3';
       a.onload = () => Network.handle(1, a);
       a.timeout = setTimeout(a.onerror = () => Network.handle(0, a), Network.timeout);
       Network.pending.push(a);
