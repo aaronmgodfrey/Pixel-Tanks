@@ -15,7 +15,7 @@ class Menus {
     Menus.renderer = cancelAnimationFrame(Menus.renderer);
   }
   static trigger(name) {
-    if (Menus.current) Menus.menus[Menus.current].removeListeners();
+    if (Menus.current) Menus.menus[Menus.current].removeListeners(); else PixelTanks.playSound('menu', 0);
     if (!Menus.renderer) Menus.start();
     Menus.menus[Menus.current = name].addListeners();
   }
