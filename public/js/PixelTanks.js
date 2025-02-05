@@ -261,7 +261,10 @@ class PixelTanks {
       let i = stat, l = 0, o = 0;
       while (i >= 0) {
         i -= key[l];
-        if (i > 0) l++; else o = key[l]+i+1;
+        if (i > key[l+1]) l++; else {
+          o = i;
+          break;
+        }
       }
       alert('perk='+l+' level='+o);
       let perk = PixelTanks.userData.perks[l];
