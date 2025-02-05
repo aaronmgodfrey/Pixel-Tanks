@@ -68,6 +68,11 @@ class PixelTanks {
     Network.update('playerdata', JSON.stringify(PixelTanks.playerData));
   }
 
+  static playSound(name, type) {
+    if (type === 0) type = null; else type = null;
+    
+  }
+
   static getData(callback) {
       Network.get(data => {
         try {
