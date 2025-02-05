@@ -58,18 +58,17 @@ class Network {
         PixelTanks.images.blocks[zone] = {...PixelTanks.images[zone], ...PixelTanks.images.blocks}; // ref or unref
       }
     }
-    static timeout = 30;
+    static timeout = 30000;
     static perImage(name, src, ref) {
       let i = PixelTanks.images[ref][name] = new Image();
       i.crossOrigin = 'anonymous';
       i.src = src+'.png';
-      i.onload = () => Network.handle(1, i);
-      i.timeout = setTimeout(i.onerror = () => Network.handle(0, i), Network.timeout*1000);
+      i.onload = () => Network.handleImage(1, i);
+      i.timeout = setTimeout(i.onerror = () => Network.handleImage(0, i), Network.timeout);
       Network.pending.push(i);
       Network.total++;
     }
-    
-    static handle(s, i) {
+    static handleImage(s, i) {
       clearTimeout(i.timeout);
       if (s) {
         Network.loaded++;
@@ -84,5 +83,14 @@ class Network {
         if (Network.errored) alert('Warning! Missing '+Network.errored+' images.');
         Network.callback();
       }
+    }
+    static perMp3(name, src) {
+      const a = PixelTanks.sounds[name] = new Audio();
+      a.crossOrigin 'anonymous';
+      a.src = '';
+      a.onload = () => Network.handleMp3(1, a);
+      a.timeout = setTimeout(a.onerror = () => Network.handleMp3(0, a), Network.timeout);
+    }
+    static handleMp3(s, i) {
     }
   }
