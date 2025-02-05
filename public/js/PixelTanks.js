@@ -261,8 +261,9 @@ class PixelTanks {
       let i = stat, l = 0, o = 0;
       while (i >= 0) {
         i -= key[l];
-        if (i >= 0) l++; else o = key[l]+i+1;
+        if (i > 0) l++; else o = key[l]+i+1;
       }
+      alert('perk='+l+' level='+o);
       let perk = PixelTanks.userData.perks[l];
       if (o <= perk) return alert('You already bought this.');
       if (PixelTanks.userData.stats[4] < levelRequirements[l]) return alert('You need to be rank '+levelRequirements[l]+' to buy this!');
