@@ -34,6 +34,7 @@ class Network {
     static errored = 0;
     static load(pack) {
       PixelTanks.images = {};
+      PixelTanks.sounds = {};
       for (const image of Network.pending) image.onload = () => {}
       Network.pending.length = 0;
       // stop previous, stop rendering
