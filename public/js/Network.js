@@ -86,7 +86,7 @@ class Network {
     }
     static perMp3(name, src) {
       const a = PixelTanks.sounds[name] = new Audio();
-      a.crossOrigin 'anonymous';
+      a.crossOrigin = 'anonymous';
       a.src = '';
       a.onload = () => Network.handleMp3(1, a);
       a.timeout = setTimeout(a.onerror = () => Network.handleMp3(0, a), Network.timeout);
