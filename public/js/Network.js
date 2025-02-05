@@ -54,7 +54,7 @@ class Network {
       host = pack.blocks.host || pack.host;
       for (const id of pack.blocks.load) Network.perImage(id, host+'/'+pack.blocks.path+'/'+id, 'blocks');
       host = pack.sounds.host || pack.host;
-      for (const id of pack.sounds.load) Network.perMp3(id, host+'/'+pack.sounds.path+'/'+id);
+      for (const id of pack.sounds.load) Network.perMp3(id, host.replace('images', 'sounds')+'/'+pack.sounds.path+'/'+id);
       for (const zone of pack.blocks.zones) {
         PixelTanks.images[zone] = {};
         for (const id of pack.blocks.perZone) Network.perImage(id, host+'/'+pack.blocks.path+'/'+zone+'/'+id, zone);
