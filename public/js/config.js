@@ -86,6 +86,6 @@ window.sourceMap = {
   },
   sounds: {
     path: 'sounds',
-    load: ['battlegrounds'],
+    load: ['battlegrounds', 'menu', 'menuopener'],
   },
 }
