@@ -72,6 +72,9 @@ class PixelTanks {
     PixelTanks.sounds[name].loop = type === (PixelTanks.sounds[name].currentTime = 0);
     PixelTanks.sounds[name].play();
   }
+  static stopSound(name) {
+    PixelTanks.sounds[name].pause();
+  }
 
   static getData(callback) {
       Network.get(data => {
