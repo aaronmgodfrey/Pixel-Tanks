@@ -261,7 +261,9 @@ class PixelTanks {
       let i = stat, l = 0, o = 0;
       while (i >= 0) {
         i -= key[l];
-        if (i > key[l+1]) l++; else {
+        l++;
+        
+        if (i <= key[l+1]) {
           o = i;
           break;
         }
