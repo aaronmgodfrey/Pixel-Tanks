@@ -51,10 +51,12 @@ class Network {
       host = pack.deathEffect.host || pack.host;
       for (const rarity of ['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic']) for (const deathEffect of pack.deathEffect[rarity]) Network.perImage(deathEffect, host+'/'+pack.deathEffect.path+'/'+deathEffect, 'deathEffects');
       host = pack.blocks.host || pack.host;
-      for (const id of pack.blocks.load) Network.perImage(id, host+'/blocks/'+id, 'blocks');
+      for (const id of pack.blocks.load) Network.perImage(id, host+'/'+pack.blocks.path+'/'+id, 'blocks');
+      host = pack.sounds.host || pack.host;
+      for (const id of packs.sounds.load) Network.perMp3(id, host+'/'+pack.sounds.path+'/'+id);
       for (const zone of pack.blocks.zones) {
         PixelTanks.images[zone] = {};
-        for (const id of pack.blocks.perZone) Network.perImage(id, host+'/blocks/'+zone+'/'+id, zone);
+        for (const id of pack.blocks.perZone) Network.perImage(id, host+'/'+pack.blocks.path+'/'+zone+'/'+id, zone);
         PixelTanks.images.blocks[zone] = {...PixelTanks.images[zone], ...PixelTanks.images.blocks}; // ref or unref
       }
     }
@@ -63,19 +65,27 @@ class Network {
       let i = PixelTanks.images[ref][name] = new Image();
       i.crossOrigin = 'anonymous';
       i.src = src+'.png';
-      i.onload = () => Network.handleImage(1, i);
-      i.timeout = setTimeout(i.onerror = () => Network.handleImage(0, i), Network.timeout);
+      i.onload = () => Network.handle(1, i);
+      i.timeout = setTimeout(i.onerror = () => Network.handle(0, i), Network.timeout);
       Network.pending.push(i);
       Network.total++;
     }
-    static handleImage(s, i) {
+    static perMp3(name, src) {
+      const a = PixelTanks.sounds[name] = new Audio();
+      a.crossOrigin = 'anonymous';
+      a.src = src+'.mp3';
+      a.onload = () => Network.handle(1, a);
+      a.timeout = setTimeout(a.onerror = () => Network.handle(0, a), Network.timeout);
+      Network.pending.push(a);
+      Network.total++;
+    }
+    static handle(s, i) {
       clearTimeout(i.timeout);
       if (s) {
         Network.loaded++;
       } else {
         Network.errored++;
         alert(i.src+' failed to load!');
-        i = Network.failed;
       }
       let done = Network.loaded+Network.errored;
       PixelTanks.updateBootProgress(done/Network.total);
@@ -83,14 +93,5 @@ class Network {
         if (Network.errored) alert('Warning! Missing '+Network.errored+' images.');
         Network.callback();
       }
-    }
-    static perMp3(name, src) {
-      const a = PixelTanks.sounds[name] = new Audio();
-      a.crossOrigin = 'anonymous';
-      a.src = '';
-      a.onload = () => Network.handleMp3(1, a);
-      a.timeout = setTimeout(a.onerror = () => Network.handleMp3(0, a), Network.timeout);
-    }
-    static handleMp3(s, i) {
     }
   }
