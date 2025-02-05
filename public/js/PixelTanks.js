@@ -263,7 +263,7 @@ class PixelTanks {
       const key = [2, 3, 3, 3, 2, 2, 3, 3, 3];
       let i = stat, l = 0, o = 0;
       while (i >= 0) {
-        if (i <= key[l+1]) {
+        if (i <= key[l]) {
           o = i;
           break;
         }
