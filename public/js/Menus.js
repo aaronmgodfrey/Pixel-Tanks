@@ -144,7 +144,7 @@ class Menus {
         if (PixelTanks.sounds.victory.paused && FIXXX === 0) {
           PixelTanks.playSound('victory');
           FIXXX = 1;
-        },
+        };
       },
     },
     defeat: {
