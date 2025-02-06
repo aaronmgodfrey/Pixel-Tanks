@@ -140,7 +140,7 @@ class Menus {
       ],
       cdraw: function() {
         if (!PixelTanks.sounds.battlegrounds.paused) PixelTanks.stopSound('battlegrounds');
-        PixelTanks.stopSound('victory');
+        PixelTanks.playSound('victory');
       },
     },
     defeat: {
@@ -154,7 +154,7 @@ class Menus {
       ],
       cdraw: function() {
         if (!PixelTanks.sounds.battlegrounds.paused) PixelTanks.stopSound('battlegrounds');
-        PixelTanks.stopSound('defeat');
+        PixelTanks.playSound('defeat');
       },
     },
     multiplayer: {
