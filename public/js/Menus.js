@@ -18,7 +18,6 @@ class Menus {
     if (Menus.current) Menus.menus[Menus.current].removeListeners();
     if (!Menus.renderer) Menus.start();
     Menus.menus[Menus.current = name].addListeners();
-    if (PixelTanks.sounds.menu.paused) PixelTanks.playSound('menu', 0);
   }
   static softTrigger(name) {
     for (const b of Menus.menus[PixelTanks.user.player.menu = name].elements) b.style.visibility = 'visible';
