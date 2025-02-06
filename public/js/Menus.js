@@ -356,7 +356,7 @@ class Menus {
             PixelTanks.userData.perk = [0, 0];
             PixelTanks.userData.perks = [false, false, false, false, false, false, false, false, false];
           }
-          if (!this.target) {
+          if (!this.colorInput) {
             this.target = {x: 0, y: 0}; // use Menus.x/y
             this.cosmeticMenu = this.deathEffectsMenu = 0;
             this.colorInput = document.createElement('INPUT');
