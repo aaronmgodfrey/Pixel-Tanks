@@ -10,6 +10,7 @@ class Menu {
     this.listeners = data.listeners || {};
     this.buttons = data.buttons || [];
     this.cdraw = data.cdraw ? data.cdraw.bind(this) : () => {};
+    this.ontrigger = data.ontrigger ? data.ontrigger.bind(this) : () => {};
     for (const l in this.listeners) this.listeners[l] = this.listeners[l].bind(this);
   }
   compile() {
