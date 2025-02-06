@@ -67,7 +67,7 @@ class Menus {
       cdraw: function() {
         if (PixelTanks.sounds.menu.paused && !PixelTanks.sounds.menuopener.paused) {
           PixelTanks.playSound('menuopener');
-          setTimeout(() => PixelTanks.playSound('menu', 0);, 6250);
+          setTimeout(() => PixelTanks.playSound('menu', 0), 6250);
         }
         GUI.drawText(PixelTanks.user.username, 1280, 800, 100, '#ffffff', 0.5);
         PixelTanks.renderBottom(1200, 600, 160, PixelTanks.userData.color);
