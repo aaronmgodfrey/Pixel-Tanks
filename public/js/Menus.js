@@ -18,9 +18,11 @@ class Menus {
     if (Menus.current) Menus.menus[Menus.current].removeListeners();
     if (!Menus.renderer) Menus.start();
     Menus.menus[Menus.current = name].addListeners();
+    Menus.menus[name].ontrigger();
   }
   static softTrigger(name) {
     for (const b of Menus.menus[PixelTanks.user.player.menu = name].elements) b.style.visibility = 'visible';
+    Menus.menus[name].ontrigger();
   }
   static softUntrigger() {
     for (const b of Menus.menus[PixelTanks.user.player.menu].elements) b.style.visibility = 'hidden';
@@ -138,14 +140,6 @@ class Menus {
           Menus.trigger('main')
         }, true],
       ],
-      cdraw: function() {
-        let FIXXX = 0;// im so srry for the bread code
-        if (!PixelTanks.sounds.battlegrounds.paused) PixelTanks.stopSound('battlegrounds');
-        if (PixelTanks.sounds.victory.paused && FIXXX === 0) {
-          PixelTanks.playSound('victory');
-          FIXXX = 1;
-        };
-      },
     },
     defeat: {
       buttons: [
