@@ -300,24 +300,26 @@ class AI {
     if (this.role === 3 && this.bond) {
       epx = Math.floor((this.bond.x+40)/100);
       epy = Math.floor((this.bond.y+40)/100);
-      tpx = sx;
-      tpy = sy;
-    } else if (this.mode === 1 && ranged) {
+    } else if (this.mode === 0 || (this.mode === 1 && ranged) || this.mode === 2) {
+      epx = sx;
+      epy = sy;
+    } else if (this.mode === 1) {
       epx = tx;
-      epx = ty;
-      tpx = sx;
-      tpy = sy;
+      epy = ty;
     } else {
       epx = sx;
       epy = sy;
-      if (this.mode === 0) {
-        const d = Engine.toPoint(this.r);
-        tpx = d.x+epx;
-        tpy = d.y+epy;
-      } else {
-        tpx = tx;
-        tpy = ty;
-      }
+    }
+    if ((this.role === 3 && this.bond) || (this.mode === 1 && !ranged)) {
+      tpx = sx;
+      tpy = sy;
+    } else if (this.mode === 0) {
+      const d = Engine.toPoint(this.r);
+      tpx = d.x+epx;
+      tpy = d.y+epy;
+    } else if (this.mode === 2 || (this.mode === 1 && ranged)) {
+      tpx = tx;
+      tpy = ty;
     }
     for (const c of AI.routes[route]) {
       const x = c[0]+epx, y = c[1]+epy, d = (x-tpx)**2+(y-tpy)**2; // splice if blocked
