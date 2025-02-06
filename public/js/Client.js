@@ -42,6 +42,7 @@ class Client {
     this.listeners = ['keydown', 'keyup', 'mousemove', 'mousedown', 'mouseup'];
   }
   constructor(ip, multiplayer, gamemode) {
+    PixelTanks.pauseSound('menu', 0);
     PixelTanks.playSound('battlegrounds', 0);
     this.xp = this.crates = this.kills = this.coins = this._ops = this._ups = this._fps = this.debugMode = 0;
     this.zone = 'battlegrounds';
@@ -954,6 +955,8 @@ class Client {
       clearInterval(this.sendInterval);
       this.socket.close();
     } else this.world.i.forEach(i => clearInterval(i));
+    PixelTanks.pauseSound('battlegrounds', 0);
+    PixelTanks.playSound('menu', 0);
     for (const listener of Client.listeners) document.removeEventListener(listener, this[listener]);
     cancelAnimationFrame(this.render);
     Client.viewport.style.visibility = 'hidden';
