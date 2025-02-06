@@ -65,6 +65,7 @@ class Menus {
     main: {
       buttons: [[922, 840, 88, 88, 'settings', true], [532, 616, 536, 136, 'multiplayer', true], [705, 840, 88, 88, 'shop', true], [597, 840, 88, 88, 'inventory', true], [813, 840, 88, 88, 'crate', true], [532, 392, 536, 136, 'world1', true]],
       cdraw: function() {
+        PixelTanks.playSound('menu', 0);
         GUI.drawText(PixelTanks.user.username, 1280, 800, 100, '#ffffff', 0.5);
         PixelTanks.renderBottom(1200, 600, 160, PixelTanks.userData.color);
         GUI.drawImage(PixelTanks.images.tanks.bottom, 1200, 600, 160, 160, 1);
@@ -134,7 +135,6 @@ class Menus {
         [656, 680, 280, 104, () => {
           Menus.softUntrigger('victory');
           PixelTanks.user.player.implode();
-          PixelTanks.playSound('menu', 0);
           Menus.trigger('main')
         }, true],
       ],
@@ -145,7 +145,6 @@ class Menus {
         [656, 680, 280, 104, () => {
           Menus.softUntrigger('defeat');
           PixelTanks.user.player.implode();
-          PixelTanks.playSound('menu', 0);
           Menus.trigger('main')
         }, true],
       ],
@@ -513,7 +512,6 @@ class Menus {
           [660, 680, 280, 104, () => {
             Menus.softUntrigger('pause');
             PixelTanks.user.player.implode();
-            PixelTanks.playSound('menu', 0);
             PixelTanks.main();
           }, true]
         ],
