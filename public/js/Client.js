@@ -42,7 +42,7 @@ class Client {
     this.listeners = ['keydown', 'keyup', 'mousemove', 'mousedown', 'mouseup'];
   }
   constructor(ip, multiplayer, gamemode) {
-    PixelTanks.pauseSound('menu', 0);
+    PixelTanks.stopSound('menu', 0);
     PixelTanks.playSound('battlegrounds', 0);
     this.xp = this.crates = this.kills = this.coins = this._ops = this._ups = this._fps = this.debugMode = 0;
     this.zone = 'battlegrounds';
