@@ -25,7 +25,7 @@ class Tank {
     this.y = host.spawn.y;
     this.maxTurrets = 3;
     this.grapple = false;
-    this.logs = this.shields = this.r = this.pushback = this.baseRotation = this.baseFrame = 0;
+    this.shields = this.r = this.pushback = this.baseRotation = this.baseFrame = 0;
     this.msg.global = host.global;
     this.msg.zone = host.zone;
     host.updateEntity(this, Tank.raw);
