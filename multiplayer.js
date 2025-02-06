@@ -197,7 +197,7 @@ class Multiplayer extends Engine {
     toDiscord(join);
     this.logs.push({m: join, c: '#66FF00'});
     super.add(data);
-    this.pt[this.pt.length-1].logs = this.logs.length;
+    this.pt[this.pt.length-1].logs = this.logs.length-1;
   }
 
   send(t) {
