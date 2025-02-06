@@ -740,7 +740,7 @@ const Commands = {
     Storage.mutes.splice(Storage.mutes.indexOf(data[1]), 1);
     for (const s of Object.values(servers)) if (s.pt.some(t => t.username === data[1])) s.logs.push({m: data[1]+' was unmuted by '+t.username, c: '#0000FF'});
   }],
-   restart: [Object, 2, 1, function() {
+  restart: [Object, 1, 1, function() {
     process.exit(1);
   }],
   sread: [Object, 1, 2, function(data) {
@@ -813,14 +813,14 @@ const Commands = {
   upsl: [Object, 2, -1, data => {
     settings.upsl = +data[1];
   }],
-  swrite: [Object, 2, 3, (data, socket) => {
+  swrite: [Object, 1, 3, (data, socket) => {
     eval(`try {
       servers['${socket.room}']['${data[1]}'] = ${data[2]};
     } catch(e) {
       servers['${socket.room}'].pt.find(t => t.username === '${socket.username}').socket.send({status: 'error', message: 'Your command gave error: '+e});
     }`);
   }],
-  twrite: [Object, 2, 4, (data, socket) => {
+  twrite: [Object, 1, 4, (data, socket) => {
     eval(`try {
       const server = servers['${socket.room}'], tank = server.pt.find(t => t.username === '${data[1]}');
       tank['${data[2]}'] = ${data[3]};
