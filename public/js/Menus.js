@@ -134,6 +134,7 @@ class Menus {
         [656, 680, 280, 104, () => {
           Menus.softUntrigger('victory');
           PixelTanks.user.player.implode();
+          PixelTanks.playSound('menu', 0);
           Menus.trigger('main')
         }, true],
       ],
@@ -144,6 +145,7 @@ class Menus {
         [656, 680, 280, 104, () => {
           Menus.softUntrigger('defeat');
           PixelTanks.user.player.implode();
+          PixelTanks.playSound('menu', 0);
           Menus.trigger('main')
         }, true],
       ],
@@ -511,6 +513,7 @@ class Menus {
           [660, 680, 280, 104, () => {
             Menus.softUntrigger('pause');
             PixelTanks.user.player.implode();
+            PixelTanks.playSound('menu', 0);
             PixelTanks.main();
           }, true]
         ],
