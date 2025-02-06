@@ -956,9 +956,6 @@ class Client {
       this.socket.close();
     } else this.world.i.forEach(i => clearInterval(i));
     PixelTanks.stopSound('battlegrounds');
-    PixelTanks.stopSound('victory');
-    PixelTanks.stopSound('defeat');
-    PixelTanks.playSound('menu', 0);
     for (const listener of Client.listeners) document.removeEventListener(listener, this[listener]);
     cancelAnimationFrame(this.render);
     Client.viewport.style.visibility = 'hidden';
