@@ -139,8 +139,12 @@ class Menus {
         }, true],
       ],
       cdraw: function() {
+        let FIXXX = 0;// im so srry for the bread code
         if (!PixelTanks.sounds.battlegrounds.paused) PixelTanks.stopSound('battlegrounds');
-        PixelTanks.playSound('victory');
+        if (PixelTanks.sounds.victory.paused && FIXXX === 0) {
+          PixelTanks.playSound('victory');
+          FIXXX = 1;
+        },
       },
     },
     defeat: {
@@ -153,8 +157,12 @@ class Menus {
         }, true],
       ],
       cdraw: function() {
+        let FIXXX = 0;// im so srry for the bread code
         if (!PixelTanks.sounds.battlegrounds.paused) PixelTanks.stopSound('battlegrounds');
-        PixelTanks.playSound('defeat');
+        if (PixelTanks.sounds.defeat.paused && FIXXX === 0) {
+          PixelTanks.playSound('defeat');
+          FIXXX = 1;
+        };
       },
     },
     multiplayer: {
