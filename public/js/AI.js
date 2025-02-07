@@ -472,6 +472,7 @@ class AI {
     if (bond) this.bond = bond; 
     if (!target) {
       if (this.target) {
+	this.color = 'blue';
         this.seeTarget = false;
         if (!this.seeTimeout) this.seeTimeout = setTimeout(() => { // target despawn timer
           this.mode = 0;
@@ -481,6 +482,7 @@ class AI {
     } else {
       if (this.target) this.seeTimeout = clearTimeout(this.seeTimeout);
       this.seeTarget = true;
+      this.color = 'red';
       this.target = {x: target.x, y: target.y, id: target.id};
       this.mode = (this.hp < .3 * this.maxHp && this.role !== 1) ? 2 : 1;
     }
