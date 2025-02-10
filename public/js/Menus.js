@@ -243,7 +243,7 @@ class Menus {
       buttons: [[416, 20, 108, 108, 'main', true]],
       listeners: {
         mousedown: function(e) {
-          const key = {item1: [160, 408], item2: [376, 408], item3: [592, 408], item4: [808, 408], toolkit: [1024, 408], grapple: [1240, 408], boost: [165, 620], class: [381, 620], fire: [597, 620], powermissle: [827, 620], chat: [1043, 620], pause: [1259, 620]};
+          const key = {item1: [160, 408], item2: [376, 408], item3: [592, 408], item4: [808, 408], toolkit: [1024, 408], grapple: [1240, 408], boost: [160, 624], class: [376, 624], fire: [592, 624], powermissle: [808, 624], chat: [1024, 624], pause: [1240, 624]};
           for (const p in key) if (Menus.x > key[p][0] && Menus.x < key[p][0]+176 && Menus.y > key[p][1] && Menus.y < key[p][1]+176) {
             if (Menus.menus.settings.selected === p) {
               if (!PixelTanks.hasKeybind(1000+e.button)) PixelTanks.userData.keybinds[this.selected] = 1000+e.button; // mouse handler
