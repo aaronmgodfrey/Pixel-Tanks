@@ -1,7 +1,7 @@
 class AI {
   static time = Date.now();
   static args = ['x', 'y', 'role', 'rank', 'team', 'host'];
-  static raw = ['role', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'ammo', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'dedEffect', 'gambleCounter'];
+  static raw = ['path', 'role', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'ammo', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'dedEffect', 'gambleCounter'];
   static u = [];
   static routes = [[[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]], [[0, -3], [1, -3], [2, -2], [3, -1], [3, 0], [3, 1], [2, 2], [1, 3], [0, 3], [-1, 3], [-2, 2], [-3, 1], [-3, 0], [-3, -1], [-2, -2], [-1, -3]]];
   constructor() {
@@ -327,6 +327,7 @@ class AI {
     }
     if (!coords.length) return;
     coords.sort((a, b) => this.mode !== 2 ? a.d - b.d : b.d - a.d);
+    let clone = [...coords]; // TEMP
     let r, p;
     do {
       if (!coords.length) return;
@@ -334,7 +335,7 @@ class AI {
       p = this.pathfind(sx, sy, coords[r].x, coords[r].y); // loop through if first fails????
       coords.splice(r, 1);
     } while (!p.length && coords.length);
-    this.path = {p, m: this.mode, t: Date.now(), f: 0}; // change path if mode change
+    this.path = {p, m: this.mode, t: Date.now(), f: 0, epx, epy, tpx, tpy, coords}; // change path if mode change
     
 	  
     /*
