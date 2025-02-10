@@ -259,7 +259,7 @@ class Menus {
       cdraw: function() {
         const key = {item1: [165, 404], item2: [381, 404], item3: [597, 404], item4: [827, 404], toolkit: [1043, 404], grapple: [1259, 404], boost: [165, 620], class: [381, 620], fire: [597, 620], powermissle: [827, 620], chat: [1043, 620], pause: [1259, 620]};
         GUI.draw.fillStyle = '#A9A9A9'; // change selection  later?
-        GUI.draw.lineWidth = 10; // border thickness
+        GUI.draw.lineWidth = 8; // border thickness
         for (const p in key) {
           if (this.selected === p) GUI.draw.strokeRect(key[p][0], key[p][1], 176, 176);
           GUI.drawText(String.fromCharCode(PixelTanks.userData.keybinds[p]), key[p][0]+88, key[p][1]+88, 50, '#ffffff', .5);
