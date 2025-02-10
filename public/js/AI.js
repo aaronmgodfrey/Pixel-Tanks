@@ -70,7 +70,7 @@ class AI {
     if (this.role !== 0) {
       // maybe add a time check if time past path maximum to regenerate path??? Currently just moving to farthest for next tick path regen
       if ((this.x-10)%100 === 0 && (this.y-10)%100 === 0) this.onBlock();
-      if (this.grapple) this.path = false; else this.move();
+      if (this.grapple) this.path = false; else if (this.path && this.path.p && this.path.p.length) this.move();
     }
     if (this.obstruction && !this.seeTarget) {
       this.tr = Engine.toAngle(this.obstruction.x-(this.x+40), this.obstruction.y-(this.y+40));
