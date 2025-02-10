@@ -413,9 +413,9 @@ class Client {
     if (t.role) { // if a pathfinding bot
       for (const possible of t.path.coords) {
         GUI.draw.fillStyle = '#000000';
-        GUI.draw.fillRect(100*possible[0]+25, 100*possible[1]+25, 50, 50);
+        GUI.draw.fillRect(100*possible.x+25, 100*possible.y+25, 50, 50);
         GUI.draw.fillStyle = '#00FF00';
-        GUI.draw.fillRect(100*possible[0]+35, 100*possible[1]+35, 30, 30);
+        GUI.draw.fillRect(100*possible.x+35, 100*possible.y+35, 30, 30);
       }
       GUI.draw.fillStyle = '#000000';
       GUI.draw.fillRect(100*t.path.epx+10, 100*t.path.epy+10, 90, 90);
