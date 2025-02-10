@@ -418,13 +418,13 @@ class Client {
         GUI.draw.fillRect(100*possible[0]+35, 100*possible[1]+35, 30, 30);
       }
       GUI.draw.fillStyle = '#000000';
-      GUI.draw.fillRect(100*t.epx+10, 100*t.epy+10, 90, 90);
+      GUI.draw.fillRect(100*t.path.epx+10, 100*t.path.epy+10, 90, 90);
       GUI.draw.fillStyle = '#FFFF00';
-      GUI.draw.fillRect(100*t.epx+20, 100*t.epy+20, 70, 70);
+      GUI.draw.fillRect(100*t.path.epx+20, 100*t.path.epy+20, 70, 70);
       GUI.draw.fillStyle = '#000000';
-      GUI.draw.fillRect(100*t.tpx+10, 100*t.tpy+10, 90, 90);
+      GUI.draw.fillRect(100*t.path.tpx+10, 100*t.path.tpy+10, 90, 90);
       GUI.draw.fillStyle = '#0000FF';
-      GUI.draw.fillRect(100*t.tpx+20, 100*t.tpy+20, 70, 70);
+      GUI.draw.fillRect(100*t.path.tpx+20, 100*t.path.tpy+20, 70, 70);
       for (const path of t.path.p) {
         GUI.draw.fillStyle = '#000000';
         GUI.draw.fillRect(100*path[0]+35, 100*path[1]+35, 30, 30);
