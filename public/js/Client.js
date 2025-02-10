@@ -409,6 +409,30 @@ class Client {
     }
 
     if (t.animation) GUI.drawImage(PixelTanks.images.animations[t.animation.id], t.x, t.y, 80, 90, 1, 0, 0, 0, 0, undefined, t.animation.frame*40, 0, 40, 45);
+
+    if (t.role) { // if a pathfinding bot
+      for (const possible of t.path.coords) {
+        GUI.draw.fillStyle = '#000000';
+        GUI.draw.fillRect(100*possible[0]+25, 100*possible[1]+25, 50, 50);
+        GUI.draw.fillStyle = '#00FF00';
+        GUI.draw.fillRect(100*possible[0]+35, 100*possible[1]+35, 30, 30);
+      }
+      GUI.draw.fillStyle = '#000000';
+      GUI.draw.fillRect(100*t.epx+10, 100*t.epy+10, 90, 90);
+      GUI.draw.fillStyle = '#FFFF00';
+      GUI.draw.fillRect(100*t.epx+20, 100*t.epy+20, 70, 70);
+      GUI.draw.fillStyle = '#000000';
+      GUI.draw.fillRect(100*t.tpx+10, 100*t.tpy+10, 90, 90);
+      GUI.draw.fillStyle = '#0000FF';
+      GUI.draw.fillRect(100*t.tpx+20, 100*t.tpy+20, 70, 70);
+      for (const path of t.path.p) {
+        GUI.draw.fillStyle = '#000000';
+        GUI.draw.fillRect(100*path[0]+35, 100*path[1]+35, 30, 30);
+        GUI.draw.fillStyle = '#A9A9A9';
+        GUI.draw.fillRect(100*path[0]+40, 100*path[1]+40, 20, 20);
+      }
+    }
+  
   }
 
   drawStatus(msg) {
