@@ -243,7 +243,7 @@ class Menus {
       buttons: [[416, 20, 108, 108, 'main', true]],
       listeners: {
         mousedown: function(e) {
-          const key = {item1: [165, 404], item2: [381, 404], item3: [597, 404], item4: [827, 404], toolkit: [1043, 404], grapple: [1259, 404], boost: [165, 620], class: [381, 620], fire: [597, 620], powermissle: [827, 620], chat: [1043, 620], pause: [1259, 620]};
+          const key = {item1: [160, 408], item2: [376, 408], item3: [592, 408], item4: [808, 408], toolkit: [1024, 408], grapple: [1240, 408], boost: [165, 620], class: [381, 620], fire: [597, 620], powermissle: [827, 620], chat: [1043, 620], pause: [1259, 620]};
           for (const p in key) if (Menus.x > key[p][0] && Menus.x < key[p][0]+176 && Menus.y > key[p][1] && Menus.y < key[p][1]+176) {
             if (Menus.menus.settings.selected === p) {
               if (!PixelTanks.hasKeybind(1000+e.button)) PixelTanks.userData.keybinds[this.selected] = 1000+e.button; // mouse handler
@@ -259,7 +259,7 @@ class Menus {
       cdraw: function() {
         const key = {item1: [165, 404], item2: [381, 404], item3: [597, 404], item4: [827, 404], toolkit: [1043, 404], grapple: [1259, 404], boost: [165, 620], class: [381, 620], fire: [597, 620], powermissle: [827, 620], chat: [1043, 620], pause: [1259, 620]};
         GUI.draw.fillStyle = '#A9A9A9'; // change selection  later?
-        GUI.draw.lineWidth = 30; // border thickness
+        GUI.draw.lineWidth = 10; // border thickness
         for (const p in key) {
           if (this.selected === p) GUI.draw.strokeRect(key[p][0], key[p][1], 176, 176);
           GUI.drawText(String.fromCharCode(PixelTanks.userData.keybinds[p]), key[p][0]+88, key[p][1]+88, 50, '#ffffff', .5);
