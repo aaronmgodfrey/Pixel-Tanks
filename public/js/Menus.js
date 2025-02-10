@@ -257,7 +257,7 @@ class Menus {
         }
       },
       cdraw: function() {
-        const key = {item1: [165, 404], item2: [381, 404], item3: [597, 404], item4: [827, 404], toolkit: [1043, 404], grapple: [1259, 404], boost: [165, 620], class: [381, 620], fire: [597, 620], powermissle: [827, 620], chat: [1043, 620], pause: [1259, 620]};
+        const key = {item1: [152, 408], item2: [368, 408], item3: [584, 408], item4: [784, 408], toolkit: [1000, 408], grapple: [1216, 408], boost: [152, 624], class: [368, 624], fire: [584, 624], powermissle: [784, 624], chat: [1000, 624], pause: [1216, 624]};
         GUI.draw.fillStyle = '#A9A9A9'; // change selection  later?
         GUI.draw.lineWidth = 8; // border thickness
         for (const p in key) {
