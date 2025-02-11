@@ -76,7 +76,8 @@ class Tank {
       for (const entity of this.host.cells[x][y]) {
         const teamMatch = Engine.match(this, entity);
         if (!this.immune && entity instanceof Block) {
-          if (!Engine.collision(this.x, this.y, 80, 80, entity.x, entity.y, 100, 100)) continue;
+          let size = entity.type === 'spike' ? 50 : 100;
+          if (!Engine.collision(this.x, this.y, 80, 80, entity.x, entity.y, size, size)) continue;
           if (entity.type === 'fire') (this.fire = entity.team) && (this.fireTime = Date.now()) && (this.fireRank = this.host.pt.find(t => t.username === Engine.getUsername(entity.team))?.rank || 20);
           if (entity.type === 'spike' && !teamMatch) {
             entity.destroy();
