@@ -175,6 +175,7 @@ class Engine {
     if (t.immune && t.class === 'fire') {
       for (const cell of t.cells) {
         const [cx, cy] = cell.split('x');
+        if (!Engine.collision(cx*100, cy*100, 100, 100, t.x+40, t.y+40, 0, 0)) continue;
         let hasFire = false;
         for (const entity of this.cells[cx][cy]) if (entity instanceof Block && entity.type === 'fire' && Engine.getUsername(entity.team) === t.username && entity.x/100 === cx && entity.y/100 === cy) hasFire = true;
         if (!hasFire) this.b.push(A.template('Block').init(cx*100, cy*100, 'fire', Engine.parseTeamExtras(t.team), this));
