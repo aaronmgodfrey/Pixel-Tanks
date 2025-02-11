@@ -514,10 +514,7 @@ class Client {
     GUI.draw.setTransform(1, 0, 0, 1, -player.x+760, -player.y+460);
     // create adaptive floor rendering
     GUI.drawImage(PixelTanks.images.blocks[this.zone].void, -5000, -5000, 10000, 10000, 1);
-    GUI.drawImage(PixelTanks.images.blocks[this.zone].floor, 0, 0, 3000, 3000, 1);
-    GUI.drawImage(PixelTanks.images.blocks[this.zone].floor, 0, 3000, 3000, 3000, 1);
-    GUI.drawImage(PixelTanks.images.blocks[this.zone].floor, 3000, 0, 3000, 3000, 1);
-    GUI.drawImage(PixelTanks.images.blocks[this.zone].floor, 3000, 3000, 3000, 3000, 1);
+    for (let miy = (this.y-750)/3000, may = (this.y+750)/3000, y = Math.min(Math.floor(miy), Math.ceil(miy)); y <= Math.max(Math.floor(may), Math.ceil(may)); y++) for (let mix = (this.x-1050)/3000, max = (this.x+1050)/3000, x = Math.min(Math.floor(mix), Math.ceil(mix)); x <= Math.max(Math.floor(max), Math.ceil(max)); x++) GUI.drawImage(PixelTanks.images.blocks[this.zone].floor, x*3000, y*3000, 3000, 3000, 1);
     for (const shot of s) this.drawShot(shot);
     for (const block of b) this.drawBlock(block);
     if (!this.multiplayer) for (const goal of this.world.spawns) GUI.drawImage(PixelTanks.images.blocks.goal, goal.x, goal.y, 100, 100);
