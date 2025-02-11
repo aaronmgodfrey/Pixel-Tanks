@@ -514,7 +514,8 @@ class Client {
     GUI.draw.setTransform(1, 0, 0, 1, -player.x+760, -player.y+460);
     // create adaptive floor rendering
     GUI.drawImage(PixelTanks.images.blocks[this.zone].void, -5000, -5000, 10000, 10000, 1);
-    for (let miy = (this.tank.y-750)/3000, may = (this.tank.y+750)/3000, y = Math.min(Math.floor(miy), Math.ceil(miy)); y <= Math.max(Math.floor(may), Math.ceil(may)); y++) for (let mix = (this.tank.x-1050)/3000, max = (this.tank.x+1050)/3000, x = Math.min(Math.floor(mix), Math.ceil(mix)); x <= Math.max(Math.floor(max), Math.ceil(max)); x++) GUI.drawImage(PixelTanks.images.blocks[this.zone].floor, x*3000, y*3000, 3000, 3000, 1);
+    for (let miy = (this.tank.y-750)/3000, may = (this.tank.y+750)/3000, y = Math.min(Math.floor(miy), Math.ceil(miy), 0); y <= Math.max(Math.floor(may), Math.ceil(may), 1); y++) for (let mix = (this.tank.x-1050)/3000, max = (this.tank.x+1050)/3000, x = Math.min(Math.floor(mix), Math.ceil(mix), 0); x <= Math.max(Math.floor(max), Math.ceil(max), 1); x++) GUI.drawImage(PixelTanks.images.blocks[this.zone].floor, x*3000, y*3000, 3000, 3000, 1);
+    for (let miy = (this.tank.y-750)/100, may = (this.tank.y+750)/100, y = Math.min(Math.floor(miy), Math.ceil(miy)); y <= Math.max(Math.floor(may), Math.ceil(may)); y++) for (let mix = (this.tank.x-1050)/100, max = (this.tank.x+1050)/100, x = Math.min(Math.floor(mix), Math.ceil(mix)); x <= Math.max(Math.floor(max), Math.ceil(max)); x++) if (x < 0 && x > 59 && y < 0 && y > 59) GUI.drawImage(PixelTanks.images.blocks[this.zone].void, x*100, y*100, 100, 100, 1);
     for (const shot of s) this.drawShot(shot);
     for (const block of b) this.drawBlock(block);
     if (!this.multiplayer) for (const goal of this.world.spawns) GUI.drawImage(PixelTanks.images.blocks.goal, goal.x, goal.y, 100, 100);
@@ -734,8 +735,8 @@ class Client {
 
   collision(x, y, v, p) { // x, y, velocity-axis, polarity
     let r = v && p;
-    if (x < 0 || y < 0 || x + 80 > 6000 || y + 80 > 6000) return r ? (p > 0 ? 5920 : 0) : false;
     if (this.ded) return r ? (v === 'x' ? x : y) : true;
+    if (x < 0 || y < 0 || x + 80 > 6000 || y + 80 > 6000) return r ? (p > 0 ? 5920 : 0) : false;
     let returns = [];
     for (const b of this.hostupdate.b) {
       if ((x > b.x || x+80 > b.x) && (x < b.x+100 || x+80 < b.x+100) && (y > b.y || y+80 > b.y) && (y < b.y+100 || y+80 < b.y+100)) {
