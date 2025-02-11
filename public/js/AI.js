@@ -167,7 +167,13 @@ class AI {
               this.stunned = false;
               this.host.updateEntity(this, ['stunned']);
             }, 1000);
-          };
+          } else {
+            /*const thermal = Engine.hasPerk(this.perk, 2);
+            if (thermal && !entity.thermaled && Engine.collision(this.x, this.y, 80, 80, entity.x, entity.y, 100, 100)) {
+              entity.thermaled = setTimeout(() => (entity.thermaled = false), 1000) && 1;
+              entity.damageCalc(entity.x, entity.y, thermal*10, Engine.getUsername(this.team));
+            }*/
+          }
         } else if (!teamMatch && !entity.ded && (entity instanceof Tank || entity instanceof AI)) {
           if (this.immune+500 < Date.now() && entity.buff && this.canBashed && Engine.collision(this.x, this.y, 80, 80, entity.x, entity.y, 80, 80)) {
             this.canBashed = false;
