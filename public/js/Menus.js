@@ -179,7 +179,7 @@ class Menus {
           let room = Object.keys(Menus.menus.multiplayer.preview[Menus.menus.multiplayer.gamemode])[Menus.menus.multiplayer.currentRoom];
           if (room === '*******') return;
           Menus.removeListeners();
-          PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip.value+'#'+room, true, Menus.menus.multiplayer.gamemode);
+          PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip.value+(room ? '#'+room : ''), true, Menus.menus.multiplayer.gamemode);
         }, true],
         [964, 232, 368, 88, () => {
           Menus.removeListeners();
