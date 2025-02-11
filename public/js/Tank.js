@@ -92,7 +92,7 @@ class Tank {
             const thermal = Engine.hasPerk(this.perk, 2);
             if (thermal && !entity.thermaled && Engine.collision(this.x-10, this.y-10, 100, 100, entity.x, entity.y, 100, 100)) {
               entity.thermaled = setTimeout(() => (entity.thermaled = false), 1000) && 1;
-              entity.damageCalc(entity.x, entity.y, thermal*10, Engine.getUsername(this.team));
+              entity.damage(thermal*10, Engine.getUsername(this.team));
             }
           }
         } else if (!teamMatch && !entity.ded && (entity instanceof Tank || entity instanceof AI)) {
