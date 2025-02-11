@@ -66,10 +66,14 @@ class Engine {
     } else if (a.includes('block#')) {
       const coords = [{ r: [337.5, 360], dx: -10, dy: 80 }, { r: [0, 22.5], dx: -10, dy: 80 }, { r: [22.5, 67.5], dx: -100, dy: 80 }, { r: [67.5, 112.5], dx: -100, dy: -10 }, { r: [112.5, 157.5], dx: -100, dy: -100 }, { r: [157.5, 202.5], dx: -10, dy: -100 }, { r: [202.5, 247.5], dx: 80, dy: -100 }, { r: [247.5, 292.5], dx: 80, dy: -10 }, { r: [292.5, 337.5], dx: 80, dy: 80 }];
       const type = a.replace('block#', '');
-      for (const coord of coords) {
-        if (t.r >= coord.r[0] && t.r < coord.r[1]) {
-          this.b.push(A.template('Block').init(t.x+coord.dx, t.y+coord.dy, type, t.team, this));
-          break;
+      if (type === 'spike') {
+        this.b.push(A.template('Block').init(t.x-10, t.y-10, type, t.team, this));
+      } else {
+        for (const coord of coords) {
+          if (t.r >= coord.r[0] && t.r < coord.r[1]) {
+            this.b.push(A.template('Block').init(t.x+coord.dx, t.y+coord.dy, type, t.team, this));
+            break;
+          }
         }
       }
     } else if (a === 'break') {
