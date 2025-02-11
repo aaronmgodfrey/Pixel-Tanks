@@ -67,8 +67,6 @@ class Client {
     this.reset();
     if (this.multiplayer) this.connect();
     if (!this.multiplayer) this.generateWorld();
-    PixelTanks.stopSound('menu', 0);
-    PixelTanks.playSound(this.zone, 0);
     for (const listener of Client.listeners) document.addEventListener(listener, this[listener] = this[listener].bind(this));
     this.render = requestAnimationFrame(() => this.frame());
     Client.viewport = document.getElementById('viewport');
@@ -78,6 +76,8 @@ class Client {
     Client.viewport.style.visibility = 'visible';
     this.resize();
     this.animate = Date.now();
+    PixelTanks.stopSound('menu', 0);
+    PixelTanks.playSound(this.zone, 0);
   }
 
   resize() {
