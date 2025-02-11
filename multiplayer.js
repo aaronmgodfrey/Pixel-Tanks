@@ -199,7 +199,7 @@ class Multiplayer extends Engine {
     data.socket = socket; // this can moved to the join handler?
     let join = this.joinMsg(data.username);
     toDiscord(join);
-    this.logs.push({m: join, c: '#66FF00'});
+    this.logs.push({m: join, c: '#66FF00'});T
     super.add(data);
   }
 
@@ -210,7 +210,7 @@ class Multiplayer extends Engine {
       t.sendTimer = setTimeout(() => this.send(t), (t.lastSend+1000/settings.upsl)-Date.now());
       return t.delayed = true;
     }
-    t.msg.logs = this.logs.slice(t.logs).concat(t.privateLogs);
+    t.msg.logs = this.logs.slice(t.logs || this.logs.length-1).concat(t.privateLogs);
     t.msg.tickspeed = tickspeed;
     t.logs = this.logs.length;
     t.privateLogs.length = 0;
