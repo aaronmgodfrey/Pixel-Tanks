@@ -77,7 +77,7 @@ class Client {
     this.resize();
     this.animate = Date.now();
     PixelTanks.stopSound('menu', 0);
-    PixelTanks.playSound(this.zone, 0);
+    setTimeout(() => {PixelTanks.playSound(this.zone, 0)}, 250);
   }
 
   resize() {
