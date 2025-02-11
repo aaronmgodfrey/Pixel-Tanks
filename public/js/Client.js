@@ -442,6 +442,10 @@ class Client {
   }
 
   frame() {
+    if (!PixelTanks.sounds.menu.paused) {
+      PixelTanks.stopSound('menu', 0);
+      PixelTanks.playSound(this.zone, 0);
+    }
     if (this.nogui) {
       GUI.draw.fillStyle = '#ffffff';
       GUI.draw.fillRect(0, 0, 1600, 1600);
