@@ -91,10 +91,7 @@ class Client {
   interpret(data) {
     this._ups++;
     if (data.global) this.hostupdate.global = data.global;
-    if (data.zone && this.zone !== data.zone) {
-      PixelTanks.playSound(this.zone, 0);
-      this.zone = data.zone;
-    }
+    if (data.zone && this.zone !== data.zone) PixelTanks.playSound(this.zone = data.zone, 0);
     if (data.tickspeed) this.hostupdate.tickspeed = data.tickspeed;
     if (data.logs) {
       for (const log of data.logs) {
