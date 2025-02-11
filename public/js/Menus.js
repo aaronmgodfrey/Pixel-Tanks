@@ -141,7 +141,7 @@ class Menus {
         }, true],
       ],
       ontrigger: function() {
-        PixelTanks.stopSound('battlegrounds');
+        PixelTanks.stopSound(String(this.zone));
         PixelTanks.playSound('victory');
       }
     },
@@ -155,7 +155,7 @@ class Menus {
         }, true],
       ],
       ontrigger: function() {
-        PixelTanks.stopSound('battlegrounds');
+        PixelTanks.stopSound(String(this.zone));
         PixelTanks.playSound('defeat');
       }
     },
