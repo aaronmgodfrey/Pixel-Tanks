@@ -985,7 +985,7 @@ class Client {
       clearInterval(this.sendInterval);
       this.socket.close();
     } else this.world.i.forEach(i => clearInterval(i));
-    PixelTanks.stopSound(this.zone, 0);
+    PixelTanks.stopSound(String(this.zone), 0);
     for (const listener of Client.listeners) document.removeEventListener(listener, this[listener]);
     cancelAnimationFrame(this.render);
     Client.viewport.style.visibility = 'hidden';
