@@ -520,10 +520,10 @@ class Client {
     GUI.drawImage(PixelTanks.images.blocks[this.zone].floor, 3000, 3000, 3000, 3000, 1);
     for (const shot of s) this.drawShot(shot);
     for (const block of b) this.drawBlock(block);
-    if (!PixelTanks.sounds.menu.paused) {
+    setTimeout(() => {
       PixelTanks.stopSound('menu', 0);
       PixelTanks.playSound(this.zone, 0);
-    }
+    }, 250);
     if (!this.multiplayer) for (const goal of this.world.spawns) GUI.drawImage(PixelTanks.images.blocks.goal, goal.x, goal.y, 100, 100);
     for (const ai of a) this.drawTank(ai);
     for (const tank of t) this.drawTank(tank);
