@@ -330,7 +330,7 @@ class AI {
     }
     for (const c of AI.routes[route]) {
       const x = c[0]+epx, y = c[1]+epy, d = (x-tpx)**2+(y-tpy)**2; // splice if blocked
-      if (x >= 0 && y >= 0 && x <= 59 && y <= 59) coords.push({x, y, d});
+      if (x >= 0 && y >= 0 && x <= 59 && y <= 59 && x !== sx && y !== sy)) coords.push({x, y, d});
     }
     if (!coords.length) return;
     coords.sort((a, b) => this.mode !== 2 ? a.d - b.d : b.d - a.d);
@@ -393,9 +393,8 @@ class AI {
   }
 
   choosePath(p) {
-    return 0; // greedy first
-    //
-    // return Math.floor(Math.random()*p);
+    let m = Math.random();
+    return m < .7 ? 0 : (m < .95 ? 1 : Math.floor(Math.random()*p));
   }
   getCells(c) {
     const n = [];
