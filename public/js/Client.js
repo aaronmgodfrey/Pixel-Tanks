@@ -476,7 +476,7 @@ class Client {
     if (dis > 90 && dis < 270) br = (br+180+360)%360;
     const diff = (br-this.tank.baseRotation+360)%360, dir = diff < 180 ? 1 : -1;
     if (!this.lastBaseRotation || Date.now()-this.lastBaseRotation > 15) {
-      this.tank.baseRotation = diff > 12 ? (this.tank.baseRotation+(dir*12)+360)%360 : br;
+      if (this.dx || this.dy) this.tank.baseRotation = diff > 12 ? (this.tank.baseRotation+(dir*12)+360)%360 : br;
       this.lastBaseRotation = Date.now();
     }
     if (this.b) this.tank.baseFrame = ((this.b.o ? 0 : 1)+Math.floor((Date.now()-this.b.t)/120))%2;
