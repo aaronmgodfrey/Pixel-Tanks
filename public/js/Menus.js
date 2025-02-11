@@ -141,7 +141,11 @@ class Menus {
         }, true],
       ],
       ontrigger: function() {
-        PixelTanks.stopSound(String(this.zone));
+        if (!PixelTanks.sounds.battlegrounds.paused) PixelTanks.stopSound('battlegrounds');
+        if (!PixelTanks.sounds.ice.paused) PixelTanks.stopSound('ice');
+        if (!PixelTanks.sounds.cave.paused) PixelTanks.stopSound('cave');
+        if (!PixelTanks.sounds.deep.paused) PixelTanks.stopSound('deep');
+        if (!PixelTanks.sounds.gem.paused) PixelTanks.stopSound('gem');
         PixelTanks.playSound('victory');
       }
     },
@@ -155,7 +159,11 @@ class Menus {
         }, true],
       ],
       ontrigger: function() {
-        PixelTanks.stopSound(String(this.zone));
+        if (!PixelTanks.sounds.battlegrounds.paused) PixelTanks.stopSound('battlegrounds');
+        if (!PixelTanks.sounds.ice.paused) PixelTanks.stopSound('ice');
+        if (!PixelTanks.sounds.cave.paused) PixelTanks.stopSound('cave');
+        if (!PixelTanks.sounds.deep.paused) PixelTanks.stopSound('deep');
+        if (!PixelTanks.sounds.gem.paused) PixelTanks.stopSound('gem');
         PixelTanks.playSound('defeat');
       }
     },
