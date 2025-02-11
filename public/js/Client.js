@@ -43,7 +43,6 @@ class Client {
   }
   constructor(ip, multiplayer, gamemode) {
     this.xp = this.crates = this.kills = this.coins = this._ops = this._ups = this._fps = this.debugMode = 0;
-    this.zone = 'battlegrounds';
     this.tank = {use: [], fire: [], r: 0, baseRotation: 0};
     this.hostupdate = {b: [], s: [], pt: [], d: [], ai: [], entities: []};
     this.paused = this.canRespawn = false;
