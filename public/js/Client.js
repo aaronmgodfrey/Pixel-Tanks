@@ -76,8 +76,10 @@ class Client {
     Client.viewport.style.visibility = 'visible';
     this.resize();
     this.animate = Date.now();
-    PixelTanks.stopSound('menu', 0);
-    setTimeout(() => {PixelTanks.playSound(this.zone, 0)}, 250);
+    if (!Pixeltanks.sounds.menu.paused) {
+      PixelTanks.stopSound('menu', 0);
+      setTimeout(() => {PixelTanks.playSound(this.zone, 0)}, 250);
+    }
   }
 
   resize() {
