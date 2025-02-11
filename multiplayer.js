@@ -506,7 +506,12 @@ class TDM extends Multiplayer {
       });
       this.global = 'Round '+this.round+' in '+(this.time-Math.floor((Date.now()-this.readytime)/1000));
       if ((this.time-(Date.now()-this.readytime)/1000) <= 0) {
-        this.global = '======(RED)'+this.wins.RED+' v.s '+this.wins.BLUE+'(BLUE)======';
+        let stats = this.pt.reduce((a, c) => {
+          if (Engine.getTeam(c) === 'RED') return [a[0]+1, a[1]];
+          if (Engine.getTeam(c) === 'BLUE') return [a[0], a[1]+1];
+          return a;
+        }
+        this.global = '======'+this.wins.RED+'- RED '+stats[0]+'v'+stats[1]+' BLUE - '+this.wins.BLUE+'======';
         this.mode = 2;
         this.pt.forEach(t => t.socket.send({event: 'ded'}));
       }
