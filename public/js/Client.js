@@ -76,10 +76,7 @@ class Client {
     Client.viewport.style.visibility = 'visible';
     this.resize();
     this.animate = Date.now();
-    if (!PixelTanks.sounds.menu.paused) {
-      PixelTanks.stopSound('menu', 0);
-      setTimeout(() => {PixelTanks.playSound(this.zone, 0)}, 250);
-    }
+    if (!PixelTanks.sounds.menu.paused) PixelTanks.stopSound('menu', 0);
   }
 
   resize() {
@@ -94,7 +91,10 @@ class Client {
   interpret(data) {
     this._ups++;
     if (data.global) this.hostupdate.global = data.global;
-    if (data.zone) this.zone = data.zone;
+    if (data.zone && this.zone !== data.zone) {
+      PixelTanks.playSound(this.zone, 0);
+      this.zone = data.zone;
+    }
     if (data.tickspeed) this.hostupdate.tickspeed = data.tickspeed;
     if (data.logs) {
       for (const log of data.logs) {
@@ -522,10 +522,6 @@ class Client {
     GUI.drawImage(PixelTanks.images.blocks[this.zone].floor, 3000, 3000, 3000, 3000, 1);
     for (const shot of s) this.drawShot(shot);
     for (const block of b) this.drawBlock(block);
-    setTimeout(() => {
-      PixelTanks.stopSound('menu', 0);
-      PixelTanks.playSound(this.zone, 0);
-    }, 250);
     if (!this.multiplayer) for (const goal of this.world.spawns) GUI.drawImage(PixelTanks.images.blocks.goal, goal.x, goal.y, 100, 100);
     for (const ai of a) this.drawTank(ai);
     for (const tank of t) this.drawTank(tank);
@@ -981,6 +977,7 @@ class Client {
   }
 
   implode() {
+    PixelTanks.stopSound(this.zone);
     if (this.multiplayer) {
       clearInterval(this.sendInterval);
       this.socket.close();
