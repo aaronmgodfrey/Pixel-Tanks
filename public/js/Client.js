@@ -243,7 +243,7 @@ class Client {
 
   drawBlock(b) {
     if (!Engine.collision(100*(Math.floor((this.tank.x+40)/100)-10), 100*(Math.floor((this.tank.y+40)/100)-7), 2100, 1500, b.x, b.y, 100, 100)) return;
-    const size = (b.type === 'airstrike' || b.type === 'supplyairstrike') ? 200 : 100, type = ['airstrike', 'fire'].includes(b.type) && Engine.getTeam(this.team) === Engine.getTeam(b.team) ? 'friendly'+b.type : b.type;
+    const size = (b.type === 'airstrike' || b.type === 'supplyairstrike') ? 200 : (b.type === 'spike' ? 50 : 100), type = ['airstrike', 'fire'].includes(b.type) && Engine.getTeam(this.team) === Engine.getTeam(b.team) ? 'friendly'+b.type : b.type;
     GUI.drawImage(PixelTanks.images.blocks[this.zone][type], b.x, b.y, size, size, 1, 0, 0, 0, 0, undefined, type.includes('fire') ? Math.floor(((Date.now()-this.animate)%400)/100)*50 : 0, 0, type.includes('fire') ? 50 : PixelTanks.images.blocks[this.zone][type].width, PixelTanks.images.blocks[this.zone][type].height);
   }
 
