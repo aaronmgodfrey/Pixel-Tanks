@@ -52,6 +52,7 @@ class AI {
       this.raw[p] = this[p];
       Object.defineProperty(this, p, {get: () => this.raw[p], set: v => this.setValue(p, v), configurable: true});
     }
+    this.identify();
     this.host.ai.push(this);
   }
 
@@ -461,6 +462,9 @@ class AI {
   }
 
   identify() {
+    if (this.ded) return;
+    clearTimeout(this.lookout);
+    this.lookout = setTimeout(() => this.identify(), Math.random()*500+500);
     let previousTargetExists = false;
     // filter to all other tanks, sort by distance
     const tanks = this.host.pt.concat(this.host.ai).filter(t => t.x && t.y).sort((a, b) => {
@@ -578,6 +582,7 @@ class AI {
   }
   destroy() {
     this.host.destroyEntity(this);
+    clearTimeout(this.lookout);
     clearInterval(this.lookInterval);
     clearInterval(this.fireInterval);
     const index = this.host.ai.indexOf(this);
