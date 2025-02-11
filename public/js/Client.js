@@ -298,7 +298,7 @@ class Client {
     if (this.ded && t.invis && !p) return;
     if ((t.invis && Engine.getTeam(this.team) === Engine.getTeam(t.team)) || t.ded) a = .5;
     if (t.invis && Engine.getTeam(this.team) !== Engine.getTeam(t.team) && !t.ded) a = Math.sqrt(Math.pow(t.x-this.tank.x, 2)+Math.pow(t.y-this.tank.y, 2)) > 200 && !this.ded ? 0 : .2;
-    if (t.ded && (t.role !== undefined || !this.ded)) return;
+    if (t.ded && (t.role !== undefined || !this.ded)) a = 0;
     GUI.draw.globalAlpha = a;
     if (t.role !== 0) PixelTanks.renderBottom(t.x, t.y, 80, t.color, t.baseRotation); else PixelTanks.renderBase(t.x, t.y, 80, t.color, t.baseRotation);
     GUI.drawImage(PixelTanks.images.tanks[t.role === 0 ? 'base' : 'bottom'+(t.baseFrame ? '' : '2')], t.x, t.y, 80, 80, a, 40, 40, 0, 0, t.baseRotation);
@@ -378,7 +378,7 @@ class Client {
       username += ' ['+t.team.split(':')[1]+']';
     }
     
-    if (!(t.ded && t.role)) if (teamname === 'RED') {
+    if (!(t.ded && (t.role || this.ded)) if (teamname === 'RED') {
       GUI.drawText(username, t.x+40, t.y-25, 50, '#ff0000', 0.5);
     } else if (teamname === 'BLUE') {
       GUI.drawText(username, t.x+40, t.y-25, 50, '#0000ff', 0.5);
