@@ -599,7 +599,7 @@ class Client {
             GUI.draw.fillStyle = PixelTanks.userData.color;
             GUI.draw.globalAlpha = 1;
             GUI.draw.fillRect([308, 408, 1120, 1196, 1272][i], 952+(15-mana)/15*48, 48, 48);
-            GUI.drawText((Math.ceil(this.mana)/10).toFixed(1), 353, 998, 15, '#FFFFFF', 1);
+            GUI.drawText(mana.toFixed(1), 353, 998, 15, '#FFFFFF', 1);
           }
           continue;
         }
