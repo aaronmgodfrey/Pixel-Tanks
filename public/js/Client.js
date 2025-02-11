@@ -68,7 +68,7 @@ class Client {
     if (this.multiplayer) this.connect();
     if (!this.multiplayer) this.generateWorld();
     PixelTanks.stopSound('menu', 0);
-    PixelTanks.playSound(String(this.zone), 0);
+    PixelTanks.playSound(this.zone, 0);
     for (const listener of Client.listeners) document.addEventListener(listener, this[listener] = this[listener].bind(this));
     this.render = requestAnimationFrame(() => this.frame());
     Client.viewport = document.getElementById('viewport');
@@ -979,7 +979,7 @@ class Client {
       clearInterval(this.sendInterval);
       this.socket.close();
     } else this.world.i.forEach(i => clearInterval(i));
-    PixelTanks.stopSound(String(this.zone), 0);
+    PixelTanks.stopSound(this.zone, 0);
     for (const listener of Client.listeners) document.removeEventListener(listener, this[listener]);
     cancelAnimationFrame(this.render);
     Client.viewport.style.visibility = 'hidden';
