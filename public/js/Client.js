@@ -91,7 +91,7 @@ class Client {
     this._ups++;
     if (data.global) this.hostupdate.global = data.global;
     if (data.zone && this.zone !== data.zone) {
-      PixelTanks.stopSound(this.zone);
+      if (this.zone) PixelTanks.stopSound(this.zone);
       PixelTanks.playSound(this.zone = data.zone, 0);
     }
     if (data.tickspeed) this.hostupdate.tickspeed = data.tickspeed;
@@ -964,7 +964,11 @@ class Client {
       this.hostupdate.logs = this.world.logs.reverse();
       this.hostupdate.global = this.world.global;
       this.hostupdate.tickspeed = PixelTanks.tickspeed;
-      this.zone = this.world.zone;
+      if (this.zone !== this.world.zone) {
+        if (this.zone) PixelTanks.stopSound(this.zone);
+        PixelTanks.playSound(this.zone = this.world.zone, 0);
+      }
+      
       for (const property of Object.keys(this.hostupdate.pt[0].raw)) this.hostupdate.pt[0][property] = this.hostupdate.pt[0].raw[property];
     }
     if (x === this.lastUpdate.x && y === this.lastUpdate.y && r === this.lastUpdate.r && use.length === 0 && fire.length === 0 && animation === this.lastUpdate.animation) return;
