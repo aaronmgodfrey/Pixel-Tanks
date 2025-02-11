@@ -513,7 +513,7 @@ class Client {
     }
     GUI.draw.setTransform(1, 0, 0, 1, -player.x+760, -player.y+460);
     // create adaptive floor rendering
-    for (let miy = (this.tank.y-750)/3000, may = (this.tank.y+750)/3000, y = Math.min(Math.floor(miy), Math.ceil(miy), 0); y <= Math.max(Math.floor(may), Math.ceil(may), 1); y++) for (let mix = (this.tank.x-1050)/3000, max = (this.tank.x+1050)/3000, x = Math.min(Math.floor(mix), Math.ceil(mix), 0); x <= Math.max(Math.floor(max), Math.ceil(max), 1); x++) GUI.drawImage(PixelTanks.images.blocks[this.zone].floor, x*3000, y*3000, 3000, 3000, 1);
+    for (let miy = (this.tank.y-750)/3000, may = (this.tank.y+750)/3000, y = Math.max(Math.min(Math.floor(miy), Math.ceil(miy)), 0); y <= Math.min(Math.max(Math.floor(may), Math.ceil(may)), 1); y++) for (let mix = (this.tank.x-1050)/3000, max = (this.tank.x+1050)/3000, x = Math.max(Math.min(Math.floor(mix), Math.ceil(mix)), 0); x <= Math.min(Math.max(Math.floor(max), Math.ceil(max)), 1); x++) GUI.drawImage(PixelTanks.images.blocks[this.zone].floor, x*3000, y*3000, 3000, 3000, 1);
     for (let miy = (this.tank.y-750)/100, may = (this.tank.y+750)/100, y = Math.min(Math.floor(miy), Math.ceil(miy)); y <= Math.max(Math.floor(may), Math.ceil(may)); y++) for (let mix = (this.tank.x-1050)/100, max = (this.tank.x+1050)/100, x = Math.min(Math.floor(mix), Math.ceil(mix)); x <= Math.max(Math.floor(max), Math.ceil(max)); x++) if (!(x >= 0 && x <= 59 && y >= 0 && y <= 59)) GUI.drawImage(PixelTanks.images.blocks[this.zone].void, x*100, y*100, 100, 100, 1);
     for (const shot of s) this.drawShot(shot);
     for (const block of b) this.drawBlock(block);
