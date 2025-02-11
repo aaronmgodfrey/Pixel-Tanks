@@ -748,7 +748,7 @@ const Commands = {
     Storage.mutes.splice(Storage.mutes.indexOf(data[1]), 1);
     for (const s of Object.values(servers)) if (s.pt.some(t => t.username === data[1])) s.logs.push({m: data[1]+' was unmuted by '+t.username, c: '#0000FF'});
   }],
-  restart: [Object, 1, 1, function() {
+  restart: [Object, 2, 1, function() {
     process.exit(1);
   }],
   sread: [Object, 1, 2, function(data) {
