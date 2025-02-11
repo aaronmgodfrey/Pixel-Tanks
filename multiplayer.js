@@ -804,8 +804,10 @@ const Commands = {
       for (const t of server.pt) server.send(t);
     }
   }],
-  whitelist: [Object, 2, 2, data => {
-    if (!Storage.whitelist.includes(data[1])) Storage.whitelist.push(data[1]);
+  whitelist: [Object, 2, 2, (data, socket, server) => {
+    if (Storage.whitelist.includes(data[1])) return;
+    Storage.whitelist.push(data[1]);
+    if (server && server.logs) server.logs.push({m: data[1]+' was added to the whitelist!', c: '#00ff00'});
   }],
   unwhitelist: [Object, 2, 2, data => {
     Storage.whitelist = Storage.whitelist.filter(s => s !== data[1]);
