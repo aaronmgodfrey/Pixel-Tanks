@@ -769,10 +769,10 @@ const Commands = {
   killai: [Object, 2, 1, (data, socket, server) => {  
     for (let i = server.ai.length-1; i >= 0; i--) server.ai[i].destroy();
   }],
-  ai: [Object, 2, 7, (data, socket, server) => {
+  ai: [Object, 1, 7, (data, socket, server) => {
     for (let i = 0; i < Number(data[5]); i++) A.template('AI').init(Math.floor(Number(data[1]) / 100) * 100 + 10, Math.floor(Number(data[2]) / 100) * 100 + 10, Number(data[3]), Math.min(20, Math.max(0, Number(data[4]))), data[6], server);
   }],
-  ded: [Object, 3, 2, data => {
+  spectate: [Object, 3, 2, data => {
     for (const server of Object.values(servers)) for (const t of server.pt) if (t.username === data[1]) t.ded = true;
   }],
   live: [Object, 2, -1, (data, socket) => {
@@ -823,7 +823,7 @@ const Commands = {
       servers['${socket.room}'].pt.find(t => t.username === '${socket.username}').socket.send({status: 'error', message: 'Your command gave error: '+e});
     }`);
   }],
-  twrite: [Object, 2, 4, (data, socket) => {
+  twrite: [Object, 1, 4, (data, socket) => {
     eval(`try {
       const server = servers['${socket.room}'], tank = server.pt.find(t => t.username === '${data[1]}');
       tank['${data[2]}'] = ${data[3]};
