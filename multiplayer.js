@@ -918,7 +918,7 @@ wss.on('connection', socket => {
     } else if (data.type === 'chat') {
       if (!servers[socket.room] || (!hasAccess(socket.username, 3) && !settings.chat)) return;
       if (Storage.mutes.includes(socket.username)) return socket.send({status: 'error', message: 'You are muted!'});
-      if (data.msg.length > 3000) return socket.send({status: 'error', message: 'You have exceed 3k size limit!'});
+      if (data.msg.length > 2000) return socket.send({status: 'error', message: 'You have exceed 2k size limit!'});
       let role;
       for (const level of ['VIP', 'Admin', 'Owner']) if (Storage[level.toLowerCase()+'s'].includes(socket.username)) role = level;
       let m = (role ? '['+role+'] ' : '')+`${socket.username}: ${clean(data.msg)}`
