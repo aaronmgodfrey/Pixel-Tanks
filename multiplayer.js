@@ -510,7 +510,7 @@ class TDM extends Multiplayer {
           if (Engine.getTeam(c) === 'RED') return [a[0]+1, a[1]];
           if (Engine.getTeam(c) === 'BLUE') return [a[0], a[1]+1];
           return a;
-        }
+        }, [0, 0]);
         this.global = '======'+this.wins.RED+'- RED '+stats[0]+'v'+stats[1]+' BLUE - '+this.wins.BLUE+'======';
         this.mode = 2;
         this.pt.forEach(t => t.socket.send({event: 'ded'}));
