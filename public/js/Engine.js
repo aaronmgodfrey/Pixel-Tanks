@@ -24,6 +24,7 @@ class Engine {
     if (isNaN(this.difficulty)) this.difficulty = 20;
     this.levelReader(levels[Math.floor(Math.random()*levels.length)]);
     this.i.push(setInterval(() => this.tick(), 1000/60));
+    this.i.push(setInterval(() => this.slowtick(), 1000/20));
   }
 
   add(data) {
@@ -192,10 +193,14 @@ class Engine {
     }
   }
 
+  slowtick() {
+    for (const a of this.ai) a.identify();
+  }
+
   tick() {
     this.ontick();
     for (const s of this.s) s.update();
-    for (let i = this.ai.length-1; i >= 0; i--) this.ai[i].update();
+    for (const a of this.ai) a.update();
     for (const t of this.pt) t.update();
   }
 
