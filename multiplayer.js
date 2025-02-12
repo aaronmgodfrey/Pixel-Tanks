@@ -39,7 +39,7 @@ const auth = async({username, type, password}, socket) => {
 }
 const database = async({token, username, type, key, value}, socket) => {
   if (!token) return socket.send({status: 'error', message: 'No token.'});
-  //if (!valid(token, username)) return socket.send({status: 'error', message: 'Invalid Token! The Authentication Servers may have restarted since you last logged in. Login again to fix the problem.'});
+  if (!valid(token, username)) return socket.send({status: 'error', message: 'Invalid Token! The Authentication Servers may have restarted since you last logged in. Login again to fix the problem.'});
   if (type === 'get') {
     socket.send({status: 'success', type, data: await db.findOne({username}, {projection: {password: 0}})});
   } else if (type === 'set') {
