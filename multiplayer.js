@@ -210,7 +210,7 @@ class Multiplayer extends Engine {
       t.sendTimer = setTimeout(() => this.send(t), (t.lastSend+1000/settings.upsl)-Date.now());
       return t.delayed = true;
     }
-    if (!t.logs) t.logs = Math.max(0, this.logs.length-50);
+    if (!t.logs) t.logs = 0; //Math.max(0, this.logs.length-50);
     t.msg.logs = this.logs.slice(t.logs).concat(t.privateLogs);
     t.msg.tickspeed = tickspeed;
     t.logs = this.logs.length;
