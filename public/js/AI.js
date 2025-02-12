@@ -328,14 +328,14 @@ class AI {
       tpx = tx;
       tpy = ty;
     }
-    coords = this.getCoords(route, epx, epy, tpx, tpy);
-    if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy);
+    coords = this.getCoords(route, epx, epy, tpx, tpy, sx, sy);
+    if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy);
     if (!coords.length) return;
     coords.sort((a, b) => this.mode !== 2 ? a.d - b.d : b.d - a.d);
     let clone = [...coords]; // TEMP
     let r, p;
     do {
-      if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy);
+      if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy);
       r = this.choosePath(coords.length);
       p = this.pathfind(sx, sy, coords[r].x, coords[r].y); // loop through if first fails????
       coords.splice(r, 1);
@@ -389,7 +389,7 @@ class AI {
     }
     if (this.mode !== 0) this.path = {p: Engine.pathfind(sx, sy, tx, ty, this.host.map.clone()).slice(0, 5), m: this.mode, t: Date.now(), o: Date.now()}; */
   }
-  getCoords(route, epx, epy, tpx, tpy) {
+  getCoords(route, epx, epy, tpx, tpy, sx, sy) {
     const coords = [];
     for (const c of AI.routes[route]) {
       const x = c[0]+epx, y = c[1]+epy, d = (x-tpx)**2+(y-tpy)**2;
