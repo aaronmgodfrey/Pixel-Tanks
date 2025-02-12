@@ -693,7 +693,7 @@ const Commands = {
   }],
   loadmap: [FFA, 2, 2, (data, socket, server) => {
     //if (isNaN(levelID) || levelID % 1 !== 0 || levelID >= ffaLevels.length) return socket.send({status: 'error', message: 'Out of range or invalid input.'});
-    server.levelReader(JSON.parse(data[1].replace(/'/g, '"'));
+    server.levelReader(JSON.parse(data[1].replace(/'/g, '"')));
     for (const t of server.pt) {
       let ox = t.x, oy = t.y;
       t.x = server.spawn.x;
