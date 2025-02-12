@@ -307,7 +307,7 @@ class AI {
     if (this.role === 3 && this.bond) {
       epx = Math.floor((this.bond.x+40)/100);
       epy = Math.floor((this.bond.y+40)/100);
-    } else if (this.mode === 0 || (this.mode === 1 && ranged) || this.mode === 2) {
+    } else if (this.mode === 0 || (this.mode === 1 && (ranged || !this.seeTarget)) || this.mode === 2) {
       epx = sx;
       epy = sy;
     } else if (this.mode === 1) {
@@ -328,16 +328,14 @@ class AI {
       tpx = tx;
       tpy = ty;
     }
-    for (const c of AI.routes[route]) {
-      const x = c[0]+epx, y = c[1]+epy, d = (x-tpx)**2+(y-tpy)**2; // splice if blocked
-      if (x >= 0 && y >= 0 && x <= 59 && y <= 59 && !(x === sx && y === sy)) coords.push({x, y, d});
-    }
+    coords = this.getCoords(route, epx, epy, tpx, tpy);
+    if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy);
     if (!coords.length) return;
     coords.sort((a, b) => this.mode !== 2 ? a.d - b.d : b.d - a.d);
     let clone = [...coords]; // TEMP
     let r, p;
     do {
-      if (!coords.length) return;
+      if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy);
       r = this.choosePath(coords.length);
       p = this.pathfind(sx, sy, coords[r].x, coords[r].y); // loop through if first fails????
       coords.splice(r, 1);
@@ -391,7 +389,14 @@ class AI {
     }
     if (this.mode !== 0) this.path = {p: Engine.pathfind(sx, sy, tx, ty, this.host.map.clone()).slice(0, 5), m: this.mode, t: Date.now(), o: Date.now()}; */
   }
-
+  getCoords(route, epx, epy, tpx, tpy) {
+    const coords = [];
+    for (const c of AI.routes[route]) {
+      const x = c[0]+epx, y = c[1]+epy, d = (x-tpx)**2+(y-tpy)**2;
+      if (x >= 0 && y >= 0 && x <= 59 && y <= 59 && !(x === sx && y === sy) && this.host.cells[y][x].walkable) coords.push([x, y]);
+    }
+    return coords;
+  }
   choosePath(p) {
     let m = Math.random();
     return (m < .7 || p === 1) ? 0 : (m < .95 ? 1 : Math.floor(Math.random()*p));
