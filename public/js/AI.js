@@ -337,7 +337,7 @@ class AI {
     do {
       if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy);
       r = this.choosePath(coords.length);
-      p = this.pathfind(sx, sy, coords[r].x, coords[r].y); // loop through if first fails????
+      p = this.pathfind(sx, sy, coords[r][0], coords[r][1]); // loop through if first fails????
       coords.splice(r, 1);
     } while ((!p.length || p.length > 10) && coords.length);
     this.path = {p, m: this.mode, t: Date.now(), f: 0, epx, epy, tpx, tpy, coords: clone}; // change path if mode change
