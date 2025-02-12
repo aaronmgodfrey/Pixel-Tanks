@@ -331,7 +331,7 @@ class AI {
     coords = this.getCoords(route, epx, epy, tpx, tpy, sx, sy);
     if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy);
     if (!coords.length) return;
-    coords.sort((a, b) => this.mode !== 2 ? a.d - b.d : b.d - a.d);
+    coords.sort((a, b) => this.mode !== 2 ? a[2] - b[2] : b[2] - a[2]);
     let clone = [...coords]; // TEMP
     let r, p;
     do {
@@ -393,7 +393,7 @@ class AI {
     const coords = [];
     for (const c of AI.routes[route]) {
       const x = c[0]+epx, y = c[1]+epy, d = (x-tpx)**2+(y-tpy)**2;
-      if (x >= 0 && y >= 0 && x <= 59 && y <= 59 && !(x === sx && y === sy) && this.host.cells[y][x].walkable) coords.push([x, y]);
+      if (x >= 0 && y >= 0 && x <= 59 && y <= 59 && !(x === sx && y === sy) && this.host.cells[y][x].walkable) coords.push([x, y, d]);
     }
     return coords;
   }
