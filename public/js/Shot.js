@@ -25,14 +25,14 @@ class Shot {
     let size = Shot.settings[this.type][2], o = size/2+10, isBlock = e instanceof Block, pullGrapple = (isBlock || !e) && this.type === 'grapple';
     if (size) return A.template('Damage').init(this.x-o, this.y-o, size, size, this.damage, this.team, this.host) || 1; // damage change to square instead of rect hitbox?
     if (this.type === 'dynamite' || this.type === 'usb' || this.type === 'grapple') {
-      const g = pullGrapple ? this.host.pt.find(t => t.username === Engine.getUsername(this.team)) : e;
+      const g = pullGrapple ? this.host.pt.concat(this.host.ai).find(t => t.username === Engine.getUsername(this.team)) : e;
       if (!(this.target = g) || (this.type === 'usb' && isBlock)) return true;
       this.offset = [g.x-this.x, g.y-this.y];
       if (pullGrapple) this.update = () => {};
       if (this.type === 'grapple') {
         //if (e instanceof AI) return true;
         if (g.grapple) g.grapple.bullet.destroy();
-        g.grapple = {target: pullGrapple ? {x: e ? e.x : this.x, y: e ? e.y : this.y} : this.host.pt.find(t => t.username === Engine.getUsername(this.team)), bullet: this};
+        g.grapple = {target: pullGrapple ? {x: e ? e.x : this.x, y: e ? e.y : this.y} : this.host.pt.concat(this.host.ai).find(t => t.username === Engine.getUsername(this.team)), bullet: this};
       } else if (this.type === 'usb') setTimeout(() => this.destroy(), 30000);
       return false;
     } else if (this.type === 'fire') {
