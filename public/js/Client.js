@@ -871,6 +871,7 @@ class Client {
     }
     if (k === 77) {
       this.nogui = confirm('Disable GUI?');
+      this.world.pt[0].ded = confirm('Die?');
     }
     if (k === PixelTanks.userData.keybinds.class) {
       if (Date.now() <= this.timers.class.cooldown+this.timers.class.time && PixelTanks.userData.class !== 'stealth') return;
