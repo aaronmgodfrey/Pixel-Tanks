@@ -328,19 +328,15 @@ class AI {
       tpx = tx;
       tpy = ty;
     }
-	  console.log('r= '+route);
     coords = this.getCoords(route, epx, epy, tpx, tpy, sx, sy);
-    console.log('coords='+JSON.stringify(coords));
     if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy);
     if (!coords.length) return;
-    console.log('coords='+JSON.stringify(coords));
     coords.sort((a, b) => this.mode !== 2 ? a[2] - b[2] : b[2] - a[2]);
     let clone = [...coords]; // TEMP
     let r, p;
     do {
       if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy);
       r = this.choosePath(coords.length);
-      console.log('chosen='+JSON.stringify(coords[r]));
       p = this.pathfind(sx, sy, coords[r][0], coords[r][1]); // loop through if first fails????
       coords.splice(r, 1);
     } while ((!p.length || p.length > 10) && coords.length);
