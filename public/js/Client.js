@@ -410,7 +410,7 @@ class Client {
 
     if (t.animation) GUI.drawImage(PixelTanks.images.animations[t.animation.id], t.x, t.y, 80, 90, 1, 0, 0, 0, 0, undefined, t.animation.frame*40, 0, 40, 45);
 
-    if (t.role) { // if a pathfinding bot
+    if (t.path) { // if a pathfinding bot
       for (const possible of t.path.coords) {
         GUI.draw.fillStyle = '#000000';
         GUI.draw.fillRect(100*possible.x+25, 100*possible.y+25, 50, 50);
