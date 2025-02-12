@@ -394,7 +394,7 @@ class AI {
 
   choosePath(p) {
     let m = Math.random();
-    return m < .7 ? 0 : (m < .95 ? 1 : Math.floor(Math.random()*p));
+    return (m < .7 || p === 1) ? 0 : (m < .95 ? 1 : Math.floor(Math.random()*p));
   }
   getCells(c) {
     const n = [];
