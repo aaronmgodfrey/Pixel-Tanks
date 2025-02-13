@@ -338,6 +338,7 @@ class AI {
       if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy);
       r = this.choosePath(coords.length);
       p = this.pathfind(sx, sy, coords[r][0], coords[r][1]); // loop through if first fails????
+      for (const c of p) for (const b of this.host.cells[c[1]][c[0]]) if (b instanceof Block && b.type === 'airstrike' && Engine.getTeam(b.team) !== Engine.getTeam(this.team)) p = []; 
       coords.splice(r, 1);
     } while ((!p.length || p.length > 10) && coords.length);
     this.path = {p, m: this.mode, t: Date.now(), f: 0, epx, epy, tpx, tpy, coords: clone}; // change path if mode change
@@ -393,11 +394,7 @@ class AI {
     const coords = [];
     for (const c of AI.routes[route]) {
       const x = c[0]+epx, y = c[1]+epy, d = (x-tpx)**2+(y-tpy)**2;
-      if (x >= 0 && y >= 0 && x <= 59 && y <= 59 && !(x === sx && y === sy) && this.host.map[y][x].walkable) {
-	let b = true;
-	for (const entity of this.host.cells[y][x]) if (entity instanceof Block && entity.type === 'airstrike' && !Engine.match(this, entity)) b = false;
-	if (b) coords.push([x, y, d]);
-      }
+      if (x >= 0 && y >= 0 && x <= 59 && y <= 59 && !(x === sx && y === sy) && this.host.map[y][x].walkable) coords.push([x, y, d]);
     }
     return coords;
   }
