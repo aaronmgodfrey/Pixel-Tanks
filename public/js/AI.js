@@ -117,7 +117,7 @@ class AI {
         if (item === 'spike') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#spike'); // 10
         if (item === 'reflector') if (this.mode !== 0) this.host.useAbility(this, 'reflector'); // 10
         this['canItem'+i] = false;
-        setTimeout(() => (this['canItem'+i] = true), 1000*[30, 30, 30, 4, 8, 10, 10, 25, 20, 40, 25, 20][['duck_tape', 'super_glu', 'shield', 'weak', 'strong', 'spike', 'reflector', 'usb', 'flashbang', 'bomb', 'dynamite', 'airstrike'].indexOf(item)]);
+        setTimeout(() => (this['canItem'+i] = true), 1000*[30, 30, 30, 4, 8, 10, 10, 25, 20, 40, 25, 20][['duck_tape', 'super_glu', 'shield', 'weak', 'strong', 'spike', 'reflector', 'usb', 'torpedo', 'bomb', 'dynamite', 'airstrike'].indexOf(item)]);
       } else if (Math.random() < 1/300 && this.items[i] === 'dynamite') this.host.useAbility(this, 'dynamite'); // TEMP
     }
   }
