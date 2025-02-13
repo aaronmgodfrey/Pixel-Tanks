@@ -108,7 +108,7 @@ class AI {
         // dyna, usb, crate, missile
 	if (item === 'dynamite') if (this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'dynamite');
 	if (item === 'usb') if (this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'usb');
-	if (item === 'torpedo') {
+	if (item === 'torpedo' && this.seeTarget) {
 	  this.fireCalc(this.target.x, this.target.y, 'torpedo');
           for (let i of [10, 20, 30, 40, 50, 60]) setTimeout(() => this.fireCalc(this.target.x, this.target.y, 'torpedo'), i);
 	}
