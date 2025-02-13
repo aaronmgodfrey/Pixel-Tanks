@@ -56,7 +56,7 @@ window.sourceMap = {
   deathEffect: {
     path: 'animations',
     common: ['explode', 'nuke', 'insta', 'evan'],
-    uncommon: ['anvil', 'gameover'],
+    uncommon: ['anvil', 'gameover', 'erase'],
     rare: ['magic', 'shatter'],
     epic: ['battery', 'skull', 'banhammer', 'blackhole'],
     legendary: ['error', 'tombstone'],
