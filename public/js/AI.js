@@ -338,7 +338,10 @@ class AI {
       if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy);
       r = this.choosePath(coords.length);
       p = this.pathfind(sx, sy, coords[r][0], coords[r][1]); // loop through if first fails????
-      for (const c of p) for (const b of this.host.cells[c[1]][c[0]]) if (b instanceof Block && b.type === 'airstrike' && Engine.getTeam(b.team) !== Engine.getTeam(this.team)) p = []; 
+      for (const c of p) for (const b of this.host.cells[c[1]][c[0]]) if (b instanceof Block && b.type === 'airstrike' && Engine.getTeam(b.team) !== Engine.getTeam(this.team)) {
+	      console.log('path intersected airstrike');
+	      p = []; 
+      }
       coords.splice(r, 1);
     } while ((!p.length || p.length > 10) && coords.length);
     this.path = {p, m: this.mode, t: Date.now(), f: 0, epx, epy, tpx, tpy, coords: clone}; // change path if mode change
