@@ -74,12 +74,12 @@ class AI {
     }
     if (this.obstruction && !this.seeTarget) {
       this.tr = Engine.toAngle(this.obstruction.x-(this.x+40), this.obstruction.y-(this.y+40));
-      if (this.canPowermissle && this.role !== 0 && Math.random() <= 1/600) this.fireCalc(this.obstruction.x, this.obstruction.y, 'powermissle');
+      if (this.canPowermissle && this.role !== 0 && Math.random() <= 1/200) this.fireCalc(this.obstruction.x, this.obstruction.y, 'powermissle');
       if (this.canFire) this.fireCalc(this.obstruction.x, this.obstruction.y);
     } else if (this.mode !== 0) {
       this.tr = Engine.toAngle(this.target.x-this.x, this.target.y-this.y);
-      if (this.canPowermissle && this.role !== 0 && Math.random() <= 1/600) this.fireCalc(this.target.x, this.target.y, 'powermissle');
-      if ((this.canGrapple || true) && (this.role !== 0 || true) && Math.random() <= 1/600 && this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'grapple');
+      if (this.canPowermissle && this.role !== 0 && Math.random() <= 1/200) this.fireCalc(this.target.x, this.target.y, 'powermissle');
+      if ((this.canGrapple || true) && (this.role !== 0 || true) && Math.random() <= 1/100 && this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'grapple');
       if (this.canFire) this.fireCalc(this.target.x, this.target.y);
     }
     if (this.canClass && this.mode !== 0 && Math.random() < 1/300) {
