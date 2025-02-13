@@ -517,7 +517,7 @@ class AI {
     if (type === 'powermissle') {
       this.canPowermissle = false;
       setTimeout(() => (this.canPowermissle = true), 10000);
-    } else if (type !== 'megamissle') {
+    } else if (type !== 'megamissle' && type !== 'grapple') {
       this.canFire = false;
       setTimeout(() => (this.canFire = true), type === 'shotgun' ? 600 : 200);
     }
