@@ -106,14 +106,14 @@ class AI {
         if (item === 'duck_tape') if (this.hp < this.maxHp*.75) this.host.useAbility(this, 'tape'); // 30
         if (item === 'shield') if (this.shields === 0) this.host.useAbility(this, 'shield'); // 30
         // ded items
-        // dyna, usb
+        // dyna, usb, crate, missile
         if (item === 'weak') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#weak'); // 4
         if (item === 'strong') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#strong'); // 8
         if (item === 'spike') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#spike'); // 10
         if (item === 'reflector') if (this.mode !== 0) this.host.useAbility(this, 'reflector'); // 10
         if (!cooldown) continue; 
         this['canItem'+i] = false;
-        setTimeout(() => (this['canItem'+i] = true), cooldown);
+        setTimeout(() => (this['canItem'+i] = true), 1000*[30, 30, 30, 4, 8, 10, 10, 25, 20, 40, 25, 20][['duck_tape', 'super_glu', 'shield', 'weak', 'strong', 'spike', 'reflector', 'usb', 'flashbang', 'bomb', 'dynamite', 'airstrike'].indexOf(item)]);
       }
     }
   }
