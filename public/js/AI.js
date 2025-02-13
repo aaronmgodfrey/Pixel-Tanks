@@ -22,7 +22,7 @@ class AI {
     this.seeUser = this.target = this.obstruction = this.bond = this.path = this.damage = false;
 	  
     this.r = this.br = this.tr = this.baseRotation = this.baseFrame = this.mode = this.pushback = this.immune = this.shields = 0;
-    this.canFire = this.canPowermissle = this.canBoost = this.canBashed = true;
+    this.canFire = this.canPowermissle = this.canBoost = this.canBashed = this.canGrapple = true;
     this.fire = this.reloading = this.canClass = false;
 	  
     this.gambleCounter = this.fireTime = 0;
@@ -79,7 +79,7 @@ class AI {
     } else if (this.mode !== 0) {
       this.tr = Engine.toAngle(this.target.x-this.x, this.target.y-this.y);
       if (this.canPowermissle && this.role !== 0 && Math.random() <= 1/200) this.fireCalc(this.target.x, this.target.y, 'powermissle');
-      if ((this.canGrapple || true) && (this.role !== 0 || true) && Math.random() <= 1/100 && this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'grapple');
+      if (this.canGrapple && this.role !== 0 && Math.random() <= 1/100 && this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'grapple');
       if (this.canFire) this.fireCalc(this.target.x, this.target.y);
     }
     if (this.canClass && this.mode !== 0 && Math.random() < 1/300) {
@@ -516,7 +516,10 @@ class AI {
     if (type === 'powermissle') {
       this.canPowermissle = false;
       setTimeout(() => (this.canPowermissle = true), 10000);
-    } else if (type !== 'megamissle' && type !== 'grapple') {
+    } else if (type === 'grapple') {
+      this.canGrapple = false;
+      setTimeout(() => (this.canGrapple = true), 5000);
+    } else if (type !== 'megamissle') {
       this.canFire = false;
       setTimeout(() => (this.canFire = true), type === 'shotgun' ? 600 : 200);
     }
