@@ -109,8 +109,8 @@ class AI {
 	if (item === 'dynamite') if (this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'dynamite');
 	if (item === 'usb') if (this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'usb');
 	if (item === 'torpedo') {
-	  this.fireCalc(this.target.x, this.target.y, 'dynamite');
-          for (let i of [10, 20, 30, 40, 50, 60]) setTimeout(() => this.fireCalc(this.target.x, this.target.y, 'dynamite'), i);
+	  this.fireCalc(this.target.x, this.target.y, 'torpedo');
+          for (let i of [10, 20, 30, 40, 50, 60]) setTimeout(() => this.fireCalc(this.target.x, this.target.y, 'torpedo'), i);
 	}
         if (item === 'weak') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#weak'); // 4
         if (item === 'strong') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#strong'); // 8
