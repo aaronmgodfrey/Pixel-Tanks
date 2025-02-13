@@ -394,7 +394,11 @@ class AI {
     const coords = [];
     for (const c of AI.routes[route]) {
       const x = c[0]+epx, y = c[1]+epy, d = (x-tpx)**2+(y-tpy)**2;
-      if (x >= 0 && y >= 0 && x <= 59 && y <= 59 && !(x === sx && y === sy) && this.host.map[y][x].walkable) coords.push([x, y, d]);
+      if (x >= 0 && y >= 0 && x <= 59 && y <= 59 && !(x === sx && y === sy) && this.host.map[y][x].walkable) {
+	let b = true;
+	for (const entity of this.host.cells[y][x]) if (entity instanceof Block && entity.type === 'airstrike' && !Engine.match(this, entity)) b = false;
+	if (b) coords.push([x, y, d]);
+      }
     }
     return coords;
   }
