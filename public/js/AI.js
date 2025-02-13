@@ -525,7 +525,7 @@ class AI {
     } else if (type === 'grapple') {
       this.canGrapple = false;
       setTimeout(() => (this.canGrapple = true), 5000);
-    } else if (type !== 'megamissle') {
+    } else if (type !== 'megamissle' && type !== 'torpedo' && type !== 'usb' && type !== 'dynamite') {
       this.canFire = false;
       setTimeout(() => (this.canFire = true), type === 'shotgun' ? 600 : 200);
     }
