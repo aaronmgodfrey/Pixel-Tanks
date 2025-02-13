@@ -59,7 +59,7 @@ class AI {
   regen() {}
 	
   giveAbilities() {
-    const available = ['airstrike', 'super_glu', 'duck_tape', 'shield',/* 'flashbang',*/ 'bomb', 'dynamite', 'usb', 'weak', 'strong', 'spike', 'reflector'];
+    const available = ['airstrike', 'super_glu', 'duck_tape', 'shield', 'dynamite', 'usb', 'weak', 'strong', 'spike', 'reflector', 'torpedo'];
     const classes = ['tactical', 'stealth', 'warrior', 'builder', 'fire', 'medic'];
     for (let i = 0; i < 4; i++) this.items.push(available[Math.floor(Math.random()*available.length)]);
     this.class = classes[Math.floor(Math.random()*classes.length)];
@@ -106,6 +106,12 @@ class AI {
         if (item === 'shield') if (this.shields === 0) this.host.useAbility(this, 'shield'); // 30
         // ded items
         // dyna, usb, crate, missile
+	if (item === 'dynamite') if (this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'dynamite');
+	if (item === 'usb') if (this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'usb');
+	if (item === 'torpedo') {
+	  this.fireCalc(this.target.x, this.target.y, 'dynamite');
+          for (let i of [10, 20, 30, 40, 50, 60]) setTimeout(() => this.fireCalc(this.target.x, this.target.y, 'dynamite'), i);
+	}
         if (item === 'weak') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#weak'); // 4
         if (item === 'strong') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#strong'); // 8
         if (item === 'spike') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#spike'); // 10
@@ -113,7 +119,7 @@ class AI {
         this['canItem'+i] = false;
         setTimeout(() => (this['canItem'+i] = true), 1000*[30, 30, 30, 4, 8, 10, 10, 25, 20, 40, 25, 20][['duck_tape', 'super_glu', 'shield', 'weak', 'strong', 'spike', 'reflector', 'usb', 'flashbang', 'bomb', 'dynamite', 'airstrike'].indexOf(item)]);
       }
-    }
+    } else if (Math.random() < 1/300 && this.items[i] === 'dynamite') this.host.useAbility(this, 'dynamite'); // TEMP
   }
 
   setValue(p, v) {
