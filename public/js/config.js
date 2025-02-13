@@ -82,6 +82,7 @@ window.sourceMap = {
       darksouls_: {frames: 56, speed: 50, kill: 33, type: 2},
       tombstone_: {frames: 36, speed: 50, kill: 8, type: 1},
       blackhole_: {frames: 40, speed: 100, kill: 28, type: 2},
+      erase_: {frames: 17, speed: 100, kill: 10, type: 2},
     }
   },
   sounds: {
