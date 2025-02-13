@@ -427,6 +427,7 @@ class Menus {
             const classX = [701, 810, 810, 701, 810, 701], classY = [348, 348, 564, 564, 456, 456];
             for (let i = 0; i < 6; i++) {
               if (!PixelTanks.userData.classes[i]) GUI.drawImage(PixelTanks.images.menus.locked, classX[i], classY[i], 88, 88, 1);
+              GUI.drawText(['Tactical', 'Stealth', 'Builder', 'Fire', 'Medic', 'Warrior'][i], classX[i]+44, classY[i]+88, 30, '#FFFFFF', .5);
             }
             GUI.draw.strokeStyle = '#FFFF00';
             GUI.draw.lineWidth = 10;
