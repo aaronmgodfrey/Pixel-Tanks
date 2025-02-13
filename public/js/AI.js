@@ -89,7 +89,7 @@ class AI {
       if (this.class === 'warrior') {
         this.canBoost = false;
         this.immune = Date.now();
-        setTimeout(() => (this.canBoost = true), 5000);
+        this.booster = setTimeout(() => (this.canBoost = true), 5000);
         this.host.useAbility(this, 'bash');
       }
       if (this.class === 'medic') this.host.useAbility(this, 'healburst');
@@ -241,7 +241,7 @@ class AI {
       if (this.canBoost && Math.random() < 1/300) {
         this.canBoost = false;
         this.immune = Date.now();
-        setTimeout(() => (this.canBoost = true), 5000);
+        this.booster = setTimeout(() => (this.canBoost = true), 5000);
       }
       if (!b) this.x = nx; else if (Math.abs(this.x-tx) > speed) this.x += nx; else this.x = 100*Math.floor(this.x/100)+10;
       if (!b) this.y = ny; else if (Math.abs(this.y-ty) > speed) this.y += ny; else this.y = 100*Math.floor(this.y/100)+10;
@@ -593,6 +593,7 @@ class AI {
   }
   destroy() {
     this.host.destroyEntity(this);
+    clearTimeout(this.booster);
     clearTimeout(this.lookout);
     clearInterval(this.lookInterval);
     clearInterval(this.fireInterval);
