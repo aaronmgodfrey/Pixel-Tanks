@@ -22,8 +22,8 @@ class AI {
     this.seeUser = this.target = this.obstruction = this.bond = this.path = this.damage = false;
 	  
     this.r = this.br = this.tr = this.baseRotation = this.baseFrame = this.mode = this.pushback = this.immune = this.shields = 0;
-    this.canFire = this.canPowermissle = this.canBoost = this.canBashed = this.canGrapple = true;
-    this.fire = this.reloading = this.canClass = false;
+    this.canClass = this.canFire = this.canPowermissle = this.canBoost = this.canBashed = this.canGrapple = true;
+    this.fire = this.reloading = false;
 	  
     this.gambleCounter = this.fireTime = 0;
 
