@@ -442,7 +442,7 @@ class Menus {
             }
           } else if (this.perkTab) {
             GUI.drawImage(PixelTanks.images.menus.perkTab, 634, 334, 332, 332, 1); //166x2
-            const perks = ['shield', 'thermal', 'scavenger', 'cooldown', 'refresh', 'radar', 'upgrader', 'adrenaline', 'core'];
+            const perks = ['Shield', 'Thermal', 'Scavenger', 'Cooldown', 'Refresh', 'Radar', 'Upgrader', 'Adrenaline', 'Core'];
             const x = [652, 760, 868], y = [352, 460, 568];
             for (let i = 0; i < 9; i++) {
               let level = PixelTanks.userData.perks[i], lock = !level;
@@ -458,7 +458,8 @@ class Menus {
                 GUI.draw.lineWidth = 10;
                 GUI.draw.strokeRect(x[i%3], y[Math.floor(i/3)], 80, 80);
               }
-              GUI.drawImage(PixelTanks.images.menus[perks[i]], x[i%3], y[Math.floor(i/3)], 80, 80, 1, 0, 0, 0, 0, undefined, (level-1)*40, 0, 40, 40);
+              GUI.drawImage(PixelTanks.images.menus[perks[i].toLowerCase()], x[i%3], y[Math.floor(i/3)], 80, 80, 1, 0, 0, 0, 0, undefined, (level-1)*40, 0, 40, 40);
+              GUI.drawText(perks[i], x[i%3]+40, y[Math.floor(i/3)]+66, 25, '#FFFFFF', .5);
               if (lock) GUI.drawImage(PixelTanks.images.menus.locked, x[i%3], y[Math.floor(i/3)], 80, 80, 1);
             } 
           } else if (this.cosmeticTab) {
