@@ -357,7 +357,7 @@ class FFA extends Multiplayer {
   ontick() {}
   disconnect(socket, code, reason) {
     const t = this.pt.find(t => t.username === socket.username);
-    if (t && t.ded) this.loggers.push(t.username);  
+    if (t && t.hp !== t.maxHp && !t.regenInterval) this.loggers.push(t.username);  
     super.disconnect(socket, code, reason);
   }
 }
