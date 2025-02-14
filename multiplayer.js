@@ -351,8 +351,10 @@ class FFA extends Multiplayer {
   }
   add(socket, data) {
     super.add(socket, data);
-    if (this.loggers.includes(socket.username)) this.loggers.splice(this.loggers.indexOf(socket.username), 1);
-    this.pt[this.pt.length-1].ded = true;
+    if (this.loggers.includes(socket.username)) {
+      this.loggers.splice(this.loggers.indexOf(socket.username), 1);
+      this.pt[this.pt.length-1].ded = true;
+    }
   }
   ontick() {}
   disconnect(socket, code, reason) {
