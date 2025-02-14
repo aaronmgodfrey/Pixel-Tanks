@@ -56,7 +56,10 @@ class AI {
     this.host.ai.push(this);
   }
 
-  regen() {}
+  regen() {
+    this.hp = Math.min(this.hp+.4*(this.rank/50+.6), this.maxHp);
+    if (this.hp === this.maxHp) this.regenInterval = clearInterval(this.regenInterval);
+  }
 	
   giveAbilities() {
     const available = ['airstrike', 'super_glu', 'duck_tape', 'shield', 'dynamite', 'usb', 'weak', 'strong', 'spike', 'reflector', 'torpedo'];
@@ -591,11 +594,9 @@ class AI {
       return this.ded = Date.now();
     }
     if (a > 1) {
-      clearInterval(this.healInterval);
-      clearTimeout(this.healTimeout);
-      this.healTimeout = setTimeout(() => {
-        this.healInterval = setInterval(() => (this.hp = Math.min(this.hp+.4, this.maxHp)), 15);
-      }, 10000);
+      clearTimeout(this.regenTimeout);
+      this.regenInterval = clearInterval(this.regenInterval);
+      this.regenTimeout = setTimeout(() => (this.regenInterval = setInterval(() => this.regen(), 15)), 10000);
     }
   }
   reset() {
