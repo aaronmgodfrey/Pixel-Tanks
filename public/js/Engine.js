@@ -232,6 +232,7 @@ class Engine {
     }
     t.ded = true;
     if (m.socket) m.socket.send({event: 'kill'});
+    if (m instanceof AI) for (let i = 0; i < 4; i++) m['canItem'+i] = true;
     if (m.deathEffect) t.dedEffect = {x: t.x, y: t.y, r: t.r, id: m.deathEffect, start: Date.now(), time: 0};
   }
 
