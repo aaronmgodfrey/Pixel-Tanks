@@ -438,7 +438,7 @@ class Menus {
             const key = {airstrike: [598, 352, 'Airstrike'], super_glu: [706, 352, 'Glue'], duck_tape: [814, 352, 'Tape'], shield: [922, 352, 'Shield'], flashbang: [598, 460, 'Barrage'], bomb: [706, 460, 'Crate'], dynamite: [814, 460, 'Dynamite'], usb: [922, 460, 'USB'], weak: [598, 568, 'Weak'], strong: [706, 568, 'Strong'], spike: [814, 568, 'Spike'], reflector: [922, 568, 'Reflect']};
             for (const item in key) {
               GUI.drawImage(PixelTanks.images.items[item], key[item][0], key[item][1], 80, 80, 1);
-              GUI.drawText(key[item][2], key[item][0]+40, key[item][1]+62, 25, '#FFFFFF', .5);
+              GUI.drawText(key[item][2], key[item][0]+40, key[item][1]+66, 25, '#FFFFFF', .5);
             }
           } else if (this.perkTab) {
             GUI.drawImage(PixelTanks.images.menus.perkTab, 634, 334, 332, 332, 1); //166x2
