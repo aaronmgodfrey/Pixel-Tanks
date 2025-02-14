@@ -427,7 +427,7 @@ class Menus {
             const classX = [701, 810, 810, 701, 810, 701], classY = [348, 348, 564, 564, 456, 456];
             for (let i = 0; i < 6; i++) {
               if (!PixelTanks.userData.classes[i]) GUI.drawImage(PixelTanks.images.menus.locked, classX[i], classY[i], 88, 88, 1);
-              GUI.drawText(['Tactical', 'Stealth', 'Warrior', 'Medic', 'Builder', 'Fire'][i], classX[i]+44, classY[i]+66, 30, '#FFFFFF', .5);
+              GUI.drawText(['Tactical', 'Stealth', 'Warrior', 'Medic', 'Builder', 'Fire'][i], classX[i]+44, classY[i]+74, 25, '#FFFFFF', .5);
             }
             GUI.draw.strokeStyle = '#FFFF00';
             GUI.draw.lineWidth = 10;
@@ -435,8 +435,9 @@ class Menus {
             if (PixelTanks.userData.class === 'tactical') GUI.draw.strokeRect(701, 348, 88, 88); else if (PixelTanks.userData.class === 'fire') GUI.draw.strokeRect(701, 456, 88, 88); else if (PixelTanks.userData.class === 'medic') GUI.draw.strokeRect(701, 565, 88, 88); else if (PixelTanks.userData.class === 'stealth') GUI.draw.strokeRect(810, 348, 88, 88); else if (PixelTanks.userData.class === 'builder') GUI.draw.strokeRect(810, 456, 88, 88); else if (PixelTanks.userData.class === 'warrior') GUI.draw.strokeRect(810, 565, 88, 88);
           } else if (this.itemTab) {
             GUI.drawImage(PixelTanks.images.menus.itemTab, 580, 334, 440, 332, 1);
-            const key = {airstrike: [598, 352], super_glu: [706, 352], duck_tape: [814, 352], shield: [922, 352], flashbang: [598, 460], bomb: [706, 460], dynamite: [814, 460], usb: [922, 460], weak: [598, 568], strong: [706, 568], spike: [814, 568], reflector: [922, 568]};
+            const key = {airstrike: [598, 352, 'Airstrike'], super_glu: [706, 352, 'Glue'], duck_tape: [814, 352, 'Tape'], shield: [922, 352, 'Shield'], flashbang: [598, 460, 'Barrage'], bomb: [706, 460, 'Crate'], dynamite: [814, 460, 'Dynamite'], usb: [922, 460, 'USB'], weak: [598, 568, 'Weak'], strong: [706, 568, 'Strong'], spike: [814, 568, 'Spike'], reflector: [922, 568, 'Reflect']};
             for (const item in key) GUI.drawImage(PixelTanks.images.items[item], key[item][0], key[item][1], 80, 80, 1);
+            GUI.drawText(key[item][2], key[item][0]+44, key[item][1]+74, 25, '#FFFFFF', .5);
           } else if (this.perkTab) {
             GUI.drawImage(PixelTanks.images.menus.perkTab, 634, 334, 332, 332, 1); //166x2
             const perks = ['shield', 'thermal', 'scavenger', 'cooldown', 'refresh', 'radar', 'upgrader', 'adrenaline', 'core'];
