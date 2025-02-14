@@ -346,8 +346,8 @@ class Multiplayer extends Engine {
 
 class FFA extends Multiplayer {
   constructor() {
-    this.loggers = [];
     super(ffaLevels);
+    this.loggers = [];
   }
   add(socket, data) {
     super.add(socket, data);
