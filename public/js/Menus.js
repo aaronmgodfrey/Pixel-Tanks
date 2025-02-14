@@ -223,10 +223,11 @@ class Menus {
           this.socket.connect();
         } else if (this.socket.status === 'connected') if (Math.floor((Date.now()-PixelTanks.t)/15)%6 === 0) this.socket.send({type: 'preview'});
         GUI.drawText(this.gamemode.toUpperCase(), 1047, 800, 50, '#FFFFFF', 0.5);
-        if (!this.preview) return;
+        if (this.socket.status !== 'connected') return GUI.drawText('Connecting...', 1047, 410, 50, '#ffffff', .5);
+        if (!this.preview) return GUI.drawText('Pinging...', 1047, 410, 50, '#ffffff', .5);
         for (let i = 0; i < 3; i++) GUI.drawText(Object.values(this.preview[['ffa', 'duels', 'tdm'][i]]).length, 700, [506, 650, 806][i], 50, '#000000', 0.5);
         let room = Object.keys(this.preview[this.gamemode])[this.currentRoom], v = Object.values(this.preview[this.gamemode]), players = v[this.currentRoom];
-        GUI.drawText(!v.length ? 'No Rooms' : 'Room('+(this.currentRoom+1)+'/'+v.length+') '+room, 1047, 410, 50, '#ffffff', 0.5);
+        GUI.drawText(!v.length ? 'No Rooms' : 'Room('+(this.currentRoom+1)+'/'+v.length+') '+room, 1047, 410, 50, '#ffffff', .5);
         if (players) for (let i = 0; i < players.length; i++) GUI.drawText(players[i].replace('#', ''), 1047, 452+35*i, 30, players[i].includes('#') ? '#454545' : '#ffffff', 0.5);
       }
     },
