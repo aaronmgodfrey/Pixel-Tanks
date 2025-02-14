@@ -317,7 +317,7 @@ class AI {
     if (this.role === 3 && this.bond) {
       epx = Math.floor((this.bond.x+40)/100);
       epy = Math.floor((this.bond.y+40)/100);
-    } else if (this.mode === 0 || (this.mode === 1 && (ranged || !this.seeTarget)) || this.mode === 2) {
+    } else if (this.mode === 0 || (this.mode === 1 && ranged) || this.mode === 2) {
       epx = sx;
       epy = sy;
     } else if (this.mode === 1) {
@@ -345,7 +345,7 @@ class AI {
     let clone = [...coords]; // TEMP
     let r, p;
     do {
-      if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy);
+      if (coords.length < 10 && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy);
       r = this.choosePath(coords.length);
       p = this.pathfind(sx, sy, coords[r][0], coords[r][1]); // loop through if first fails????
       for (const c of p) for (const b of this.host.cells[c[1]][c[0]]) if (b instanceof Block && b.type === 'airstrike' && Engine.getTeam(b.team) !== Engine.getTeam(this.team)) {
