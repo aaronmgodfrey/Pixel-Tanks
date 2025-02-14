@@ -22,7 +22,7 @@ class AI {
     this.seeUser = this.target = this.obstruction = this.bond = this.path = this.damage = false;
 	  
     this.r = this.br = this.tr = this.baseRotation = this.baseFrame = this.mode = this.pushback = this.immune = this.shields = 0;
-    this.canClass = this.canFire = this.canPowermissle = this.canBoost = this.canBashed = this.canGrapple = true;
+    this.canFire = this.canPowermissle = this.canBoost = this.canBashed = this.canGrapple = true;
     this.fire = this.reloading = false;
 	  
     this.gambleCounter = this.fireTime = 0;
@@ -89,7 +89,7 @@ class AI {
       if (this.canGrapple && this.role !== 0 && Math.random() <= 1/100 && this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'grapple');
       if (this.canFire) this.fireCalc(this.target.x, this.target.y);
     }
-    if (this.canClass && this.mode !== 0) {
+    if (this.mode !== 0) {
       if (this.class === 'tactical' && Math.random() < 1/60) this.fireCalc(this.target.x, this.target.y, 'megamissle');
       if (this.class === 'stealth' && Math.random() < 1/60) this.host.useAbility(this, 'invis');
       if (this.class === 'builder' && Math.random() < 1/60) this.host.useAbility(this, 'turret');
@@ -101,8 +101,8 @@ class AI {
       }
       if (this.class === 'medic' && Math.random() < 1/10) this.host.useAbility(this, 'healburst');
       if (this.class === 'fire' && Math.random() < 1/10) for (let i = -30, len = 30; i < len; i += 5) A.template('Shot').init(this.x+40, this.y+40, 70, this.r+90+i, 'fire', this.team, this.rank, this.host);
-      this.canClass = false;
-      setTimeout(() => (this.canClass = true), 1000*[25, 2, 30, 15, 30, 10][['tactical', 'stealth', 'builder', 'warrior', 'medic', 'fire'].indexOf(this.class)]);
+      //this.canClass = false;
+      //setTimeout(() => (this.canClass = true), 1000*[25, 2, 30, 15, 30, 10][['tactical', 'stealth', 'builder', 'warrior', 'medic', 'fire'].indexOf(this.class)]);
     }
     for (let i = 0; i < 4; i++) {
       if (this['canItem'+i] && Math.random() < 1/300) {
