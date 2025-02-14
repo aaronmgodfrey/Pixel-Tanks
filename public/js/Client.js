@@ -62,6 +62,7 @@ class Client {
     this.ups = [];
     this.fps = [];
     this.pings = [];
+    this.showTracing = false;
     this.joinData = {username: PixelTanks.user.username, token: PixelTanks.user.token, type: 'join', room: this.room, gamemode: this.gamemode, tank: {rank: PixelTanks.userData.stats[4], perk: PixelTanks.userData.perk, username: PixelTanks.user.username, class: PixelTanks.userData.class, cosmetic_hat: PixelTanks.userData.cosmetic_hat, cosmetic: PixelTanks.userData.cosmetic, cosmetic_body: PixelTanks.userData.cosmetic_body, deathEffect: PixelTanks.userData.deathEffect, color: PixelTanks.userData.color === "random" ? Engine.getRandomColor() : PixelTanks.userData.color}};
     this.reset();
     if (this.multiplayer) this.connect();
@@ -410,7 +411,7 @@ class Client {
 
     if (t.animation) GUI.drawImage(PixelTanks.images.animations[t.animation.id], t.x, t.y, 80, 90, 1, 0, 0, 0, 0, undefined, t.animation.frame*40, 0, 40, 45);
 
-    if (t.path) { // if a pathfinding bot
+    if (t.path && this.showTracing) { // if a pathfinding bot
       for (const possible of t.path.coords) {
         GUI.draw.fillStyle = '#000000';
         GUI.draw.fillRect(100*possible[0]+25, 100*possible[1]+25, 50, 50);
@@ -871,7 +872,7 @@ class Client {
     }
     if (k === 77) {
       this.nogui = confirm('Disable GUI?');
-      this.world.pt[0].ded = confirm('Die?');
+      this.showTracing = confirm('Show AI Pathfinding?');
     }
     if (k === PixelTanks.userData.keybinds.class) {
       if (Date.now() <= this.timers.class.cooldown+this.timers.class.time && PixelTanks.userData.class !== 'stealth') return;
