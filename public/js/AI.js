@@ -61,7 +61,11 @@ class AI {
   giveAbilities() {
     const available = ['airstrike', 'super_glu', 'duck_tape', 'shield', 'dynamite', 'usb', 'weak', 'strong', 'spike', 'reflector', 'torpedo'];
     const classes = ['tactical', 'stealth', 'warrior', 'builder', 'fire', 'medic'];
-    for (let i = 0; i < 4; i++) this.items.push(available[Math.floor(Math.random()*available.length)]);
+    for (let i = 0; i < 4; i++) {
+      let r = Math.floor(Math.random()*available.length);
+      this.items.push(available[r]);
+      available.splice(r, 1);
+    }
     this.class = classes[Math.floor(Math.random()*classes.length)];
   }
 
@@ -479,7 +483,7 @@ class AI {
   identify() {
     if (this.ded) return;
     clearTimeout(this.lookout);
-    this.lookout = setTimeout(() => this.identify(), Math.random()*500+500);
+    this.lookout = setTimeout(() => this.identify(), Math.random()*200+200);
     let previousTargetExists = false;
     // filter to all other tanks, sort by distance
     const tanks = this.host.pt.concat(this.host.ai).filter(t => t.x && t.y).sort((a, b) => {
