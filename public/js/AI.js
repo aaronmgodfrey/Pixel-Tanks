@@ -345,10 +345,10 @@ class AI {
     if (!coords.length && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy);
     if (!coords.length) return;
     coords.sort((a, b) => this.mode !== 2 ? a[2] - b[2] : b[2] - a[2]);
-    let clone = [...coords]; // TEMP
+    let clone = [...coords];
     let r, p;
     do {
-      if (coords.length < 10 && route === 1) coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy);
+      if (coords.length < 10 && route === 1) clone = [...(coords = this.getCoords(--route, epx, epy, tpx, tpy, sx, sy))];
       r = this.choosePath(coords.length);
       p = this.pathfind(sx, sy, coords[r][0], coords[r][1]); // loop through if first fails????
       for (const c of p) for (const b of this.host.cells[c[1]][c[0]]) if (b instanceof Block && b.type === 'airstrike' && Engine.getTeam(b.team) !== Engine.getTeam(this.team)) {
