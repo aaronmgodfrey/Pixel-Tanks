@@ -459,7 +459,7 @@ class Menus {
                 GUI.draw.strokeRect(x[i%3], y[Math.floor(i/3)], 80, 80);
               }
               GUI.drawImage(PixelTanks.images.menus[perks[i].toLowerCase()], x[i%3], y[Math.floor(i/3)], 80, 80, 1, 0, 0, 0, 0, undefined, (level-1)*40, 0, 40, 40);
-              GUI.drawText(perks[i], x[i%3]+40, y[Math.floor(i/3)]+66, 25, '#FFFFFF', .5);
+              GUI.drawText(perks[i], x[i%3]+40, y[Math.floor(i/3)]+66, 20, '#FFFFFF', .5);
               if (lock) GUI.drawImage(PixelTanks.images.menus.locked, x[i%3], y[Math.floor(i/3)], 80, 80, 1);
             } 
           } else if (this.cosmeticTab) {
@@ -472,6 +472,7 @@ class Menus {
               GUI.draw.globalAlpha = 1;
               PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetics[i].split('#')[0]], 602+(i%4)*108, 298+Math.floor((i%16)/4)*108, 72, 80, 0);
               GUI.drawText(PixelTanks.userData.cosmetics[i].split('#')[1], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 30, '#FF0000', .5);
+              GUI.drawText(PixelTanks.userData.cosmetics[i].split('#')[0], 598+(i%4)*108+40, 298+Math.floor((i%16)/4)*108+66, 20, '#FFFFFF', .5);
               if (PixelTanks.userData.cosmetics[i].split('#')[0] === PixelTanks.userData[Menus.menus.inventory.cosmeticType]) {
                 GUI.draw.strokeStyle = '#FFFF22';
                 GUI.draw.lineWidth = 10;
@@ -489,6 +490,7 @@ class Menus {
               GUI.draw.globalAlpha = 1;
               if (d) GUI.drawImage(PixelTanks.images.deathEffects[PixelTanks.userData.deathEffects[i].split('#')[0]], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 80, 80, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-PixelTanks.t)/d.speed)%d.frames)*200, 0, 200, 200);
               GUI.drawText(PixelTanks.userData.deathEffects[i].split('#')[1], 598+(i%4)*108, 298+Math.floor((i%16)/4)*108, 30, '#FF0000', .5);
+              GUI.drawText(PixelTanks.userData.deathEffects[i].split('#')[0], 598+(i%4)*108+40, 298+Math.floor((i%16)/4)*108+66, 20, '#FFFFFF', .5);
               if (PixelTanks.userData.deathEffects[i].split('#')[0] === PixelTanks.userData.deathEffect) {
                 GUI.draw.strokeStyle = '#ffff22';
                 GUI.draw.lineWidth = 10;
