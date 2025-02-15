@@ -982,7 +982,10 @@ class Client {
     if (this.multiplayer) {
       clearInterval(this.sendInterval);
       this.socket.close();
-    } else this.world.i.forEach(i => clearInterval(i));
+    } else {
+      this.world.i.forEach(i => clearInterval(i));
+      clearTimeout(this.victoryTimeout);
+    }
     PixelTanks.stopSound(String(this.zone), 0);
     for (const listener of Client.listeners) document.removeEventListener(listener, this[listener]);
     cancelAnimationFrame(this.render);
