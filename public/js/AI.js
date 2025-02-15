@@ -63,7 +63,7 @@ class AI {
 	
   giveAbilities() {
     const available = ['airstrike', 'super_glu', 'duck_tape', 'shield', 'dynamite', 'usb', 'weak', 'strong', 'spike', 'reflector', 'torpedo'];
-    const classes = ['tactical', 'stealth', 'warrior', 'builder', 'fire', 'medic'];
+    const classes = ['tactical', 'stealth', 'builder', 'warrior', 'medic', 'fire'];
     for (let i = 0; i < 4; i++) {
       let r = Math.floor(Math.random()*available.length);
       this.items.push(available[r]);
@@ -89,18 +89,18 @@ class AI {
       if (this.canGrapple && this.role !== 0 && Math.random() <= 1/100 && this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'grapple');
       if (this.canFire) this.fireCalc(this.target.x, this.target.y);
     }
-    if (this.canClass && this.mode !== 0) {
-      if (this.class === 'tactical' && Math.random() < 1/60) this.fireCalc(this.target.x, this.target.y, 'megamissle');
-      if (this.class === 'stealth' && Math.random() < 1/60) this.host.useAbility(this, 'invis');
-      if (this.class === 'builder' && Math.random() < 1/60) this.host.useAbility(this, 'turret');
-      if (this.class === 'warrior' && Math.random() < 1/10) {
+    if (this.canClass && this.mode !== 0 && Math.random() < 1/[60, 60, 60, 10, 10, 10][['tactical', 'stealth', 'builder', 'warrior', 'medic', 'fire'].indexOf(this.class)]) {
+      if (this.class === 'tactical') this.fireCalc(this.target.x, this.target.y, 'megamissle');
+      if (this.class === 'stealth') this.host.useAbility(this, 'invis');
+      if (this.class === 'builder') this.host.useAbility(this, 'turret');
+      if (this.class === 'warrior') {
         this.canBoost = false;
         this.immune = Date.now();
         this.booster = setTimeout(() => (this.canBoost = true), 5000);
         this.host.useAbility(this, 'bash');
       }
-      if (this.class === 'medic' && Math.random() < 1/10) this.host.useAbility(this, 'healburst');
-      if (this.class === 'fire' && Math.random() < 1/10) for (let i = -30, len = 30; i < len; i += 5) A.template('Shot').init(this.x+40, this.y+40, 70, this.r+90+i, 'fire', this.team, this.rank, this.host);
+      if (this.class === 'medic') this.host.useAbility(this, 'healburst');
+      if (this.class === 'fire') for (let i = -30, len = 30; i < len; i += 5) A.template('Shot').init(this.x+40, this.y+40, 70, this.r+90+i, 'fire', this.team, this.rank, this.host);
       this.canClass = false;
       setTimeout(() => (this.canClass = true), 1000*[25, 2, 30, 15, 30, 10][['tactical', 'stealth', 'builder', 'warrior', 'medic', 'fire'].indexOf(this.class)]);
     }
