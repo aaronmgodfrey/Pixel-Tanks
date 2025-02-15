@@ -254,7 +254,7 @@ class Engine {
     let l = 0;
     for (let i = 0; i < a.length; i += 2) {
       for (let m = 0; m < a[i+1]; m++) {
-        let y = Math.floor(l/60)*100, x = (l%60)*100;
+        let y = Math.floor(l/60)*100, x = (l%60)*100, offset = key[a[i]] === 'spike' ? 25 : 0;
         if (a[i] === 'S') {
           this.spawn = {x: x, y: y};
         } else if (a[i] === 'A') {
@@ -265,7 +265,7 @@ class Engine {
           this.spawns.push({x, y});
         } else if (['T', 'W', 'P', 'D'].includes(a[i])) {
           A.template('AI').init(x+10, y+10, ['T', 'W', 'P', 'D'].indexOf(a[i]), this.difficulty, 'squad', this);
-        } else if (key[a[i]]) this.b.push(A.template('Block').init(x, y, key[a[i]], ':', this));
+        } else if (key[a[i]]) this.b.push(A.template('Block').init(x+offset, y+offset, key[a[i]], ':', this));
         l++;
       }
     }
