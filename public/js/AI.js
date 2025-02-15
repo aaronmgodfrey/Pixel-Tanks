@@ -89,7 +89,7 @@ class AI {
       if (this.canGrapple && this.role !== 0 && Math.random() <= 1/100 && this.seeTarget) this.fireCalc(this.target.x, this.target.y, 'grapple');
       if (this.canFire) this.fireCalc(this.target.x, this.target.y);
     }
-    if (this.mode !== 0) {
+    if (this.canClass && this.mode !== 0) {
       if (this.class === 'tactical' && Math.random() < 1/60) this.fireCalc(this.target.x, this.target.y, 'megamissle');
       if (this.class === 'stealth' && Math.random() < 1/60) this.host.useAbility(this, 'invis');
       if (this.class === 'builder' && Math.random() < 1/60) this.host.useAbility(this, 'turret');
