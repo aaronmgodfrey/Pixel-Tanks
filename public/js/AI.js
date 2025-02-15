@@ -101,8 +101,8 @@ class AI {
       }
       if (this.class === 'medic' && Math.random() < 1/10) this.host.useAbility(this, 'healburst');
       if (this.class === 'fire' && Math.random() < 1/10) for (let i = -30, len = 30; i < len; i += 5) A.template('Shot').init(this.x+40, this.y+40, 70, this.r+90+i, 'fire', this.team, this.rank, this.host);
-      //this.canClass = false;
-      //setTimeout(() => (this.canClass = true), 1000*[25, 2, 30, 15, 30, 10][['tactical', 'stealth', 'builder', 'warrior', 'medic', 'fire'].indexOf(this.class)]);
+      this.canClass = false;
+      setTimeout(() => (this.canClass = true), 1000*[25, 2, 30, 15, 30, 10][['tactical', 'stealth', 'builder', 'warrior', 'medic', 'fire'].indexOf(this.class)]);
     }
     for (let i = 0; i < 4; i++) {
       if (this['canItem'+i] && Math.random() < 1/300) {
