@@ -19,7 +19,7 @@ class AI {
     this.barrelSpeed = Math.random()*3+2; // HOOK TO BALANCING
 
 	  
-    this.seeUser = this.target = this.obstruction = this.bond = this.path = this.damage = false;
+    this.target = this.obstruction = this.bond = this.path = this.damage = false;
 	  
     this.r = this.br = this.tr = this.baseRotation = this.baseFrame = this.mode = this.pushback = this.immune = this.shields = 0;
     this.canFire = this.canPowermissle = this.canBoost = this.canBashed = this.canGrapple = true;
@@ -119,8 +119,8 @@ class AI {
 	  this.fireCalc(this.target.x, this.target.y, 'torpedo');
           for (let i of [10, 20, 30, 40, 50, 60]) setTimeout(() => this.fireCalc(this.target.x, this.target.y, 'torpedo'), i);
 	}
-        if (item === 'weak') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#weak'); // 4
-        if (item === 'strong') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180) this.host.useAbility(this, 'block#strong'); // 8
+        if (item === 'weak') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180 && this.seeTarget) this.host.useAbility(this, 'block#weak'); // 4
+        if (item === 'strong') if (this.mode !== 0 && ((this.target.x-this.x)**2+(this.target.y-this.y)**2)**.5 < 180 && this.seeTarget) this.host.useAbility(this, 'block#strong'); // 8
         if (item === 'spike') this.host.useAbility(this, 'block#spike'); // 10
         if (item === 'reflector') if (this.mode !== 0) this.host.useAbility(this, 'reflector'); // 10
         this['canItem'+i] = false;
