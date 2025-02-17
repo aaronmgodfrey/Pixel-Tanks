@@ -81,27 +81,7 @@ class Engine {
         const c = cell.split('x'), cx = c[0], cy = c[1], breakable = ['gold', 'weak', 'strong', 'spike', 'barrier', 'void', 'barrel', 'halfbarrier'];
         for (const entity of this.cells[cx][cy]) if (entity instanceof Block && Engine.collision(t.x, t.y, 80, 80, entity.x, entity.y, 100, 100) && breakable.includes(entity.type)) entity.destroy();
       }
-    } else if (a === 'bomb') {
-      if (t.grapple) {
-        t.grapple.bullet.destroy();
-        t.grapple = false;
-      }
-      const hx = Math.floor(t.x/100), hy = Math.floor(t.y/100);
-      for (let i = Math.max(0, hx-1); i <= Math.min(59, hx+1); i++) for (let l = Math.max(0, hy-1); l <= Math.min(59, hy+1); l++) {
-        for (const entity of this.cells[i][l]) {
-          if (entity instanceof Block) {
-            if (Engine.getTeam(entity.team) !== Engine.getTeam(t.team)) {
-              entity.damage(150);
-            }
-          } else if (entity instanceof Shot) {
-            if (Engine.getTeam(entity.team) !== Engine.getTeam(t.team) && (entity.type === 'dynamite' || entity.type === 'usb')) {
-              entity.destroy();
-            }
-          }
-        }
-      }
-      A.template('Damage').init(t.x, t.y, 80, 80, 50, t.team, this);
-    } else if (a === 'turret') {
+    } if (a === 'turret') {
       A.template('AI').init(Math.floor(t.x / 100) * 100 + 10, Math.floor(t.y / 100) * 100 + 10, 0, t.rank, t.team, this);
       let turrets = [];
       for (const ai of this.ai) if (ai.role === 0 && Engine.getUsername(ai.team) === t.username) turrets.push(ai);
