@@ -260,6 +260,15 @@ class AI {
     }
     this.tr = this.br = [[135, 180, 225], [90, this.baseRotation, 270], [45, 0, 315]][dy+1][dx+1];
     this.host.loadCells(this, this.x, this.y, 80, 80);
+    if (n < this.immune+500 && this.class === 'fire') {
+      for (const cell of this.cells) {
+        const [cx, cy] = cell.split('x');
+        if (!Engine.collision(cx*100, cy*100, 100, 100, this.x+40, this.y+40, 0, 0)) continue;
+        let hasFire = false;
+        for (const entity of this.cells[cx][cy]) if (entity instanceof Block && entity.type === 'fire' && Engine.getUsername(entity.team) === this.username && entity.x/100 === cx && entity.y/100 === cy) hasFire = true;
+        if (!hasFire) this.host.b.push(A.template('Block').init(cx*100, cy*100, 'fire', Engine.parseTeamExtras(this.team), this));
+      }
+    }
   }
   
   canMove(x, y) {
