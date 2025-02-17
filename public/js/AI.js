@@ -266,7 +266,7 @@ class AI {
         if (!Engine.collision(cx*100, cy*100, 100, 100, this.x+40, this.y+40, 0, 0)) continue;
         let hasFire = false;
         for (const entity of this.host.cells[cx][cy]) if (entity instanceof Block && entity.type === 'fire' && Engine.getUsername(entity.team) === this.username && entity.x/100 === cx && entity.y/100 === cy) hasFire = true;
-        if (!hasFire) this.host.b.push(A.template('Block').init(cx*100, cy*100, 'fire', Engine.parseTeamExtras(this.team), this));
+        if (!hasFire) this.host.b.push(A.template('Block').init(cx*100, cy*100, 'fire', Engine.parseTeamExtras(this.team), this.host));
       }
     }
   }
