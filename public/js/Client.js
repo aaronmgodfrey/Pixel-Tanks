@@ -985,6 +985,7 @@ class Client {
     } else {
       this.world.i.forEach(i => clearInterval(i));
       clearTimeout(this.world.victoryTimeout);
+      clearTimeout(this.world.survivalTimeout);
     }
     PixelTanks.stopSound(String(this.zone), 0);
     for (const listener of Client.listeners) document.removeEventListener(listener, this[listener]);
