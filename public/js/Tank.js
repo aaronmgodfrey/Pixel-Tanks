@@ -17,7 +17,7 @@ class Tank {
     if (data.socket) this.socket = data.socket;
     this.host = host;
     this.fire = false;
-    this.gambleCounter = this.fireTime = 0;
+    this.gambleCounter = this.fireTime = this.logs = 0;
     this.hp = this.maxHp = this.rank*10+300;
     this.canShield = this.canBashed = this.canInvis = !(this.damage = false);
     this.team = data.username+':'+this.id;
