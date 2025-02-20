@@ -499,38 +499,31 @@ class AI {
     if (this.ded) return;
     clearTimeout(this.lookout);
     this.lookout = setTimeout(() => this.identify(), Math.random()*200+200);
-    let previousTargetExists = false;
-    // filter to all other tanks, sort by distance
-    const tanks = this.host.pt.concat(this.host.ai).filter(t => t.x && t.y).sort((a, b) => {
-      if ((a.id === this.target.id && !a.ded) || (b.id === this.target.id && !b.ded)) previousTargetExists = true;
-      return (a.x-this.x)**2+(a.y-this.y)**2 > (b.x-this.x)**2+(b.y-this.y)**2;
-    });
-    let target = false, bond = false;
-    for (const t of tanks) {
-      if (t.ded || t.invis || !Engine.raycast(this.x+40, this.y+40, t.x+40, t.y+40, this.host.b) || t.id === this.id || ((t.x-this.x)**2+(t.y-this.y)**2)**.5 > 800) continue;
-      if (Engine.getTeam(t.team) === Engine.getTeam(this.team)) {
-        if (!bond && t.role !== 3 && t.role !== 0) bond = t;
-      } else {
-        if (!target) target = t;
-      }
-      if (target && (bond || this.role !== 3)) break;
-    } // locate
-    if (bond) this.bond = bond; 
-    if (!target) {
-      if (this.target) {
-	this.color = 'blue';
-        this.seeTarget = false;
-        if (!this.seeTimeout) this.seeTimeout = setTimeout(() => { // target despawn timer
-          this.mode = 0;
-          this.target = false;
-        }, previousTargetExists && this.role !== 0 ? 10000 : 0);
-      }
-    } else {
-      if (this.target) this.seeTimeout = clearTimeout(this.seeTimeout);
-      this.seeTarget = true;
+    let previousTargetExists, previousBondExists, team, target, bond;
+    for (const t of this.host.pt.concat(this.host.ai)) {
+      if (t.id === this.target.id && !t.ded) previousTargetExists = true;
+      if (t.id === this.bond.id && !t.ded) previousBondExists = true;
+      if (t.ded || t.invis || t.id === this.id || (team = Engine.match(t, this) && (this.role !== 3 || this.bond)) || ((t.x-this.x)**2+(t.y-this.y)**2)**.5 > 800 || !Engine.raycast(this.x+40, this.y+40, t.x+40, t.y+40, this.host.b)) continue;
+      if (team) {
+        if (!bond && this.role === 3 && t.role !== 0 && t.role !== 3) bond = t;
+      } else if (!target) target = t;
+      if (target && (this.bond || bond || this.role !== 3)) break;
+    }
+    if (bond) this.bond = bond;
+    if (!previousBondExists) this.bond = false;
+    if (target) {
+      if (!this.target) this.targetTimeout = clearTimeout(this.targetTimeout);
       this.color = 'red';
+      this.seeTarget = true;
       this.target = {x: target.x, y: target.y, id: target.id};
       this.mode = (this.hp < .3 * this.maxHp && this.role !== 1) ? 2 : 1;
+    } else if (this.target) {
+      this.color = 'blue';
+      this.seeTarget = false;
+      if (!this.targetTimeout) this.targetTimeout = setTimeout(() => { // target despawn timer
+        this.mode = 0;
+        this.target = false;
+      }, previousTargetExists && this.role !== 0 ? 10000 : 0);
     }
   }
   fireCalc(tx, ty, type) {
