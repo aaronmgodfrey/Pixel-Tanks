@@ -1,7 +1,7 @@
 class Tank {
   static args = ['username', 'rank', 'class', 'perk', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'deathEffect', 'color', 'authority'];
   static raw = ['authority', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'flashbanged', 'dedEffect'];
-  static s = ['rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'flashbanged', 'dedEffect', 'gambleCounter'];
+  static s = ['rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'flashbanged', 'dedEffect', 'gambleCounter', 'gambleChance'];
   static u = ['x', 'y'];
   constructor() {
     this.cells = new Set();
@@ -17,6 +17,7 @@ class Tank {
     if (data.socket) this.socket = data.socket;
     this.host = host;
     this.fire = false;
+    this.gambleChance = 0.5;
     this.gambleCounter = this.fireTime = this.logs = 0;
     this.hp = this.maxHp = this.rank*10+300;
     this.canShield = this.canBashed = this.canInvis = !(this.damage = false);
@@ -133,7 +134,7 @@ class Tank {
       this.regenTimeout = setTimeout(() => (this.regenInterval = setInterval(() => this.regen(), 15)), 10000);
     }
     let core = Engine.hasPerk(this.perk, 9), shield = Engine.hasPerk(this.perk, 1);
-    if (this.hp <= 0 && this.host.ondeath) if (!core || Math.random() > 0.50) {
+    if (this.hp <= 0 && this.host.ondeath) if (!core || Math.random() > gambleChance) {
       this.gambleCounter = 0;
       return this.host.ondeath(this, this.host.pt.concat(this.host.ai).find(t => t.username === u));
     } else {
