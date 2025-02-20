@@ -314,7 +314,7 @@ class AI {
 	
   onBlock() {
     if (!this.path || !this.path.p || !this.path.p.length) this.generatePath(); // or if not on block and no path
-    if (this.path.p.length > 0) {
+    if (this.path && this.path.p && this.path.p.length > 0) {
       const final = this.path.p[this.path.p.length-1]; // if arrived
       if ((this.x-10) / 100 === final[0] && (this.y-10) / 100 === final[1]) this.generatePath();
     }
