@@ -310,12 +310,7 @@ class Menus {
               for (const item in key) {
                 if (Engine.collision(x, y, 0, 0, key[item][0], key[item][1], 80, 80)) {
                   const lastItem = PixelTanks.userData.items[this.currentItem-1];
-                  if (PixelTanks.userData.items.includes(item) && !(PixelTanks.userData.items[this.currentItem-1] === item)) {
-                    let currentitem = PixelTanks.userData.items[PixelTanks.userData.items.indexOf(item)];
-                    PixelTanks.userData.items[currentitem] = PixelTanks.userData.items[this.currentItem-1];
-                    PixelTanks.userData.items[this.currentItem-1] = item;
-                    return;
-                  }
+                  if (PixelTanks.userData.items.includes(item) && !(PixelTanks.userData.items[this.currentItem-1] === item)) PixelTanks.userData.items[PixelTanks.userData.items[PixelTanks.userData.items.indexOf(item)];] = PixelTanks.userData.items[this.currentItem-1];
                   PixelTanks.userData.items[this.currentItem-1] = item;
                   this.loaded = false;
                   if (item === lastItem) PixelTanks.userData.items[this.currentItem-1] = 'undefined';
