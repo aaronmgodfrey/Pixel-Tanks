@@ -445,6 +445,7 @@ class Client {
   }
 
   frame() {
+    try {
     if (this.nogui) {
       GUI.draw.fillStyle = '#ffffff';
       GUI.draw.fillRect(0, 0, 1600, 1600);
@@ -544,13 +545,6 @@ class Client {
     if (!this.ded) {
       GUI.drawImage(PixelTanks.images.menus.ui, 0, 0, 1600, 1000, 1);
       if (Engine.hasPerk(PixelTanks.userData.perk, 6)) {
-        if (!(player.eradar instanceof Array)) {
-          const msg = document.createElement('DIV');
-          msg.id = 'message';
-          msg.innerText = JSON.stringify(this.lud);
-          msg.style.color = '#ff0000';
-          Client.messages.appendChild(msg);
-        }
         GUI.draw.translate(800, 500);
         if (player.eradar) for (const e of player.eradar) {
           GUI.draw.rotate(e*Math.PI/180);
@@ -635,6 +629,13 @@ class Client {
         for (const key in colorset) if (info >= key) GUI.draw.fillStyle = colorset[key];
         GUI.draw.fillRect(1600-infoset.length*8+i*8, 800-info, 10, info);
       }
+    }
+    } catch(e) {
+      const msg = document.createElement('DIV');
+      msg.id = 'message';
+      msg.innerText = JSON.stringify(this.lud);
+      msg.style.color = '#ff0000';
+      Client.messages.appendChild(msg);
     }
   }
 
