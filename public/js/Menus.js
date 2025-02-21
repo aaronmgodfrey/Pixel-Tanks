@@ -265,7 +265,7 @@ class Menus {
           if (!this.mouseDown) return;
           if (Engine.collision(520, 240, 176, 40, Menus.x, Menus.y, 0, 0)) PixelTanks.userData.volume = (Menus.x-520)*100/176;
           if (Engine.collision(1140, 240, 176, 40, Menus.x, Menus.y, 0, 0)) PixelTanks.userData.music = (Menus.x-1140)*100/176;
-          for (const sound in PixelTanks.sounds) PixelTanks.userData[sound].volume = PixelTanks.userData[['battlegrounds', 'gem', 'ice', 'cave', 'deep'].includes(sound) ? 'music' : 'volume']/100;
+          for (const sound in ['battlegrounds', 'gem', 'ice', 'cave', 'deep', 'menu']) PixelTanks.userData[sound].volume = PixelTanks.userData.music/100;
         },
         mouseup: function(e) {
           this.mouseDown = false;
