@@ -45,7 +45,8 @@ class Tank {
   update() {
     const radar = Engine.hasPerk(this.perk, 6);
     if (radar && !this.ded) {
-      this.eradar.length = this.fradar.length = 0;
+      this.eradar = [];
+      this.fradar = [];
       for (const t of this.host.pt.concat(this.host.ai)) {
         if (t.ded || (t.x === this.x && t.y === this.y) || Math.sqrt((t.x-this.x)**2+(t.y-this.y)**2) < 400) continue;
         if (!Engine.match(t, this)) {
