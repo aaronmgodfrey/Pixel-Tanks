@@ -259,8 +259,8 @@ class Menus {
               return PixelTanks.save();
             } else return Menus.menus.settings.selected = p;
           }
-          if (Engine.collision(520, 240, 176, 40, Menus.x, Menus.y, 0, 0) PixelTanks.userData.volume = (Menus.x-520)*100/176;
-          if (Engine.collision(1140, 240, 176, 40) PixelTanks.userData.music = (Menus.x-1140)*100/176
+          if (Engine.collision(520, 240, 176, 40, Menus.x, Menus.y, 0, 0)) PixelTanks.userData.volume = (Menus.x-520)*100/176;
+          if (Engine.collision(1140, 240, 176, 40)) PixelTanks.userData.music = (Menus.x-1140)*100/176;
         },
         keydown: function(e) {
           if (!PixelTanks.hasKeybind(e.keyCode)) PixelTanks.userData.keybinds[this.selected] = e.keyCode; else alert('Imagine being so lazy you only hit 1 key to win');
