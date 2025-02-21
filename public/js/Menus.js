@@ -309,14 +309,16 @@ class Menus {
               const key = {airstrike: [598, 352], super_glu: [706, 352], duck_tape: [814, 352], shield: [922, 352], flashbang: [598, 460], bomb: [706, 460], dynamite: [814, 460], usb: [922, 460], weak: [598, 568], strong: [706, 568], spike: [814, 568], reflector: [922, 568]};
               for (const item in key) {
                 if (Engine.collision(x, y, 0, 0, key[item][0], key[item][1], 80, 80)) {
-                  if (!PixelTanks.userData.items.includes(item) || PixelTanks.userData.items[this.currentItem-1] === item) {
-                    const lastItem = PixelTanks.userData.items[this.currentItem-1];
+                  const lastItem = PixelTanks.userData.items[this.currentItem-1];
+                  if (PixelTanks.userData.items.includes(item) && !(PixelTanks.userData.items[this.currentItem-1] === item)) {
+                    let currentitem = PixelTanks.userData.items[PixelTanks.userData.items.indexOf(item)];
+                    PixelTanks.userData.items[currentitem] = lastitem;
                     PixelTanks.userData.items[this.currentItem-1] = item;
-                    this.loaded = false;
-                    if (item === lastItem) {
-                      PixelTanks.userData.items[this.currentItem-1] = 'undefined';
-                    }
-                  } else alert('You are not allowed to have more than 1 of the same item');
+                    return;
+                  }
+                  PixelTanks.userData.items[this.currentItem-1] = item;
+                  this.loaded = false;
+                  if (item === lastItem) PixelTanks.userData.items[this.currentItem-1] = 'undefined';
                   return;
                 }
               }
