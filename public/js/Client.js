@@ -90,6 +90,7 @@ class Client {
 
   interpret(data) {
     this._ups++;
+    this.lud = JSON.stringify(data);
     if (data.global) this.hostupdate.global = data.global;
     if (data.zone && this.zone !== data.zone) {
       if (this.zone) PixelTanks.stopSound(this.zone);
@@ -543,8 +544,7 @@ class Client {
     if (!this.ded) {
       GUI.drawImage(PixelTanks.images.menus.ui, 0, 0, 1600, 1000, 1);
       if (Engine.hasPerk(PixelTanks.userData.perk, 6)) {
-        GUI.drawText(JSON.stringify(player.eradar), 500, 500, 40, '#ffffff', 0.5);
-        GUI.drawText(JSON.stringify(player.fradar), 500, 700, 40, '#ffffff', 0.5);
+        if (!(player.eradar instanceof Array)) this.hostupdate.logs.unshift({m: this.lud, c: '#ff0000'});
         GUI.draw.translate(800, 500);
         if (player.eradar) for (const e of player.eradar) {
           GUI.draw.rotate(e*Math.PI/180);
