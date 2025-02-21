@@ -72,7 +72,7 @@ class PixelTanks {
     PixelTanks.sounds[name].loop = type === (PixelTanks.sounds[name].currentTime = 0);
     if (isNaN(PixelTanks.userData.volume)) PixelTanks.userData.volume = 100;
     if (isNaN(PixelTanks.userData.music)) PixelTanks.userData.music = 100;
-    PixelTanks.sounds[name].volume = PixelTanks.userData[['battlegrounds', 'gem', 'ice', 'cave', 'deep'].includes(name) ? 'music' : 'volume']/100;
+    PixelTanks.sounds[name].volume = PixelTanks.userData[['battlegrounds', 'gem', 'ice', 'cave', 'deep', 'menu'].includes(name) ? 'music' : 'volume']/100;
     PixelTanks.sounds[name].play();
   }
   static stopSound(name) {
