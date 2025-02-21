@@ -544,7 +544,13 @@ class Client {
     if (!this.ded) {
       GUI.drawImage(PixelTanks.images.menus.ui, 0, 0, 1600, 1000, 1);
       if (Engine.hasPerk(PixelTanks.userData.perk, 6)) {
-        if (!(player.eradar instanceof Array)) this.hostupdate.logs.unshift({m: this.lud, c: '#ff0000'});
+        if (!(player.eradar instanceof Array)) {
+          const msg = document.createElement('DIV');
+          msg.id = 'message';
+          msg.innerText = JSON.stringify(this.lud);
+          msg.style.color = '#ff0000';
+          Client.messages.appendChild(msg);
+        }
         GUI.draw.translate(800, 500);
         if (player.eradar) for (const e of player.eradar) {
           GUI.draw.rotate(e*Math.PI/180);
