@@ -53,7 +53,7 @@ class Tank {
         } else if (radar > 1) this.fradar.push(Engine.toAngle(t.x-this.x, t.y-this.y));
       }
       this.setValue('eradar', this.eradar);
-      this.setValue('fradar', this.fradar');
+      this.setValue('fradar', this.fradar);
     }
     if (this.dedEffect) (this.dedEffect.time = Date.now()-this.dedEffect.start) && this.setValue('dedEffect', this.dedEffect);
     if (this.pushback !== 0) this.pushback += 0.5;
