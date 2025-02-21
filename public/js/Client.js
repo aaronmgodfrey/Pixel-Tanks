@@ -534,13 +534,14 @@ class Client {
     GUI.drawText(this.dedTime < Date.now()-10000 ? 'Hit F to Respawn' : this.hostupdate?.global || '', 800, 30, 60, '#ffffff', .5);
     GUI.drawText('ST: '+(this.hostupdate?.tickspeed || '')+' CT: '+PixelTanks.tickspeed, 200, 30, 30, '#ffffff', 0);
     if (this.menu) return Menus.menus[this.menu].draw();
+    GUI.drawImage(PixelTanks.images.menus.stats, 0, 0, 1600, 1000, 1);
+    GUI.drawText(this.kills, 1530, 40, 30, '#FFFFFF', 1);
+    GUI.drawText(this.xp/10, 1530, 110, 30, '#FFFFFF', 1);
+    GUI.drawText(this.crates, 1530, 150, 30, '#FFFFFF', 1);
+    GUI.drawText(this.coins, 1530, 200, 30, '#FFFFFF', 1);
+    GUI.drawText(this.xp, 1530, 260, 30, '#FFFFFF', 1);
     if (!this.ded) {
       GUI.drawImage(PixelTanks.images.menus.ui, 0, 0, 1600, 1000, 1);
-      GUI.drawText(this.kills, 1530, 40, 30, '#FFFFFF', 1);
-      GUI.drawText(this.xp/10, 1530, 110, 30, '#FFFFFF', 1);
-      GUI.drawText(this.crates, 1530, 150, 30, '#FFFFFF', 1);
-      GUI.drawText(this.coins, 1530, 200, 30, '#FFFFFF', 1);
-      GUI.drawText(this.xp, 1530, 260, 30, '#FFFFFF', 1);
       if (Engine.hasPerk(PixelTanks.userData.perk, 6)) {
         GUI.draw.translate(800, 500);
         if (player.eradar) for (const e of player.eradar) {
