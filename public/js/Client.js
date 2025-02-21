@@ -105,7 +105,7 @@ class Client {
         msg.style.color = log.c;
         Client.messages.appendChild(msg);
         if (a) Client.messages.scrollTop = Client.messages.scrollHeight-Client.messages.clientHeight;
-        if (Client.input.style.visibility === 'hidden') for (let i = 0; i < Client.messages.children.length-3; i++) Client.messages.children[i].style.visibility = 'hidden';
+        if (Client.input.style.visibility !== 'visible') for (let i = 0; i < Client.messages.children.length-3; i++) Client.messages.children[i].style.visibility = 'hidden';
       }
     }
     if (data.u) for (const u of data.u) {
