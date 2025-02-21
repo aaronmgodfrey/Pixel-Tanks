@@ -95,6 +95,8 @@ class PixelTanks {
             deathEffect: '',
             deathEffects: [],
             color: '#ffffff',
+            volume: 100,
+            music: 100,
             stats: [
               0, // coins
               0, // crates
