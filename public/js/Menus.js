@@ -268,8 +268,6 @@ class Menus {
         }
       },
       cdraw: function() {
-        if (isNaN(PixelTanks.userData.volume)) PixelTanks.userData.volume = 100;
-        if (isNaN(PixelTanks.userData.music)) PixelTanks.userData.music = 100;
         const key = {item1: [156, 404], item2: [372, 404], item3: [588, 404], item4: [804, 404], toolkit: [1020, 404], grapple: [1236, 404], boost: [156, 620], class: [372, 620], fire: [588, 620], powermissle: [804, 620], chat: [1020, 620], pause: [1236, 620]};
         GUI.draw.fillStyle = '#A9A9A9'; // change selection  later?
         GUI.draw.lineWidth = 8; // border thickness
