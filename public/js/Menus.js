@@ -312,7 +312,7 @@ class Menus {
                   const lastItem = PixelTanks.userData.items[this.currentItem-1];
                   if (PixelTanks.userData.items.includes(item) && !(PixelTanks.userData.items[this.currentItem-1] === item)) {
                     let currentitem = PixelTanks.userData.items[PixelTanks.userData.items.indexOf(item)];
-                    PixelTanks.userData.items[currentitem] = lastitem;
+                    PixelTanks.userData.items[currentitem] = PixelTanks.userData.items[this.currentItem-1];
                     PixelTanks.userData.items[this.currentItem-1] = item;
                     return;
                   }
