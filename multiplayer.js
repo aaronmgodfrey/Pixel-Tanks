@@ -260,7 +260,10 @@ class Multiplayer extends Engine {
     }
     i = t.msg.d.indexOf(e.id);
     if (i !== -1) t.msg.d.splice(i, 1);
-    t.msg.u.push(e.constructor[e.type === 'barrier' || e.type === 'void' ? 'raw2' : 'raw'].reduce((a, c) => a.concat(c, Multiplayer.num(e[c])), A.template('arr').concat(e.id)));
+    t.msg.u.push(e.constructor[e.type === 'barrier' || e.type === 'void' ? 'raw2' : 'raw'].reduce((a, c) => {
+      a.push(c, Multiplayer.num(e[c]));
+      return a;
+    }, A.template('arr').concat(e.id)));
   }
   unload(t, e) {
     let i = t.msg.u.findIndex(u => u[0] === e.id);
@@ -273,7 +276,9 @@ class Multiplayer extends Engine {
   merge(t, e, c) {
     let i = t.msg.u.findIndex(u => u[0] === e.id);
     if (i !== -1) {
-      c = A.template('arr').concat(c);
+      let d = c;
+      c = A.template('arr');
+      c.push(...d);
       for (let l = 1; l < t.msg.u[i].length; l += 2) {
         let m = c.indexOf(t.msg.u[i][l]);
         if (m !== -1) {
@@ -283,7 +288,10 @@ class Multiplayer extends Engine {
       }
       for (const p of c) t.msg.u[i].push(p, Multiplayer.num(e[p]));
       c.release();
-    } else t.msg.u.push(c.reduce((a, p) => a.concat(p, e[p]), A.template('arr').concat(e.id)));
+    } else t.msg.u.push(c.reduce((a, p) => {
+      a.push(p, e[p]);
+      return a;
+    }, A.template('arr').concat(e.id)));
   }
   destroyEntity(e) {
     pt: for (const t of this.pt) {
