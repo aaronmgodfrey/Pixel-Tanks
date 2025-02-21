@@ -259,6 +259,8 @@ class Menus {
               return PixelTanks.save();
             } else return Menus.menus.settings.selected = p;
           }
+          if (Engine.collision(520, 240, 176, 40, Menus.x, Menus.y, 0, 0) PixelTanks.userData.volume = (Menus.x-520)*100/176;
+          if (Engine.collision(1140, 240, 176, 40) PixelTanks.userData.music = (Menus.x-1140)*100/176
         },
         keydown: function(e) {
           if (!PixelTanks.hasKeybind(e.keyCode)) PixelTanks.userData.keybinds[this.selected] = e.keyCode; else alert('Imagine being so lazy you only hit 1 key to win');
@@ -266,6 +268,8 @@ class Menus {
         }
       },
       cdraw: function() {
+        if (isNaN(PixelTanks.userData.volume)) PixelTanks.userData.volume = 100;
+        if (isNaN(PixelTanks.userData.music)) PixelTanks.userData.music = 100;
         const key = {item1: [156, 404], item2: [372, 404], item3: [588, 404], item4: [804, 404], toolkit: [1020, 404], grapple: [1236, 404], boost: [156, 620], class: [372, 620], fire: [588, 620], powermissle: [804, 620], chat: [1020, 620], pause: [1236, 620]};
         GUI.draw.fillStyle = '#A9A9A9'; // change selection  later?
         GUI.draw.lineWidth = 8; // border thickness
@@ -273,6 +277,12 @@ class Menus {
           if (this.selected === p) GUI.draw.strokeRect(key[p][0], key[p][1], 176, 176);
           GUI.drawText(String.fromCharCode(PixelTanks.userData.keybinds[p]), key[p][0]+88, key[p][1]+88, 50, '#ffffff', .5);
         }
+        GUI.draw.fillStyle = '#000000';
+        GUI.draw.fillRect(520, 258, 176, 4);
+        GUI.draw.fillRect(1140, 258, 176, 4);
+        GUI.draw.fillStyle = '#A9A9A9';
+        GUI.draw.fillRect(515+PixelTanks.userData.volume*1.76, 250, 10, 20);
+        GUI.draw.fillRect(1135+PixelTanks.userData.music*1.76, 250, 10, 20);
       },
     },
     inventory: {
