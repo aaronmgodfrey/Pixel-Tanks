@@ -544,6 +544,8 @@ class Client {
       GUI.drawImage(PixelTanks.images.menus.ui, 0, 0, 1600, 1000, 1);
       if (Engine.hasPerk(PixelTanks.userData.perk, 6)) {
         GUI.draw.translate(800, 500);
+        GUI.drawText(JSON.stringify(player.eradar), 500, 500, 40, '#ffffff', 0.5);
+        GUI.drawText(JSON.stringify(player.fradar), 500, 700, 40, '#ffffff', 0.5);
         if (player.eradar) for (const e of player.eradar) {
           GUI.draw.rotate(e*Math.PI/180);
           GUI.drawImage(PixelTanks.images.menus.arrow, -25, 100, 50, 50, 1);
