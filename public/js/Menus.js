@@ -133,7 +133,10 @@ class Menus {
     },
     victory: { // INCOMPLETE VICTORY/DEFEAT MENUS
       buttons: [
-        [580, 556, 432, 104, () => alert('fix'), true],
+        [580, 556, 432, 104, () => {
+          const data = Menus.menus.victory.data;
+          PixelTanks.user.player = new Client(data[0], data[1], data[2]);
+        }, true],
         [656, 680, 280, 104, () => {
           Menus.softUntrigger('victory');
           PixelTanks.user.player.implode();
@@ -151,7 +154,10 @@ class Menus {
     },
     defeat: {
       buttons: [
-        [580, 556, 432, 104, () => alert('fix'), true],
+        [580, 556, 432, 104, () => {
+          const data = Menus.menus.defeat.data;
+          PixelTanks.user.player = new Client(data[0], data[1], data[2]);
+        }, true],
         [656, 680, 280, 104, () => {
           Menus.softUntrigger('defeat');
           PixelTanks.user.player.implode();
