@@ -189,6 +189,7 @@ class Multiplayer extends Engine {
   }
 
   add(socket, data) {
+    data.socket = socket;
     let join = this.joinMsg(data.username);
     toDiscord(join);
     this.logs.push({m: join, c: '#66FF00'});
