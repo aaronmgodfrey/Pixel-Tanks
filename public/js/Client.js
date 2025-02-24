@@ -145,10 +145,7 @@ class Client {
       } else if (data.event === 'ded') {
         this.reset();
       } else if (data.event === 'sc') {
-        // single cooldown
-        if (data.timer !== '*') return this.timers[data.timer].time -= this.timers[data.timer].cooldown*data.percent;
-        for (const item of this.timers.items) item.time -= item.cooldown*data.percent;
-        for (const timer of ['class', 'boost', 'powermissle', 'grapple', 'toolkit']) this.timers[timer].time -= this.timers[timer].cooldown*data.percent;
+        this.giveCooldown(data);
       } else if (data.event === 'gameover') {
         this.implode();
         Menus.menus[data.type].stats = {};
@@ -222,6 +219,12 @@ class Client {
       this.timers.boost.time -= this.timers.boost.cooldown*.25*scavenger;
       this.timers.grapple.time -= this.timers.grapple.cooldown*.25*scavenger;
     }
+  }
+
+  giveCooldown(data) {
+    if (data.timer !== '*') return this.timers[data.timer].time -= this.timers[data.timer].cooldown*data.percent;
+    for (const item of this.timers.items) item.time -= item.cooldown*data.percent;
+    for (const timer of ['class', 'boost', 'powermissle', 'grapple', 'toolkit']) this.timers[timer].time -= this.timers[timer].cooldown*data.percent;
   }
   
   getPing() {
