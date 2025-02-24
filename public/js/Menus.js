@@ -135,14 +135,10 @@ class Menus {
       buttons: [
         [580, 556, 432, 104, () => {
           const data = Menus.menus.victory.data;
-          Menus.removeListeners()
+          Menus.removeListeners();
           PixelTanks.user.player = new Client(data[0], data[1], data[2]);
         }, true],
-        [656, 680, 280, 104, () => {
-          Menus.removeListeners();
-          PixelTanks.user.player.implode();
-          Menus.trigger('main')
-        }, true],
+        [656, 680, 280, 104, 'main', true],
       ],
       ontrigger: function() {
         if (!PixelTanks.sounds.battlegrounds.paused) PixelTanks.stopSound('battlegrounds');
@@ -160,11 +156,7 @@ class Menus {
           Menus.removeListeners()
           PixelTanks.user.player = new Client(data[0], data[1], data[2]);
         }, true],
-        [656, 680, 280, 104, () => {
-          Menus.removeListeners();
-          PixelTanks.user.player.implode();
-          Menus.trigger('main')
-        }, true],
+        [656, 680, 280, 104, 'main', true],
       ],
       ontrigger: function() {
         if (!PixelTanks.sounds.battlegrounds.paused) PixelTanks.stopSound('battlegrounds');
