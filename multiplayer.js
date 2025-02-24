@@ -199,6 +199,7 @@ class Multiplayer extends Engine {
   }
 
   send(t) {
+    if (!t.socket) return;
     if (t.busy) return t.delayed = true;
     if (t.lastSend && t.lastSend+1000/settings.upsl >= Date.now()) {
       clearTimeout(t.sendTimer);
