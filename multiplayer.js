@@ -196,10 +196,10 @@ class Multiplayer extends Engine {
     let t = this.pt[this.pt.length-1];
     t.socket = socket;
     this.chunkload(t, -100000, -100000, t.x, t.y);
+    this.override(t);
   }
 
   send(t) {
-    if (!t.socket) return;
     if (t.busy) return t.delayed = true;
     if (t.lastSend && t.lastSend+1000/settings.upsl >= Date.now()) {
       clearTimeout(t.sendTimer);
