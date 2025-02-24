@@ -189,11 +189,11 @@ class Multiplayer extends Engine {
   }
 
   add(socket, data) {
-    data.socket = socket; // this can moved to the join handler?
     let join = this.joinMsg(data.username);
     toDiscord(join);
     this.logs.push({m: join, c: '#66FF00'});
     super.add(data);
+    this.pt[this.pt.length-1].socket = socket;
   }
 
   send(t) {
