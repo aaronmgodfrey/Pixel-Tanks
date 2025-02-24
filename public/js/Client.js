@@ -92,6 +92,13 @@ class Client {
   interpret(data) {
     this._ups++;
     this.lud = JSON.stringify(data);
+    if (data.d.length > 30 || data.u.length > 30 || !this.lud) {
+      const msg = document.createElement('DIV');
+      msg.id = 'message';
+      msg.innerText = JSON.stringify(this.lud);
+      msg.style.color = '#ff0000';
+      Client.messages.appendChild(msg);
+    }
     if (data.global) this.hostupdate.global = data.global;
     if (data.zone && this.zone !== data.zone) {
       if (this.zone) PixelTanks.stopSound(this.zone);
