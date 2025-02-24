@@ -190,6 +190,7 @@ class Client {
     }
     setTimeout(() => {
       this.world.add({...this.joinData.tank});
+      this.world.override(this.pt[0]);
       setInterval(() => this.send(), 1000/60);
     });
   }
