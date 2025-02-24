@@ -48,6 +48,7 @@ class Client {
     this.paused = this.canRespawn = false;
     this.multiplayer = multiplayer;
     this.gamemode = gamemode;
+    Menus.menus.defeat.data = Menus.menus.victory.data = [ip, multiplayer, gamemode];
     this.ip = this.multiplayer ? ip.split('#')[0] : ip; // maybe move ip to connect??
     if (this.multiplayer && ip.includes('#')) this.room = ip.split('#')[1];
     this.left = this.up = null;
