@@ -30,6 +30,8 @@ class Tank {
     host.updateEntity(this, Tank.raw);
     host.override(this);
     host.loadCells(this, this.x, this.y, 80, 80);
+    if (data.socket) this.socket = data.socket;
+    if (data.socket) this.chunkload(host, -100000, -100000, this.x, this.y);
     host.pt.push(this);
     for (const p of Tank.s) {
       this.raw[p] = this[p];
