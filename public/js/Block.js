@@ -5,7 +5,7 @@ class Block {
   static update = ['s', 'hp'];
   constructor() {
     this.cells = new Set();
-    this.t = []; // can be removed maybe?
+    this.t = [];
   }
   init(x, y, type, team, host) {
     this.id = host.genId(1);
@@ -31,7 +31,9 @@ class Block {
   destroy(username) {
     if (this.type === 'crate') {
       const t = this.host.pt.find(t => t.username === username);
-      if (t) if (t.socket) t.socket.send({event: 'sc', timer: '*', percent: 1}); // give cooldowns
+      if (t) {
+        if (t.socket) t.socket.send({event: 'sc', timer: '*', percent: 1}); else PixelTanks.user.player.giveCooldown({timer: '*', percent: 1});
+      } 
     }
     this.host.destroyEntity(this);
     for (const t of this.t) clearTimeout(t);
