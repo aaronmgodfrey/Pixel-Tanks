@@ -193,7 +193,9 @@ class Multiplayer extends Engine {
     toDiscord(join);
     this.logs.push({m: join, c: '#66FF00'});
     super.add(data);
-    this.pt[this.pt.length-1].socket = socket;
+    let t = this.pt[this.pt.length-1];
+    t.socket = socket;
+    this.chunkload(t, -100000, -100000, t.x, t.y);
   }
 
   send(t) {
