@@ -138,7 +138,7 @@ class Menus {
           PixelTanks.user.player = new Client(data[0], data[1], data[2]);
         }, true],
         [656, 680, 280, 104, () => {
-          Menus.softUntrigger('victory');
+          Menus.removeListeners();
           PixelTanks.user.player.implode();
           Menus.trigger('main')
         }, true],
@@ -159,7 +159,7 @@ class Menus {
           PixelTanks.user.player = new Client(data[0], data[1], data[2]);
         }, true],
         [656, 680, 280, 104, () => {
-          Menus.softUntrigger('defeat');
+          Menus.removeListeners();
           PixelTanks.user.player.implode();
           Menus.trigger('main')
         }, true],
