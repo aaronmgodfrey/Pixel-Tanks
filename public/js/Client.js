@@ -145,7 +145,7 @@ class Client {
       } else if (data.event === 'gameover') {
         this.implode();
         Menus.menus[data.type].stats = {};
-        Menus.softTrigger(data.type);
+        Menus.trigger(data.type);
       } else if (data.event === 'override') {
         for (const d of data.data) this.tank[d.key] = d.value;
         if (this.dx) {
