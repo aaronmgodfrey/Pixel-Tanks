@@ -271,7 +271,9 @@ class Menus {
           this.mouseDown = false;
         },
         keydown: function(e) {
-          if (!PixelTanks.hasKeybind(e.keyCode)) PixelTanks.userData.keybinds[this.selected] = e.keyCode; else alert('Imagine being so lazy you only hit 1 key to win');
+          let hasKeybind = PixelTanks.hasKeybind(e.keyCode);
+          if (hasKeybind) PixelTanks.userData.keybinds[hasKeybind] = PixelTanks.userData.keybinds[this.selected];
+          PixelTanks.userData.keybinds[this.selected] = e.keyCode;
           PixelTanks.save();
         }
       },
@@ -309,19 +311,19 @@ class Menus {
               const key = {airstrike: [598, 352], super_glu: [706, 352], duck_tape: [814, 352], shield: [922, 352], flashbang: [598, 460], bomb: [706, 460], dynamite: [814, 460], usb: [922, 460], weak: [598, 568], strong: [706, 568], spike: [814, 568], reflector: [922, 568]};
               for (const item in key) {
                 if (Engine.collision(x, y, 0, 0, key[item][0], key[item][1], 80, 80)) {
-                  const lastItem = PixelTanks.userData.items[this.currentItem-1];
-                  if (PixelTanks.userData.items.includes(item) && !(PixelTanks.userData.items[this.currentItem-1] === item)) PixelTanks.userData.items[PixelTanks.userData.items.indexOf(item)] = PixelTanks.userData.items[this.currentItem-1];
-                  PixelTanks.userData.items[this.currentItem-1] = item;
-                  this.loaded = false;
-                  if (item === lastItem) PixelTanks.userData.items[this.currentItem-1] = 'undefined';
-                  return;
+                  const old = PixelTanks.userData.items[this.currentItem-1];
+                  if (PixelTanks.userData.items.includes(item)) PixelTanks.userData.items[PixelTanks.userData.items.indexOf(item)] = old;
+                  PixelTanks.userData.items[this.currentItem-1] = item === old ? null : item;
+                  return this.loaded = false;
                 }
               }
             } else if (this.perkTab) {
               if (x < 634 || x > 966 || y < 334 || y > 666) return this.perkTab = this.loaded = false;
               for (let i = 0, p = this.currentPerk-1; i < 9; i++) {
                 if (!PixelTanks.userData.perks[i] || !Engine.collision(x, y, 0, 0, [652, 760, 868][i%3], [352, 460, 568][Math.floor(i/3)], 80, 80)) continue;
-                PixelTanks.userData.perk[p] = Math.floor(PixelTanks.userData.perk[p]) === i+1 ? null : i+1+PixelTanks.userData.perks[i]/10;
+                PixelTanks.userData.perk[p] let n = Math.floor(PixelTanks.userData.perk[p]) === i+1 ? null : i+1+PixelTanks.userData.perks[i]/10;
+                if (PixelTanks.userData.perk[(p+1)%2] === n) PixelTanks.userData.perk[(p+1)%2] = PixelTanks.userData.perk[p];
+                PixelTanks.userData.perk[p] = n === PixelTanks.userData.perk[p] ? null : n;
                 return this.loaded = false;
               }  
             } else if (this.cosmeticTab) {
@@ -351,15 +353,10 @@ class Menus {
                   } else {
                     const [deathEffect, amount] = PixelTanks.userData.deathEffects[this.deathEffectsMenu*16+i].split('#');
                     if (amount === undefined || Number(amount) <= 1) return PixelTanks.userData.deathEffects.splice(this.deathEffectsMenu*16+i, 1);
-                    const lastDeath = PixelTanks.userData.deathEffects[this.deathEffectsMenu*16+i];
-                    PixelTanks.userData.deathEffects[this.deathEffectsMenu*16+i] = deathEffect+'#'+(Number(amount)-1);
-                    this.loaded = false;
-                    if (PixelTanks.userData.deathEffects[this.deathEffectsMenu*16+i] === lastDeath) {
-                        PixelTanks.userData.deathEffect = 'undefined';
-                        this.loaded = false;
-                      }
-                    }
-                  return;
+                    const lastDeath = PixelTanks.userData.deathEffects[this.deathEffectsMenu*16+i], n = deathEffect+'#'+(Number(amount)-1);
+                    PixelTanks.userData.deathEffects[this.deathEffectsMenu*16+i] = lastDeath === n ? null : n;
+                    return this.loaded = false;
+                  }
                 }
               }
             }
@@ -411,7 +408,7 @@ class Menus {
           }
           for (let i = 0; i < 4; i++) {
             if (PixelTanks.userData.items[i]) GUI.drawImage(PixelTanks.images.items[PixelTanks.userData.items[i]], [404, 492, 580, 668][i], 820, 80, 80, 1);
-            if (PixelTanks.userData.items[i] === 'undefined') GUI.drawImage(PixelTanks.images.menus.broke, [404, 492, 580, 668][i], 820, 80, 80, 1);
+            if (!PixelTanks.userData.items[i]) GUI.drawImage(PixelTanks.images.menus.broke, [404, 492, 580, 668][i], 820, 80, 80, 1);
           }
           let perkKey = [0, 'shield', 'thermal', 'scavenger', 'cooldown', 'refresh', 'radar', 'upgrader', 'adrenaline', 'core'];
           if (PixelTanks.userData.perk[0]) GUI.drawImage(PixelTanks.images.menus[perkKey[Math.floor(PixelTanks.userData.perk[0])]], 844, 816, 88, 88, 1, 0, 0, 0, 0, undefined, ((PixelTanks.userData.perk[0]%1)*10-1)*40, 0, 40, 40); else GUI.drawImage(PixelTanks.images.menus.broke, 844, 816, 88, 88, 1);
@@ -424,11 +421,11 @@ class Menus {
           if (PixelTanks.userData.cosmetic) PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic], 680, 380, 240, 270, (-Math.atan2(this.target.x, this.target.y)*180/Math.PI+360)%360);
           if (PixelTanks.userData.cosmetic_hat) PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_hat], 680, 380, 240, 270, (-Math.atan2(this.target.x, this.target.y)*180/Math.PI+360)%360);
           const key = {tactical: [7, 7], fire: [7, 61], medic: [7, 115], stealth: [61, 7], builder: [61, 61], warrior: [61, 115]};
-          if (!PixelTanks.userData.class) PixelTanks.userData.class = 'undefined';
-          if (PixelTanks.userData.classes && PixelTanks.userData.class && PixelTanks.userData.class !== 'undefined') GUI.drawImage(PixelTanks.images.menus.classTab, 1112, 816, 88, 88, 1, 0, 0, 0, 0, undefined, key[PixelTanks.userData.class][0]*4, key[PixelTanks.userData.class][1]*4, 176, 176); else GUI.drawImage(PixelTanks.images.menus.broke, 1112, 816, 88, 88, 1);
-          if (PixelTanks.userData.cosmetic_hat && PixelTanks.userData.cosmetic_hat !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_hat], 448, 360, 88, 88, 0); else GUI.drawImage(PixelTanks.images.menus.broke, 448, 360, 88, 88, 1);
-          if (PixelTanks.userData.cosmetic && PixelTanks.userData.cosmetic !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic], 448, 460, 88, 88, 0); else GUI.drawImage(PixelTanks.images.menus.broke, 448, 460, 88, 88, 1);
-          if (PixelTanks.userData.cosmetic_body && PixelTanks.userData.cosmetic_body !== 'undefined') PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_body], 448, 560, 88, 88, 0); else GUI.drawImage(PixelTanks.images.menus.broke, 448, 560, 88, 88, 1);
+          if (!PixelTanks.userData.class) PixelTanks.userData.class = null;
+          if (PixelTanks.userData.classes && PixelTanks.userData.class) GUI.drawImage(PixelTanks.images.menus.classTab, 1112, 816, 88, 88, 1, 0, 0, 0, 0, undefined, key[PixelTanks.userData.class][0]*4, key[PixelTanks.userData.class][1]*4, 176, 176); else GUI.drawImage(PixelTanks.images.menus.broke, 1112, 816, 88, 88, 1);
+          if (PixelTanks.userData.cosmetic_hat) PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_hat], 448, 360, 88, 88, 0); else GUI.drawImage(PixelTanks.images.menus.broke, 448, 360, 88, 88, 1);
+          if (PixelTanks.userData.cosmetic) PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic], 448, 460, 88, 88, 0); else GUI.drawImage(PixelTanks.images.menus.broke, 448, 460, 88, 88, 1);
+          if (PixelTanks.userData.cosmetic_body) PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData.cosmetic_body], 448, 560, 88, 88, 0); else GUI.drawImage(PixelTanks.images.menus.broke, 448, 560, 88, 88, 1);
           const deathEffectData = PixelTanks.images.deathEffects[PixelTanks.userData.deathEffect+'_'];
           if (PixelTanks.userData.deathEffect && deathEffectData) GUI.drawImage(PixelTanks.images.deathEffects[PixelTanks.userData.deathEffect], 448, 220, 88, 88, 1, 0, 0, 0, 0, undefined, (Math.floor((Date.now()-PixelTanks.t)/deathEffectData.speed)%deathEffectData.frames)*200, 0, 200, 200);
           if (!(PixelTanks.userData.deathEffect && deathEffectData)) GUI.drawImage(PixelTanks.images.menus.broke, 448, 220, 88, 88, 1);
