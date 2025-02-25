@@ -18,8 +18,8 @@ class Menus {
     if (Menus.current) Menus.menus[Menus.current].removeListeners();
     if (PixelTanks.sounds.menu.paused && name !== 'start') PixelTanks.playSound('menu', 0);
     if (!Menus.renderer) Menus.start();
-    Menus.menus[Menus.current = name].addListeners();
-    Menus.menus[name].ontrigger();
+    (Menus.menu = Menus.menus[Menus.current = name]).addListeners();
+    Menus.menu.ontrigger();
   }
   static softTrigger(name) {
     for (const b of Menus.menus[PixelTanks.user.player.menu = name].elements) b.style.visibility = 'visible';
@@ -44,25 +44,23 @@ class Menus {
           if (e.keyCode === 13) PixelTanks.auth(this.username.value, this.password.value, 'login');
         }
       },
-      cdraw: function() {
-        if (!this.username) {
-          this.username = document.createElement('INPUT');
-          this.password = document.createElement('INPUT');
-          const left = (window.innerWidth-window.innerHeight*1.6)/2+.564*window.innerHeight;
-          this.username.x = this.password.x = 564;
-          this.username.w = this.password.w = 456;
-          this.username.h = this.password.h = 80;
-          this.username.y = 392;
-          this.password.y = 520;
-          this.username.style = 'top: '+(.392*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
-          this.password.style = 'top: '+(.520*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
-          this.username.type = this.username.autocomplete = 'username';
-          this.password.type = 'password';
-          this.password.autocomplete = 'current-password';
-          this.password.maxLength = (this.username.maxLength = 20)*5;
-          document.body.append(this.username, this.password);
-          this.elements.push(this.username, this.password);
-        }
+      ontrigger: function() {
+        this.username = document.createElement('INPUT');
+        this.password = document.createElement('INPUT');
+        const left = (window.innerWidth-window.innerHeight*1.6)/2+.564*window.innerHeight;
+        this.username.x = this.password.x = 564;
+        this.username.w = this.password.w = 456;
+        this.username.h = this.password.h = 80;
+        this.username.y = 392;
+        this.password.y = 520;
+        this.username.style = 'top: '+(.392*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
+        this.password.style = 'top: '+(.520*window.innerHeight)+'px; left: '+left+'px; width: '+(window.innerHeight*.456)+'px; height: '+(window.innerHeight*.08)+'px;';
+        this.username.type = this.username.autocomplete = 'username';
+        this.password.type = 'password';
+        this.password.autocomplete = 'current-password'; // FIX Port over to css
+        this.password.maxLength = (this.username.maxLength = 20)*5;
+        document.body.append(this.username, this.password);
+        this.elements.push(this.username, this.password);
       },
     },
     main: {
@@ -145,7 +143,7 @@ class Menus {
         if (!PixelTanks.sounds.ice.paused) PixelTanks.stopSound('ice');
         if (!PixelTanks.sounds.cave.paused) PixelTanks.stopSound('cave');
         if (!PixelTanks.sounds.deep.paused) PixelTanks.stopSound('deep');
-        if (!PixelTanks.sounds.gem.paused) PixelTanks.stopSound('gem');
+        if (!PixelTanks.sounds.gem.paused) PixelTanks.stopSound('gem'); // FIX make function between victory/defeat sharing this
         PixelTanks.playSound('victory');
       }
     },
@@ -170,21 +168,21 @@ class Menus {
     multiplayer: {
       buttons: [
         [436, 24, 108, 108, 'main'],
-        [336, 456, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'ffa'), true],
-        [336, 612, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'duels'), true],
-        [336, 768, 416, 116, () => (Menus.menus.multiplayer.gamemode = 'tdm'), true],
-        [864, 848, 88, 88, () => (Menus.menus.multiplayer.currentRoom = Menus.menus.multiplayer.currentRoom > 0 ? Menus.menus.multiplayer.currentRoom-1 : 0), true],
-        [1152, 848, 88, 88, () => (Menus.menus.multiplayer.currentRoom = Menus.menus.multiplayer.currentRoom+1 < Object.values(Menus.menus.multiplayer.preview[Menus.menus.multiplayer.gamemode]).length ? Menus.menus.multiplayer.currentRoom+1 : 0), true],
+        [336, 456, 416, 116, () => (Menus.menu.gamemode = 'ffa'), true],
+        [336, 612, 416, 116, () => (Menus.menu.gamemode = 'duels'), true],
+        [336, 768, 416, 116, () => (Menus.menu.gamemode = 'tdm'), true],
+        [864, 848, 88, 88, () => (Menus.menu.currentRoom = Menus.menu.currentRoom > 0 ? Menus.menu.currentRoom-1 : 0), true],
+        [1152, 848, 88, 88, () => (Menus.menu.currentRoom = Menus.menu.currentRoom+1 < Object.values(Menus.menu.preview[Menus.menu.gamemode]).length ? Menus.menu.currentRoom+1 : 0), true],
         [960, 848, 184, 88, () => {
-          let room = Object.keys(Menus.menus.multiplayer.preview[Menus.menus.multiplayer.gamemode])[Menus.menus.multiplayer.currentRoom];
+          let room = Object.keys(Menus.menu.preview[Menus.menu.gamemode])[Menus.menu.currentRoom];
           if (room === '*******') return;
           Menus.removeListeners();
-          PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip.value+(room ? '#'+room : ''), true, Menus.menus.multiplayer.gamemode);
+          PixelTanks.user.player = new Client(Menus.menu.ip.value+(room ? '#'+room : ''), true, Menus.menu.gamemode);
         }, true],
         [964, 232, 368, 88, () => {
           Menus.removeListeners();
-          PixelTanks.user.player = new Client(Menus.menus.multiplayer.ip.value, true, Menus.menus.multiplayer.gamemode);
-          Menus.menus.multiplayer.ip.value = Menus.menus.multiplayer.ip.value.split('#')[0];
+          PixelTanks.user.player = new Client(Menus.menu.ip.value, true, Menus.menu.gamemode);
+          Menus.menu.ip.value = Menus.menu.ip.value.split('#')[0];
         }, true],
       ],
       listeners: {
@@ -264,8 +262,7 @@ class Menus {
         mousemove: function(e) {
           if (!this.mouseDown) return;
           if (Engine.collision(520, 240, 176, 40, Menus.x, Menus.y, 0, 0)) PixelTanks.userData.volume = (Menus.x-520)*100/176;
-          if (Engine.collision(1140, 240, 176, 40, Menus.x, Menus.y, 0, 0)) PixelTanks.userData.music = (Menus.x-1140)*100/176;
-          PixelTanks.sounds.menu.volume = PixelTanks.userData.music/100;
+          if (Engine.collision(1140, 240, 176, 40, Menus.x, Menus.y, 0, 0)) PixelTanks.sounds.menu.volume = (PixelTanks.userData.music = (Menus.x-1140)*100/176)/100;
         },
         mouseup: function(e) {
           this.mouseDown = false;
@@ -519,34 +516,36 @@ class Menus {
         buttons: [
           [416, 20, 108, 108, 'main', true],
           [232, 208, 488, 96, 'shop', true],
-          [60, 404, 136, 136, () => (Menus.menus.shop2.current = 0), true], // PixelTanks.purchase(1, 0) - 2
-          [228, 404, 136, 136, () => (Menus.menus.shop2.current = 1), true], // PixelTanks.purchase(1, 2) - 3
-          [396, 404, 136, 136, () => (Menus.menus.shop2.current = 2), true], // PixelTanks.purchase(1, 5) - 3
-          [564, 404, 136, 136, () => (Menus.menus.shop2.current = 3), true], // PixelTanks.purchase(1, 8) - 3
-          [732, 404, 136, 136, () => (Menus.menus.shop2.current = 4), true], // PixelTanks.purchase(1, 11) - 2
-          [900, 404, 136, 136, () => (Menus.menus.shop2.current = 5), true], // PixelTanks.purchase(1, 13) - 2
-          [1068, 404, 136, 136, () => (Menus.menus.shop2.current = 6), true], // PixelTanks.purchase(1, 15) - 3
-          [1236, 404, 136, 136, () => (Menus.menus.shop2.current = 7), true], // PixelTanks.purchase(1, 18) - 3
-          [1404, 404, 136, 136, () => (Menus.menus.shop2.current = 8), true], // PixelTanks.purchase(1, 21) - 3
+          [60, 404, 136, 136, () => (Menus.menu.current = 0), true], // PixelTanks.purchase(1, 0) - 2
+          [228, 404, 136, 136, () => (Menus.menu.current = 1), true], // PixelTanks.purchase(1, 2) - 3
+          [396, 404, 136, 136, () => (Menus.menu.current = 2), true], // PixelTanks.purchase(1, 5) - 3
+          [564, 404, 136, 136, () => (Menus.menu.current = 3), true], // PixelTanks.purchase(1, 8) - 3
+          [732, 404, 136, 136, () => (Menus.menu.current = 4), true], // PixelTanks.purchase(1, 11) - 2
+          [900, 404, 136, 136, () => (Menus.menu.current = 5), true], // PixelTanks.purchase(1, 13) - 2
+          [1068, 404, 136, 136, () => (Menus.menu.current = 6), true], // PixelTanks.purchase(1, 15) - 3
+          [1236, 404, 136, 136, () => (Menus.menu.current = 7), true], // PixelTanks.purchase(1, 18) - 3
+          [1404, 404, 136, 136, () => (Menus.menu.current = 8), true], // PixelTanks.purchase(1, 21) - 3
           [793, 808, 194, 79, () => {
             let c = Menus.menus.shop2.current, p = PixelTanks.userData.perks[c], k = [2, 3, 3, 3, 2, 2, 3, 3, 3];
             alert('perk='+c+' level='+(p ? Math.min(k[c], p+1) : 1)+'purchase='+((p ? Math.min(k[c], p+1) : 0)+k.slice(0, c).reduce((a, b) => a+b, 0)));
             PixelTanks.purchase(1, (p ? Math.min(k[c], p+1) : 1)+k.slice(0, c).reduce((a, b) => a+b, 0));
           }, true]
         ],
+        ontrigger: function() {
+          this.current = 0;
+        },
         cdraw: function() {
-          if (!this.current) this.current = 0;
-          GUI.drawText(PixelTanks.userData.stats[0]+' coins', 800, 160, 50, 0x000000, 0.5);
+          GUI.drawText(PixelTanks.userData.stats[0]+' coins', 800, 160, 50, '#000000', 0.5);
           GUI.drawImage(PixelTanks.images.menus.perksheet, 600, 600, 400, 300, 1, 0, 0, 0, 0, undefined, this.current*400, 0, 400, 300);
         },
       },
       pause: {
         buttons: [
-          [640, 556, 320, 104, () => {Menus.softUntrigger('pause')}, true],
+          [640, 556, 320, 104, () => Menus.softUntrigger('pause'), true],
           [660, 680, 280, 104, () => {
             Menus.softUntrigger('pause');
             PixelTanks.user.player.implode();
-            PixelTanks.main();
+            PixelTanks.main(); // FIX is this correct?
           }, true]
         ],
         listeners: {
@@ -555,5 +554,5 @@ class Menus {
           }
         },
       },
-    }
+    } // FIX indentation
 }
