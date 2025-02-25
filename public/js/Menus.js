@@ -321,9 +321,10 @@ class Menus {
               if (x < 634 || x > 966 || y < 334 || y > 666) return this.perkTab = this.loaded = false;
               for (let i = 0, p = this.currentPerk-1; i < 9; i++) {
                 if (!PixelTanks.userData.perks[i] || !Engine.collision(x, y, 0, 0, [652, 760, 868][i%3], [352, 460, 568][Math.floor(i/3)], 80, 80)) continue;
-                PixelTanks.userData.perk[p] let n = Math.floor(PixelTanks.userData.perk[p]) === i+1 ? null : i+1+PixelTanks.userData.perks[i]/10;
+                let n = Math.floor(PixelTanks.userData.perk[p]) === i+1 ? null : i+1+PixelTanks.userData.perks[i]/10;
+                alert('Current perk indice:'+p+' Other perk indice:'+((p+1)%2)+' Setting to: '+n+' Other perk is: '+PixelTanks.userData.perk[(p+1)%2]);
                 if (PixelTanks.userData.perk[(p+1)%2] === n) PixelTanks.userData.perk[(p+1)%2] = PixelTanks.userData.perk[p];
-                PixelTanks.userData.perk[p] = n === PixelTanks.userData.perk[p] ? null : n;
+                PixelTanks.userData.perk[p] = n;
                 return this.loaded = false;
               }  
             } else if (this.cosmeticTab) {
