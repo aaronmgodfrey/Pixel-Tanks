@@ -322,7 +322,6 @@ class Menus {
               for (let i = 0, p = this.currentPerk-1; i < 9; i++) {
                 if (!PixelTanks.userData.perks[i] || !Engine.collision(x, y, 0, 0, [652, 760, 868][i%3], [352, 460, 568][Math.floor(i/3)], 80, 80)) continue;
                 let n = Math.floor(PixelTanks.userData.perk[p]) === i+1 ? null : i+1+PixelTanks.userData.perks[i]/10;
-                alert('Current perk indice:'+p+' Other perk indice:'+((p+1)%2)+' Setting to: '+n+' Other perk is: '+PixelTanks.userData.perk[(p+1)%2]);
                 if (PixelTanks.userData.perk[(p+1)%2] === n) PixelTanks.userData.perk[(p+1)%2] = PixelTanks.userData.perk[p];
                 PixelTanks.userData.perk[p] = n;
                 return this.loaded = false;
@@ -334,14 +333,12 @@ class Menus {
                   if (e.button === 0) {
                     let co = PixelTanks.userData.cosmetics[this.cosmeticMenu*16+i].split('#')[0]
                     PixelTanks.userData[Menus.menus.inventory.cosmeticType] = PixelTanks.userData[Menus.menus.inventory.cosmeticType] === co ? '' : co;
-                    this.loaded = false;
                   } else {
                     const [cosmetic, amount] = PixelTanks.userData.cosmetics[this.cosmeticMenu*16+i].split('#');
                     if (amount === undefined || Number(amount) <= 1) return PixelTanks.userData.cosmetics.splice(this.cosmeticMenu*16+i, 1);
                     PixelTanks.userData.cosmetics[this.cosmeticMenu*16+i] = cosmetic+'#'+(Number(amount)-1);
-                    this.loaded = false;
                   }
-                  return;
+                  return this.loaded = false;
                 }
               }
             } else if (this.deathEffectsTab) {
