@@ -1,18 +1,10 @@
 class Menus {
-  static start() {
-    Menus.renderer = requestAnimationFrame(Menus.render);
-  }
-  static render() {
-    Menus.start();
-    GUI.clear();
-    Menus.redraw();
-  }
+  static start = () => (Menus.renderer = requestAnimationFrame(Menus.render));
+  static stop = () => (Menus.renderer = cancelAnimationFrame(Menus.renderer));
+  static render = () => Menus.start() && Menus.redraw();
   static mouseLog = e => {
     Menus.x = (e.clientX-(window.innerWidth-window.innerHeight*1.6)/2)/window.innerHeight*1000;
-    Menus.y = e.clientY/window.innerHeight*1000;
-  }
-  static stop() {
-    Menus.renderer = cancelAnimationFrame(Menus.renderer);
+    Menus.y = e.clientY/window.innerHeight*1000; // maybe move to PixelTanks.x and PixelTanks.y??
   }
   static trigger(name) {
     if (Menus.current) Menus.menus[Menus.current].removeListeners();
@@ -30,6 +22,7 @@ class Menus {
     PixelTanks.user.player.menu = false;
   }
   static redraw() {
+    GUI.clear();
     if (Menus.current) Menus.menus[Menus.current].draw();
   }
   static removeListeners() {
