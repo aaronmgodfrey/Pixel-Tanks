@@ -224,7 +224,8 @@ class Multiplayer extends Engine {
     if (t.msg.logs.length || t.msg.u.length || t.msg.d.length || t.msg.global || t.msg.zone) {
       t.busy = true;
       t.delayed = false;
-      t.socket._send(pack(t.msg), {}, () => {
+      t.socket._send(pack(t.msg), {}, e => {
+        if (e) console.log('send error='+e);
         t.busy = false;
         if (t.delayed) this.send(t);
       });
