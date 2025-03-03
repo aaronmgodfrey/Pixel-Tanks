@@ -140,6 +140,24 @@ class Menus {
         PixelTanks.playSound('victory');
       }
     },
+    victory2: { // hi aaron, here to fix my code??? that's funny. bc it only took me screaming fix 5000 times and brealking game threee times over for u to do anything lol EZZZZZ. imam get back to lag byeing away from sound effects LAG B&YE
+      buttons: [
+        [580, 556, 432, 104, () => {
+          const data = Menus.menus.victory.data;
+          Menus.removeListeners();
+          PixelTanks.user.player = new Client(data[0], data[1], data[2]);
+        }, true],
+        [656, 680, 280, 104, 'main', true],
+      ],
+      ontrigger: function() {
+        if (!PixelTanks.sounds.battlegrounds.paused) PixelTanks.stopSound('battlegrounds');
+        if (!PixelTanks.sounds.ice.paused) PixelTanks.stopSound('ice');
+        if (!PixelTanks.sounds.cave.paused) PixelTanks.stopSound('cave');
+        if (!PixelTanks.sounds.deep.paused) PixelTanks.stopSound('deep');
+        if (!PixelTanks.sounds.gem.paused) PixelTanks.stopSound('gem'); // FIX make function between victory/defeat sharing this
+        PixelTanks.playSound('victory');
+      }
+    },
     defeat: {
       buttons: [
         [580, 556, 432, 104, () => {
