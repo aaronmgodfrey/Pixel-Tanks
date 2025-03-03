@@ -128,7 +128,7 @@ class Singleplayer extends Engine {
     this.victoryTimeout = setTimeout(() => {
       PixelTanks.user.player.implode();
       Menus.menus.victory.stats = {kills: 'n/a', coins: 'n/a'};
-      Menus.trigger('victory');
+      Menus.trigger('victory2');
     }, 3000);
   }
 
