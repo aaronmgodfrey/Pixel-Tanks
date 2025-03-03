@@ -131,7 +131,7 @@ class Engine {
     t.immune = data.immune;
     t.animation = data.animation;
     t.emote = emote;
-    if (t.canInvis) t.invis = data.invis;
+    t.invis = data.invis;
     t.baseFrame = data.baseFrame;
     if (!t.grapple && (t.x !== x || t.y !== y)) {
       let chunkload = t.socket && (Math.floor((t.x+40)/100) !== Math.floor((x+40)/100) || Math.floor((t.y+40)/100) !== Math.floor((y+40)/100)), ox = t.x, oy = t.y;
@@ -163,8 +163,6 @@ class Engine {
     }
     for (const exe of use) this.useAbility(t, exe);
     if (fire.length) {
-      t.canInvis = t.invis = false;
-      setTimeout(() => {t.canInvis = true}, 100);
       for (const s of fire) {
         t.pushback = s.type.includes('missle') ? -9 : -6;
         A.template('Shot').init(t.x+40, t.y+40, 70, s.r, s.type, Engine.parseTeamExtras(t.team), t.rank, this);
