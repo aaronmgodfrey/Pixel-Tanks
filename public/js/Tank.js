@@ -115,9 +115,9 @@ class Tank {
   damageCalc(x, y, a, u) {
     if ((((Date.now()-this.core) < 1000 || this.reflect || this.immune) && a > 0) || this.ded) return;
     const hx = Math.floor((this.x+40)/100), hy = Math.floor((this.y+40)/100);
-    for (let i = Math.max(0, hx-1); i <= Math.min(29, hx+1); i++) for (let l = Math.max(0, hy-1); l <= Math.min(29, hy+1); l++) for (const entity of this.host.cells[i][l]) {
-      if (entity instanceof Shot) if (entity.target) if (entity.target.id === this.id && entity.type === 'usb' && a >= 0) a = Math.max(0, a+(Math.abs(a/5))*(Engine.getTeam(entity.team) === Engine.getTeam(this.team) ? -1 : 1));
-    }
+    let isBuffed = false, isNerfed = false;
+    for (let i = Math.max(0, hx-1); i <= Math.min(29, hx+1); i++) for (let l = Math.max(0, hy-1); l <= Math.min(29, hy+1); l++) for (const entity of this.host.cells[i][l]) if (entity instanceof Shot) if (entity.target) if (entity.target.id === this.id && entity.type === 'usb' && a >= 0) if (Engine.match(this, entity)) isBuffed = true; else isNerfed = true;
+    if (isBuffed && !isNerfed) a *= .8; else if (isNerfed && !isBuffed) a *= 1.2;
     if (this.shields > 0 && a > 0) return this.shields -= a;
     this.hp = Math.max(Math.min(this.maxHp, this.hp-a), 0);
     if (a < 0) {
