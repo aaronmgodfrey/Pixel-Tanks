@@ -15,7 +15,7 @@ window.sourceMap = {
     {
       ref: 'menus',
       path: 'menus',
-      load: ['perksheet', 'world1', 'world2', 'world3', 'world4', 'world5', 'ui', 'stats', 'start', 'main', 'multiplayer', 'victory', 'victory2', 'defeat', 'crate', 'settings', 'inventory', 'classTab', 'itemTab', 'perkTab', 'cosmeticTab', 'shop', 'shop2', 'broke', 'pause', 'locked', 'adrenaline', 'cooldown', 'core', 'radar', 'refresh', 'scavenger', 'shield', 'thermal', 'arrow', 'arrow_friendly', 'upgrader'],
+      load: ['credits', 'perksheet', 'world1', 'world2', 'world3', 'world4', 'world5', 'ui', 'stats', 'start', 'main', 'multiplayer', 'victory', 'victory2', 'defeat', 'crate', 'settings', 'inventory', 'classTab', 'itemTab', 'perkTab', 'cosmeticTab', 'shop', 'shop2', 'broke', 'pause', 'locked', 'adrenaline', 'cooldown', 'core', 'radar', 'refresh', 'scavenger', 'shield', 'thermal', 'arrow', 'arrow_friendly', 'upgrader'],
     },
     {
       ref: 'animations',
