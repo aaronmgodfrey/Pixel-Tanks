@@ -57,7 +57,7 @@ class Menus {
       },
     },
     main: {
-      buttons: [[972, 840, 88, 88, 'settings', true], [532, 616, 536, 136, 'multiplayer', true], [648, 840, 88, 88, 'shop', true], [540, 840, 88, 88, 'inventory', true], [756, 840, 88, 88, 'crate', true], [532, 392, 536, 136, 'world1', true]],
+      buttons: [[972, 840, 88, 88, 'settings', true], [864, 840, 88, 88, 'credits', true], [532, 616, 536, 136, 'multiplayer', true], [648, 840, 88, 88, 'shop', true], [540, 840, 88, 88, 'inventory', true], [756, 840, 88, 88, 'crate', true], [532, 392, 536, 136, 'world1', true]],
       cdraw: function() {
         GUI.drawText(PixelTanks.user.username, 1280, 800, 100, '#ffffff', 0.5);
         PixelTanks.renderBottom(1200, 600, 160, PixelTanks.userData.color);
@@ -256,6 +256,10 @@ class Menus {
         GUI.draw.strokeRect([300, 424, 548][Math.log10(this.csize*10)-1], 816, 104, 52);
         GUI.draw.strokeRect([948, 1072, 1196][Math.log10(this.dsize*10)-1], 816, 104, 52);
       }
+    },
+    credits: {
+      buttons: [[416, 20, 108, 108, 'main', true]],
+      cdraw: function() {}
     },
     settings: {
       buttons: [[416, 20, 108, 108, 'main', true]],
