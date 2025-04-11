@@ -787,7 +787,7 @@ const Commands = {
     const value = servers[this.room][data[1]];
     if (value !== undefined) servers[this.room].logs.push({m: typeof value === Object ? JSON.stringify(value) : value, c: '#FFFFFF'});
   }],
-  kick: [Object, 3, 2, (data, socket, server, t) => {
+  kick: [Object, 2, 2, (data, socket, server, t) => {
     for (const socket of sockets) if (socket.username === data[1]) {
       socket.send({status: 'error', message: 'You have been kicked by '+t.username});
       setTimeout(() => socket.close());
