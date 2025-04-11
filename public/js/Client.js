@@ -265,9 +265,9 @@ class Client {
     if (!Engine.collision(100*(Math.floor((this.tank.x+40)/100)-10), 100*(Math.floor((this.tank.y+40)/100)-7), 2100, 1500, s.x, s.y, 10, 10)) return;
     if (s.type == 'bullet') {
       GUI.drawImage(PixelTanks.images.bullets.normal, s.x, s.y, 10, 10, .7, 5, 5, 0, 0, s.r+90);
-    } else if (s.type === 'powermissle') {
+    } else if (s.type === 'powermissile') {
       GUI.drawImage(PixelTanks.images.bullets.powermissle, s.x, s.y, 20, 40, 1, 10, 20, 0, 0, s.r+90);
-    } else if (s.type === 'megamissle') {
+    } else if (s.type === 'megamissile') {
       GUI.drawImage(PixelTanks.images.bullets.megamissle, s.x, s.y, 20, 40, 1, 10, 20, 0, 0, s.r+90);
     } else if (s.type === 'shotgun') {
       GUI.drawImage(PixelTanks.images.bullets.shotgun, s.x, s.y, 10, 10, 1, 5, 5, 0, 0, s.r+90);
