@@ -223,8 +223,8 @@ class Client {
 
   giveCooldown(data) {
     if (data.timer !== '*') return this.timers[data.timer].time -= this.timers[data.timer].cooldown*data.percent;
-    for (const i in this.timers.items) if (PixelTanks.userData.items[i] !== 'crate') this.timers.items[i].time -= this.timers.items[i].cooldown*data.percent;
-    for (const timer of ['class', 'boost', 'powermissle', 'grapple', 'toolkit']) this.timers[timer].time -= this.timers[timer].cooldown*data.percent;
+    for (const i in this.timers.items) if (PixelTanks.userData.items[i] !== 'bomb') this.timers.items[i].time -= this.timers.items[i].cooldown*data.percent;
+    for (const timer of ['class', 'boost', 'powermissle', 'grapple']) this.timers[timer].time -= this.timers[timer].cooldown*data.percent;
   }
   
   getPing() {
