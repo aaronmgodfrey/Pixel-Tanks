@@ -798,7 +798,7 @@ class Client {
       this.tank.use.push('tape');
       this.playAnimation('tape');
     } else if (id === 'super_glu') {
-      this.tank.use.push('glu');
+      this.tank.use.push('glue');
       this.playAnimation('glu');
     } else if (id === 'shield') {
       this.tank.use.push('shield');
