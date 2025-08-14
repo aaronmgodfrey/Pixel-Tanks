@@ -647,8 +647,8 @@ const Commands = {
     if (server.pt.find(t => Engine.getTeam(t.team) === data[1])) return socket.send({status: 'error', message: 'This team already exists.'});
     if (data[1].includes('@leader') || data[1].includes('@requestor#') || data[1].includes(':') || data[1].length > 20) return socket.send({status: 'error', message: 'Team name not allowed.'});
     t.team = t.username+':'+data[1]+'@leader';
-    for (const ai of server.ai) if (Engine.getUsername(ai.team) === t.username) ai.team = t.username+':'+data[1];
     server.logs.push({m: t.username+' created team '+data[1]+'. Other players can use /join '+data[1]+' to request to join.', c: '#40C4FF'});
+    for (const ai of server.ai) if (Engine.getUsername(ai.team) === t.username) ai.team = t.username+':'+data[1];
   }],
   join: [FFA, 4, 2, (data, socket, server, t, logs) => {
     if (t.team.includes('@leader')) return socket.send({status: 'error', message: 'You must disband your team to join. (/leave)'});
