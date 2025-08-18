@@ -408,8 +408,8 @@ class Menus {
           GUI.drawText('Coins: '+coins, 280, 500, 50, '#FFE900', .5);
           GUI.drawText('Rank: '+rank, 280, 550, 50, '#FF2400', .5);
           GUI.drawText('Level Up Progress', 1400, 400, 50, '#000000', .5);
-          GUI.drawText((rank < 20 ? coins+'/'+coinsUP : 'MAXED')+' Coins', 1400, 500, 50, rank < 20 ? (coins < coinsUP ? '#FF2400' : '#90EE90') : '#63666A', .5);
-          GUI.drawText((rank < 20 ? xp+'/'+xpUP : 'MAXED')+' XP', 1400, 550, 50, rank < 20 ? (xp < xpUP ? '#FF2400' : '#90EE90') : '#63666A', .5);
+          GUI.drawText(coins+'/'+coinsUP+' Coins', 1400, 500, 50, coins < coinsUP ? '#FF2400' : '#90EE90', .5);
+          GUI.drawText(xp+'/'+xpUP+' XP', 1400, 550, 50, xp < xpUP ? '#FF2400' : '#90EE90', .5);
           if (coins < coinsUP || xp < xpUP || rank > 19) {
             GUI.draw.fillStyle = '#000000';
             GUI.draw.globalAlpha = .7;
