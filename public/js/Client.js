@@ -315,7 +315,7 @@ class Client {
     if (t.ded && (t.role !== undefined || !this.ded)) a = 0;
     GUI.draw.globalAlpha = a;
     if (t.role !== 0) PixelTanks.renderBottom(t.x, t.y, 80, t.color, t.baseRotation); else PixelTanks.renderBase(t.x, t.y, 80, t.color, t.baseRotation);
-    GUI.drawImage(PixelTanks.images.tanks[t.role === 0 ? 'base' : 'bottom'+(t.baseFrame ? '' : '2')], t.x, t.y, 80, 80, a, 40, 40, 0, 0, t.baseRotation);
+    GUI.drawImage(PixelTanks.images.tanks[t.role === 0 ? 'base' : 'bottom3', t.x, t.y, 80, 80, a, 40, 40, 0, 0, t.baseRotation, 80*t.baseFrame, 0, 80, 80);
     if (!t.ded && t.fire && (!t.invis || Engine.getTeam(this.team) === Engine.getTeam(t.team))) GUI.drawImage(PixelTanks.images.animations.fire, t.x, t.y, 80, 80, 1, 0, 0, 0, 0, undefined, 29*(Math.floor((Date.now()-this.animate)/80)%2), 0, 29, 29);
     GUI.draw.globalAlpha = a;
     PixelTanks.renderTop(t.x, t.y, 80, t.color, t.r, t.pushback);
@@ -493,7 +493,7 @@ class Client {
       if (this.dx || this.dy) this.tank.baseRotation = diff > 12 ? (this.tank.baseRotation+(dir*12)+360)%360 : br;
       this.lastBaseRotation = Date.now();
     }
-    if (this.b) this.tank.baseFrame = ((this.b.o ? 0 : 1)+Math.floor((Date.now()-this.b.t)/120))%2;
+    if (this.b) this.tank.baseFrame = Math.floor((Date.now()-this.b.t)/120)%5;
     const player = t.find(tank => tank.username === PixelTanks.user.username);
     if (player) {
       player.x = this.tank.x;
