@@ -607,16 +607,16 @@ const Commands = {
   admin: [Object, 1, 2, data => {
     if (!Storage.admins.includes(data[1])) Storage.admins.push(data[1]);
   }],
-  vip: [Object, 2, 2, data => {
+  vip: [Object, 1, 2, data => {
     if (!Storage.vips.includes(data[1])) Storage.vips.push(data[1]);
   }],
   removeadmin: [Object, 1, 2, data => {
     if (Storage.admins.includes(data[1])) Storage.admins.splice(Storage.admins.indexOf(data[1]), 1);
   }],
-  removevip: [Object, 2, 2, data => {
+  removevip: [Object, 1, 2, data => {
     if (Storage.vips.includes(data[1])) Storage.vips.splice(Storage.vips.indexOf(data[1]), 1);
   }],
-  reload: [Object, 2, 2, data => {
+  reload: [Object, 1, 2, data => {
     for (const s of Object.values(servers)) for (const t of s.pt) if (t.username === data[1]) t.socket.send({event: 'force'});
   }],
   playerlist: [Object, 4, 1, (data, socket, server, t, logs) => {
@@ -813,7 +813,7 @@ const Commands = {
   spectate: [Object, 3, 2, data => {
     for (const server of Object.values(servers)) for (const t of server.pt) if (t.username === data[1]) t.ded = true;
   }],
-  live: [Object, 2, -1, (data, socket) => {
+  live: [Object, 3, -1, (data, socket) => {
     for (const server of Object.values(servers)) {
       let t = server.pt.find(t => t.username === (data[1] || socket.username));
       if (!t || !t.ded) return;
