@@ -10,7 +10,7 @@ window.sourceMap = {
     {
       ref: 'tanks',
       path: 'tanks',
-      load: ['buff', 'reflect', 'base', 'destroyed', 'top', 'bottom', 'bottom2'],
+      load: ['buff', 'reflect', 'base', 'destroyed', 'top', 'bottom3'],
     },
     {
       ref: 'menus',
