@@ -61,7 +61,7 @@ class Menus {
       cdraw: function() {
         GUI.drawText(PixelTanks.user.username, 1280, 800, 100, '#ffffff', 0.5);
         PixelTanks.renderBottom(1200, 600, 160, PixelTanks.userData.color);
-        GUI.drawImage(PixelTanks.images.tanks.bottom, 1200, 600, 160, 160, 1);
+        GUI.drawImage(PixelTanks.images.tanks.bottom3, 1200, 600, 160, 160, 1, 40, 40, 0, 0, 0, 0, 0, 80, 80);
         PixelTanks.renderTop(1200, 600, 160, PixelTanks.userData.color);
         GUI.drawImage(PixelTanks.images.tanks.top, 1200, 600, 160, 180, 1);
         for (let i = 0; i < 3; i++) PixelTanks.renderCosmetic(PixelTanks.images.cosmetics[PixelTanks.userData['cosmetic'+['_body', '', '_hat'][i]]], 1200, 600, 160, 180, 1);
