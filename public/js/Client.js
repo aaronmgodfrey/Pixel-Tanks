@@ -493,7 +493,7 @@ class Client {
       if (this.dx || this.dy) this.tank.baseRotation = diff > 12 ? (this.tank.baseRotation+(dir*12)+360)%360 : br;
       this.lastBaseRotation = Date.now();
     }
-    if (this.b) this.tank.baseFrame = Math.floor((Date.now()-this.b.t)/120)%5;
+    if (this.b) this.tank.baseFrame = Math.floor((Date.now()-this.b.t)/30)%5;
     const player = t.find(tank => tank.username === PixelTanks.user.username);
     if (player) {
       player.x = this.tank.x;
