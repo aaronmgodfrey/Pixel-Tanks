@@ -57,7 +57,7 @@ window.sourceMap = {
     path: 'animations',
     common: ['explode', 'nuke', 'insta', 'evan'],
     uncommon: ['anvil', 'gameover', 'erase'],
-    rare: ['magic', 'shatter'],
+    rare: ['magic', 'shatter', 'crate'],
     epic: ['battery', 'skull', 'banhammer', 'blackhole'],
     legendary: ['error', 'tombstone'],
     mythic: ['clicked', 'cat'],
@@ -84,6 +84,7 @@ window.sourceMap = {
       blackhole_: {frames: 40, speed: 100, kill: 28, type: 2},
       erase_: {frames: 17, speed: 100, kill: 10, type: 2},
       banhammer_: {frames: 25, speed: 100, kill: 4, type: 1},
+      crate_: {frames: 31, speed: 100, kill: 14, type: 2},
     }
   },
   sounds: {
