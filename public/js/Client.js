@@ -663,7 +663,7 @@ class Client {
     if (e.keyCode === 13) {
       if (Client.input.value !== '') {
         if (!this.lastMessages) this.lastMessages = [];
-        this.lastMessages.pop(Client.input.value);
+        this.lastMessages.unshift(Client.input.value);
         this.lastMessages.length = Math.min(100, this.lastMessages.length);
         if (Client.input.value.charAt(0) === '/') { 
           this.socket.send({type: 'command', data: Client.input.value.replace('/', '').split(' ')});
