@@ -656,10 +656,15 @@ class Client {
       const runoff = Client.input.value.split(' ').reverse()[0];
       for (const player of this.players) if (player.startsWith(runoff)) return Client.input.value = Client.input.value.split(' ').reverse().slice(1).reverse().concat(player).join(' ');
     }
-    if (e.keyCode === 38 && this.lastMessage) Client.input.value = this.lastMessage;
+    if (e.keyCode === 38) {
+      this.lastMessageIndex = (this.lastMessageIndex+1)%this.lastMessages.length || 0;
+      Client.input.value = this.lastMessages[this.lastMessageIndex];
+    }
     if (e.keyCode === 13) {
       if (Client.input.value !== '') {
-        this.lastMessage = Client.input.value;
+        if (!this.lastMessages) this.lastMessages = [];
+        this.lastMessages.pop(Client.input.value);
+        this.lastMessages.length = Math.min(100, this.lastMessages.length);
         if (Client.input.value.charAt(0) === '/') { 
           this.socket.send({type: 'command', data: Client.input.value.replace('/', '').split(' ')});
         } else this.socket.send({type: 'chat', msg: Client.input.value});
