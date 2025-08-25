@@ -579,7 +579,7 @@ class Client {
         if (Date.now() < this.timers.items[i].time+this.timers.items[i].cooldown) {
           GUI.draw.fillStyle = '#000000';
           GUI.draw.globalAlpha = .5;
-          GUI.draw.fillRect(c[i], 920, 120, 120);
+          GUI.draw.fillRect(c[i], 920, 80, 80);
           GUI.draw.globalAlpha = 1;
         } else {
           GUI.draw.fillStyle = '#FFFFFF';
