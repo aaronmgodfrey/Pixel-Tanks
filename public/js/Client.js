@@ -660,7 +660,7 @@ class Client {
     if (e.keyCode === 38) {
       this.lastMessageIndex = (this.lastMessageIndex+1)%this.lastMessages.length || 0;
       Client.input.value = this.lastMessages[this.lastMessageIndex];
-    }
+    } else this.lastMessageIndex = 0;
     if (e.keyCode === 13) {
       if (Client.input.value !== '') {
         if (!this.lastMessages) this.lastMessages = [];
