@@ -382,7 +382,6 @@ class Client {
     let teamname = (this.multiplayer ? Engine.getTeam(t.team) : '');
     
     if (t.invis && !t.ded && Engine.getTeam(this.team) !== teamname) return;
-    GUI.drawText(t.rank, t.x+40, t.y-50, 30, '#ff0000', 0.5);
     let username = t.username;
     if (this.multiplayer) if (t.team.split(':')[1].includes('@leader')) {
       username += ' ['+t.team.split(':')[1].replace('@leader', '')+'] (Leader)'
@@ -401,7 +400,7 @@ class Client {
         GUI.drawText(username, t.x+40, t.y-25, 50, '#ff0000', 0.5);
       } else if (t.color === '#0000FF') GUI.drawText(username, t.x+40, t.y-25, 50, '#0000ff', 0.5);
     } else GUI.drawText(username, t.x+40, t.y-25, 50, '#ffffff', 0.5);
-    if (t.authority && !(t.ded && (t.role !== undefined || !this.ded))) GUI.drawText(t.authority, t.x+40, t.y-50, 30, ((t.authority === 'Owner' || t.authority === 'Head Admin') ? '#cf0000' : t.authority === 'Admin' ? '#f51818' : '#ffc107'), 0.5);
+    if (t.authority && !(t.ded && (t.role !== undefined || !this.ded))) GUI.drawText(t.rank+' '+t.authority, t.x+40, t.y-50, 30, ((t.authority === 'Owner' || t.authority === 'Head Admin') ? '#cf0000' : t.authority === 'Admin' ? '#f51818' : '#ffc107'), 0.5); else GUI.drawText(t.rank, t.x+40, t.y-50, 30, '#FFFFFF', 0.5);
     if (t.gambleCounter > 0 && t.hp <= 0 && !t.ded) GUI.drawText('Gambled! '+t.gambleCounter, t.x+40, t.y-75, 30, '#ffffff', 0.5);
     if (t.buff) GUI.drawImage(PixelTanks.images.tanks.buff, t.x-5, t.y-5, 80, 80, .2);
     if (t.reflect) GUI.drawImage(PixelTanks.images.tanks.reflect, t.x, t.y, 80, 80, 1, 40, 40, 0, 0, 360*Math.sin((Date.now()-this.animate)/1000*4*Math.PI));
