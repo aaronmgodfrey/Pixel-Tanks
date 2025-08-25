@@ -572,25 +572,25 @@ class Client {
      }
       GUI.draw.globalAlpha = 0.5;
       GUI.draw.fillStyle = PixelTanks.userData.color;
-      const c = [440, 640, 840, 1040]; // x coords of items
+      const c = [520, 680, 840, 1000]; // x coords of items
       for (let i = 0; i < 4; i++) {
         const item = PixelTanks.userData.items[i];
-        GUI.drawImage(PixelTanks.images.items[item], c[i], 880, 120, 120, 1);
+        GUI.drawImage(PixelTanks.images.items[item], c[i], 920, 80, 80, 1);
         if (Date.now() < this.timers.items[i].time+this.timers.items[i].cooldown) {
           GUI.draw.fillStyle = '#000000';
           GUI.draw.globalAlpha = .5;
-          GUI.draw.fillRect(c[i], 880, 120, 120);
+          GUI.draw.fillRect(c[i], 920, 120, 120);
           GUI.draw.globalAlpha = 1;
         } else {
           GUI.draw.fillStyle = '#FFFFFF';
           const tank = t.find(tank => tank.username === PixelTanks.user.username);
           if ((item === 'shield' && tank.shields <= 0) || (item === 'duck_tape' && tank.hp <= tank.maxHp/2) || (item === 'super_glu' && tank.hp <= tank.maxHp/2)) GUI.draw.fillStyle = '#00FF00';
           GUI.draw.globalAlpha = 0.25*Math.abs(Math.sin(Math.PI*.5*((((Date.now()-(this.timers.items[i].time+this.timers.items[i].cooldown))%4000)/1000)-3)));
-          GUI.draw.fillRect(c[i], 880, 120, 120);
+          GUI.draw.fillRect(c[i], 920, 80, 80);
         }
         GUI.draw.globalAlpha = 1;
         GUI.draw.fillStyle = PixelTanks.userData.color;
-        GUI.draw.fillRect(c[i], 880+Math.min((Date.now()-this.timers.items[i].time)/this.timers.items[i].cooldown, 1)*120, 120, 120);
+        GUI.draw.fillRect(c[i], 920+Math.min((Date.now()-this.timers.items[i].time)/this.timers.items[i].cooldown, 1)*80, 80, 80);
         if (Math.ceil((this.timers.items[i].cooldown-(Date.now()-this.timers.items[i].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers.items[i].cooldown-(Date.now()-this.timers.items[i].time))/100)/10, c[i]+90, 998, 30, '#FFFFFF', 1);
       }
       for (let i = 0; i < 5; i++) {
@@ -604,14 +604,14 @@ class Client {
           if (mana === 15) {
             GUI.draw.fillStyle = '#ffffff'; // next 2 lines can be simplified
             GUI.draw.globalAlpha = .25*Math.abs(Math.sin(Math.PI*.5*((((Date.now()-(this.timers[type].time+this.timers[type].cooldown))%4000)/1000)-3)));
-            GUI.draw.fillRect([300, 344, 1284, 1204, 1244][i], 964, 32, 32);
+            GUI.draw.fillRect([380, 424, 1204, 1124, 1164][i], 964, 32, 32);
           } else {
             GUI.draw.fillStyle = '#000000';
             GUI.draw.globalAlpha = .5;
-            GUI.draw.fillRect([300, 344, 1284, 1204, 1244][i], 964, 32, 32);
+            GUI.draw.fillRect([380, 424, 1204, 1124, 1164][i], 964, 32, 32);
             GUI.draw.fillStyle = PixelTanks.userData.color;
             GUI.draw.globalAlpha = 1;
-            GUI.draw.fillRect([300, 344, 1284, 1204, 1244][i], 964+(15-mana)/15*32, 32, 32);
+            GUI.draw.fillRect([380, 424, 1204, 1124, 1164][i], 964+(15-mana)/15*32, 32, 32);
             GUI.drawText(mana.toFixed(1), 353, 998, 15, '#FFFFFF', 1);
           }
           continue;
@@ -619,16 +619,16 @@ class Client {
         if (Date.now() <= time) {
           GUI.draw.fillStyle = '#000000';
           GUI.draw.globalAlpha = .5;
-          GUI.draw.fillRect([300, 344, 1284, 1204, 1244][i], 964, 32, 32);
+          GUI.draw.fillRect([380, 424, 1204, 1124, 1164][i], 964, 32, 32);
         } else {
           GUI.draw.fillStyle = '#ffffff';
           GUI.draw.globalAlpha = .25*Math.abs(Math.sin(Math.PI*.5*((((Date.now()-(this.timers[type].time+this.timers[type].cooldown))%4000)/1000)-3)));
-          GUI.draw.fillRect([300, 344, 1284, 1204, 1244][i], 964, 32, 32);
+          GUI.draw.fillRect([380, 424, 1204, 1124, 1164][i], 964, 32, 32);
         }
         GUI.draw.fillStyle = PixelTanks.userData.color;
         GUI.draw.globalAlpha = 1;
-        GUI.draw.fillRect([300, 344, 1284, 1204, 1244][i], 964+Math.min((Date.now()-this.timers[type].time)/this.timers[type].cooldown, 1)*32, 32, 32);
-        if (Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10, [300, 344, 1284, 1204, 1244][i]+45, 998, 15, '#FFFFFF', 1);
+        GUI.draw.fillRect([380, 424, 1204, 1124, 1164][i], 964+Math.min((Date.now()-this.timers[type].time)/this.timers[type].cooldown, 1)*32, 32, 32);
+        if (Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10, [380, 424, 1204, 1124, 1164][i]+45, 998, 15, '#FFFFFF', 1);
       }
     }
     
