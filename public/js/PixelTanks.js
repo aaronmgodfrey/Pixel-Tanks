@@ -182,7 +182,7 @@ class PixelTanks {
 
   static upgrade() {
     const coins = PixelTanks.userData.stats[0], xp = PixelTanks.userData.stats[3], rank = PixelTanks.userData.stats[4];
-    if (coins < (rank+1)*1000 || xp < (rank+1)*100) return alert('Your  boi!');
+    if (coins < (rank+1)*1000 || xp < (rank+1)*100) return alert('Your broke boi!');
     PixelTanks.userData.stats[0] -= (rank+1)*1000;
     PixelTanks.userData.stats[3] -= (rank+1)*100;
     PixelTanks.userData.stats[4]++;
