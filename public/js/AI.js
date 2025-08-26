@@ -1,7 +1,7 @@
 class AI {
   static time = Date.now();
   static args = ['x', 'y', 'role', 'rank', 'team', 'host'];
-  static raw = ['path', 'role', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'ammo', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'dedEffect', 'gambleCounter'];
+  static raw = ['path', 'role', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'nameColor' 'damage', 'maxHp', 'hp', 'shields', 'team', 'ammo', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'dedEffect', 'gambleCounter'];
   static u = [];
   static routes = [[[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]], [[0, -3], [1, -3], [2, -2], [3, -1], [3, 0], [3, 1], [2, 2], [1, 3], [0, 3], [-1, 3], [-2, 2], [-3, 1], [-3, 0], [-3, -1], [-2, -2], [-1, -3]]];
   constructor() {
@@ -34,7 +34,7 @@ class AI {
 	  
     const summoner = host.pt.find(t => t.username === Engine.getUsername(this.team));
     if (summoner) {
-      for (const c of ['cosmetic_hat', 'cosmetic', 'cosmetic_body', 'color']) this[c] = summoner[c];
+      for (const c of ['cosmetic_hat', 'cosmetic', 'cosmetic_body', 'color', 'nameColor']) this[c] = summoner[c];
     } else {
       /*for (let i = 0; i < 3; i++) { // why cringe 3 for loop?
         let rand = Math.floor(Math.random()*1001);
@@ -45,6 +45,7 @@ class AI {
         this[['cosmetic_hat', 'cosmetic', 'cosmetic_body'][i]] = item;
       } // end of bread code*/
       this.color = Engine.getRandomColor();
+	  this.nameColor = '#FFFFFF';
     }
     this.host.loadCells(this, this.x, this.y, 80, 80);
     host.updateEntity(this, AI.raw);
