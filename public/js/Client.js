@@ -43,7 +43,7 @@ class Client {
   }
   constructor(ip, multiplayer, gamemode) {
     this.xp = this.crates = this.kills = this.coins = this._ops = this._ups = this._fps = this.debugMode = 0;
-    this.tank = {use: [], fire: [], r: 0, baseRotation: 0};
+    this.tank = {use: [], fire: [], r: 0, baseRotation: 0, nameColor: "#FFFFFF"};
     this.hostupdate = {b: [], s: [], pt: [], d: [], ai: [], entities: []};
     this.paused = this.canRespawn = false;
     this.multiplayer = multiplayer;
@@ -56,7 +56,6 @@ class Client {
     this.speed = 4;
     this.fireType = 1;
     this.maxTurrets = 3;
-    this.nameColor = "#FFFFFF";
     this.blocked = new Set();
     this.debug = {};
     this.key = [];
