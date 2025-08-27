@@ -1,7 +1,7 @@
 class AI {
   static time = Date.now();
   static args = ['x', 'y', 'role', 'rank', 'team', 'host'];
-  static raw = ['path', 'role', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'nameColor', 'damage', 'maxHp', 'hp', 'shields', 'team', 'ammo', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'dedEffect', 'gambleCounter'];
+  static raw = ['path', 'role', 'rank', 'username', 'cosmetic', 'cosmetic_hat', 'cosmetic_body', 'color', 'damage', 'maxHp', 'hp', 'shields', 'team', 'ammo', 'x', 'y', 'r', 'ded', 'reflect', 'pushback', 'baseRotation', 'baseFrame', 'fire', 'damage', 'animation', 'buff', 'invis', 'class', 'dedEffect', 'gambleCounter'];
   static u = [];
   static routes = [[[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]], [[0, -3], [1, -3], [2, -2], [3, -1], [3, 0], [3, 1], [2, 2], [1, 3], [0, 3], [-1, 3], [-2, 2], [-3, 1], [-3, 0], [-3, -1], [-2, -2], [-1, -3]]];
   constructor() {
