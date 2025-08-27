@@ -55,6 +55,7 @@ class Client {
     this.lastUpdate = {};
     this.speed = 4;
     this.fireType = 1;
+    this.nameColor = "#FFFFFF";
     this.maxTurrets = 3;
     this.blocked = new Set();
     this.debug = {};
