@@ -110,7 +110,7 @@ class Client {
       for (const log of data.logs) {
         const msg = document.createElement('DIV'), a = Math.abs(Client.messages.scrollTop-(Client.messages.scrollHeight-Client.messages.clientHeight)) < 10;
         msg.id = 'message';
-        msg.innerText = log.m;
+        msg.innerHTML = log.m;
         msg.style.color = log.c;
         Client.messages.appendChild(msg);
         if (a) Client.messages.scrollTop = Client.messages.scrollHeight-Client.messages.clientHeight;
@@ -645,7 +645,7 @@ class Client {
     } catch(e) {
       const msg = document.createElement('DIV');
       msg.id = 'message';
-      msg.innerText = JSON.stringify(this.lud);
+      msg.innerHTML = JSON.stringify(this.lud);
       msg.style.color = '#ff0000';
       Client.messages.appendChild(msg);
     }
