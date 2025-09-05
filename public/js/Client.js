@@ -372,7 +372,7 @@ class Client {
       GUI.draw.fillRect(t.x, t.y+115, 80*t.shields/100, 5);
     }
 
-    if (t.hp <= 0) {
+    if (t.hp <= 0 && t.ded === false) {
       if (!t.gamble) t.gamble = Date.now();
     } else t.gamble = undefined;
 
