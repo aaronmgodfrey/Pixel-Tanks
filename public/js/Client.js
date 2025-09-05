@@ -372,6 +372,15 @@ class Client {
       GUI.draw.fillRect(t.x, t.y+115, 80*t.shields/100, 5);
     }
 
+    if (t.hp <= 0) {
+      if (!t.gamble) t.gamble = Date.now();
+    } else t.gamble = undefined;
+
+    if (t.gamble && Date.now()-t.gamble <= 9*100) {
+      let f = Math.floor((Date.now()-t.gamble)/100);
+      GUI.drawImage(PixelTanks.images.animations.lightning, t.x-22, t.y-22, 124, 124, .4, 0, 0, 0, 0, undefined, f*132, 0, 132, 132);
+    }
+    
     if (t.damage) {
       const {x, y, d} = t.damage;
       for (let i = 0; i < 2; i++) {
