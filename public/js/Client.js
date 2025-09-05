@@ -376,7 +376,7 @@ class Client {
       if (!t.gamble) t.gamble = Date.now();
     } else t.gamble = undefined;
 
-    if (t.gamble && Date.now()-t.gamble <= 20*50) {
+    if (t.gamble && Date.now()-t.gamble <= 10*50) {
       let f = Math.floor((Date.now()-t.gamble)/50);
       GUI.drawImage(PixelTanks.images.animations.lightning, t.x, t.y, 80, 80, 1, 0, 0, 0, 0, undefined, f*100, 0, 100, 100);
     }
