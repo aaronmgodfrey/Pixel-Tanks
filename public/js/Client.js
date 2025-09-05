@@ -377,8 +377,8 @@ class Client {
     } else t.gamble = undefined;
 
     if (t.gamble && Date.now()-t.gamble <= 9*100) {
-      let f = Math.floor((Date.now()-t.gamble)/100);
-      GUI.drawImage(PixelTanks.images.animations.lightning, t.x, t.y, 100, 100, 1, 0, 0, 0, 0, undefined, f*100, 0, 100, 100);
+      let f = Math.floor((Date.now()-t.gamble)/50);
+      GUI.drawImage(PixelTanks.images.animations.lightning, t.x, t.y, 80, 80, 1, 0, 0, 0, 0, undefined, f*80, 0, 80, 80);
     }
     
     if (t.damage) {
