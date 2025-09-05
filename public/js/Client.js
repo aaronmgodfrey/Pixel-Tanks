@@ -378,7 +378,7 @@ class Client {
 
     if (t.gamble && Date.now()-t.gamble <= 9*100) {
       let f = Math.floor((Date.now()-t.gamble)/100);
-      GUI.drawImage(PixelTanks.images.animations.lightning, t.x-22, t.y-22, 124, 124, .4, 0, 0, 0, 0, undefined, f*132, 0, 132, 132);
+      GUI.drawImage(PixelTanks.images.animations.lightning, t.x, t.y, 100, 100, 1, 0, 0, 0, 0, undefined, f*100, 0, 100, 100);
     }
     
     if (t.damage) {
