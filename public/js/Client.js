@@ -376,7 +376,7 @@ class Client {
       if (!t.gamble) t.gamble = Date.now();
     } else t.gamble = undefined;
 
-    if (t.gamble && Date.now()-t.gamble <= 9*100) {
+    if (t.gamble && Date.now()-t.gamble <= 20*50) {
       let f = Math.floor((Date.now()-t.gamble)/50);
       GUI.drawImage(PixelTanks.images.animations.lightning, t.x, t.y, 80, 80, 1, 0, 0, 0, 0, undefined, f*80, 0, 80, 80);
     }
@@ -387,7 +387,7 @@ class Client {
         //GUI.drawText((d < 0 ? '+' : '-')+Math.abs(Math.round(d)), x, y, Math.round(d/5)+[20, 15][i], [(d < 0 ? '#40ff40' : (Engine.getTeam(this.team) === Engine.getTeam(t.team) ? '#ff4040' : '#4040ff')), (d < 0 ? '#00ff00' : (Engine.getTeam(this.team) === Engine.getTeam(t.team) ? '#ff0000' : '#0000ff'))][i], 0.5);
         GUI.drawText((d < 0 ? '+' : '-')+Math.abs(Math.round(d)), x, y, Math.round(d/5)+[20, 15][i], ['#ffffff', (d < 0 ? '#00ff00' : (Engine.getTeam(this.team) === Engine.getTeam(t.team) ? '#ff0000' : '#0000ff'))][i], 0.5);
       }
-    }
+    } else t.gamble = undefined;
 
     let teamname = (this.multiplayer ? Engine.getTeam(t.team) : '');
     
