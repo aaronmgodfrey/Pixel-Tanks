@@ -651,11 +651,6 @@ class Client {
       }
     }
     } catch(e) {
-      const msg = document.createElement('DIV');
-      msg.id = 'message';
-      msg.innerHTML = JSON.stringify(this.lud);
-      msg.style.color = '#ff0000';
-      Client.messages.appendChild(msg);
     }
   }
 
