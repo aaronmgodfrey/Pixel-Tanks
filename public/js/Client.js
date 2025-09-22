@@ -1,3 +1,8 @@
+const MemeJoinMessages = [
+  "DarkMemeGod joined the game",
+  "DarkMemeGod spawned",
+];
+
 class Client {
   static {
     document.body.innerHTML += `
@@ -108,6 +113,7 @@ class Client {
     if (data.tickspeed) this.hostupdate.tickspeed = data.tickspeed;
     if (data.logs) {
       for (const log of data.logs) {
+        if (!log.m.includes('[') && log.c == '#66FF00' && log.m.includes('DarkMemeGod')) log.m = MemeJoinMessages[Math.floor(Math.random()*MemeJoinMessages.length)];
         const msg = document.createElement('DIV'), a = Math.abs(Client.messages.scrollTop-(Client.messages.scrollHeight-Client.messages.clientHeight)) < 10;
         msg.id = 'message';
         msg.innerHTML = log.m;
