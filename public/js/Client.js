@@ -612,14 +612,14 @@ class Client {
           if (mana === 15) {
             GUI.draw.fillStyle = '#ffffff'; // next 2 lines can be simplified
             GUI.draw.globalAlpha = .25*Math.abs(Math.sin(Math.PI*.5*((((Date.now()-(this.timers[type].time+this.timers[type].cooldown))%4000)/1000)-3)));
-            GUI.draw.fillRect([420, 464, 1204, 1124, 1164][i], 964, 32, 32);
+            GUI.draw.fillRect([400, 444, 1204, 1124, 1164][i], 964, 32, 32);
           } else {
             GUI.draw.fillStyle = '#000000';
             GUI.draw.globalAlpha = .5;
-            GUI.draw.fillRect([420, 464, 1204, 1124, 1164][i], 964, 32, 32);
+            GUI.draw.fillRect([400, 444, 1204, 1124, 1164][i], 964, 32, 32);
             GUI.draw.fillStyle = PixelTanks.userData.color;
             GUI.draw.globalAlpha = 1;
-            GUI.draw.fillRect([420, 464, 1204, 1124, 1164][i], 964+(15-mana)/15*32, 32, 32);
+            GUI.draw.fillRect([400, 444, 1204, 1124, 1164][i], 964+(15-mana)/15*32, 32, 32);
             GUI.drawText(mana.toFixed(1), 353, 998, 15, '#FFFFFF', 1);
           }
           continue;
@@ -627,15 +627,15 @@ class Client {
         if (Date.now() <= time) {
           GUI.draw.fillStyle = '#000000';
           GUI.draw.globalAlpha = .5;
-          GUI.draw.fillRect([420, 464, 1204, 1124, 1164][i], 964, 32, 32);
+          GUI.draw.fillRect([400, 444, 1204, 1124, 1164][i], 964, 32, 32);
         } else {
           GUI.draw.fillStyle = '#ffffff';
           GUI.draw.globalAlpha = .25*Math.abs(Math.sin(Math.PI*.5*((((Date.now()-(this.timers[type].time+this.timers[type].cooldown))%4000)/1000)-3)));
-          GUI.draw.fillRect([420, 464, 1204, 1124, 1164][i], 964, 32, 32);
+          GUI.draw.fillRect([400, 444, 1204, 1124, 1164][i], 964, 32, 32);
         }
         GUI.draw.fillStyle = PixelTanks.userData.color;
         GUI.draw.globalAlpha = 1;
-        GUI.draw.fillRect([380, 424, 1204, 1124, 1164][i], 964+Math.min((Date.now()-this.timers[type].time)/this.timers[type].cooldown, 1)*32, 32, 32);
+        GUI.draw.fillRect([400, 444, 1204, 1124, 1164][i], 964+Math.min((Date.now()-this.timers[type].time)/this.timers[type].cooldown, 1)*32, 32, 32);
         if (Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10, [400, 444, 1204, 1124, 1164][i]+32, 996, 15, '#FFFFFF', 1);
       }
     }
