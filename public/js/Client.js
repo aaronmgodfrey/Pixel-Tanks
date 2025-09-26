@@ -599,7 +599,7 @@ class Client {
         GUI.draw.globalAlpha = 1;
         GUI.draw.fillStyle = PixelTanks.userData.color;
         GUI.draw.fillRect(c[i], 920+Math.min((Date.now()-this.timers.items[i].time)/this.timers.items[i].cooldown, 1)*80, 80, 80);
-        if (Math.ceil((this.timers.items[i].cooldown-(Date.now()-this.timers.items[i].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers.items[i].cooldown-(Date.now()-this.timers.items[i].time))/100)/10, c[i]+90, 998, 30, '#FFFFFF', 1);
+        if (Math.ceil((this.timers.items[i].cooldown-(Date.now()-this.timers.items[i].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers.items[i].cooldown-(Date.now()-this.timers.items[i].time))/100)/10, c[i]+80, 998, 30, '#FFFFFF', 1);
       }
       for (let i = 0; i < 5; i++) {
         let type = ['class', 'powermissle', 'toolkit', 'boost', 'grapple'][i];
@@ -636,7 +636,7 @@ class Client {
         GUI.draw.fillStyle = PixelTanks.userData.color;
         GUI.draw.globalAlpha = 1;
         GUI.draw.fillRect([380, 424, 1204, 1124, 1164][i], 964+Math.min((Date.now()-this.timers[type].time)/this.timers[type].cooldown, 1)*32, 32, 32);
-        if (Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10, [380, 424, 1204, 1124, 1164][i]+45, 998, 15, '#FFFFFF', 1);
+        if (Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10 > 0) GUI.drawText(Math.ceil((this.timers[type].cooldown-(Date.now()-this.timers[type].time))/100)/10, [400, 444, 1204, 1124, 1164][i]+32, 998, 15, '#FFFFFF', 1);
       }
     }
     
