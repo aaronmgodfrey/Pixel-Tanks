@@ -57,7 +57,7 @@ window.sourceMap = {
     path: 'animations',
     common: ['explode', 'nuke', 'insta', 'evan'],
     uncommon: ['anvil', 'gameover', 'erase'],
-    rare: ['magic', 'shatter', 'crate'],
+    rare: ['magic', 'shatter', 'crate', 'the_swift_crown'],
     epic: ['battery', 'skull', 'banhammer', 'blackhole'],
     legendary: ['error', 'tombstone'],
     mythic: ['clicked', 'cat'],
