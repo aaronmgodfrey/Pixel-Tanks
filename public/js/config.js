@@ -38,7 +38,7 @@ window.sourceMap = {
   ],
   blocks: {
     path: 'blocks',
-    load: ['goal', 'supplyairstrike', 'spike', 'fire', 'friendlyfire', 'airstrike', 'friendlyairstrike', 'crate', 'friendlyspike'],
+    load: ['goal', 'supplyairstrike', 'spike', 'fire', 'friendlyfire', 'airstrike', 'friendlyairstrike', 'crate', 'friendlyspike', 'barrel'],
     perZone: ['barrier', 'strong', 'weak', 'floor', 'void', 'gold'],
     zones: ['battlegrounds', 'cave', 'deep', 'ice', 'gem'],
   },
