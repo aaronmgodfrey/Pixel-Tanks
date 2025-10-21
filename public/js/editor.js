@@ -18,6 +18,7 @@ const key = [
   ['I', 'Barrier Block', 'blocks/'+zone+'/barrier'],
   ['R', 'Void Block', 'blocks/'+zone+'/void'],
   ['V', 'Spike', 'blocks/spike'],
+  ['E', 'Explosive Barrel', 'blocks/barrel'],
   ['T', 'Turret', 'cosmetics/hoodie'],
   ['W', 'Adv. AI', 'cosmetics/police'],
   ['P', 'Dis. AI', 'cosmetics/blue_helmet'],
