@@ -10,7 +10,7 @@ class Block {
   init(x, y, type, team, host) {
     this.id = host.genId(1);
     for (const i in Block.args) this[Block.args[i]] = arguments[i];
-    this.maxHp = this.hp = [300, 200, 100, 50, 200][['gold', 'strong', 'weak', 'spike', 'crate'].indexOf(type)] || Infinity;
+    this.maxHp = this.hp = [300, 200, 100, 50, 200, 60][['gold', 'strong', 'weak', 'spike', 'crate', 'barrel'].indexOf(type)] || Infinity;
     if (!(this.c = !['fire', 'airstrike', 'spike', 'supplyairstrike'].includes(type))) if (type !== 'spike') this.sd = setTimeout(() => this.destroy(), type === 'fire' ? 2500 : Math.abs(this.timer)*1000+200);
     if (type === 'airstrike' && this.timer > 0) for (let i = 0; i < 5; i++) this.t.push(setTimeout(() => A.template('Damage').init(this.x+[0, 100, 0, 100, 50][i], this.y+[0, 0, 100, 100, 50][i], 150, 150, 200, this.team, this.host), this.timer*1000+Math.random()*200));
     if (type === 'supplyairstrike' && this.timer < 0) this.t.push(setTimeout(() => this.host.b.push(A.template('Block').init(this.x+50, this.y+50, 'crate', this.team, this.host)), 5000));
@@ -34,7 +34,7 @@ class Block {
       if (t) {
         if (t.socket) t.socket.send({event: 'sc', timer: '*', percent: 1}); else PixelTanks.user.player.giveCooldown({timer: '*', percent: 1});
       } 
-    }
+    } else if (this.type === 'barrel') A.template('Damage').init(this.x-100, this.y-100, 300, 300, 200, this.team, this.host);
     this.host.destroyEntity(this);
     for (const t of this.t) clearTimeout(t);
     clearTimeout(this.sd);
