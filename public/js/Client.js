@@ -339,7 +339,7 @@ class Client {
       GUI.draw.fillRect(t.x, t.y+110, 80*t.ammo/120, 5);
     }
 
-    if (t.shields > 0) {
+    if (t.shields > 0 && !t.ded) {
       if (t.shielded === false) t.shieldMake = Date.now(); // unoptimized exp.
       t.shielded = true;
       // 15 for make, 9 for break
