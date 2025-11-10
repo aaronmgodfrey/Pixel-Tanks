@@ -58,7 +58,7 @@ window.sourceMap = {
     common: ['explode', 'nuke', 'insta', 'evan'],
     uncommon: ['anvil', 'gameover', 'erase'],
     rare: ['magic', 'shatter', 'crate'],
-    epic: ['battery', 'skull', 'banhammer', 'blackhole'],
+    epic: ['darksouls', 'pokeball', 'battery', 'skull', 'banhammer', 'blackhole'],
     legendary: ['error', 'tombstone'],
     mythic: ['clicked', 'cat'],
     meta: {
