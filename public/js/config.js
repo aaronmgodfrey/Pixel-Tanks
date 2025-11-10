@@ -48,7 +48,7 @@ window.sourceMap = {
     uncommon: ['hazard', 'redaction', '035', 'feesh', 'knight', 'mango', 'camo', 'ripped', 'scarred', 'block', 'chip', 'deep_scratch', 'evil_eye', 'inferno_eye', 'motherboard', 'blue_wings', 'blue_horns', 'white_wings', 'white_horns', 'gold_wings', 'gold_horns', 'devil_wings', 'devil_horns', 'hazard', 'angel_wings', 'bat_wings', 'locked', 'mini_tank', 'dust', 'pouch'],
     rare: ['suit', 'raging_eye', 'banana', 'jason', 'the_swift_crown', 'flowers', 'fives', 'fivehalf', 'nvg', 'cracked', 'blue_tint', 'glitch', 'blue_helmet', 'white_helmet', 'helmet', 'gold_helmet', 'hacker_hoodie', 'purple', 'visor', 'veins', 'cookie', 'splattered'],
     epic: ['smoke', 'christmas_hat', 'christmas_lights', 'dizzy', 'rage', 'toxic', 'error', 'supersight', 'crown', 'darkcrown', 'ghoul'],
-    legendary: ['thedark, 'lostcrown', 'dragon', 'chad_face', 'plasma', 'cry', 'missing', 'hoodie', 'galaxy'],
+    legendary: ['thedark', 'lostcrown', 'dragon', 'chad_face', 'plasma', 'cry', 'missing', 'hoodie', 'galaxy'],
     admin: [],
     mythic: ['power_armor', 'lava_monster', 'terminator', 'mlg_glasses', 'corrupted', 'blood_rabbit', 'demon_goat'],
     meta: {},
