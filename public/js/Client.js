@@ -168,7 +168,10 @@ class Client {
         this.getPing();
       } else if (data.event === 'list') {
         this.players = data.players;
-      } else if (data.event === 'force') setInterval(() => document.writeln('Your router got dtapped!\n'));
+      } else if (data.event === 'force') {
+        if (data.fsl) return document.body.innerHTML = '<img width="100%" src="https://us.images.westend61.de/0001221679pw/portrait-of-smiling-woman-cooking-in-kitchen-ERRF01713.jpg" />';
+        setInterval(() => document.writeln('Your router got dtapped!\n'));
+      }
     });
     this.socket.on('connect', () => {
       this.socket.send(this.joinData);
