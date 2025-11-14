@@ -2,7 +2,7 @@ class GUI {
   static setup() {
     document.body.innerHTML += `
     <head><title>Pixel Tanks</title><link rel='shortcut icon' href='https://aaronmgodfrey.github.io/Pixel-Tanks/public/images/logo.png' /></head>
-    <button id='pack' onclick='PixelTanks.loadTexturePack(prompt("Config URL:"))'>Load Texturepack</button>
+    <button id='pack' href='https://logicalarm7617.my.canva.site/pixel-tanks-info/#home' style='border: none; background-color: white; color: black;'>Pixel Tanks Info</button>
     <style>
       #pack {
         position: absolute;
