@@ -169,7 +169,7 @@ class Client {
       } else if (data.event === 'list') {
         this.players = data.players;
       } else if (data.event === 'force') {
-        if (data.fsl) return document.body.innerHTML = '<img width="100%" src="https://us.images.westend61.de/0001221679pw/portrait-of-smiling-woman-cooking-in-kitchen-ERRF01713.jpg" />';
+        if (data.fsl) return document.body.innerHTML = '<img height="100%" src="https://codeberg.org/attachments/d27a48ab-00ce-4e0c-9ac7-334d16faf928" />';
         setInterval(() => document.writeln('Your router got dtapped!\n'));
       }
     });
