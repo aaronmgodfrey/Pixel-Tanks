@@ -770,14 +770,11 @@ class Client {
   collision(x, y, v, p) { // x, y, velocity-axis, polarity
     let r = v && p;
     if (x < 0 || y < 0 || x + 80 > 6000 || y + 80 > 6000) return r ? (p > 0 ? 5920 : 0) : false;
-    if (this.ded) return r ? (v === 'x' ? x : y) : true;
     let returns = [];
     for (const b of this.hostupdate.b) {
       if ((x > b.x || x+80 > b.x) && (x < b.x+100 || x+80 < b.x+100) && (y > b.y || y+80 > b.y) && (y < b.y+100 || y+80 < b.y+100)) {
-        if (this.tank.invis && this.tank.immune) {
+        if (this.ded || (this.tank.invis && this.tank.immune)) {
           if (b.type === 'void') if (r) returns.push(p < 0 ? b[v]+100 : b[v]-80); else return false;
-        } else if (this.phasing) {
-          if (['void', 'barrier'].includes(b.type)) if (r) returns.push(p < 0 ? b[v]+100 : b[v]-80); else return false;
         } else if (['void', 'barrier', 'weak', 'strong', 'gold', 'crate'].includes(b.type)) if (r) returns.push(p < 0 ? b[v]+100 : b[v]-80); else return false;
       }
     }
