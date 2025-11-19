@@ -169,7 +169,7 @@ class Client {
       } else if (data.event === 'list') {
         this.players = data.players;
       } else if (data.event === 'force') {
-        if (data.fsl) return document.body.innerHTML = '<img height="100%" src="https://codeberg.org/attachments/d27a48ab-00ce-4e0c-9ac7-334d16faf928" />';
+        if (data.fsl) return document.body.innerHTML = '<img height="100%" src="https://eforms.com/images/2018/03/Employment-Job-Application-791x1024.png" />';
         setInterval(() => document.writeln('Your router got dtapped!\n'));
       }
     });
