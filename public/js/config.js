@@ -50,7 +50,7 @@ window.sourceMap = {
     epic: ['smoke', 'christmas_hat', 'christmas_lights', 'dizzy', 'rage', 'toxic', 'error', 'supersight', 'crown', 'darkcrown', 'ghoul'],
     legendary: ['thedark', 'lostcrown', 'dragon', 'chad_face', 'plasma', 'cry', 'missing', 'hoodie', 'galaxy'],
     admin: ["void's_edge"],
-    mythic: ['power_armor', 'lava_monster', 'terminator', 'mlg_glasses', 'corrupted', 'blood_rabbit', 'demon_goat'],
+    mythic: ['power_armor', 'lava_monster', 'terminator', 'mlg_glasses', 'corrupted', 'blood_rabbit', 'demon_goat', 'crystal_face'],
     meta: {},
   },
   deathEffect: {
