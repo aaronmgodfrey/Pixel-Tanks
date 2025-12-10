@@ -49,7 +49,7 @@ window.sourceMap = {
     rare: ['lightning', 'goldance', 'suit', 'raging_eye', 'banana', 'jason', 'the_swift_crown', 'flowers', 'fives', 'fivehalf', 'nvg', 'cracked', 'blue_tint', 'glitch', 'blue_helmet', 'white_helmet', 'helmet', 'gold_helmet', 'hacker_hoodie', 'purple', 'visor', 'veins', 'cookie', 'splattered'],
     epic: ['smoke', 'christmas_hat', 'christmas_lights', 'dizzy', 'rage', 'toxic', 'error', 'supersight', 'crown', 'darkcrown', 'ghoul'],
     legendary: ['thedark', 'lostcrown', 'dragon', 'chad_face', 'plasma', 'cry', 'missing', 'hoodie', 'galaxy'],
-    admin: ["void's_edge"],
+    admin: ["void's_edge", 'smooth'],
     mythic: ['power_armor', 'lava_monster', 'terminator', 'mlg_glasses', 'corrupted', 'blood_rabbit', 'demon_goat', 'crystal_face'],
     meta: {},
   },
