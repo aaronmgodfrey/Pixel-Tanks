@@ -404,7 +404,7 @@ class Client {
       username += ' ['+t.team.split(':')[1]+']';
     }
     if (!(t.ded && (t.role !== undefined || !this.ded))) {
-      if (t.authority) GUI.drawText('['+t.rank+'] '+t.authority, t.x+40, t.y-50, 30, ((t.authority === 'Owner' || t.authority === 'Head Admin') ? '#cf0000' : t.authority === 'Admin' ? '#f51818' : '#ffc107'), 0.5); else GUI.drawText('['+t.rank+']', t.x+40, t.y-50, 30, '#FFFFFF', 0.5);
+      if (t.authority) GUI.drawText('['+t.rank+'] '+t.authority, t.x+40, t.y-50, 30, (t.authority.includes('Mod Team') ? '#0000ff' : ((t.authority === 'Owner' || t.authority === 'Head Admin') ? '#cf0000' : t.authority === 'Admin' ? '#f51818' : '#ffc107')), 0.5); else GUI.drawText('['+t.rank+']', t.x+40, t.y-50, 30, '#FFFFFF', 0.5);
       if (teamname === 'RED') {
         GUI.drawText(username, t.x+40, t.y-25, 50, '#ff0000', 0.5);
       } else if (teamname === 'BLUE') {
