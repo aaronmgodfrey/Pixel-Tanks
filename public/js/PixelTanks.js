@@ -124,6 +124,7 @@ class PixelTanks {
             },
           };
         }
+        if (PixelTanks.user.username != 'bradley') PixelTanks.userData.cosmetics = PixelTanks.userData.cosmetics.filter(c => c.split('#')[0] != 'hoodie'); // ONLY htloaves get the SET :D 
         clearInterval(PixelTanks.autosave);
         PixelTanks.autosave = setInterval(() => PixelTanks.save(), 5000);
         callback();
