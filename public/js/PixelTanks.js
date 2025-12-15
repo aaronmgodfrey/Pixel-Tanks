@@ -124,7 +124,10 @@ class PixelTanks {
             },
           };
         }
-        if (PixelTanks.user.username != 'bradley') PixelTanks.userData.cosmetics = PixelTanks.userData.cosmetics.filter(c => c.split('#')[0] != 'hoodie'); // ONLY htloaves get the SET :D 
+        if (PixelTanks.user.username != 'bradley') {
+          PixelTanks.userData.cosmetics = PixelTanks.userData.cosmetics.filter(c => c.split('#')[0] != 'hoodie'); // ONLY htloaves get the SET :D 
+          if (PixelTanks.userData.cosmetic == 'hoodie' || PixelTanks.userData.cosmetic_hat == 'hoodie' || PixelTanks.userData.cosmetic_body == 'hoodie') PixelTanks.userData.cosmetic = PixelTanks.userData.cosmetic_hat = PixelTanks.userData.cosmetic_body = '';
+        }
         clearInterval(PixelTanks.autosave);
         PixelTanks.autosave = setInterval(() => PixelTanks.save(), 5000);
         callback();
