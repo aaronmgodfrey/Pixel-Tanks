@@ -327,7 +327,7 @@ class Client {
     if (t.cosmetic_body) this.renderCosmetic(t, PixelTanks.images.cosmetics[t.cosmetic_body], t.x, t.y, a);
     if (t.cosmetic) this.renderCosmetic(t, PixelTanks.images.cosmetics[t.cosmetic], t.x, t.y, a);
     if (t.cosmetic_hat) this.renderCosmetic(t, PixelTanks.images.cosmetics[t.cosmetic_hat], t.x, t.y, a);
-    if ((!t.ded && Engine.getTeam(this.team) === Engine.getTeam(t.team)) || (this.ded && !p && !t.ded)) {
+    if ((!t.ded && Engine.getTeam(this.team) === Engine.getTeam(t.team)) || (this.ded && !p && !t.ded) || Engine.hasPerk(PixelTanks.userData.perk, 6)) {
       GUI.draw.fillStyle = '#000000';
       GUI.draw.fillRect(t.x-2, t.y+98, 84, 11);
       GUI.draw.fillStyle = '#FF0000';
